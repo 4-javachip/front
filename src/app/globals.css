@@ -1,8 +1,40 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Inter-Regular';
+  src: url('/fonts/Inter-Regular.ttf');
+}
+@font-face {
+  font-family: 'Inter-SemiBold';
+  src: url('/fonts/Inter-SemiBold.ttf');
+}
+@font-face {
+  font-family: 'Inter-Medium';
+  src: url('/fonts/Inter-Medium.ttf');
+}
+@font-face {
+  font-family: 'SDGothic-Medium';
+  src: url('/fonts/AppleSDGothicNeo-Medium.ttf');
+}
+@font-face {
+  font-family: 'Pretendard-Medium';
+  src: url('/fonts/Pretendard-Medium.ttf');
+}
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  src: url('/fonts/Pretendard-SemiBold.ttf');
+}
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  --green: #00a862;
+  --brown: #9f7147;
+  --lightGray-1: #838383;
+  --lightGray-2: #f5f5f5;
+  --lightGray-3: #f2f2f2;
+  --lightGray-4: #e0e0e0;
+  --lightGray-5: #e2e2e2;
 }
 
 @theme inline {
@@ -10,6 +42,21 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-green: var(--green);
+  --color-brown: var(--brown);
+  --color-lightGray-1: var(--lightGray-1);
+  --color-lightGray-2: var(--lightGray-2);
+  --color-lightGray-3: var(--lightGray-3);
+  --color-lightGray-4: var(--lightGray-4);
+  --color-lightGray-5: var(--lightGray-5);
+
+  --font-inter-regular: 'Inter-Regular';
+  --font-inter-semibold: 'Inter-SemiBold';
+  --font-inter-medium: 'Inter-Medium';
+  --font-sd-gothic-medium: 'SDGothic-Medium';
+  --font-pretendard-medium: 'Pretendard-Medium';
+  --font-pretendard-semibold: 'Pretendard-Semibold';
 }
 
 @media (prefers-color-scheme: dark) {
