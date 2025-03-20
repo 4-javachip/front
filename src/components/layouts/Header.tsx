@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import SearchIcon from '@/components/ui/icons/SearchIcon';
 import CartIcon from '@/components/ui/icons/CartIcon';
+import MenuIcon from '@/components/ui/icons/MenuIcon';
 import IconButton from '@/components/ui/IconButton'; // ✅ 경로 수정
 import Nav from './Nav';
 
@@ -19,7 +20,12 @@ const Header = () => {
         </div>
 
         {/* 왼쪽 - 빈 공간 (자리 맞추기) */}
-        <div className="w-10"></div>
+        {/* <div className="w-10"></div> */}
+        <div className="justify-start">
+          <IconButton>
+            <MenuIcon />
+          </IconButton>
+        </div>
 
         {/* 오른쪽 - 검색 & 장바구니 */}
         <div className="flex space-x-3">
