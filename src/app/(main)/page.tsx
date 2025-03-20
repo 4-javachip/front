@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main className="font-inter-semibold">이름asds</main>;
+  return <main className="text-lightGray-1">이름asds</main>;
 }
