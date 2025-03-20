@@ -1,0 +1,53 @@
+name: "🎨 Style Update"
+description: "디자인 또는 스타일과 관련된 변경 사항을 정리합니다."
+title: "[Style] "
+labels: ["style", "design"]
+assignees:
+  - ""  # 자동으로 지정할 담당자 (필요하면 추가)
+body:
+  - type: textarea
+    attributes:
+      label: 🎯 변경할 스타일
+      description: 어떤 스타일을 변경할 것인지 자세히 설명해주세요.
+      placeholder: 예) 버튼 색상을 파란색에서 초록색으로 변경
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 📷 참고 이미지 / 링크
+      description: 변경하려는 디자인의 참고 이미지나 링크가 있다면 추가해주세요.
+      placeholder: Figma, Zeplin, Dribbble 등
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: ✅ 작업할 내용
+      description: 스타일 변경과 관련된 할 일을 체크박스 형태로 작성해주세요.
+      placeholder: |
+        - [ ] 버튼 색상 변경
+        - [ ] 글꼴 크기 조정
+        - [ ] 마진 및 패딩 수정
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: 💻 적용할 페이지 / 컴포넌트
+      description: 스타일 변경이 적용될 위치를 선택해주세요.
+      options:
+        - 전체 페이지
+        - 메인 페이지
+        - 로그인 페이지
+        - 상품 페이지
+        - 기타 (설명 추가)
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 📌 추가 사항
+      description: 기타 필요한 정보가 있다면 작성해주세요.
+    validations:
+      required: false
