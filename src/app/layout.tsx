@@ -34,14 +34,7 @@ export default function RootLayout({
           <Header />
           {children}
 
-          <div className="w-full min-h-[100vh] flex justify-center">
-            <div className="max-w-[600px] w-full bg-background border border-lightGray-5">
-              <Header />
-
-              {children}
-              <Footer />
-            </div>
-          </div>
+          <Footer />
         </div>
       </body>
     </html>
