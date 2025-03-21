@@ -2,7 +2,7 @@ import ProductLabelIcon from '@/components/ui/icons/ProductLabelIcon';
 import { ProductlItemType } from '@/types/ResponseDataTypes';
 import Image from 'next/image';
 
-export default function ProductCarouselItem({
+export default function ProductItem({
   id,
   thumbnail,
   label,
@@ -10,11 +10,15 @@ export default function ProductCarouselItem({
   price,
   salePrice,
   discountRate,
-}: ProductlItemType) {
+  size = 140,
+}: ProductlItemType & { size?: number }) {
   return (
-    <div className="flex flex-col gap-3 w-[140px] mb-[30px]">
+    <div className="flex flex-col gap-3 mb-[30px]" style={{ width: size }}>
       {/* 썸네일 */}
-      <div className="relative w-[140px] h-[140px] bg-lightGray-4 rounded-sm">
+      <div
+        className="relative bg-lightGray-4 rounded-sm"
+        style={{ width: size, height: size }}
+      >
         <Image
           src={thumbnail.imageUrl}
           alt={thumbnail.description}

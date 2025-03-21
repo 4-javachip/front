@@ -1,7 +1,7 @@
 'use client';
 
 import { EventCarouselType } from '@/types/ResponseDataTypes';
-import ProductCarouselItem from './ProductCarouselItem';
+import ProductCarouselItem from './ProductItem';
 
 export default function ProductCarousel({
   eventId,
@@ -16,7 +16,7 @@ export default function ProductCarousel({
         style={{ scrollbarWidth: 'none' }}
       >
         {products.map((product) => (
-          <ProductCarouselItem key={product.id} {...product} />
+          <ProductCarouselItem key={product.id} {...product} size={140} />
         ))}
       </div>
     </div>
