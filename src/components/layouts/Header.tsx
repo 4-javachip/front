@@ -6,6 +6,7 @@ import MenuIcon from '@/components/ui/icons/MenuIcon';
 import Nav from './Nav';
 
 const Header = () => {
+  const cartCount = 5;
   return (
     <header className="w-full bg-white shadow-md z-50">
       <div className="relative w-full px-4  py-3 flex items-center justify-between">
@@ -28,7 +29,7 @@ const Header = () => {
         <div className="flex items-center space-x-3">
           <SearchIcon />
 
-          <CartIcon />
+          <CartIcon size={32} cartCount={cartCount} />
         </div>
       </div>
 
