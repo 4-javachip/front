@@ -1,7 +1,7 @@
 'use client';
 
 import { EventCarouselType } from '@/types/ResponseDataTypes';
-import ProductCarouselItem from './ProductItem';
+import ProductCarouselItem from './ProductCarouselItem';
 
 export default function ProductCarousel({
   eventId,
