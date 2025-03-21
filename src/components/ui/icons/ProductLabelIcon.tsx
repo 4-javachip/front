@@ -1,7 +1,4 @@
-interface ProductLabelType {
-  isBest?: boolean;
-  isNew?: boolean;
-}
+import { ProductLabelType } from '@/types/ResponseDataTypes';
 
 export default function ProductLabelIcon({ isBest, isNew }: ProductLabelType) {
   return (
