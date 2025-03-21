@@ -9,14 +9,14 @@ export interface ProductLabelType {
   isNew?: boolean;
 }
 
-export interface ProductItemThumbnailType {
+export interface ThumbnailType {
   imageUrl: string;
   description: string;
 }
 
-export interface ProductlItemType {
+export interface ProductItemType {
   id: number;
-  thumbnail: ProductItemThumbnailType;
+  thumbnail: ThumbnailType;
   label: ProductLabelType;
   name: string;
   price: number;
@@ -27,5 +27,24 @@ export interface ProductlItemType {
 export interface EventCarouselType {
   eventId: number;
   title: string;
-  products: ProductlItemType[];
+  products: ProductItemType[];
+}
+
+// 카테고리
+
+export interface ProductSubCategoryType {
+  id: number;
+  name: string;
+}
+
+export interface ProductCategoryType {
+  id: number;
+  name: string;
+  subCategory: ProductSubCategoryType[];
+}
+
+export interface CategoryMenuType {
+  id: number;
+  name: string;
+  thumbnail: ThumbnailType;
 }
