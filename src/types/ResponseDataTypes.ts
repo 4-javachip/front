@@ -1,6 +1,6 @@
 export interface BannerSlideImageType {
   id: number;
-  imgUrl: string;
+  imageUrl: string;
   description: string;
 }
 
@@ -9,12 +9,23 @@ export interface ProductLabelType {
   isNew?: boolean;
 }
 
+export interface ProductItemThumbnailType {
+  imageUrl: string;
+  description: string;
+}
+
 export interface ProductlItemType {
   id: number;
-  thumbnail: string;
+  thumbnail: ProductItemThumbnailType;
   label: ProductLabelType;
   name: string;
   price: number;
   salePrice?: number;
   discountRate: number;
+}
+
+export interface EventCarouselType {
+  eventId: number;
+  title: string;
+  products: ProductlItemType[];
 }

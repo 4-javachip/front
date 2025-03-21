@@ -1,5 +1,6 @@
 'use client';
 import { BannerSlideImageType } from '@/types/ResponseDataTypes';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 interface BannerSlideProps {
@@ -18,7 +19,7 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
   }, [slides.length, currentIndex]);
 
   return (
-    <div className="relative w-full h-[330px] overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden">
       <div
         className="flex transition-transform duration-500"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -26,9 +27,15 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
         {slides.map((slide) => (
           <div
             key={slide.id}
-            className="w-full h-[330px] flex-shrink-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${slide.imgUrl})` }}
-          />
+            className="w-full h-[330px] flex-shrink-0 relative"
+          >
+            <Image
+              src={slide.imageUrl}
+              alt={slide.description}
+              fill
+              className="object-cover w-full h-full"
+            />
+          </div>
         ))}
       </div>
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">

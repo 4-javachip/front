@@ -1,5 +1,6 @@
 import ProductLabelIcon from '@/components/ui/icons/ProductLabelIcon';
 import { ProductlItemType } from '@/types/ResponseDataTypes';
+import Image from 'next/image';
 
 export default function ProductCarouselItem({
   id,
@@ -11,12 +12,16 @@ export default function ProductCarouselItem({
   discountRate,
 }: ProductlItemType) {
   return (
-    <div className="flex flex-col gap-3 w-[140px]">
+    <div className="flex flex-col gap-3 w-[140px] mb-[30px]">
       {/* 썸네일 */}
-      <div
-        className="w-[140px] h-[140px] bg-lightGray-4 rounded-sm"
-        style={{ backgroundImage: `url(${thumbnail})` }}
-      ></div>
+      <div className="relative w-[140px] h-[140px] bg-lightGray-4 rounded-sm">
+        <Image
+          src={thumbnail.imageUrl}
+          alt={thumbnail.description}
+          fill
+          className="rounded-sm object-cover"
+        />
+      </div>
       <div className="flex flex-col gap-2">
         <ProductLabelIcon isBest={label.isBest} isNew={label.isNew} />
         {/* 상품명 */}

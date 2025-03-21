@@ -1,5 +1,6 @@
 import {
   BannerSlideImageType,
+  EventCarouselType,
   ProductlItemType,
 } from '@/types/ResponseDataTypes';
 
@@ -7,24 +8,27 @@ export const mainBannerSlideData: BannerSlideImageType[] = [
   {
     id: 1,
     description: 'main banner 1',
-    imgUrl: 'https://picsum.photos/id/237/390/330',
+    imageUrl: 'https://picsum.photos/id/237/390/330',
   },
   {
     id: 2,
     description: 'main banner 2',
-    imgUrl: 'https://picsum.photos/id/38/380',
+    imageUrl: 'https://dummyimage.com/500',
   },
   {
     id: 3,
     description: 'main banner 3',
-    imgUrl: 'https://picsum.photos/id/58/380',
+    imageUrl: 'https://dummyimage.com/1000',
   },
 ];
 
-export const productList: ProductlItemType[] = [
+const productList: ProductlItemType[] = [
   {
     id: 1,
-    thumbnail: 'https://picsum.photos/id/237/140',
+    thumbnail: {
+      imageUrl: 'https://picsum.photos/id/237/140',
+      description: 'desc1',
+    },
     label: {
       isBest: true,
       isNew: false,
@@ -36,7 +40,10 @@ export const productList: ProductlItemType[] = [
   },
   {
     id: 2,
-    thumbnail: 'https://picsum.photos/id/237/400',
+    thumbnail: {
+      imageUrl: 'https://picsum.photos/id/237/400',
+      description: 'desc2',
+    },
     label: {
       isBest: false,
       isNew: true,
@@ -48,7 +55,7 @@ export const productList: ProductlItemType[] = [
   },
   {
     id: 3,
-    thumbnail: 'https://via.placeholder.com/140',
+    thumbnail: { imageUrl: 'https://dummyimage.com/140', description: 'desc3' },
     label: {
       isBest: false,
       isNew: false,
@@ -60,7 +67,7 @@ export const productList: ProductlItemType[] = [
   },
   {
     id: 4,
-    thumbnail: 'https://via.placeholder.com/140',
+    thumbnail: { imageUrl: 'https://dummyimage.com/300', description: 'desc4' },
     label: {
       isBest: true,
       isNew: true,
@@ -69,5 +76,23 @@ export const productList: ProductlItemType[] = [
     price: 45000,
     salePrice: 40000,
     discountRate: 11,
+  },
+];
+
+export const eventCarousels: EventCarouselType[] = [
+  {
+    eventId: 1,
+    title: 'MD FESTA',
+    products: productList,
+  },
+  {
+    eventId: 2,
+    title: 'Ways of Working',
+    products: productList,
+  },
+  {
+    eventId: 3,
+    title: 'Flower Market',
+    products: productList,
   },
 ];

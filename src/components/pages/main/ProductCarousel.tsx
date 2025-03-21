@@ -1,20 +1,16 @@
 'use client';
 
-import { productList } from '@/data/dummyDatas';
+import { EventCarouselType } from '@/types/ResponseDataTypes';
 import ProductCarouselItem from './ProductCarouselItem';
-import { useEffect, useState } from 'react';
-import { ProductlItemType } from '@/types/ResponseDataTypes';
 
-export default function ProductCarousel() {
-  const [products, setProducts] = useState<ProductlItemType[]>([]);
-
-  useEffect(() => {
-    setProducts(productList);
-  });
-
+export default function ProductCarousel({
+  eventId,
+  title,
+  products,
+}: EventCarouselType) {
   return (
     <div className="flex flex-col container gap-[30px]">
-      <p className="font-inter font-semibold text-[22px]">Ways of Working</p>
+      <p className="font-inter font-semibold text-[22px]">{title}</p>
       <div
         className="flex flex-row gap-[18px] overflow-x-auto"
         style={{ scrollbarWidth: 'none' }}
