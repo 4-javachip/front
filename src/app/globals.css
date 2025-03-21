@@ -23,6 +23,7 @@
   --lightGray-3: #f2f2f2;
   --lightGray-4: #e0e0e0;
   --lightGray-5: #e2e2e2;
+  --lightGray-6: #7f7f7f;
 }
 
 @theme inline {
@@ -38,6 +39,7 @@
   --color-lightGray-3: var(--lightGray-3);
   --color-lightGray-4: var(--lightGray-4);
   --color-lightGray-5: var(--lightGray-5);
+  --color-lightGray-6: var(--lightGray-6);
 
   --font-inter: 'Inter';
   --font-sd-gothic: 'SDGothic';
