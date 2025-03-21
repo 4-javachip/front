@@ -1,35 +1,47 @@
 import ProductLabelIcon from '@/components/ui/icons/ProductLabelIcon';
+import { ProductlItemType } from '@/types/ResponseDataTypes';
 
-interface ProductlItemType {
-  isOnSale: boolean;
-}
-
-export default function ProductCarouselItem({ isOnSale }: ProductlItemType) {
+export default function ProductCarouselItem({
+  id,
+  thumbnail,
+  label,
+  name,
+  price,
+  salePrice,
+  discountRate,
+}: ProductlItemType) {
   return (
     <div className="flex flex-col gap-3 w-[140px]">
       {/* 썸네일 */}
-      <div className="w-[140px] h-[140px] bg-lightGray-4 rounded-sm"></div>
+      <div
+        className="w-[140px] h-[140px] bg-lightGray-4 rounded-sm"
+        style={{ backgroundImage: `url(${thumbnail})` }}
+      ></div>
       <div className="flex flex-col gap-2">
-        <ProductLabelIcon isBest={true} isNew={true} />
+        <ProductLabelIcon isBest={label.isBest} isNew={label.isNew} />
         {/* 상품명 */}
-        <p className="font-sd-gothic font-medium">SS 핑크 탱크 텀블러 503ml</p>
+        <p className="font-sd-gothic font-medium">{name}</p>
       </div>
       {/* 가격 */}
       <div className="relative">
-        {isOnSale ? (
+        {salePrice && discountRate != 0 ? (
           <>
             <p className="font-sd-gothic text-lightGray-6 line-through">
-              35,000원
+              {price.toLocaleString()}원
             </p>
-            <p className="font-sd-gothic font-bold">31,500원</p>
+            <p className="font-sd-gothic font-bold">
+              {salePrice.toLocaleString()}원
+            </p>
             {/* 할인률 */}
             <p className="absolute bottom-0 right-0 font-sd-gothic text-green font-bold">
-              5%
+              {discountRate}%
             </p>
           </>
         ) : (
           <>
-            <p className="font-sd-gothic font-bold">31,500원</p>
+            <p className="font-sd-gothic font-bold">
+              {price.toLocaleString()}원
+            </p>
           </>
         )}
       </div>
