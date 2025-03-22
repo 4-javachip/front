@@ -29,3 +29,9 @@ export interface EventCarouselType {
   title: string;
   products: ProductlItemType[];
 }
+
+export interface CategoryListType {
+  thumbnail: string;
+  categoryId: number;
+  categoryName: string;
+}
