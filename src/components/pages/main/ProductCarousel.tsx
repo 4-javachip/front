@@ -16,7 +16,7 @@ export default function ProductCarousel({
         style={{ scrollbarWidth: 'none' }}
       >
         {products.map((product) => (
-          <ProductCarouselItem key={product.id} {...product} />
+          <ProductCarouselItem key={product.id} {...product} size={140} />
         ))}
       </div>
     </div>
