@@ -1,4 +1,5 @@
 import ChevronRightIcon from '@/components/ui/icons/ChevronRightIcon';
+import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +18,7 @@ export default function CategoryMenuList({ categories }: Props) {
           className="text-sm md:text-base font-inter text-[#2D2D2D] text-[12px] flex items-center space-x-1"
         >
           <span>전체 상품 보기</span>
-          <ChevronRightIcon />
+          <RightArrowIcon />
         </Link>
       </div>
 
