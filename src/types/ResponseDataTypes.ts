@@ -48,3 +48,9 @@ export interface CategoryMenuType {
   name: string;
   thumbnail: ThumbnailType;
 }
+
+export interface CategoryListType {
+  thumbnail: string;
+  categoryId: number;
+  categoryName: string;
+}

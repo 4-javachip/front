@@ -24,7 +24,11 @@ export const mainBannerSlideData: BannerSlideImageType[] = [
   },
 ];
 
+
+const productList: ProductItemType[] = [
+
 export const dummyProducts: ProductItemType[] = [
+
   {
     id: 1,
     thumbnail: {
@@ -151,6 +155,94 @@ export const categoryMenus: CategoryMenuType[] = [
     thumbnail: {
       imageUrl: 'https://dummyimage.com/500',
       description: '라이프스타일',
+    },
+  },
+];
+
+export const productCategories: ProductCategoryType[] = [
+  {
+    id: 1,
+    name: '텀블러',
+    subCategory: [
+      { id: 1, name: '플라스틱 텀블러' },
+      { id: 2, name: '스테인리스 텀블러' },
+    ],
+  },
+  {
+    id: 2,
+    name: '머그컵',
+    subCategory: [
+      { id: 1, name: '머그' },
+      { id: 2, name: '글라스' },
+      { id: 3, name: '리유저블' },
+    ],
+  },
+  {
+    id: 3,
+    name: '라이프스타일',
+    subCategory: [
+      { id: 1, name: '3월 신규코어' },
+      { id: 2, name: '플라워 마켓' },
+      { id: 3, name: '러브 켄처' },
+    ],
+  },
+];
+
+export const categoryMenus: CategoryMenuType[] = [
+  {
+    id: 1,
+    name: '텀블러/보온병',
+    thumbnail: {
+      imageUrl: 'https://picsum.photos/id/237/390/330',
+      description: '텀블러/보온병',
+    },
+  },
+  {
+    id: 2,
+    name: '머그컵/컵',
+    thumbnail: {
+      imageUrl: 'https://dummyimage.com/500',
+      description: '머그컵/컵',
+    },
+  },
+  {
+    id: 3,
+    name: '라이프스타일',
+    thumbnail: {
+      imageUrl: 'https://dummyimage.com/500',
+      description: '라이프스타일',
+    },
+  },
+  {
+    id: 4,
+    name: '티/커피용품',
+    thumbnail: {
+      imageUrl: 'https://dummyimage.com/500',
+      description: '티/커피용품',
+    },
+  },
+  {
+    id: 5,
+    name: '케이크',
+    thumbnail: {
+      imageUrl: 'https://dummyimage.com/500',
+      description: '케이크',
+    },
+  },
+  {
+    id: 6,
+    name: '초콜릿/스낵',
+    thumbnail: {
+      imageUrl: 'https://dummyimage.com/500',
+      description: '초콜릿/스낵',
+    },
+  },
+  {
+    id: 7,
+    name: '세트',
+    thumbnail: {
+      imageUrl: 'https://dummyimage.com/500',
+      description: '세트',
     },
   },
 ];
