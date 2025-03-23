@@ -3,6 +3,7 @@ import {
   CategoryMenuType,
   EventCarouselType,
   ProductCategoryType,
+  ProductDetailType,
   ProductItemType,
 } from '@/types/ResponseDataTypes';
 
@@ -80,6 +81,22 @@ export const dummyProducts: ProductItemType[] = [
     discountRate: 11,
   },
 ];
+
+export const dummyProductDetail: ProductDetailType = {
+  id: 1,
+  image: { imageUrl: 'https://dummyimage.com/1000', description: 'Product 1' },
+  label: {
+    isBest: true,
+    isNew: false,
+  },
+  name: 'SS 플라워 마켓 스탠리 켄처 텀블러 591ml',
+  description:
+    '부드러운 꽃향기의 색을 닮은 플라워 마켓 스탠리 켄처 텀블러입니다.',
+  price: 42000,
+  salePrice: 40000,
+  discountRate: 20,
+  detailDescription: 'https://example.com/products/1',
+};
 
 export const eventCarousels: EventCarouselType[] = [
   {
