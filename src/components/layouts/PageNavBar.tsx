@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const Nav = () => {
+const PageNavBar = () => {
   const pathname = usePathname();
 
   // 각 메뉴의 경로
@@ -40,4 +40,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default PageNavBar;
