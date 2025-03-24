@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import CloseIcon from '@/components/ui/icons/CloseIcon';
 
-export default function MenuHeader() {
+export default function MenuTop() {
   return (
     <div>
       <section className="flex justify-end pb-[24px] pt-[21px] px-[32px]">

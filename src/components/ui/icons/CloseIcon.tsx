@@ -1,4 +1,4 @@
-function closeIcon() {
+function CloseIcon() {
   return (
     <svg
       width="24"
@@ -19,4 +19,4 @@ function closeIcon() {
   );
 }
 
-export default closeIcon;
+export default CloseIcon;
