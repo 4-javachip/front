@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className=" mt-10 w-full pb-[100px]">
       <div className="   ">
-        <div className=" pb-4 pt-5 pl-6  text-gray-500 flex justify-start space-x-[11px]  bg-lightGray-3 font-SDGothic font-medium text-[11px]">
+        <div className=" pb-4 pt-5 pl-6  text-gray-500 flex justify-start space-x-[11px]  bg-lightGray-3 font-SDGothic font-medium text-xs">
           <Link href="/privacy-policy" className="hover:text-green-600 ">
             개인정보처리방침
           </Link>
@@ -19,7 +19,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        <div className="flex justify-start  py-[10px] px-4">
+        <div className="flex justify-start  py-0.5 px-4">
           <FooterLogoIcon />
         </div>
 
