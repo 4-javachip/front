@@ -9,19 +9,19 @@ export default function ProductCarousel({
   title,
   products,
 }: EventCarouselType) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLUListElement>(null);
   let isDragging = false;
   let startX = 0;
   let scrollLeft = 0;
 
-  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onMouseDown = (e: React.MouseEvent<HTMLUListElement>) => {
     if (!containerRef.current) return;
     isDragging = true;
     startX = e.pageX - containerRef.current.offsetLeft;
     scrollLeft = containerRef.current.scrollLeft;
   };
 
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onMouseMove = (e: React.MouseEvent<HTMLUListElement>) => {
     if (!containerRef.current || !isDragging) return;
     e.preventDefault();
     const x = e.pageX - containerRef.current.offsetLeft;
@@ -34,9 +34,9 @@ export default function ProductCarousel({
   };
 
   return (
-    <div className="flex flex-col container gap-[30px]">
-      <p className="font-inter font-semibold text-[22px]">{title}</p>
-      <div
+    <section className="flex flex-col container gap-[30px]">
+      <h2 className="font-inter font-semibold text-[22px]">{title}</h2>
+      <ul
         ref={containerRef}
         className="flex flex-row gap-[18px] overflow-x-auto cursor-grab active:cursor-grabbing select-none"
         style={{ scrollbarWidth: 'none' }}
@@ -48,7 +48,7 @@ export default function ProductCarousel({
         {products.map((product) => (
           <ProductCarouselItem key={product.id} {...product} size={140} />
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 }

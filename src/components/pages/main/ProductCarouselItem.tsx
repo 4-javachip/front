@@ -14,7 +14,7 @@ export default function ProductCarouselItem({
   size = 140,
 }: ProductItemType & { size?: number }) {
   return (
-    <div className="flex flex-col gap-3 mb-[30px]" style={{ width: size }}>
+    <li className="flex flex-col gap-3 mb-[30px]" style={{ width: size }}>
       {/* 썸네일 */}
       <Link
         href={`product/${id}`}
@@ -64,6 +64,6 @@ export default function ProductCarouselItem({
           </>
         )}
       </div>
-    </div>
+    </li>
   );
 }
