@@ -6,7 +6,7 @@ interface Props {
   categories: CategoryMenuType[];
 }
 
-export default function CategoryMenuList({ categories }: Props) {
+export default function MenuCategoryList({ categories }: Props) {
   return (
     <div className="p-[24px]">
       <div className="flex justify-end pb-[17px] ">
