@@ -1,4 +1,4 @@
-function xIcon() {
+function closeIcon() {
   return (
     <svg
       width="24"
@@ -19,4 +19,4 @@ function xIcon() {
   );
 }
 
-export default xIcon;
+export default closeIcon;
