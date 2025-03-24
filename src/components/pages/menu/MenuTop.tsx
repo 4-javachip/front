@@ -1,19 +1,16 @@
 import Link from 'next/link';
-import XIcon from '@/components/ui/icons/XIcon';
+import CloseIcon from '@/components/ui/icons/CloseIcon';
 
-export default function MenuHeader() {
+export default function MenuTop() {
   return (
     <div>
-      {/* X 버튼 영역 */}
       <section className="flex justify-end pb-[24px] pt-[21px] px-[32px]">
         <Link href="/">
-          <XIcon />
+          <CloseIcon />
         </Link>
       </section>
 
-      {/* 텍스트 + border 영역 */}
       <section className="w-full">
-        {/* 텍스트 왼쪽 정렬 */}
         <div className="px-[24px]">
           <h2 className="text-[22px] font-semibold font-inter pt-[20px]">
             Welcome !
@@ -23,7 +20,6 @@ export default function MenuHeader() {
           </p>
         </div>
 
-        {/* 가운데 정렬된 긴 border */}
         <div className="flex justify-center">
           <div className="w-[90%] border-b border-gray-300" />
         </div>

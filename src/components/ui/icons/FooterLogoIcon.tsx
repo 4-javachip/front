@@ -1,4 +1,4 @@
-function footerLogoIcon() {
+function FooterLogoIcon() {
   return (
     <svg
       width="108"
@@ -33,4 +33,4 @@ function footerLogoIcon() {
   );
 }
 
-export default footerLogoIcon;
+export default FooterLogoIcon;

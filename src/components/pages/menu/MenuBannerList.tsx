@@ -1,7 +1,7 @@
 import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 import Link from 'next/link';
 
-export default function MenuFooter() {
+export default function MenuBannerList() {
   return (
     <div className="mt-[30px]  bg-lightGray-3 px-[24px]">
       <div className="h-[78px] hover:bg-gray-100 flex items-center">
