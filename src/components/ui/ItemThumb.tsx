@@ -2,7 +2,7 @@ import { ImageType } from '@/types/ResponseDataTypes';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function CarouselThumbnail({
+export default function ItemThumb({
   id,
   name,
   thumbnail,
@@ -13,12 +13,17 @@ export default function CarouselThumbnail({
   thumbnail: ImageType;
   size: number;
 }) {
+  const style =
+    size === 140
+      ? { width: size, height: size }
+      : { maxWidth: size, aspectRatio: '1 / 1' };
+
   return (
     <Link
       href={`product/${name}`}
       className="relative bg-lightGray-4 rounded-sm
     cursor-pointer"
-      style={{ width: size, height: size }}
+      style={style}
       draggable="false"
     >
       <Image
