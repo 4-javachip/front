@@ -2,29 +2,34 @@ import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import Link from 'next/link';
 import CategoryItem from './CategoryItem';
+
 interface Props {
   categories: CategoryMenuType[];
 }
 
 export default function MenuCategoryList({ categories }: Props) {
   return (
-    <div className="p-[24px]">
-      <div className="flex justify-end pb-[17px] ">
+    <section className="px-6 py-7">
+      <nav className="flex justify-end pb-4.5">
         <Link
           href="/products"
-          className="text-sm md:text-base font-inter text-[#2D2D2D] text-[12px] flex items-center space-x-1"
+          className="text-xs font-inter text-[#2D2D2D] flex items-center space-x-1"
         >
           <span>전체 상품 보기</span>
           <RightArrowIcon />
         </Link>
-      </div>
+      </nav>
 
-      {/* 카테고리 리스트 */}
-      <div className="grid grid-cols-3 gap-x-[21px] gap-y-[20px] place-items-center">
+      <ul
+        id="menu-category-list-title"
+        className="grid grid-cols-3 gap-x-5.1 gap-y-5 place-items-center"
+      >
         {categories.map((category) => (
-          <CategoryItem key={category.id} category={category} />
+          <li key={category.id}>
+            <CategoryItem category={category} />
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 }
