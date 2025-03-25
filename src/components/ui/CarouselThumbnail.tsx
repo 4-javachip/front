@@ -15,7 +15,7 @@ export default function CarouselThumbnail({
 }) {
   return (
     <Link
-      href={`product/$${name}`}
+      href={`product/${name}`}
       className="relative bg-lightGray-4 rounded-sm
     cursor-pointer"
       style={{ width: size, height: size }}
