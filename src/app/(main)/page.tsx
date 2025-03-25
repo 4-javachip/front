@@ -1,5 +1,5 @@
-import Footer from '@/components/layouts/Footer';
-import Header from '@/components/layouts/Header';
+import Footer from '@/components/layouts/footer/Footer';
+import Header from '@/components/layouts/header/Header';
 import MainBannerSection from '@/components/pages/main/MainBannerSection';
 import MainProductSection from '@/components/pages/main/MainProductSection';
 

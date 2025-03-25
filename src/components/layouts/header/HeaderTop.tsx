@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
-import MenuIcon from '../ui/icons/MenuIcon';
-import { LogoIcon } from '../ui/icons/LogoIcon';
-import SearchIcon from '../ui/icons/SearchIcon';
-import CartIcon from '../ui/icons/CartIcon';
+import MenuIcon from '../../ui/icons/MenuIcon';
+import { LogoIcon } from '../../ui/icons/LogoIcon';
+import SearchIcon from '../../ui/icons/SearchIcon';
+import CartIcon from '../../ui/icons/CartIcon';
 
 export default function HeaderTop() {
   return (
