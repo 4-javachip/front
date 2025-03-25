@@ -7,10 +7,10 @@ export default function ProductList({
   products: ProductItemType[];
 }) {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <ul className="grid grid-cols-2 gap-4">
       {products.map((product) => (
         <ProductlItem key={product.id} {...product} size={300} />
       ))}
-    </div>
+    </ul>
   );
 }

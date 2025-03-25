@@ -1,7 +1,8 @@
 import ItemThumb from '@/components/ui/ItemThumb';
 import ProductLabelIcon from '@/components/ui/icons/ProductLabelIcon';
 import { ProductItemType } from '@/types/ResponseDataTypes';
-import Link from 'next/link';
+import ItemPrice from './ItemPrice';
+import ItemName from './ItemName';
 
 export default function ProductlItem({
   id,
@@ -19,38 +20,14 @@ export default function ProductlItem({
 
       <div className="flex flex-col gap-2">
         <ProductLabelIcon isBest={label.isBest} isNew={label.isNew} />
-
-        <Link
-          href={`product/${name}`}
-          className="cursor-pointer"
-          draggable="false"
-        >
-          <p className="font-sd-gothic font-medium">{name}</p>
-        </Link>
+        <ItemName name={name} />
       </div>
 
-      <div className="relative">
-        {salePrice && discountRate != 0 ? (
-          <>
-            <p className="font-sd-gothic text-lightGray-6 line-through">
-              {price.toLocaleString()}원
-            </p>
-            <p className="font-sd-gothic font-bold">
-              {salePrice.toLocaleString()}원
-            </p>
-            {/* 할인률 */}
-            <p className="absolute bottom-0 right-0 font-sd-gothic text-green font-bold">
-              {discountRate}%
-            </p>
-          </>
-        ) : (
-          <>
-            <p className="font-sd-gothic font-bold">
-              {price.toLocaleString()}원
-            </p>
-          </>
-        )}
-      </div>
+      <ItemPrice
+        price={price}
+        salePrice={salePrice}
+        discountRate={discountRate}
+      />
     </li>
   );
 }
