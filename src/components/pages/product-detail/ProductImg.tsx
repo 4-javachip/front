@@ -3,12 +3,13 @@ import Image from 'next/image';
 
 export default function ProductImg({ imageUrl, description }: ImageType) {
   return (
-    <figure className="w-full h-[390px] flex-shrink-0 relative">
+    <figure className="w-full relative" style={{ paddingBottom: '100%' }}>
       <Image
         src={imageUrl}
         alt={description}
         fill
-        className="object-cover w-full h-full"
+        priority
+        className="object-cover absolute top-0 left-0 w-full h-full"
       />
     </figure>
   );
