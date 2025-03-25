@@ -1,6 +1,6 @@
+import CarouselThumbnail from '@/components/ui/CarouselThumbnail';
 import ProductLabelIcon from '@/components/ui/icons/ProductLabelIcon';
 import { ProductItemType } from '@/types/ResponseDataTypes';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function ProductCarouselItem({
@@ -14,27 +14,19 @@ export default function ProductCarouselItem({
   size = 140,
 }: ProductItemType & { size?: number }) {
   return (
-    <div className="flex flex-col gap-3 mb-[30px]" style={{ width: size }}>
-      {/* 썸네일 */}
-      <Link
-        href={`product/${id}`}
-        className="relative bg-lightGray-4 rounded-sm
-        cursor-pointer"
-        style={{ width: size, height: size }}
-        draggable="false"
-      >
-        <Image
-          src={thumbnail.imageUrl}
-          alt={thumbnail.description}
-          fill
-          className="rounded-sm object-cover select-none pointer-events-none"
-        />
-      </Link>
+    <li className="flex flex-col gap-3 mb-12" style={{ width: size }}>
+      <CarouselThumbnail
+        id={id}
+        name={name}
+        thumbnail={thumbnail}
+        size={size}
+      />
+
       <div className="flex flex-col gap-2">
         <ProductLabelIcon isBest={label.isBest} isNew={label.isNew} />
-        {/* 상품명 */}
+
         <Link
-          href={`product/${id}`}
+          href={`product/${name}`}
           className="cursor-pointer"
           draggable="false"
         >
@@ -64,6 +56,6 @@ export default function ProductCarouselItem({
           </>
         )}
       </div>
-    </div>
+    </li>
   );
 }
