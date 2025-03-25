@@ -108,7 +108,8 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
         {slides.map((slide) => (
           <li
             key={slide.id}
-            className="w-full h-[330px] flex-shrink-0 relative list-none"
+            className="w-full flex-shrink-0 relative list-none
+            pb-[100%]"
           >
             <Image
               src={slide.imageUrl}
