@@ -2,7 +2,7 @@ import { ProductLabelType } from '@/types/ResponseDataTypes';
 
 export default function ProductLabelIcon({ isBest, isNew }: ProductLabelType) {
   return (
-    <div className="flex flex-row gap-[6px]">
+    <div className="flex flex-row gap-[6px] h-[10px]">
       {isBest && (
         <svg
           width="19"

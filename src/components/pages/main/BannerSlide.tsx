@@ -42,7 +42,7 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
         {slides.map((slide, index) => (
           <li
             key={index}
-            className={`w-[9.5px] h-[9.5px] rounded-full transition-colors duration-300 ${
+            className={`w-[0.59375rem] h-[0.59375rem] rounded-full transition-colors duration-300 ${
               currentIndex === index ? 'bg-[#212121]' : 'bg-white'
             }`}
           />

@@ -34,11 +34,11 @@ export default function ProductCarousel({
   };
 
   return (
-    <section className="flex flex-col container gap-[30px]">
-      <h2 className="font-inter font-semibold text-[22px]">{title}</h2>
+    <section className="flex flex-col container gap-8">
+      <h2 className="font-inter font-semibold text-[1.375rem]">{title}</h2>
       <ul
         ref={containerRef}
-        className="flex flex-row gap-[18px] overflow-x-auto cursor-grab active:cursor-grabbing select-none"
+        className="flex flex-row gap-4 overflow-x-auto cursor-grab active:cursor-grabbing select-none"
         style={{ scrollbarWidth: 'none' }}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
