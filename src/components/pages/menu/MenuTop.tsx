@@ -4,14 +4,14 @@ import CloseIcon from '@/components/ui/icons/CloseIcon';
 export default function MenuTop() {
   return (
     <div>
-      <section className="flex justify-end pb-[24px] pt-[21px] px-[32px]">
+      <section className="flex justify-end pb-[24px] pl-1.5 pt-[21px] px-[32px]">
         <Link href="/">
           <CloseIcon />
         </Link>
       </section>
 
       <section className="w-full">
-        <div className="px-[24px]">
+        <div className="px-6">
           <h2 className="text-[22px] font-semibold font-inter pt-[20px]">
             Welcome !
           </h2>
@@ -21,7 +21,7 @@ export default function MenuTop() {
         </div>
 
         <div className="flex justify-center">
-          <div className="w-[90%] border-b border-gray-300" />
+          <div className=" mx-6 w-full border-b border-[#DADADA] " />
         </div>
       </section>
     </div>

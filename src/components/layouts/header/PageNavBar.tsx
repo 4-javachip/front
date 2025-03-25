@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const Nav = () => {
+const PageNavBar = () => {
   const pathname = usePathname();
 
   // 각 메뉴의 경로
@@ -23,7 +23,7 @@ const Nav = () => {
           return (
             <li
               key={item.href}
-              className={`py-[19px] w-[25%] text-center ${
+              className={`py-4.5 w-[25%] text-center ${
                 isActive
                   ? 'font-semibold border-b-3 border-[#00A862]'
                   : 'font-Ragular'
@@ -40,4 +40,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default PageNavBar;

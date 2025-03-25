@@ -68,3 +68,8 @@ export interface CategoryListType {
   categoryId: number;
   categoryName: string;
 }
+
+export interface FooterLinkItem {
+  href: string;
+  label: string;
+}

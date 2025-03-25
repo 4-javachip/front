@@ -1,5 +1,5 @@
-import Footer from '@/components/layouts/Footer';
-import Header from '@/components/layouts/Header';
+import Footer from '@/components/layouts/footer/Footer';
+import Header from '@/components/layouts/header/Header';
 import BannerSlide from '@/components/ui/BannerSlide';
 import ProductCarousel from '@/components/pages/main/ProductCarousel';
 import { eventCarousels, mainBannerSlideData } from '@/data/dummyDatas';
