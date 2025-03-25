@@ -1,4 +1,4 @@
-import ProductListSection from '@/components/pages/product-list/ProductListSection';
+import ProductListSection from '@/components/pages/products/ProductListSection';
 
 export default function ProductListPage() {
   return (
