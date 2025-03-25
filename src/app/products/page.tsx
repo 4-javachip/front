@@ -1,11 +1,14 @@
-import ProductListSection from '@/components/pages/products/ProductListSection';
+import ProductList from '@/components/pages/products/ProductList';
+import { dummyProducts } from '@/data/dummyDatas';
 
 export default function ProductListPage() {
   return (
     <main>
       {/* 카테고리 필터 */}
-      {/* 상품 리스트 */}
-      <ProductListSection />
+
+      <section className="p-6 flex justify-center">
+        <ProductList products={dummyProducts} />
+      </section>
     </main>
   );
 }

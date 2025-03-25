@@ -1,5 +1,5 @@
 import { ProductItemType } from '@/types/ResponseDataTypes';
-import ProductListItem from './ProductListItem';
+import ProductlItem from '../../ui/ProductItem';
 
 export default function ProductList({
   products,
@@ -7,9 +7,9 @@ export default function ProductList({
   products: ProductItemType[];
 }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 gap-4">
       {products.map((product) => (
-        <ProductListItem key={product.id} {...product} size={300} />
+        <ProductlItem key={product.id} {...product} size={300} />
       ))}
     </div>
   );

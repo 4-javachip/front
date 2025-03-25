@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { EventCarouselType } from '@/types/ResponseDataTypes';
-import ProductCarouselItem from './ProductCarouselItem';
+import ProductlItem from '../../ui/ProductItem';
 
 export default function ProductCarousel({
   eventId,
@@ -46,7 +46,7 @@ export default function ProductCarousel({
         onMouseLeave={onMouseUpOrLeave}
       >
         {products.map((product) => (
-          <ProductCarouselItem key={product.id} {...product} size={140} />
+          <ProductlItem key={product.id} {...product} size={140} />
         ))}
       </ul>
     </section>
