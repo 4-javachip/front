@@ -4,16 +4,18 @@ import Link from 'next/link';
 
 export default function CarouselThumbnail({
   id,
+  name,
   thumbnail,
   size,
 }: {
   id: number;
+  name: string;
   thumbnail: ImageType;
   size: number;
 }) {
   return (
     <Link
-      href={`product/${id}`}
+      href={`product/$${name}`}
       className="relative bg-lightGray-4 rounded-sm
     cursor-pointer"
       style={{ width: size, height: size }}

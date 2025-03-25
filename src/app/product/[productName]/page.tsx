@@ -5,7 +5,12 @@ import ProductImg from '@/components/pages/productDetail/ProductImg';
 import ProductInfo from '@/components/pages/productDetail/ProductInfo';
 import { dummyProductDetail } from '@/data/dummyDatas';
 
-export default function ProductDetail() {
+export default async function ProductDetail({
+  params,
+}: {
+  params: Promise<{ productName: string }>;
+}) {
+  const name = decodeURIComponent((await params).productName);
   return (
     <main className="flex flex-col">
       <PerchaseBar />
