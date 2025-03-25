@@ -15,13 +15,18 @@ export default function ProductCarouselItem({
 }: ProductItemType & { size?: number }) {
   return (
     <li className="flex flex-col gap-3 mb-12" style={{ width: size }}>
-      <CarouselThumbnail id={id} thumbnail={thumbnail} size={size} />
+      <CarouselThumbnail
+        id={id}
+        name={name}
+        thumbnail={thumbnail}
+        size={size}
+      />
 
       <div className="flex flex-col gap-2">
         <ProductLabelIcon isBest={label.isBest} isNew={label.isNew} />
 
         <Link
-          href={`product/${id}`}
+          href={`product/${name}`}
           className="cursor-pointer"
           draggable="false"
         >

@@ -14,36 +14,34 @@ export default function ProductInfo({
   detailDescription,
 }: ProductDetailType) {
   return (
-    <div className="pt-6 font-pretendard">
-      <div className="grid grid-flow-col gap-[17px]">
-        <div className="font-semibold text-[22px] pb-4">
+    <section className="pt-6 font-pretendard">
+      <div className="grid grid-flow-col gap-4">
+        <h1 className="font-semibold text-[1.375rem] pb-4">
           <span>{name}</span>
           <span className="inline-flex pl-3">
             <ProductLabelIcon isBest={true} isNew={true} />
           </span>
-        </div>
+        </h1>
         <div className="justify-self-end">
           <ShareIcon />
         </div>
       </div>
 
-      <p className="font-medium text-[12px] text-[#8c8c8c] pb-5">
-        {description}
-      </p>
-      {/* 가격 */}
+      <p className="font-medium text-xs text-[#8c8c8c] pb-5">{description}</p>
+
       {salePrice && discountRate != 0 ? (
-        <div>
-          <p className="font-light text-lightGray-6 line-through">
+        <>
+          <del className="font-light text-lightGray-6">
             {price.toLocaleString()}원
-          </p>
+          </del>
           <div className="flex flex-row font-bold text-xl gap-2">
             <p className="text-green">{discountRate}%</p>
             <p className="">{salePrice.toLocaleString()}원</p>
           </div>
-        </div>
+        </>
       ) : (
         <p className="font-bold text-xl">{price.toLocaleString()}원</p>
       )}
-    </div>
+    </section>
   );
 }
