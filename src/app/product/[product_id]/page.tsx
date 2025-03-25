@@ -1,8 +1,8 @@
-import PerchaseBar from '@/components/pages/product-detail/PerchaseBar';
-import PolicySection from '@/components/pages/product-detail/PolicySection';
-import ProductDesc from '@/components/pages/product-detail/ProductDesc';
-import ProductImg from '@/components/pages/product-detail/ProductImg';
-import ProductInfo from '@/components/pages/product-detail/ProductInfo';
+import PerchaseBar from '@/components/pages/productDetail/PerchaseBar';
+import PolicySection from '@/components/pages/productDetail/PolicySection';
+import ProductDesc from '@/components/pages/productDetail/ProductDesc';
+import ProductImg from '@/components/pages/productDetail/ProductImg';
+import ProductInfo from '@/components/pages/productDetail/ProductInfo';
 import { dummyProductDetail } from '@/data/dummyDatas';
 
 export default function ProductDetail() {
