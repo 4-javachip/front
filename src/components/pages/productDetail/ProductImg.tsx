@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function ProductImg({ imageUrl, description }: ImageType) {
   return (
-    <figure className="w-full relative" style={{ paddingBottom: '100%' }}>
+    <figure className="w-full relative pb-[100%]">
       <Image
         src={imageUrl}
         alt={description}
