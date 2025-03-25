@@ -1,5 +1,5 @@
-import PageNavBar from '../PageNavBar';
 import HeaderTop from './HeaderTop';
+import PageNavBar from './PageNavBar';
 
 function Header() {
   return (
