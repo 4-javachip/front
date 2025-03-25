@@ -1,17 +1,16 @@
-import Link from 'next/link';
 import CloseIcon from '@/components/ui/icons/CloseIcon';
 
-export default function MenuTop() {
+interface Props {
+  onClose: () => void;
+}
+
+export default function MenuTop({ onClose }: Props) {
   return (
-    <section className="px-6 pt-5 pb-6" aria-label="메뉴 상단 영역">
-      <nav className="flex justify-end" aria-label="메뉴 닫기">
-        <Link
-          href="/"
-          className="inline-flex items-center"
-          aria-label="메뉴 닫기 버튼"
-        >
+    <section className="px-6 pt-5 " aria-label="메뉴 상단 영역">
+      <nav className="flex justify-end">
+        <button onClick={onClose} className="inline-flex items-center">
           <CloseIcon />
-        </Link>
+        </button>
       </nav>
 
       <article className="pt-5">
