@@ -1,4 +1,4 @@
-import CategoryCarousel from '@/components/pages/products/CategoryCarousel';
+import ProductFilterList from '@/components/pages/products/ProductFilterList';
 
 export default function ShopLayout({
   children,
@@ -7,8 +7,7 @@ export default function ShopLayout({
 }>) {
   return (
     <>
-      <CategoryCarousel />
-      <hr className="border-t-1 border-lightGray-1" />
+      <ProductFilterList />
       {children}
     </>
   );

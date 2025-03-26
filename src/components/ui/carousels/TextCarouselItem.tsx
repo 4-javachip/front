@@ -1,5 +1,5 @@
-export default function CategoryCarouselItem({
-  category,
+export default function TextCarouselItem({
+  category: item,
 }: {
   category: string;
 }) {
@@ -11,7 +11,7 @@ export default function CategoryCarouselItem({
     px-3.5"
         type="button"
       >
-        {category}
+        {item}
       </button>
     </li>
   );
