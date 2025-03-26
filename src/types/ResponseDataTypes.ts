@@ -73,3 +73,31 @@ export interface FooterLinkItem {
   href: string;
   label: string;
 }
+
+export interface AddressType {
+  id: number;
+  addressName: string;
+  recipientName: string;
+  baseAddress: string;
+  zipCode: string;
+  detailAddress?: string;
+  phoneNumber: string;
+  secondPhoneNumber: string;
+  shippingNote: string;
+  defaultAddress?: boolean;
+}
+
+export interface CartProductType {
+  id: number; //
+  userUuid: string;
+  cartUuid: string;
+  productQuantity: number;
+  checkBox: boolean;
+  productOptionListUuid: string;
+
+  // 프론트에서 필요에 따라 추가로 가져올 확장 정보
+  productName?: string;
+  productImageUrl?: string;
+  productPrice?: number;
+  selectedOptions?: Record<string, string>;
+}

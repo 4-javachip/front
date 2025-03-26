@@ -1,5 +1,7 @@
 import {
+  AddressType,
   BannerSlideImageType,
+  CartProductType,
   CategoryMenuType,
   EventCarouselType,
   ProductCategoryType,
@@ -200,6 +202,64 @@ export const categoryMenus: CategoryMenuType[] = [
     thumbnail: {
       imageUrl: 'https://dummyimage.com/500',
       description: '세트',
+    },
+  },
+];
+
+export const dummyAddresses: AddressType[] = [
+  {
+    id: 1,
+    addressName: '우리집',
+    recipientName: '홍길동',
+    baseAddress: '서울특별시 강남구 테헤란로 123',
+    zipCode: '06134',
+    detailAddress: '101동 202호',
+    phoneNumber: '010-1234-5678',
+    secondPhoneNumber: '010-8765-4321',
+    shippingNote: '부재 시 문 앞에 놓아주세요',
+    defaultAddress: true,
+  },
+  {
+    id: 2,
+    addressName: '회사',
+    recipientName: '홍길동',
+    baseAddress: '서울특별시 중구 세종대로 100',
+    zipCode: '04523',
+    detailAddress: '스타타워 15층',
+    phoneNumber: '010-2222-3333',
+    secondPhoneNumber: '010-4444-5555',
+    shippingNote: '리셉션에 맡겨주세요',
+    defaultAddress: false,
+  },
+];
+
+export const dummyCartItems: CartProductType[] = [
+  {
+    id: 1,
+    userUuid: 'user-uuid-123',
+    cartUuid: 'cart-uuid-abc',
+    productQuantity: 2,
+    checkBox: true,
+    productOptionListUuid: 'option-uuid-456',
+    productName: '텀블러 500ml',
+    productImageUrl: 'https://picsum.photos/id/237/140',
+    productPrice: 25000,
+    selectedOptions: {
+      색상: '블랙',
+    },
+  },
+  {
+    id: 2,
+    userUuid: 'user-uuid-123',
+    cartUuid: 'cart-uuid-abc',
+    productQuantity: 2,
+    checkBox: true,
+    productOptionListUuid: 'option-uuid-456',
+    productName: '텀블러 500ml',
+    productImageUrl: 'https://picsum.photos/id/237/140',
+    productPrice: 25000,
+    selectedOptions: {
+      색상: '블랙',
     },
   },
 ];
