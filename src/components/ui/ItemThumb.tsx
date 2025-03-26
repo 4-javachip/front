@@ -16,7 +16,7 @@ export default function ItemThumb({
   const style =
     size === 140
       ? { width: size, height: size }
-      : { maxWidth: size, aspectRatio: '1 / 1' };
+      : { width: '100%', aspectRatio: '1 / 1' };
 
   return (
     <Link
