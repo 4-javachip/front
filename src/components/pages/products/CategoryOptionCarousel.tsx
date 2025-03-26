@@ -1,4 +1,3 @@
-import useCategoryCarousel from '@/hooks/useCarousel';
 import TextCarousel from '@/components/ui/carousels/TextCarousel';
 
 export default function CategoryOptionCarousel({
