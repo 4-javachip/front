@@ -9,7 +9,7 @@ export default function FooterPolicyLinks() {
   ];
 
   return (
-    <nav className="pb-4 pt-5 pl-6 bg-lightGray-3 font-SDGothic font-medium text-xs text-gray-500">
+    <nav className="pb-4 pt-5 pl-6 bg-lightGray-3 font-sd-gothic font-medium text-xs text-gray-500">
       <ul className="flex space-x-2.5">
         {links.map((link, index) => (
           <li key={link.href} className="flex items-center space-x-2.5">

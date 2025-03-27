@@ -9,7 +9,7 @@ export default function CartShippingInfo() {
 
   return (
     <section
-      className="w-full  bg-[#F7F7F7]  border-lightGray-6 px-6 py-6 text-sm"
+      className="w-full  bg-[#F7F7F7]  border-lightGray-6 px-6 text-sm py-6"
       aria-label="배송지 정보"
     >
       {defaultAddress ? (

@@ -25,7 +25,6 @@ export default function CartPage() {
 
   return (
     <main>
-      <CartHeader />
       <CartShippingInfo />
       <CartCheckBar
         isAllChecked={isAllChecked}
