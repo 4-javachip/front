@@ -8,7 +8,7 @@ export default function Footer() {
       <div>
         <FooterPolicyLinks />
 
-        <div className="flex justify-start py-0.5 px-4">
+        <div className="flex justify-start py-2.5 px-4">
           <FooterLogoIcon />
         </div>
 

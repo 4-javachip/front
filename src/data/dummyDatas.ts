@@ -269,11 +269,12 @@ export const dummyCartItems: CartProductType[] = [
       색상: '블랙',
     },
   },
+
   {
     id: 2,
     userUuid: 'user-uuid-123',
     cartUuid: 'cart-uuid-abc',
-    discount: 222222,
+    discount: 20000,
     productQuantity: 2,
     checked: false,
     productOptionListUuid: 'option-uuid-456',
