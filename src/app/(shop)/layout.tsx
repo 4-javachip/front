@@ -9,7 +9,7 @@ export default function ShopLayout({
   return (
     <>
       <HeaderTop />
-      {children}
+      <div className="pt-14">{children}</div>
       <Footer />
     </>
   );
