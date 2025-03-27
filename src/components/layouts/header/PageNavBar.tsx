@@ -23,7 +23,7 @@ const PageNavBar = () => {
           return (
             <li
               key={item.href}
-              className={`pt-4.5 pb-[15px] w-[25%] text-center ${
+              className={`pt-4.5 pb-[0.9375rem] w-[25%] text-center ${
                 isActive
                   ? 'font-semibold border-b-3 border-[#00A862]'
                   : 'font-Ragular'
