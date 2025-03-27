@@ -20,7 +20,7 @@ export default function ItemThumb({
 
   return (
     <Link
-      href={`product/${name}`}
+      href={`product/${id}`}
       className="relative bg-lightGray-4 rounded-sm
     cursor-pointer"
       style={style}

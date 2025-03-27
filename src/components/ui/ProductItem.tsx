@@ -20,7 +20,7 @@ export default function ProductlItem({
 
       <div className="flex flex-col gap-2">
         <ProductLabelIcon isBest={label.isBest} isNew={label.isNew} />
-        <ItemName name={name} />
+        <ItemName id={id} name={name} />
       </div>
 
       <ItemPrice

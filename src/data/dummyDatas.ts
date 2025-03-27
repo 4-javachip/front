@@ -104,6 +104,81 @@ export const dummyProductDetail: ProductDetailType = {
   detailDescription: 'https://example.com/products/1',
 };
 
+export const dummyProductDetails: ProductDetailType[] = [
+  {
+    id: 1,
+    image: {
+      imageUrl: 'https://picsum.photos/id/237/140',
+      description: 'SS 핑크 탱크 텀블러 상세 이미지',
+    },
+    label: {
+      isBest: true,
+      isNew: false,
+    },
+    name: 'SS 핑크 탱크 텀블러 503ml',
+    description: '내구성이 뛰어난 스테인리스 텀블러',
+    price: 35000,
+    salePrice: 31500,
+    discountRate: 10,
+    detailDescription:
+      '이중 구조로 보온 및 보냉 효과가 뛰어나며, 실리콘 패킹이 있어 누수 방지가 가능합니다.',
+  },
+  {
+    id: 2,
+    image: {
+      imageUrl: 'https://picsum.photos/id/237/400',
+      description: '클래식 화이트 머그컵 상세 이미지',
+    },
+    label: {
+      isBest: false,
+      isNew: true,
+    },
+    name: '클래식 화이트 머그컵 300ml',
+    description: '심플한 디자인의 화이트 머그컵',
+    price: 15000,
+    salePrice: 12000,
+    discountRate: 20,
+    detailDescription:
+      '도자기로 제작되어 내열성이 뛰어나며, 따뜻한 음료를 오랫동안 유지할 수 있습니다.',
+  },
+  {
+    id: 3,
+    image: {
+      imageUrl: 'https://dummyimage.com/140',
+      description: '레드 트래블 텀블러 상세 이미지',
+    },
+    label: {
+      isBest: false,
+      isNew: false,
+    },
+    name: '레드 트래블 텀블러 500ml',
+    description: '언제 어디서나 사용 가능한 텀블러',
+    price: 25000,
+    salePrice: 25000,
+    discountRate: 0,
+    detailDescription:
+      '가벼운 무게와 슬림한 디자인으로 휴대가 용이하며, 뚜껑이 있어 먼지 유입을 방지할 수 있습니다.',
+  },
+  {
+    id: 4,
+    image: {
+      imageUrl: 'https://dummyimage.com/300',
+      description: '블랙 트렌드 텀블러 상세 이미지',
+    },
+    label: {
+      isBest: true,
+      isNew: true,
+    },
+    name: '블랙 트렌드 텀블러 600ml',
+    description: '모던한 감성의 텀블러',
+    price: 45000,
+    salePrice: 40000,
+    discountRate: 11,
+    detailDescription:
+      '프리미엄 소재로 제작되어 내구성이 뛰어나며, 음료를 신선하게 유지하는 기능이 있습니다.',
+  },
+];
+
 export const eventCarousels: EventCarouselType[] = [
   {
     eventId: 1,
