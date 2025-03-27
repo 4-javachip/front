@@ -101,3 +101,10 @@ export interface CartProductType {
   productPrice?: number;
   selectedOptions?: Record<string, string>;
 }
+
+// 시즌
+
+export interface seasonType {
+  name: string;
+  seasonId: number;
+}

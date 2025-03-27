@@ -3,9 +3,13 @@ import TextCarousel from '@/components/ui/carousels/TextCarousel';
 export default function CategoryOptionCarousel({
   items,
   title,
+  queryKey,
+  selectedId,
 }: {
   items: { id: number; name: string }[];
   title?: string;
+  queryKey: string;
+  selectedId: number;
 }) {
   return (
     <>
@@ -19,7 +23,7 @@ export default function CategoryOptionCarousel({
             {title}
           </h2>
         )}
-        <TextCarousel items={items} />
+        <TextCarousel items={items} queryKey={queryKey} />
       </section>
       <hr className="border-t-1 border-lightGray-5" />
     </>
