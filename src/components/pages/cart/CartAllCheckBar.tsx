@@ -1,7 +1,5 @@
-'use client';
-
-import { useState } from 'react';
-import Checkbox from '../../ui/inputs/CheckBox';
+import CartDeleteButtons from '@/components/ui/buttons/CartDeleteButton';
+import Checkbox from '@/components/ui/inputs/CheckBox';
 
 interface CartAllCheckBarProps {
   isAllChecked: boolean;
@@ -11,15 +9,11 @@ interface CartAllCheckBarProps {
 }
 
 export default function CartCheckBar({
+  isAllChecked,
+  onToggleAll,
   onDeleteSelected,
   onDeleteAll,
 }: CartAllCheckBarProps) {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheck = () => {
-    setIsChecked((prev) => !prev);
-  };
-
   return (
     <section
       className="flex justify-between items-center py-3 px-6 border-b border-gray-100"
@@ -27,26 +21,17 @@ export default function CartCheckBar({
     >
       <div className="flex items-center gap-2 font-inter font-medium text-sm">
         <Checkbox
-          checked={isChecked}
-          onChange={handleCheck}
+          checked={isAllChecked}
+          onChange={onToggleAll}
           ariaLabel="전체 선택"
         />
         <span>전체 선택</span>
       </div>
 
-      <div className="text-xs  space-x-2 font-inter font-medium ">
-        <button
-          type="button"
-          onClick={onDeleteSelected}
-          className="text-green-600 font-medium"
-        >
-          선택 삭제
-        </button>
-        <span className="text-[#7E7E7E]">|</span>
-        <button type="button" onClick={onDeleteAll} className="text-[#7E7E7E]">
-          전체 삭제
-        </button>
-      </div>
+      <CartDeleteButtons
+        onDeleteSelected={onDeleteSelected}
+        onDeleteAll={onDeleteAll}
+      />
     </section>
   );
 }

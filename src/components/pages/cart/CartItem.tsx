@@ -2,6 +2,7 @@ import { CartProductType } from '@/types/ResponseDataTypes';
 import QuantityControl from './QuantityControl';
 import DeleteButton from '@/components/ui/buttons/DeleteButton';
 import Checkbox from '@/components/ui/inputs/CheckBox';
+import Image from 'next/image';
 
 interface CartItemProps {
   cartItem: CartProductType;
@@ -24,7 +25,7 @@ export default function CartItem({
     productName,
     productQuantity = 1,
     productPrice = 0,
-    checkBox,
+    checked,
   } = cartItem;
 
   const formattedTotal = (productPrice * productQuantity).toLocaleString();
@@ -34,22 +35,25 @@ export default function CartItem({
       className="flex items-start gap-3 py-3 px-6 border-b border-gray-200"
       aria-label={`${productName} 장바구니 항목`}
     >
-      {/* ✅ 재사용 컴포넌트 사용 */}
       <Checkbox
-        checked={checkBox}
-        onChange={() => onToggleCheck(id)}
+        checked={checked}
+        onChange={() => {
+          console.log(`[${productName}] checked 상태:`, checked);
+          onToggleCheck(id);
+        }}
         className="mt-2"
         ariaLabel={`${productName} 선택`}
       />
 
       <figure>
-        <img
+        <Image
           src={productImageUrl}
           alt={productName}
+          width={80}
+          height={80}
           className="w-20 h-20 rounded-md object-cover"
         />
       </figure>
-
       <section className="flex-1">
         <ul className="flex justify-between items-start mb-2">
           <li className="text-sm font-medium text-black">{productName}</li>

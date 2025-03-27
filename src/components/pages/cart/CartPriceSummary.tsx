@@ -10,7 +10,7 @@ export default function CartPriceSummary({ cartitem }: CartPriceSummaryProps) {
       total + (cartitem.productPrice ?? 0) * cartitem.productQuantity,
     0
   );
-  const discount = 0;
+  const discount = 50;
   const shipping = 0;
   const finalTotal = productTotal + shipping - discount;
 
