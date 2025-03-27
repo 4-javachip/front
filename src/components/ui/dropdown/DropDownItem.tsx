@@ -17,7 +17,8 @@ export default function DropDownItem(option: { value: string; label: string }) {
     <li
       key={option.value}
       className="p-3.5 cursor-pointer font-sd-gothic text-sm text-lightGray-6
-  border-b border-lightGray-4 last:border-b-0"
+  border-b border-lightGray-4 
+  last:border-b-0 hover:bg-lightGray-2"
       onClick={() => handleSelect(option)}
     >
       {option.label}

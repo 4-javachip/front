@@ -1,6 +1,11 @@
-export default function DropDownIcon() {
+export default function DropDownIcon({
+  className = '',
+}: {
+  className?: string;
+}) {
   return (
     <svg
+      className={className}
       width="11"
       height="7"
       viewBox="0 0 11 7"
