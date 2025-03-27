@@ -13,21 +13,21 @@ export default function HeaderTop() {
   return (
     <>
       <nav className="fixed top-0 left-0 w-full bg-background z-50   items-center shadow-md">
-        <ul className="flex justify-between px-4 py-4 pb-5 h-14">
-          <li>
+        <ul className="flex justify-between h-14">
+          <li className="py-3 px-4.5">
             <MenuButton onClick={() => setIsMenuOpen(true)} />
           </li>
 
-          <li className="flex items-center ">
+          <li className="flex items-center  ">
             <LogoButton />
           </li>
 
           <li>
-            <ul className="flex justify-end space-x-3 items-center">
-              <li>
+            <ul className="flex justify-end  items-center py-3 ">
+              <li className="">
                 <SearchButton />
               </li>
-              <li>
+              <li className="pr-4.5 pl-2.5">
                 <CartButton cartCount={5} />
               </li>
             </ul>
