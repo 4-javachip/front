@@ -7,7 +7,8 @@ import {
   ProductCategoryType,
   ProductDetailType,
   ProductItemType,
-  seasonType,
+  ProductSortOptionType,
+  SeasonType,
 } from '@/types/ResponseDataTypes';
 
 export const mainBannerSlideData: BannerSlideImageType[] = [
@@ -324,11 +325,18 @@ export const dummyCartItems: CartProductType[] = [
   },
 ];
 
-export const seasonList: seasonType[] = [
+export const seasonList: SeasonType[] = [
   { name: '3월 신규코어', seasonId: 1 },
   { name: '플라워 마켓', seasonId: 2 },
   { name: '러브 켄처', seasonId: 3 },
   { name: '시즌4', seasonId: 4 },
   { name: '시즌5', seasonId: 5 },
   { name: '시즌6', seasonId: 6 },
+];
+
+export const sortOptions: ProductSortOptionType[] = [
+  { label: '신상품순', value: 'newest' },
+  { label: '추천순', value: 'recommended' },
+  { label: '낮은가격순', value: 'lowPrice' },
+  { label: '높은가격순', value: 'highPrice' },
 ];

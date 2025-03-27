@@ -102,9 +102,12 @@ export interface CartProductType {
   selectedOptions?: Record<string, string>;
 }
 
-// 시즌
-
-export interface seasonType {
+export interface SeasonType {
   name: string;
   seasonId: number;
+}
+
+export interface ProductSortOptionType {
+  label: string;
+  value: string;
 }
