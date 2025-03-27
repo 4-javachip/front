@@ -10,6 +10,7 @@ import {
   ProductItemType,
   ProductSortOptionType,
   SeasonType,
+  PolicyLinkType,
 } from '@/types/ResponseDataTypes';
 
 export const mainBannerSlideData: BannerSlideImageType[] = [
@@ -368,3 +369,9 @@ export const dummyCartSummary = {
   discount: 3000,
   shipping: 0,
 };
+
+export const dummyPolicyLinks: PolicyLinkType[] = [
+  { href: '/privacy-policy', label: '개인정보처리방침' },
+  { href: '/terms', label: '홈페이지 이용약관' },
+  { href: '/card-terms', label: '스타벅스카드 이용약관' },
+];
