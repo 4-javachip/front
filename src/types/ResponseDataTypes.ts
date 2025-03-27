@@ -87,6 +87,15 @@ export interface AddressType {
   shippingNote: string;
   defaultAddress?: boolean;
 }
+//장바구니 배송지
+export interface CartAddressType {
+  id: number;
+  addressName: string;
+  baseAddress: string;
+  zipCode: string;
+  detailAddress?: string;
+  defaultAddress?: boolean;
+}
 
 //장바구니상품
 export interface CartProductType {
@@ -102,4 +111,10 @@ export interface CartProductType {
   productImageUrl: string;
   productPrice: number;
   selectedOptions: Record<string, string>;
+}
+
+//장바구니 결제정보
+export interface CartSummaryType {
+  discount: number;
+  shipping: number;
 }

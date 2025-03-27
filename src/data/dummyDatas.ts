@@ -1,5 +1,6 @@
 import {
   AddressType,
+  CartAddressType,
   BannerSlideImageType,
   CartProductType,
   CategoryMenuType,
@@ -233,6 +234,25 @@ export const dummyAddresses: AddressType[] = [
   },
 ];
 
+export const dummyCartAddresses: CartAddressType[] = [
+  {
+    id: 1,
+    addressName: '우리집',
+    baseAddress: '서울특별시 강남구 테헤란로 123',
+    zipCode: '06236',
+    detailAddress: '101동 1001호',
+    defaultAddress: true,
+  },
+  {
+    id: 2,
+    addressName: '회사',
+    baseAddress: '서울특별시 종로구 세종대로 1',
+    zipCode: '03154',
+    detailAddress: '10층 스타벅스 본사',
+    defaultAddress: false,
+  },
+];
+
 export const dummyCartItems: CartProductType[] = [
   {
     id: 1,
@@ -265,3 +285,8 @@ export const dummyCartItems: CartProductType[] = [
     },
   },
 ];
+
+export const dummyCartSummary = {
+  discount: 3000,
+  shipping: 0,
+};
