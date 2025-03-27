@@ -128,3 +128,8 @@ export interface ProductSortOptionType {
   label: string;
   value: string;
 }
+
+export interface PolicyLinkType {
+  href: string;
+  label: string;
+}
