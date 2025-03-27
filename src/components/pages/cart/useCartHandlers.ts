@@ -12,20 +12,23 @@ export default function useCartHandlers() {
   const toggleCheck = (id: number) => {
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, checkBox: !item.checkBox } : item
+        item.id === id ? { ...item, checked: !item.checked } : item
       )
     );
   };
-
   const isAllChecked =
-    cartItems.length > 0 && cartItems.every((item) => item.checkBox);
+    cartItems.length > 0 && cartItems.every((item) => item.checked);
+
   const toggleAll = () => {
     const shouldCheck = !isAllChecked;
+
     setCartItems((prev) =>
-      prev.map((item) => ({ ...item, checkBox: shouldCheck }))
+      prev.map((item) => ({
+        ...item,
+        checked: shouldCheck, // 전체 true 또는 false 로 바꿔줌
+      }))
     );
   };
-
   const increase = (id: number) => {
     setCartItems((prev) =>
       prev.map((item) =>
@@ -51,7 +54,7 @@ export default function useCartHandlers() {
   };
 
   const deleteSelected = () => {
-    setCartItems((prev) => prev.filter((item) => !item.checkBox));
+    setCartItems((prev) => prev.filter((item) => !item.checked));
   };
 
   const deleteAll = () => {

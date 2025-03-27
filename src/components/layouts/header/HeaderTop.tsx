@@ -1,7 +1,7 @@
 'use client';
 import MenuModal from '@/components/pages/menu/MenuModal';
 import CartButton from '@/components/ui/buttons/CartButton';
-import LogoLink from '@/components/ui/buttons/LogoButton';
+import LogoButton from '@/components/ui/buttons/LogoButton';
 import MenuButton from '@/components/ui/buttons/MenuButton';
 import SearchButton from '@/components/ui/buttons/SearchButton';
 import { categoryMenus } from '@/data/dummyDatas';
@@ -12,14 +12,14 @@ export default function HeaderTop() {
 
   return (
     <>
-      <nav className="relative w-full px-4 py-3 items-center">
-        <ul className="flex justify-between">
+      <nav className="fixed top-0 left-0 w-full bg-background z-50   items-center shadow-md">
+        <ul className="flex justify-between px-4 py-4 pb-5 h-14">
           <li>
             <MenuButton onClick={() => setIsMenuOpen(true)} />
           </li>
 
-          <li>
-            <LogoLink />
+          <li className="flex items-center ">
+            <LogoButton />
           </li>
 
           <li>

@@ -16,14 +16,14 @@ const PageNavBar = () => {
   ];
 
   return (
-    <nav className="w-full bg-white p-0 m-0 font-inter">
+    <nav className="fixed top-14 left-0 w-full z-50 bg-background h-[3.5rem] font-inter shadow-md">
       <ul className="flex text-gray-700 p-0 m-0 text-sm">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
             <li
               key={item.href}
-              className={`py-4.5 w-[25%] text-center ${
+              className={`pt-4.5 pb-[0.9375rem] w-[25%] text-center ${
                 isActive
                   ? 'font-semibold border-b-3 border-[#00A862]'
                   : 'font-Ragular'

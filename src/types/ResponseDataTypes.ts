@@ -74,6 +74,7 @@ export interface FooterLinkItem {
   label: string;
 }
 
+//배송지
 export interface AddressType {
   id: number;
   addressName: string;
@@ -86,20 +87,36 @@ export interface AddressType {
   shippingNote: string;
   defaultAddress?: boolean;
 }
+//장바구니 배송지
+export interface CartAddressType {
+  id: number;
+  addressName: string;
+  baseAddress: string;
+  zipCode: string;
+  detailAddress?: string;
+  defaultAddress?: boolean;
+}
 
+//장바구니상품
 export interface CartProductType {
   id: number; //
   userUuid: string;
   cartUuid: string;
+  discount?: number;
   productQuantity: number;
-  checkBox: boolean;
+  checked: boolean;
   productOptionListUuid: string;
 
-  // 프론트에서 필요에 따라 추가로 가져올 확장 정보
-  productName?: string;
-  productImageUrl?: string;
-  productPrice?: number;
-  selectedOptions?: Record<string, string>;
+  productName: string;
+  productImageUrl: string;
+  productPrice: number;
+  selectedOptions: Record<string, string>;
+}
+
+//장바구니 결제정보
+export interface CartSummaryType {
+  discount: number;
+  shipping: number;
 }
 
 export interface SeasonType {
