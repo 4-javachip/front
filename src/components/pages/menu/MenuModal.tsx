@@ -13,11 +13,11 @@ export default function MenuModal({ categories, onClose, isOpen }: Props) {
   if (!isOpen) return null;
 
   return (
-    <aside className="fixed inset-0 z-50 w-full h-full bg-white shadow-lg overflow-y-auto">
+    <aside className="fixed inset-0 z-60 w-full h-full bg-white shadow-lg overflow-y-auto">
       <div className="w-full h-full">
         <MenuTop onClose={onClose} />
-        <MenuCategoryList categories={categories} />
-        <MenuBannerList />
+        <MenuCategoryList categories={categories} onClose={onClose} />
+        <MenuBannerList onClose={onClose} />
       </div>
     </aside>
   );
