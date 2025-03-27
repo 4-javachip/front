@@ -8,7 +8,7 @@ export default function MainMenuLayout({
   return (
     <>
       <PageNavBar />
-      {children}
+      <div className="pt-14"> {children}</div>
     </>
   );
 }
