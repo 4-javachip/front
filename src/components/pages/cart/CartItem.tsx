@@ -37,10 +37,7 @@ export default function CartItem({
     >
       <Checkbox
         checked={checked}
-        onChange={() => {
-          console.log(`[${productName}] checked 상태:`, checked);
-          onToggleCheck(id);
-        }}
+        onChange={() => onToggleCheck(id)}
         className="mt-2"
         ariaLabel={`${productName} 선택`}
       />
