@@ -67,3 +67,7 @@ body {
   margin: -1px;
   overflow: hidden;
 }
+
+.padded {
+  @apply px-6;
+}

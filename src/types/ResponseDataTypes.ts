@@ -54,7 +54,7 @@ export interface ProductSubCategoryType {
 export interface ProductCategoryType {
   id: number;
   name: string;
-  subCategory: ProductSubCategoryType[];
+  subCategory?: ProductSubCategoryType[];
 }
 
 export interface CategoryMenuType {
@@ -117,4 +117,14 @@ export interface CartProductType {
 export interface CartSummaryType {
   discount: number;
   shipping: number;
+}
+
+export interface SeasonType {
+  name: string;
+  seasonId: number;
+}
+
+export interface ProductSortOptionType {
+  label: string;
+  value: string;
 }
