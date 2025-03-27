@@ -1,6 +1,6 @@
 'use client';
 
-import CartAllCheckBar from '@/components/pages/cart/CartAllCheckBar';
+import CartCheckBar from '@/components/pages/cart/CartAllCheckBar';
 import CartEmpty from '@/components/pages/cart/CartEmpty';
 import CartHeader from '@/components/pages/cart/CartHeader';
 import CartItemList from '@/components/pages/cart/CartItemList';
@@ -27,7 +27,7 @@ export default function CartPage() {
     <main>
       <CartHeader />
       <CartShippingInfo />
-      <CartAllCheckBar
+      <CartCheckBar
         isAllChecked={isAllChecked}
         onToggleAll={toggleAll}
         onDeleteSelected={deleteSelected}
