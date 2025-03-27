@@ -4,12 +4,10 @@ export default function CategoryOptionCarousel({
   items,
   title,
   queryKey,
-  selectedId,
 }: {
   items: { id: number; name: string }[];
   title?: string;
   queryKey: string;
-  selectedId: number;
 }) {
   return (
     <>

@@ -8,8 +8,6 @@ import { useSearchParams } from 'next/navigation';
 export default function ProductFilterList() {
   const searchParams = useSearchParams();
   const categoryId = Number(searchParams.get('category'));
-  const subCategoryId = Number(searchParams.get('subCategory'));
-  const seasonId = Number(searchParams.get('season'));
 
   const selectedCategory = productCategories.find(
     (category) => category.id === categoryId
@@ -26,15 +24,13 @@ export default function ProductFilterList() {
               name,
             }))}
             title="카테고리"
-            queryKey="subcategory"
-            selectedId={subCategoryId}
+            queryKey="subCategory"
           />
         )}
       <CategoryOptionCarousel
         items={seasonList.map(({ seasonId, name }) => ({ id: seasonId, name }))}
         title="시즌"
         queryKey="season"
-        selectedId={seasonId}
       />
     </>
   );

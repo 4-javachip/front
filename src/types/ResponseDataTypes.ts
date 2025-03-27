@@ -54,7 +54,7 @@ export interface ProductSubCategoryType {
 export interface ProductCategoryType {
   id: number;
   name: string;
-  subCategory: ProductSubCategoryType[];
+  subCategory?: ProductSubCategoryType[];
 }
 
 export interface CategoryMenuType {

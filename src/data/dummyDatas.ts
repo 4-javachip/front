@@ -150,11 +150,6 @@ export const productCategories: ProductCategoryType[] = [
   {
     id: 4,
     name: '커피 용품',
-    subCategory: [
-      { id: 1, name: '드리퍼' },
-      { id: 2, name: '서버' },
-      { id: 3, name: '커피 필터' },
-    ],
   },
   {
     id: 5,

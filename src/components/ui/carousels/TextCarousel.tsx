@@ -16,19 +16,21 @@ export default function TextCarousel({
 
   const searchParams = useSearchParams();
   const router = useRouter();
-  // const selectedCategoryId = Number(searchParams.get('category'));
   const selectedCategoryId = Number(searchParams.get(queryKey));
 
-  // const handleSelect = (id: number) => {
-  //   const params = new URLSearchParams(searchParams.toString());
-  //   params.set('category', String(id));
-  //   router.push(`?${params.toString()}`, { scroll: false });
-  // };
-  const handleSelect = (id: number) => {
+  const handleSelect = (id: number | null) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    // 현재 queryKey만 업데이트하고, 다른 값들은 유지
-    params.set(queryKey, String(id));
+    if (id === null) {
+      params.delete(queryKey);
+    } else {
+      params.set(queryKey, String(id));
+    }
+
+    if (queryKey === 'category') {
+      params.delete('subCategory');
+      params.delete('season');
+    }
 
     router.push(`?${params.toString()}`, { scroll: false });
   };
@@ -43,6 +45,14 @@ export default function TextCarousel({
       onMouseUp={onMouseUpOrLeave}
       onMouseLeave={onMouseUpOrLeave}
     >
+      {queryKey === 'category' && (
+        <TextCarouselItem
+          key="all"
+          category="전체"
+          isSelected={!selectedCategoryId}
+          onClick={() => handleSelect(null)}
+        />
+      )}
       {items.map((item) => (
         <TextCarouselItem
           key={item.id}
