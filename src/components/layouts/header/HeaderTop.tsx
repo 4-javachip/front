@@ -6,19 +6,20 @@ import MenuButton from '@/components/ui/buttons/MenuButton';
 import SearchButton from '@/components/ui/buttons/SearchButton';
 import { categoryMenus } from '@/data/dummyDatas';
 import React, { useState } from 'react';
+import { CommonLayout } from '../CommonLayout';
 
 export default function HeaderTop() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full bg-background z-50   items-center shadow-md">
-        <ul className="flex justify-between h-14">
+      <CommonLayout.CommonHeader>
+        <ul className="flex justify-between">
           <li className="py-3 px-4.5">
             <MenuButton onClick={() => setIsMenuOpen(true)} />
           </li>
 
-          <li className="flex items-center  ">
+          <li className="flex items-center ">
             <LogoButton />
           </li>
 
@@ -33,7 +34,7 @@ export default function HeaderTop() {
             </ul>
           </li>
         </ul>
-      </nav>
+      </CommonLayout.CommonHeader>
 
       <MenuModal
         isOpen={isMenuOpen}

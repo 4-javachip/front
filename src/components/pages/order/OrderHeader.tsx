@@ -1,17 +1,10 @@
-import BackArrowButton from '@/components/ui/buttons/BackArrowButton';
-import React from 'react';
+import { CommonLayout } from '@/components/layouts/CommonLayout';
+import PageHeader from '@/components/layouts/PageHeader';
 
-export default function OrderHeader() {
+export default function CartHeader() {
   return (
-    <header className="fixed top-0 left-0 w-full bg-background pb-4.5 pt-5 py-3 shadow-md">
-      <ul>
-        <li className="absolute left-4 top-1/2 -translate-y-1/2">
-          <BackArrowButton />
-        </li>
-        <li className="flex justify-center font-body font-semibold text-sm ">
-          <h1>결제하기</h1>
-        </li>
-      </ul>
-    </header>
+    <CommonLayout.CommonHeader>
+      <PageHeader title="결제하기" />
+    </CommonLayout.CommonHeader>
   );
 }
