@@ -12,14 +12,15 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v3
 
-    - name: Setup Node.js and pnpm
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 18
-        cache: 'pnpm'
 
-    - name: Install pnpm
-      run: npm install -g pnpm
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8 # 사용 중인 pnpm 버전에 맞게 수정
 
     - name: Install dependencies
       run: pnpm install
