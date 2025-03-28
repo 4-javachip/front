@@ -16,7 +16,7 @@ export default function MenuCategoryList({ categories, onClose }: Props) {
         <Link
           href="/products"
           onClick={onClose}
-          className="text-xs font-inter text-[#2D2D2D] flex items-center space-x-1"
+          className="text-xs font-body text-[#2D2D2D] flex items-center space-x-1"
         >
           <span>전체 상품 보기</span>
           <RightArrowIcon />

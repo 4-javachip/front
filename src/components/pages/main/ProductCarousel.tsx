@@ -14,7 +14,7 @@ export default function ProductCarousel({
 
   return (
     <section className="flex flex-col container gap-8">
-      <h2 className="font-inter font-semibold text-[1.375rem]">{title}</h2>
+      <h2 className="font-body font-semibold text-[1.375rem]">{title}</h2>
       <ul
         ref={containerRef}
         className="flex flex-row gap-4 overflow-x-auto cursor-grab active:cursor-grabbing select-none"

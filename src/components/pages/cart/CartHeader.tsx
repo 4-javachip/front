@@ -8,7 +8,7 @@ export default function CartHeader() {
         <li className="absolute left-4 top-1/2 -translate-y-1/2">
           <BackArrowButton />
         </li>
-        <li className="flex justify-center font-inter font-semibold text-sm ">
+        <li className="flex justify-center font-body font-semibold text-sm ">
           <h1>장바구니</h1>
         </li>
       </ul>

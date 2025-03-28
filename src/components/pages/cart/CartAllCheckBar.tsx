@@ -19,7 +19,7 @@ export default function CartCheckBar({
       className="flex justify-between items-center py-3 px-6 border-b border-gray-100"
       aria-label="장바구니 선택 바"
     >
-      <div className="flex items-center gap-2 font-inter font-medium text-sm">
+      <div className="flex items-center gap-2 font-body font-medium text-sm">
         <Checkbox
           checked={isAllChecked}
           onChange={onToggleAll}

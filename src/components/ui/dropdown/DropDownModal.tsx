@@ -24,7 +24,7 @@ export default function DropDownModal() {
     <>
       <button className="cursor-pointer" onClick={toggleDropdown}>
         <div className="flex flex-row gap-1.5 items-center">
-          <p className="font-inter text-xs">
+          <p className="font-body text-xs">
             {sortOptions.find((option) => option.value === currentSort)
               ?.label || '신상품순'}
           </p>
