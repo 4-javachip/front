@@ -1,4 +1,5 @@
 import ProductFilterList from '@/components/pages/products/ProductFilterList';
+import { Suspense } from 'react';
 
 export default function ShopLayout({
   children,
@@ -7,7 +8,9 @@ export default function ShopLayout({
 }>) {
   return (
     <>
-      <ProductFilterList />
+      <Suspense fallback={<div></div>}>
+        <ProductFilterList />
+      </Suspense>
       {children}
     </>
   );
