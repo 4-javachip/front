@@ -8,7 +8,7 @@ export default function LogoButton() {
         href="/"
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       >
-        <LogoIcon />
+        <LogoIcon size={40} />
       </Link>
       <h1 className="blind">Starbucks</h1>
     </>
