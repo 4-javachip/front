@@ -17,9 +17,9 @@ export default function ProductInfo({
     <section className="pt-6 font-pretendard">
       <div className="grid grid-flow-col gap-4">
         <h1 className="font-semibold text-[1.375rem] pb-4">
-          <span>{name}</span>
-          <span className="inline-flex pl-3">
-            <ProductLabelIcon isBest={true} isNew={true} />
+          <span className="pr-3">{name}</span>
+          <span className="inline-flex">
+            <ProductLabelIcon isBest={label.isBest} isNew={label.isNew} />
           </span>
         </h1>
         <div className="justify-self-end">
@@ -27,7 +27,9 @@ export default function ProductInfo({
         </div>
       </div>
 
-      <p className="font-medium text-xs text-[#8c8c8c] pb-5">{description}</p>
+      <p className="font-medium text-xs text-lightGray-10 pb-5">
+        {description}
+      </p>
 
       {salePrice && discountRate != 0 ? (
         <>

@@ -6,10 +6,7 @@ export default function ProductListPage() {
   return (
     <main>
       <ProductSortMenu />
-
-      <section className="padded py-6 flex justify-center">
-        <ProductList products={dummyProducts} />
-      </section>
+      <ProductList products={dummyProducts} />
     </main>
   );
 }

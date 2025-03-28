@@ -1,0 +1,55 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Build frontend
+      run: pnpm build
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy to EC2
+      run: |
+        ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
+          'bash ~/starbucks-app/deploy/deploy-front.sh'
+
+    - name: Discord Notify (success)
+      if: success()
+      run: |
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        -H "Content-Type: application/json" \
+        -d '{"content": "✅ Frontend Deploy 성공\n📦 Commit: ${{ github.event.head_commit.message }}\n👤 By: ${{ github.actor }}"}'
+
+    - name: Discord Notify (fail)
+      if: failure()
+      run: |
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        -H "Content-Type: application/json" \
+        -d '{"content": "❌ Frontend Deploy 실패\n📦 Commit: ${{ github.event.head_commit.message }}\n👤 By: ${{ github.actor }}"}'
