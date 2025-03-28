@@ -4,12 +4,12 @@ import { dummyCartAddresses } from '@/data/dummyDatas';
 import Link from 'next/link';
 import AddressEmptySection from '../AddressEmptySection';
 
-export default function CartShippingInfo() {
+export default function OrderShippingInfo() {
   const defaultAddress = dummyCartAddresses.find((addr) => addr.defaultAddress);
 
   return (
     <section
-      className="w-full  bg-lightGray-2  border-lightGray-6 px-6 text-sm py-6"
+      className="w-full bg-[#F7F7F7] border-lightGray-6 px-6 text-sm py-6"
       aria-label="배송지 정보"
     >
       {defaultAddress ? (

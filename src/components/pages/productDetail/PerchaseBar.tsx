@@ -11,7 +11,7 @@ export default function PerchaseBar() {
       <CartIcon />
       <button
         className="bg-green text-background rounded-[3.125rem] py-3 w-full
-      font-inter font-semibold text-[0.8125rem] cursor-pointer"
+      font-body font-semibold text-[0.8125rem] cursor-pointer"
       >
         구매하기
       </button>

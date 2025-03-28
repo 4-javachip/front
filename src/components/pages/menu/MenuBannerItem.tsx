@@ -22,7 +22,7 @@ export default function MenuBannerItem({
         className="flex justify-between items-center w-full py-3"
       >
         <div className="flex flex-col gap-1">
-          <strong className="font-inter font-bold text-sm text-gray-900">
+          <strong className="font-body font-bold text-sm text-gray-900">
             {title}
           </strong>
           <p className="text-xs text-gray-500">{description}</p>
