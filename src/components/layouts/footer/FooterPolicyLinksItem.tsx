@@ -18,7 +18,7 @@ export default function FooterPolicyLinkItem({
         {label}
       </Link>
       {showDivider && (
-        <span className="text-[#CDCDCD]" aria-hidden="true">
+        <span className="text-lightGray-8" aria-hidden="true">
           |
         </span>
       )}

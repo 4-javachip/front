@@ -12,7 +12,7 @@ export default function Footer() {
           <FooterLogoIcon />
         </div>
 
-        <div className="text-start text-xs bg-white px-4 text-[#999999]">
+        <div className="text-start text-xs bg-white px-4 text-lightGray-7">
           &copy; {new Date().getFullYear()} Starbucks Coffee Company. All Rights
           Reserved. Hosting By (주)신세계아이앤씨
           <br />

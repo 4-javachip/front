@@ -126,7 +126,7 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
             key={index}
             className={`w-[0.59375rem] h-[0.59375rem] rounded-full transition-colors duration-300
               cursor-pointer 
-              ${currentIndex === index ? 'bg-[#212121]' : 'bg-white'}`}
+              ${currentIndex === index ? 'bg-gray-2' : 'bg-white'}`}
             onClick={() => handleDotClick(index)}
           />
         ))}
