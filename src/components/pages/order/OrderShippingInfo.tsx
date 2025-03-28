@@ -4,7 +4,7 @@ import { dummyCartAddresses } from '@/data/dummyDatas';
 import Link from 'next/link';
 import AddressEmptySection from '../AddressEmptySection';
 
-export default function CartShippingInfo() {
+export default function OrderShippingInfo() {
   const defaultAddress = dummyCartAddresses.find((addr) => addr.defaultAddress);
 
   return (

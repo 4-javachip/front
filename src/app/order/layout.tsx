@@ -1,4 +1,5 @@
-import CartHeader from '@/components/pages/cart/CartHeader';
+import OrderHeader from '@/components/pages/order/OrderHeader';
+import React, { Children } from 'react';
 export default function CartLayout({
   children,
 }: Readonly<{
@@ -6,7 +7,7 @@ export default function CartLayout({
 }>) {
   return (
     <>
-      <CartHeader />
+      <OrderHeader />
       <div className="pt-15"> {children}</div>
     </>
   );
