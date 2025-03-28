@@ -4,19 +4,21 @@ import { sortOptions } from '@/data/dummyDatas';
 import DropDownIcon from '../icons/DropDownIcon';
 import DropDownItem from './DropDownItem';
 import { useSearchParams } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 export default function DropDownModal() {
   const searchParams = useSearchParams();
   const currentSort = searchParams.get('sort') || 'newest';
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const iconRef = useRef<SVGSVGElement>(null);
 
   const toggleDropdown = () => {
-    setIsOpen((prev) => !prev);
     if (dropdownRef.current) {
       dropdownRef.current.classList.toggle('hidden');
+    }
+    if (iconRef.current) {
+      iconRef.current.classList.toggle('rotate-180');
     }
   };
 
@@ -29,15 +31,15 @@ export default function DropDownModal() {
               ?.label || '신상품순'}
           </p>
           <DropDownIcon
-            className={`transform transition-transform duration-300 ${
-              isOpen ? 'rotate-180' : ''
-            }`}
+            ref={iconRef}
+            className="transform transition-transform duration-300"
           />
         </div>
         <div
           ref={dropdownRef}
-          className="absolute w-28 z-50 right-0 mx-6
-            bg-background shadow-[0_0_0.5rem_rgba(0,0,0,0.08)] rounded-md mt-2"
+          className="hidden absolute w-28 z-50 right-0 mx-6
+            bg-background shadow-[0_0_0.5rem_rgba(0,0,0,0.08)] rounded-md mt-2
+            overflow-hidden"
         >
           <ul>
             {sortOptions.map((option) => (
