@@ -28,6 +28,13 @@
   --lightGray-4: #e0e0e0;
   --lightGray-5: #e2e2e2;
   --lightGray-6: #7f7f7f;
+  --lightGray-7: #999999;
+  --lightGray-8: #cdcdcd;
+  --lightGray-9: #dadada;
+  --lightGray-10: #8c8c8c;
+  --lightGray-11: #7e7e7e;
+  --gray-1: #2d2d2d;
+  --gray-2: #212121;
 }
 
 @theme inline {
@@ -44,12 +51,22 @@
   --color-lightGray-4: var(--lightGray-4);
   --color-lightGray-5: var(--lightGray-5);
   --color-lightGray-6: var(--lightGray-6);
+  --color-lightGray-7: var(--lightGray-7);
+  --color-lightGray-8: var(--lightGray-8);
+  --color-lightGray-9: var(--lightGray-9);
+  --color-lightGray-10: var(--lightGray-10);
+  --color-lightGray-11: var(--lightGray-11);
+  --color-gray-1: var(--gray-1);
+  --color-gray-2: var(--gray-2);
 
   --font-inter: 'Inter';
   --font-sd-gothic: 'SDGothic';
   --font-pretendard: 'Pretendard';
 
+  --color-primary: var(--green);
+
   --font-body: 'NotoSansKR';
+  --font-sub: 'SDGothic';
 }
 
 @media (prefers-color-scheme: dark) {
