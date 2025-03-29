@@ -1,15 +1,9 @@
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 
-export default function ShopLayout({
+export default function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <CommonLayout.SectionInnerPadding className="pt-32">
-        {children}
-      </CommonLayout.SectionInnerPadding>
-    </>
-  );
+  return <>{children}</>;
 }

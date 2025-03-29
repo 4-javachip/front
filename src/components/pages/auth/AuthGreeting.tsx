@@ -3,7 +3,7 @@ import { LogoIcon } from '@/components/ui/icons/LogoIcon';
 
 export default function AuthGreeting() {
   return (
-    <>
+    <section className="padded">
       <LogoIcon size={62} />
       <div
         className="font-body font-semibold text-2xl
@@ -18,6 +18,6 @@ export default function AuthGreeting() {
           회원 서비스 이용을 위해 로그인 해주세요.
         </p>
       </div>
-    </>
+    </section>
   );
 }
