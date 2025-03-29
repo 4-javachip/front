@@ -1,11 +1,11 @@
 'use client';
 
-import { dummyCartAddresses } from '@/data/dummyDatas';
+import { dummyAddresses } from '@/data/dummyDatas';
 import Link from 'next/link';
 import AddressEmptySection from '../AddressEmptySection';
 
 export default function CartShippingInfo() {
-  const defaultAddress = dummyCartAddresses.find((addr) => addr.defaultAddress);
+  const defaultAddress = dummyAddresses.find((addr) => addr.defaultAddress);
 
   return (
     <section
