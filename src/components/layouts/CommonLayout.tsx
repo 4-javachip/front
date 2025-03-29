@@ -5,7 +5,7 @@ function SectionInnerPadding({
   children,
   className,
 }: Readonly<{ children: React.ReactNode; className?: string }>) {
-  return <section className={cn('px-4 py-10', className)}>{children}</section>;
+  return <section className={cn('px-6', className)}>{children}</section>;
 }
 
 function SectionNoPadding({
