@@ -31,10 +31,7 @@ export default function CartItem({
   const formattedTotal = (productPrice * productQuantity).toLocaleString();
 
   return (
-    <article
-      className="flex items-start gap-3 py-3 px-6 border-b border-gray-200"
-      aria-label={`${productName} 장바구니 항목`}
-    >
+    <article className="flex items-start gap-3 py-3 px-6 border-b border-gray-200">
       <Checkbox
         checked={checked}
         onChange={() => onToggleCheck(id)}

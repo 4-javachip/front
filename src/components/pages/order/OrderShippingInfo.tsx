@@ -9,10 +9,7 @@ export default function OrderShippingInfo() {
   const defaultAddress = dummyAddresses.find((addr) => addr.defaultAddress);
 
   return (
-    <main
-      className="w-full bg-background border-lightGray-6 text-sm pt-6"
-      aria-label="배송정보"
-    >
+    <main className="w-full bg-background border-lightGray-6 text-sm pt-6">
       <h2 className="w-full  text-left text-lg font-pretendard font-semibold text-foreground mb-4 ">
         배송정보
       </h2>
