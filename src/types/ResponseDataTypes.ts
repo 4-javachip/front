@@ -1,3 +1,11 @@
+export interface commonResponseType<T> {
+  httpStatus: string;
+  isSuccess: boolean;
+  message: string;
+  code: number;
+  result: T;
+}
+
 export interface BannerSlideImageType {
   id: number;
   imageUrl: string;
@@ -132,4 +140,16 @@ export interface ProductSortOptionType {
 export interface PolicyLinkType {
   href: string;
   label: string;
+}
+
+export enum AgreementTypeEnum {
+  SIGN_UP = 0,
+  SHIPPING_ADDRESS = 1,
+}
+
+export interface AgreementType {
+  name: string;
+  description: string;
+  type: AgreementTypeEnum;
+  required: boolean;
 }
