@@ -93,7 +93,7 @@ export interface CartProductType {
   id: number; //
   userUuid: string;
   cartUuid: string;
-  discount?: number;
+  discountRate?: number;
   productQuantity: number;
   checked: boolean;
   productOptionListUuid: string;
