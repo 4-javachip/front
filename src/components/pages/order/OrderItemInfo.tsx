@@ -9,14 +9,13 @@ export default function OrderItemInfo({ item }: { item: CartProductType }) {
 
   return (
     <div className="flex flex-col justify-center">
-      <p className="text-sm font-medium text-black">{item.productName}</p>
-      <p className="text-sm text-gray-600 mt-1">
+      <p className="text-sm font-pretendard text-lightGray-1 mt-2">
         주문수량 : {item.productQuantity}개
       </p>
       {hasDiscount ? (
-        <p className="text-base font-semibold text-black mt-1">
+        <p className="text-base font-pretendard font-medium text-black mt-2">
           {discountedPrice.toLocaleString()}원
-          <span className="ml-2 text-gray-400 line-through text-sm font-normal">
+          <span className=" text-lightGray-1  text-sm font-normal">
             {item.productPrice.toLocaleString()}원
           </span>
         </p>

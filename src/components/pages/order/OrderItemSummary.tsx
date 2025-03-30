@@ -14,7 +14,7 @@ export default function OrderProductSummary({
   );
 
   return (
-    <span className="text-sm text-foreground font-medium">
+    <span className="text-sm text-foreground font-medium font-pretendard">
       | 상품 {totalQuantity}개
     </span>
   );

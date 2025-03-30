@@ -16,9 +16,9 @@ export default function OrderInfo({ cartItems }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className="pt-4">
+    <section>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="w-full  text-left text-lg font-pretendard font-semibold text-foreground mb-4 ">
+        <h2 className="text-lg font-pretendard font-semibold flex items-center gap-2">
           주문내역
           <OrderItemSummary cartItems={dummyCartItems} />
         </h2>

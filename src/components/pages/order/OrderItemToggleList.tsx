@@ -12,16 +12,17 @@ export default function OrderItemToggleList({ cartItems, isOpen }: Props) {
   const restItems = cartItems.slice(1);
 
   return (
-    <section className="pt-4">
-      <OrderItem item={firstItem} isFirst={true} />
+    <section>
+      <OrderItem item={firstItem} isFirst={true} isOpen={isOpen} />
 
+      {/* 추가 상품들 */}
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-[500px] mt-3' : 'max-h-0'
+          isOpen ? 'max-h-[500px]' : 'max-h-0'
         }`}
       >
         {restItems.map((item) => (
-          <OrderItem key={item.cartUuid} item={item} />
+          <OrderItem key={item.cartUuid} item={item} isOpen={isOpen} />
         ))}
       </div>
     </section>
