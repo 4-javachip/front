@@ -3,10 +3,10 @@ import SignInForm from '@/components/pages/auth/SignInForm';
 
 export default function SignInPage() {
   return (
-    <main className="pt-32">
-      <AuthGreeting />
+    <>
+      <AuthGreeting type="signIn" />
 
       <SignInForm />
-    </main>
+    </>
   );
 }
