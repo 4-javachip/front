@@ -18,7 +18,7 @@ export default function OrderItemToggleList({ cartItems, isOpen }: Props) {
       {/* 추가 상품들 */}
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-[500px]' : 'max-h-0'
+          isOpen ? 'max-h-[31.25rem]' : 'max-h-0'
         }`}
       >
         {restItems.map((item) => (

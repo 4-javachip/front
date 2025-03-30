@@ -26,23 +26,19 @@ export default function OrderShippingInfo() {
         </li>
       </ul>
       {defaultAddress ? (
-        <section className="flex justify-between items-start">
-          <address className="not-italic text-black font-body ">
-            <p className=" font-semibold mb-1">
+        <address className="flex justify-between items-start">
+          <ul className="not-italic text-foreground font-pretendard">
+            <li className="font-normal  mb-1">
               {defaultAddress.recipientName} ({defaultAddress.addressName})
-            </p>
-            <ul className="text-gray-600 pt-2 ">
-              <li>
-                ({defaultAddress.zipCode}) {defaultAddress.baseAddress}
-                {defaultAddress.detailAddress &&
-                  ` ${defaultAddress.detailAddress}`}
-              </li>
-              <li className="text-foreground pt-2">
-                {defaultAddress.phoneNumber}
-              </li>
-            </ul>
-          </address>
-        </section>
+            </li>
+            <li>
+              ({defaultAddress.zipCode}) {defaultAddress.baseAddress}
+              {defaultAddress.detailAddress &&
+                ` ${defaultAddress.detailAddress}`}
+            </li>
+            <li className="font-medium pt-2">{defaultAddress.phoneNumber}</li>
+          </ul>
+        </address>
       ) : (
         <OrderAddressEmptySection />
       )}
