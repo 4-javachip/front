@@ -14,15 +14,17 @@ export default function SignInForm() {
 
         <section className="w-full flex justify-center items-center pb-20">
           <div className="flex [&>*:not(:first-child)]:before:content-['|'] [&>*:not(:first-child)]:before:mx-2">
-            <AuthLinkItem text="아이디 찾기" link="find-id" />
-            <AuthLinkItem text="비밀번호 찾기" link="find-password" />
-            <AuthLinkItem text="회원가입" link="sign-up" />
+            <AuthLinkItem text="아이디 찾기" link="/find-id" />
+            <AuthLinkItem text="비밀번호 찾기" link="/find-password" />
+            <AuthLinkItem text="회원가입" link="/terms-agreement" />
           </div>
         </section>
       </div>
 
       <CommonLayout.FixedButtonBgLayout>
-        <CommonButton onClick={() => {}}>로그인하기</CommonButton>
+        <CommonButton onClick={() => {}} isEnabled={true}>
+          로그인하기
+        </CommonButton>
       </CommonLayout.FixedButtonBgLayout>
     </form>
   );

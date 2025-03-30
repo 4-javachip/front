@@ -8,7 +8,11 @@ export default function PerchaseBar() {
   return (
     <CommonLayout.FixedButtonBgLayout>
       <CartIcon />
-      <CommonButton className="font-semibold" onClick={() => {}}>
+      <CommonButton
+        className="font-semibold"
+        onClick={() => {}}
+        isEnabled={true}
+      >
         구매하기
       </CommonButton>
     </CommonLayout.FixedButtonBgLayout>

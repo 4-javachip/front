@@ -7,14 +7,21 @@ import CommonButton from './CommonButton';
 export default function ConfirmNextButton({
   text,
   href,
+  isEnabled = () => false,
 }: {
   text?: string;
   href: string;
+  isEnabled?: () => boolean;
 }) {
   const router = useRouter();
   return (
     <CommonLayout.FixedButtonBgLayout>
-      <CommonButton onClick={() => router.push(href)}>{text}</CommonButton>
+      <CommonButton
+        onClick={() => router.push(href)}
+        isEnabled={isEnabled() ? true : false}
+      >
+        {text}
+      </CommonButton>
     </CommonLayout.FixedButtonBgLayout>
   );
 }
