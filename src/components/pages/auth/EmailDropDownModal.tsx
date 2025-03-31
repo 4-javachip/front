@@ -27,7 +27,7 @@ export default function EmailDomainDropdown() {
     <div className="w-full relative flex items-center justify-between">
       <button
         type="button"
-        className="w-full flex items-center text-sm bg-transparent focus:outline-none"
+        className="w-full flex items-center bg-transparent focus:outline-none"
         onClick={toggleDropdown}
       >
         {isCustom ? (
@@ -35,7 +35,7 @@ export default function EmailDomainDropdown() {
             ref={inputRef}
             type="text"
             name="customEmailDomain"
-            className="w-full text-sm text-foreground bg-transparent focus:outline-none border-none pr-6"
+            className="w-full text-foreground bg-transparent focus:outline-none border-none pr-6"
             placeholder="직접 입력"
             autoFocus
           />
@@ -45,6 +45,7 @@ export default function EmailDomainDropdown() {
         <DropDownIcon
           ref={iconRef}
           className="ml-1 transform transition-transform duration-300"
+          size={15}
         />
       </button>
       {/* 드롭다운 모달 */}
