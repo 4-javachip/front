@@ -36,7 +36,6 @@ export default function CartItem({
         checked={checked}
         onChange={() => onToggleCheck(id)}
         className="mt-2"
-        ariaLabel={`${productName} 선택`}
       />
 
       <figure>
@@ -50,7 +49,9 @@ export default function CartItem({
       </figure>
       <section className="flex-1">
         <ul className="flex justify-between items-start mb-2">
-          <li className="text-sm font-medium text-foreground">{productName}</li>
+          <li className="text-sm font-pretendard font-semibold text-foreground">
+            {productName}
+          </li>
           <li>
             <DeleteButton onDelete={() => onDelete(id)} />
           </li>
