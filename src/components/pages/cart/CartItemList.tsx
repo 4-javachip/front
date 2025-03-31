@@ -1,5 +1,6 @@
 import { CartProductType } from '@/types/ResponseDataTypes';
 import CartItem from './CartItem';
+import { dummyCartItems } from '@/data/dummyDatas';
 
 interface Props {
   items: CartProductType[];
@@ -16,9 +17,14 @@ export default function CartItemList({
   onDecrease,
   onDelete,
 }: Props) {
+  const userCartUuid = dummyCartItems[0].cartUuid;
+
+  // 로그인된 유저의 장바구니 상품만 필터링
+  const filteredItems = items.filter((item) => item.cartUuid === userCartUuid);
+
   return (
     <section>
-      {items.map((item) => (
+      {filteredItems.map((item) => (
         <CartItem
           key={item.id}
           cartItem={item}

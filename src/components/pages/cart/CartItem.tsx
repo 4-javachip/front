@@ -28,8 +28,6 @@ export default function CartItem({
     checked,
   } = cartItem;
 
-  const formattedTotal = (productPrice * productQuantity).toLocaleString();
-
   return (
     <article className="flex items-start gap-3 py-5.5 border-b border-lightGray-8 px-6">
       <Checkbox
@@ -65,10 +63,26 @@ export default function CartItem({
               onDecrease={() => onDecrease(id)}
             />
           </li>
-          <li>
-            <span className="font-medium text-foreground">
-              {formattedTotal}원
-            </span>
+          <li className="text-right font-inter">
+            {cartItem.discountRate && cartItem.discountRate > 0 ? (
+              <div className="flex flex-col items-end">
+                <span className="text-lightGray-7 line-through text-sm">
+                  {(productPrice * productQuantity).toLocaleString()}원
+                </span>
+                <span className="text-foreground font-semibold">
+                  {Math.floor(
+                    productPrice *
+                      productQuantity *
+                      (1 - cartItem.discountRate / 100)
+                  ).toLocaleString()}
+                  원
+                </span>
+              </div>
+            ) : (
+              <span className="font-semibold text-foreground">
+                {(productPrice * productQuantity).toLocaleString()}원
+              </span>
+            )}
           </li>
         </ul>
       </section>

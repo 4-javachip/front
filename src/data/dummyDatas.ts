@@ -408,7 +408,7 @@ export const dummyCartItems: CartProductType[] = [
     id: 3,
     userUuid: 'user-uuid-123',
     cartUuid: 'cart-uuid-abf',
-    discountRate: 20,
+    discountRate: 0,
     productQuantity: 1,
     checked: false,
     productOptionListUuid: 'option-uuid-456',
