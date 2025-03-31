@@ -5,7 +5,7 @@ export default function CustomCheckBox({
 }: {
   label: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  checked?: boolean;
+  checked: boolean;
 }) {
   return (
     <div className="flex items-center gap-2">
