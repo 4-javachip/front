@@ -8,7 +8,7 @@ interface CartAllCheckBarProps {
   onDeleteAll?: () => void;
 }
 
-export default function CartCheckBar({
+export default function CartAllCheckBar({
   isAllChecked,
   onToggleAll,
   onDeleteSelected,

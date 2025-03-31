@@ -374,9 +374,8 @@ export const dummyAddresses: AddressType[] = [
 
 export const dummyCartItems: CartProductType[] = [
   {
-    id: 1,
     userUuid: 'user-uuid-123',
-    cartUuid: 'cart-uuid-abc',
+
     discountRate: 20,
     productQuantity: 2,
     checked: false,
@@ -384,40 +383,29 @@ export const dummyCartItems: CartProductType[] = [
     productName: '일이삼사오육칠팔구십일이삼사오육칠팔구십',
     productImageUrl: 'https://dummyimage.com/1000',
     productPrice: 25000,
-    selectedOptions: {
-      색상: '블랙',
-    },
   },
 
   {
-    id: 2,
     userUuid: 'user-uuid-123',
-    cartUuid: 'cart-uuid-abc',
+
     discountRate: 10,
     productQuantity: 2,
     checked: false,
-    productOptionListUuid: 'option-uuid-456',
+    productOptionListUuid: 'option-uuid-457',
     productName: '텀블러 500ml',
     productImageUrl: 'https://picsum.photos/id/237/140',
     productPrice: 25000,
-    selectedOptions: {
-      색상: '블랙',
-    },
   },
   {
-    id: 3,
-    userUuid: 'user-uuid-123',
-    cartUuid: 'cart-uuid-abf',
+    userUuid: 'user-uuid-121',
+
     discountRate: 0,
     productQuantity: 1,
     checked: false,
-    productOptionListUuid: 'option-uuid-456',
+    productOptionListUuid: 'option-uuid-458',
     productName: '일이삼사오육칠팔구십일이삼사오육칠팔구십',
     productImageUrl: 'https://dummyimage.com/1000',
     productPrice: 40000,
-    selectedOptions: {
-      색상: '블랙',
-    },
   },
 ];
 

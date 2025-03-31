@@ -6,10 +6,10 @@ import Image from 'next/image';
 
 interface CartItemProps {
   cartItem: CartProductType;
-  onToggleCheck: (id: number) => void;
-  onIncrease: (id: number) => void;
-  onDecrease: (id: number) => void;
-  onDelete: (id: number) => void;
+  onToggleCheck: (productOptionListUuid: string) => void;
+  onIncrease: (productOptionListUuid: string) => void;
+  onDecrease: (productOptionListUuid: string) => void;
+  onDelete: (productOptionListUuid: string) => void;
 }
 
 export default function CartItem({
@@ -20,7 +20,7 @@ export default function CartItem({
   onDelete,
 }: CartItemProps) {
   const {
-    id,
+    productOptionListUuid,
     productImageUrl,
     productName,
     productQuantity = 1,
@@ -32,7 +32,7 @@ export default function CartItem({
     <article className="flex items-start gap-3 py-5.5 border-b border-lightGray-8 px-6">
       <Checkbox
         checked={checked}
-        onChange={() => onToggleCheck(id)}
+        onChange={() => onToggleCheck(productOptionListUuid)}
         className="mt-2"
       />
 
@@ -51,7 +51,7 @@ export default function CartItem({
             {productName}
           </li>
           <li>
-            <DeleteButton onDelete={() => onDelete(id)} />
+            <DeleteButton onDelete={() => onDelete(productOptionListUuid)} />
           </li>
         </ul>
 
@@ -59,8 +59,8 @@ export default function CartItem({
           <li>
             <QuantityControl
               quantity={productQuantity}
-              onIncrease={() => onIncrease(id)}
-              onDecrease={() => onDecrease(id)}
+              onIncrease={() => onIncrease(productOptionListUuid)}
+              onDecrease={() => onDecrease(productOptionListUuid)}
             />
           </li>
           <li className="text-right font-inter">

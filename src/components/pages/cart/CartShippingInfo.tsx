@@ -8,12 +8,14 @@ export default function CartShippingInfo() {
   const defaultAddress = dummyAddresses.find((addr) => addr.defaultAddress);
 
   return (
-    <section className="w-full  bg-lightGray-2  border-lightGray-6 px-6 text-sm py-6">
+    <section className="w-full  bg-lightGray-2  border-lightGray-6 px-6 text-sm py-6 font-inter">
       {defaultAddress ? (
-        <section className="flex justify-between items-start">
-          <address className="not-italic text-black leading-snug">
-            <p className="font-medium mb-1">{defaultAddress.addressName}</p>
-            <p className="text-gray-600">
+        <section className="flex justify-between items-start ">
+          <address className="not-italic text-foreground leading-snug">
+            <p className="font-semibold mb-1">
+              {defaultAddress.recipientName} ({defaultAddress.addressName})
+            </p>
+            <p className=" font-medium">
               ({defaultAddress.zipCode}) {defaultAddress.baseAddress}
               {defaultAddress.detailAddress &&
                 ` ${defaultAddress.detailAddress}`}
@@ -22,7 +24,7 @@ export default function CartShippingInfo() {
 
           <Link
             href="/address"
-            className="text-brown font-medium whitespace-nowrap"
+            className="text-brown font-medium text-xs whitespace-nowrap"
           >
             배송지 변경
           </Link>

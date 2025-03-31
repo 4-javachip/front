@@ -9,54 +9,70 @@ export default function useCartHandlers() {
     dummyCartItems ?? []
   );
 
-  const toggleCheck = (id: number) => {
+  // 체크 토글
+  const toggleCheck = (productOptionListUuid: string) => {
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, checked: !item.checked } : item
+        item.productOptionListUuid === productOptionListUuid
+          ? { ...item, checked: !item.checked }
+          : item
       )
     );
   };
+
+  // 전체 체크 여부
   const isAllChecked =
     cartItems.length > 0 && cartItems.every((item) => item.checked);
 
+  // 전체 체크 토글
   const toggleAll = () => {
     const shouldCheck = !isAllChecked;
-
     setCartItems((prev) =>
       prev.map((item) => ({
         ...item,
-        checked: shouldCheck, // 전체 true 또는 false 로 바꿔줌
+        checked: shouldCheck,
       }))
     );
   };
-  const increase = (id: number) => {
+
+  // 수량 증가
+  const increase = (productOptionListUuid: string) => {
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id
+        item.productOptionListUuid === productOptionListUuid
           ? { ...item, productQuantity: item.productQuantity + 1 }
           : item
       )
     );
   };
 
-  const decrease = (id: number) => {
+  // 수량 감소
+  const decrease = (productOptionListUuid: string) => {
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id && item.productQuantity > 1
+        item.productOptionListUuid === productOptionListUuid &&
+        item.productQuantity > 1
           ? { ...item, productQuantity: item.productQuantity - 1 }
           : item
       )
     );
   };
 
-  const deleteItem = (id: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  // 항목 삭제
+  const deleteItem = (productOptionListUuid: string) => {
+    setCartItems((prev) =>
+      prev.filter(
+        (item) => item.productOptionListUuid !== productOptionListUuid
+      )
+    );
   };
 
+  // 선택 항목 삭제
   const deleteSelected = () => {
     setCartItems((prev) => prev.filter((item) => !item.checked));
   };
 
+  // 전체 삭제
   const deleteAll = () => {
     setCartItems([]);
   };
