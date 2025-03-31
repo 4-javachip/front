@@ -31,7 +31,7 @@ export default function CartItem({
   const formattedTotal = (productPrice * productQuantity).toLocaleString();
 
   return (
-    <article className="flex items-start gap-3 py-3 px-6 border-b border-gray-200">
+    <article className="flex items-start gap-3 py-5.5 border-b border-lightGray-8 px-6">
       <Checkbox
         checked={checked}
         onChange={() => onToggleCheck(id)}
@@ -45,12 +45,12 @@ export default function CartItem({
           alt={productName}
           width={80}
           height={80}
-          className="w-20 h-20 rounded-md object-cover"
+          className="w-20 h-20 rounded object-cover"
         />
       </figure>
       <section className="flex-1">
         <ul className="flex justify-between items-start mb-2">
-          <li className="text-sm font-medium text-black">{productName}</li>
+          <li className="text-sm font-medium text-foreground">{productName}</li>
           <li>
             <DeleteButton onDelete={() => onDelete(id)} />
           </li>
@@ -65,7 +65,9 @@ export default function CartItem({
             />
           </li>
           <li>
-            <span className="font-medium text-black">{formattedTotal}원</span>
+            <span className="font-medium text-foreground">
+              {formattedTotal}원
+            </span>
           </li>
         </ul>
       </section>
