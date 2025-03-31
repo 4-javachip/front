@@ -13,9 +13,9 @@ export default function OrderItemInfo({ item }: { item: CartProductType }) {
         주문수량 : {item.productQuantity}개
       </p>
       {hasDiscount ? (
-        <p className="text-base font-pretendard font-medium text-black mt-2">
+        <p className="text-base font-pretendard font-medium text-foreground mt-2">
           {discountedPrice.toLocaleString()}원
-          <span className=" text-lightGray-1  text-sm font-normal">
+          <span className=" text-lightGray-7 line-through text-sm font-normal">
             {item.productPrice.toLocaleString()}원
           </span>
         </p>

@@ -6,10 +6,10 @@ import Image from 'next/image';
 
 interface CartItemProps {
   cartItem: CartProductType;
-  onToggleCheck: (id: number) => void;
-  onIncrease: (id: number) => void;
-  onDecrease: (id: number) => void;
-  onDelete: (id: number) => void;
+  onToggleCheck: (productOptionListUuid: string) => void;
+  onIncrease: (productOptionListUuid: string) => void;
+  onDecrease: (productOptionListUuid: string) => void;
+  onDelete: (productOptionListUuid: string) => void;
 }
 
 export default function CartItem({
@@ -20,7 +20,7 @@ export default function CartItem({
   onDelete,
 }: CartItemProps) {
   const {
-    id,
+    productOptionListUuid,
     productImageUrl,
     productName,
     productQuantity = 1,
@@ -28,15 +28,12 @@ export default function CartItem({
     checked,
   } = cartItem;
 
-  const formattedTotal = (productPrice * productQuantity).toLocaleString();
-
   return (
-    <article className="flex items-start gap-3 py-3 px-6 border-b border-gray-200">
+    <article className="flex items-start gap-3 py-5.5 border-b border-lightGray-8 px-6">
       <Checkbox
         checked={checked}
-        onChange={() => onToggleCheck(id)}
+        onChange={() => onToggleCheck(productOptionListUuid)}
         className="mt-2"
-        ariaLabel={`${productName} 선택`}
       />
 
       <figure>
@@ -45,14 +42,16 @@ export default function CartItem({
           alt={productName}
           width={80}
           height={80}
-          className="w-20 h-20 rounded-md object-cover"
+          className="w-20 h-20 rounded object-cover"
         />
       </figure>
       <section className="flex-1">
         <ul className="flex justify-between items-start mb-2">
-          <li className="text-sm font-medium text-black">{productName}</li>
+          <li className="text-sm font-pretendard font-semibold text-foreground">
+            {productName}
+          </li>
           <li>
-            <DeleteButton onDelete={() => onDelete(id)} />
+            <DeleteButton onDelete={() => onDelete(productOptionListUuid)} />
           </li>
         </ul>
 
@@ -60,12 +59,30 @@ export default function CartItem({
           <li>
             <QuantityControl
               quantity={productQuantity}
-              onIncrease={() => onIncrease(id)}
-              onDecrease={() => onDecrease(id)}
+              onIncrease={() => onIncrease(productOptionListUuid)}
+              onDecrease={() => onDecrease(productOptionListUuid)}
             />
           </li>
-          <li>
-            <span className="font-medium text-black">{formattedTotal}원</span>
+          <li className="text-right font-body">
+            {cartItem.discountRate && cartItem.discountRate > 0 ? (
+              <div className="flex flex-col items-end">
+                <span className="text-lightGray-7 line-through text-sm">
+                  {(productPrice * productQuantity).toLocaleString()}원
+                </span>
+                <span className="text-foreground font-semibold">
+                  {Math.floor(
+                    productPrice *
+                      productQuantity *
+                      (1 - cartItem.discountRate / 100)
+                  ).toLocaleString()}
+                  원
+                </span>
+              </div>
+            ) : (
+              <span className="font-semibold text-foreground">
+                {(productPrice * productQuantity).toLocaleString()}원
+              </span>
+            )}
           </li>
         </ul>
       </section>

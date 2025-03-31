@@ -8,14 +8,14 @@ interface CartAllCheckBarProps {
   onDeleteAll?: () => void;
 }
 
-export default function CartCheckBar({
+export default function CartAllCheckBar({
   isAllChecked,
   onToggleAll,
   onDeleteSelected,
   onDeleteAll,
 }: CartAllCheckBarProps) {
   return (
-    <section className="flex justify-between items-center py-3 px-6 border-b border-gray-100">
+    <section className="flex justify-between items-center py-4 px-6 border-b border-lightGray-8">
       <div className="flex items-center gap-2 font-body font-medium text-sm">
         <Checkbox
           checked={isAllChecked}

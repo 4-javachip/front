@@ -98,9 +98,7 @@ export interface AddressType {
 
 //장바구니상품
 export interface CartProductType {
-  id: number; //
   userUuid: string;
-  cartUuid: string;
   discountRate?: number;
   productQuantity: number;
   checked: boolean;
@@ -109,7 +107,6 @@ export interface CartProductType {
   productName: string;
   productImageUrl: string;
   productPrice: number;
-  selectedOptions: Record<string, string>;
 }
 
 //장바구니 결제정보
