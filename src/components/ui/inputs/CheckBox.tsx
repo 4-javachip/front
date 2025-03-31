@@ -15,7 +15,12 @@ export default function Checkbox({
       type="checkbox"
       checked={checked}
       onChange={onChange}
-      className={`accent-green-600 ${className}`}
+      className={`terms-checkbox
+      w-5 h-5 appearance-none border border-green rounded
+    flex items-center justify-center 
+    checked:before:content-['✔'] checked:before:text-white checked:before:text-sm
+    checked:bg-green checked:border-transparent
+    active:border-black${className}`}
     />
   );
 }
