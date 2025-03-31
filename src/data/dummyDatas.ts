@@ -1,6 +1,5 @@
 import {
   AddressType,
-  CartAddressType,
   BannerSlideImageType,
   CartProductType,
   CategoryMenuType,
@@ -373,36 +372,17 @@ export const dummyAddresses: AddressType[] = [
   },
 ];
 
-export const dummyCartAddresses: CartAddressType[] = [
-  {
-    id: 1,
-    addressName: '우리집',
-    baseAddress: '서울특별시 강남구 테헤란로 123',
-    zipCode: '06236',
-    detailAddress: '101동 1001호',
-    defaultAddress: true,
-  },
-  {
-    id: 2,
-    addressName: '회사',
-    baseAddress: '서울특별시 종로구 세종대로 1',
-    zipCode: '03154',
-    detailAddress: '10층 스타벅스 본사',
-    defaultAddress: false,
-  },
-];
-
 export const dummyCartItems: CartProductType[] = [
   {
     id: 1,
     userUuid: 'user-uuid-123',
     cartUuid: 'cart-uuid-abc',
-    discount: 10000,
+    discountRate: 20,
     productQuantity: 2,
     checked: false,
     productOptionListUuid: 'option-uuid-456',
-    productName: '텀블러 500ml',
-    productImageUrl: 'https://picsum.photos/id/237/140',
+    productName: '일이삼사오육칠팔구십일이삼사오육칠팔구십',
+    productImageUrl: 'https://dummyimage.com/1000',
     productPrice: 25000,
     selectedOptions: {
       색상: '블랙',
@@ -413,13 +393,28 @@ export const dummyCartItems: CartProductType[] = [
     id: 2,
     userUuid: 'user-uuid-123',
     cartUuid: 'cart-uuid-abc',
-    discount: 20000,
+    discountRate: 10,
     productQuantity: 2,
     checked: false,
     productOptionListUuid: 'option-uuid-456',
     productName: '텀블러 500ml',
     productImageUrl: 'https://picsum.photos/id/237/140',
     productPrice: 25000,
+    selectedOptions: {
+      색상: '블랙',
+    },
+  },
+  {
+    id: 3,
+    userUuid: 'user-uuid-123',
+    cartUuid: 'cart-uuid-abf',
+    discountRate: 20,
+    productQuantity: 1,
+    checked: false,
+    productOptionListUuid: 'option-uuid-456',
+    productName: '일이삼사오육칠팔구십일이삼사오육칠팔구십',
+    productImageUrl: 'https://dummyimage.com/1000',
+    productPrice: 40000,
     selectedOptions: {
       색상: '블랙',
     },

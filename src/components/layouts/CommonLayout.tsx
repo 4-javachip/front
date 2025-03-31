@@ -31,6 +31,7 @@ function CommonHeader({
   );
 }
 
+
 function FixedButtonBgLayout({
   children,
   className,
@@ -47,7 +48,17 @@ function FixedButtonBgLayout({
   );
 }
 
+
+export function CommonBorder({ className }: Readonly<{ className?: string }>) {
+  return (
+    <section
+      className={cn('mt-7 mb-5 border-t border-gray-200 w-full', className)}
+    ></section>
+  );
+}
+  
 export const CommonLayout = {
+  CommonBorder,
   SectionInnerPadding,
   SectionNoPadding,
   CommonHeader,

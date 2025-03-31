@@ -17,7 +17,7 @@ export default function CartItemList({
   onDelete,
 }: Props) {
   return (
-    <section aria-label="장바구니 상품 목록">
+    <section>
       {items.map((item) => (
         <CartItem
           key={item.id}
