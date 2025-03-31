@@ -22,7 +22,11 @@ export default function OrderItemToggleList({ cartItems, isOpen }: Props) {
         }`}
       >
         {restItems.map((item) => (
-          <OrderItem key={item.cartUuid} item={item} isOpen={isOpen} />
+          <OrderItem
+            key={item.productOptionListUuid}
+            item={item}
+            isOpen={isOpen}
+          />
         ))}
       </div>
     </section>
