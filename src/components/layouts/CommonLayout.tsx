@@ -34,10 +34,7 @@ function CommonHeader({
 export function CommonBorder({ className }: Readonly<{ className?: string }>) {
   return (
     <section
-      className={cn(
-        'mt-[30px] mb-[20px] border-t border-gray-200 w-full',
-        className
-      )}
+      className={cn('mt-7 mb-5 border-t border-gray-200 w-full', className)}
     ></section>
   );
 }
