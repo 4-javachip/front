@@ -1,14 +1,12 @@
 'use client';
 
-import CartCheckBar from '@/components/pages/cart/CartAllCheckBar';
+import CartAllCheckBar from '@/components/pages/cart/CartAllCheckBar';
 import CartEmpty from '@/components/pages/cart/CartEmpty';
-import CartHeader from '@/components/pages/cart/CartHeader';
 import CartItemList from '@/components/pages/cart/CartItemList';
 import CartNotice from '@/components/pages/cart/CartNotice';
 import CartPriceSummary from '@/components/pages/cart/CartPriceSummary';
 import CartShippingInfo from '@/components/pages/cart/CartShippingInfo';
 import useCartHandlers from '@/components/pages/cart/useCartHandlers';
-import PerchaseBar from '@/components/pages/productDetail/PerchaseBar';
 
 export default function CartPage() {
   const {
@@ -26,12 +24,6 @@ export default function CartPage() {
   return (
     <main>
       <CartShippingInfo />
-      <CartCheckBar
-        isAllChecked={isAllChecked}
-        onToggleAll={toggleAll}
-        onDeleteSelected={deleteSelected}
-        onDeleteAll={deleteAll}
-      />
       {cartItems.length === 0 ? (
         <CartEmpty />
       ) : (
@@ -42,10 +34,13 @@ export default function CartPage() {
             onIncrease={increase}
             onDecrease={decrease}
             onDelete={deleteItem}
+            isAllChecked={isAllChecked}
+            onToggleAll={toggleAll}
+            onDeleteSelected={deleteSelected}
+            onDeleteAll={deleteAll}
           />
           <CartPriceSummary cartitem={cartItems} />
           <CartNotice />
-          <PerchaseBar />
         </>
       )}
     </main>

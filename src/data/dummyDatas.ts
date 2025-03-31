@@ -1,6 +1,5 @@
 import {
   AddressType,
-  CartAddressType,
   BannerSlideImageType,
   CartProductType,
   CategoryMenuType,
@@ -11,6 +10,8 @@ import {
   ProductSortOptionType,
   SeasonType,
   PolicyLinkType,
+  AgreementType,
+  AgreementTypeEnum,
 } from '@/types/ResponseDataTypes';
 
 export const mainBannerSlideData: BannerSlideImageType[] = [
@@ -371,56 +372,40 @@ export const dummyAddresses: AddressType[] = [
   },
 ];
 
-export const dummyCartAddresses: CartAddressType[] = [
-  {
-    id: 1,
-    addressName: '우리집',
-    baseAddress: '서울특별시 강남구 테헤란로 123',
-    zipCode: '06236',
-    detailAddress: '101동 1001호',
-    defaultAddress: true,
-  },
-  {
-    id: 2,
-    addressName: '회사',
-    baseAddress: '서울특별시 종로구 세종대로 1',
-    zipCode: '03154',
-    detailAddress: '10층 스타벅스 본사',
-    defaultAddress: false,
-  },
-];
-
 export const dummyCartItems: CartProductType[] = [
   {
-    id: 1,
     userUuid: 'user-uuid-123',
-    cartUuid: 'cart-uuid-abc',
-    discount: 10000,
+
+    discountRate: 20,
     productQuantity: 2,
     checked: false,
     productOptionListUuid: 'option-uuid-456',
-    productName: '텀블러 500ml',
-    productImageUrl: 'https://picsum.photos/id/237/140',
+    productName: '일이삼사오육칠팔구십일이삼사오육칠팔구십',
+    productImageUrl: 'https://dummyimage.com/1000',
     productPrice: 25000,
-    selectedOptions: {
-      색상: '블랙',
-    },
   },
 
   {
-    id: 2,
     userUuid: 'user-uuid-123',
-    cartUuid: 'cart-uuid-abc',
-    discount: 20000,
+
+    discountRate: 10,
     productQuantity: 2,
     checked: false,
-    productOptionListUuid: 'option-uuid-456',
+    productOptionListUuid: 'option-uuid-457',
     productName: '텀블러 500ml',
     productImageUrl: 'https://picsum.photos/id/237/140',
     productPrice: 25000,
-    selectedOptions: {
-      색상: '블랙',
-    },
+  },
+  {
+    userUuid: 'user-uuid-121',
+
+    discountRate: 0,
+    productQuantity: 1,
+    checked: false,
+    productOptionListUuid: 'option-uuid-458',
+    productName: '일이삼사오육칠팔구십일이삼사오육칠팔구십',
+    productImageUrl: 'https://dummyimage.com/1000',
+    productPrice: 40000,
   },
 ];
 
@@ -449,4 +434,25 @@ export const dummyPolicyLinks: PolicyLinkType[] = [
   { href: '/privacy-policy', label: '개인정보처리방침' },
   { href: '/terms', label: '홈페이지 이용약관' },
   { href: '/card-terms', label: '스타벅스카드 이용약관' },
+];
+
+export const dummyAggrementData: AgreementType[] = [
+  {
+    name: '이용약관 동의',
+    description: '회원 가입 시 필요한 약관에 대한 설명입니다.',
+    type: 0,
+    required: true,
+  },
+  {
+    name: '개인정보 수집 및 이용 동의',
+    description: '배송지 입력 및 변경 시 필요한 약관에 대한 설명입니다.',
+    type: 0,
+    required: true,
+  },
+  {
+    name: '마케팅 활용 수집 이용 동의',
+    description: '마케팅 정보를 수신하기 위한 동의 약관입니다.',
+    type: 0,
+    required: false,
+  },
 ];

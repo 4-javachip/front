@@ -1,3 +1,11 @@
+export interface commonResponseType<T> {
+  httpStatus: string;
+  isSuccess: boolean;
+  message: string;
+  code: number;
+  result: T;
+}
+
 export interface BannerSlideImageType {
   id: number;
   imageUrl: string;
@@ -87,22 +95,11 @@ export interface AddressType {
   shippingNote: string;
   defaultAddress?: boolean;
 }
-//장바구니 배송지
-export interface CartAddressType {
-  id: number;
-  addressName: string;
-  baseAddress: string;
-  zipCode: string;
-  detailAddress?: string;
-  defaultAddress?: boolean;
-}
 
 //장바구니상품
 export interface CartProductType {
-  id: number; //
   userUuid: string;
-  cartUuid: string;
-  discount?: number;
+  discountRate?: number;
   productQuantity: number;
   checked: boolean;
   productOptionListUuid: string;
@@ -110,7 +107,6 @@ export interface CartProductType {
   productName: string;
   productImageUrl: string;
   productPrice: number;
-  selectedOptions: Record<string, string>;
 }
 
 //장바구니 결제정보
@@ -132,4 +128,16 @@ export interface ProductSortOptionType {
 export interface PolicyLinkType {
   href: string;
   label: string;
+}
+
+export enum AgreementTypeEnum {
+  SIGN_UP = 0,
+  SHIPPING_ADDRESS = 1,
+}
+
+export interface AgreementType {
+  name: string;
+  description: string;
+  type: AgreementTypeEnum;
+  required: boolean;
 }

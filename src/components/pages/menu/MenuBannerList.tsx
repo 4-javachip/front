@@ -6,7 +6,7 @@ interface Props {
 
 export default function MenuBannerList({ onClose }: Props) {
   return (
-    <section className="bg-lightGray-3 px-6" aria-label="메뉴 배너 리스트">
+    <section className="bg-lightGray-3 px-6">
       <ul className="divide-y divide-gray-300">
         <MenuBannerItem
           href="/event"

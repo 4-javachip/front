@@ -8,16 +8,12 @@ interface BackButtonProps {
   ariaLabel?: string;
 }
 
-export default function BackArrowButton({
-  className = '',
-  ariaLabel = '뒤로가기',
-}: BackButtonProps) {
+export default function BackArrowButton({ className = '' }: BackButtonProps) {
   const router = useRouter();
 
   return (
     <button
       onClick={() => router.back()}
-      aria-label={ariaLabel}
       className={`inline-flex items-center ${className}`}
     >
       <BackArrowIcon />

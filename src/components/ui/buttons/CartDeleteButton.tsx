@@ -10,7 +10,7 @@ export default function CartDeleteButtons({
   onDeleteAll,
 }: CartDeleteButtonsProps) {
   return (
-    <div className="text-xs space-x-2 font-inter font-medium">
+    <div className="text-xs space-x-2 font-body font-medium">
       <button
         type="button"
         onClick={onDeleteSelected}

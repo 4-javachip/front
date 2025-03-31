@@ -1,10 +1,7 @@
 export default function CartNotice() {
   return (
-    <section
-      className="mt-5 p-3 text-xs text-gray-500 bg-gray-100 rounded-md leading-relaxed"
-      aria-label="결제 안내사항"
-    >
-      <ul className="list-disc list-inside space-y-1">
+    <section className="pb-25">
+      <ul className="list-disc list-inside space-y-1 mt-5 p-3 text-xs text-lightGray-6 bg-lightGray-2 rounded-md leading-relaxed">
         <li>
           장바구니에는 최대 20개까지 담을 수 있으며, 담긴 상품은
           <br /> 최대 2개월간 보관됩니다.

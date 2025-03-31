@@ -10,7 +10,7 @@ export default function TextCarouselItem({
   return (
     <li>
       <button
-        className={`font-inter text-[0.875rem] 
+        className={`font-body text-[0.875rem] 
     whitespace-nowrap cursor-pointer px-3.5
     ${isSelected ? 'text-green font-semibold' : 'text-lightGray-1'}`}
         type="button"

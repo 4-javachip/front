@@ -8,7 +8,7 @@ export default function ProductImg({ imageUrl, description }: ImageType) {
         src={imageUrl}
         alt={description}
         fill
-        priority
+        priority={true}
         className="object-cover absolute top-0 left-0 w-full h-full"
       />
     </figure>

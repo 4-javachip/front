@@ -24,7 +24,7 @@ export default function CategoryItem({ category, onClose }: Props) {
         />
       </figure>
 
-      <figcaption className="text-sm  mt-[10px] font-inter font-medium text-[14px] text-black">
+      <figcaption className="text-sm  mt-[10px] font-body font-medium text-[14px] text-black">
         {category.name}
       </figcaption>
     </Link>

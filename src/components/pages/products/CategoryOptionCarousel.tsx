@@ -14,7 +14,7 @@ export default function CategoryOptionCarousel({
       <section className="flex flex-row container py-4.5">
         {title && (
           <h2
-            className="font-inter text-[0.875rem] font-semibold
+            className="font-body text-[0.875rem] font-semibold
     whitespace-nowrap
     pl-6 pr-3.5"
           >
