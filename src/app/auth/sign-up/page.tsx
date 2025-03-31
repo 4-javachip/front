@@ -1,5 +1,6 @@
-import SignUpForm from '@/components/pages/auth/signUp/SignUpForm';
+import SignUpAccountInput from '@/components/pages/auth/signUp/SignUpAccountInput';
 import AuthHeading from '@/components/ui/AuthHeading';
+import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 
 export default function SignUpPage() {
   return (
@@ -8,7 +9,10 @@ export default function SignUpPage() {
         <AuthHeading>이메일과 비밀번호를</AuthHeading>
         <AuthHeading>입력해 주세요.</AuthHeading>
       </section>
-      <SignUpForm />
+      <form>
+        <SignUpAccountInput />
+      </form>
+      <ConfirmNextButton text="다음" href="/" />
     </>
   );
 }

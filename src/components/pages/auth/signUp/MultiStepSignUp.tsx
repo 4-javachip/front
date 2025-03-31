@@ -2,6 +2,7 @@
 
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import { useState } from 'react';
+import SignUpStepAccount from './SignUpStepAccount';
 
 export default function MultiStepSignUp() {
   const [step, setStep] = useState(1);
@@ -24,7 +25,7 @@ export default function MultiStepSignUp() {
   const prevStep = () => setStep((prev) => prev - 1);
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 border rounded-lg shadow-md">
+    <div>
       {step === 1 && (
         <div>
           {/* <h2 className="text-lg font-semibold mb-4">📧 이메일 입력</h2>
@@ -39,7 +40,7 @@ export default function MultiStepSignUp() {
           <button onClick={nextStep} className="mt-4 bg-blue-500 text-white p-2 rounded">
             다음
           </button> */}
-          이메일/비밀번호/비밀번호확인
+          <SignUpStepAccount />
         </div>
       )}
 
