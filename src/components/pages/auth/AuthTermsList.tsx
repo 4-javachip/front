@@ -7,15 +7,6 @@ import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import { useState } from 'react';
 
 export default function AuthTermsList() {
-  // const handleAllCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const isChecked = event.target.checked;
-  //   document
-  //     .querySelectorAll<HTMLInputElement>('.terms-checkbox')
-  //     .forEach((checkbox) => {
-  //       checkbox.checked = isChecked;
-  //     });
-  // };
-
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
     Array(dummyAggrementData.length).fill(false)
   );
@@ -57,7 +48,7 @@ export default function AuthTermsList() {
       </section>
       <ConfirmNextButton
         text="다음"
-        href="verification"
+        href="sign-up"
         isEnabled={() => isAllChecked}
       />
     </>
