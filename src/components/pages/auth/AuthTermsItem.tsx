@@ -7,10 +7,16 @@ export default function AuthTermsItem({
   description,
   type,
   required,
-}: AgreementType) {
+  checked,
+  onChange,
+}: AgreementType & { checked: boolean; onChange: () => void }) {
   return (
     <li className="flex items-center justify-between">
-      <CustomCheckBox label={`${required ? '[필수] ' : '[선택] '}${name}`} />
+      <CustomCheckBox
+        label={`${required ? '[필수] ' : '[선택] '}${name}`}
+        checked={checked}
+        onChange={onChange}
+      />
       <RightArrowIcon />
     </li>
   );
