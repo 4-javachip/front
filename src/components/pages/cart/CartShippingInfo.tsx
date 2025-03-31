@@ -8,7 +8,7 @@ export default function CartShippingInfo() {
   const defaultAddress = dummyAddresses.find((addr) => addr.defaultAddress);
 
   return (
-    <section className="w-full  bg-lightGray-2  border-lightGray-6 px-6 text-sm py-6 font-inter">
+    <section className="w-full  bg-lightGray-2  border-lightGray-6 px-6 text-sm py-6 font-body">
       {defaultAddress ? (
         <section className="flex justify-between items-start ">
           <address className="not-italic text-foreground leading-snug">

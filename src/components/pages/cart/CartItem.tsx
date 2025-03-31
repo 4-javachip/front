@@ -63,7 +63,7 @@ export default function CartItem({
               onDecrease={() => onDecrease(productOptionListUuid)}
             />
           </li>
-          <li className="text-right font-inter">
+          <li className="text-right font-body">
             {cartItem.discountRate && cartItem.discountRate > 0 ? (
               <div className="flex flex-col items-end">
                 <span className="text-lightGray-7 line-through text-sm">

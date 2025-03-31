@@ -23,7 +23,7 @@ export default function QuantityControl({
           <MinusIcon />
         </button>
       </li>
-      <li className="pr-4 font-inter font-semibold ">{quantity}</li>
+      <li className="pr-4 font-body font-semibold ">{quantity}</li>
       <li>
         <button
           type="button"

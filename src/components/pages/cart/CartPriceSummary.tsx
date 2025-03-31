@@ -24,7 +24,7 @@ export default function CartPriceSummary({ cartitem }: CartPriceSummaryProps) {
   const finalTotal = productTotal + shipping - discountTotal;
 
   return (
-    <section className="font-inter font-semibold mt-6 space-y-2  px-6">
+    <section className="font-body font-semibold mt-6 space-y-2  px-6">
       <ul className="flex justify-between">
         <li>상품 금액</li>
         <li className="text-black ">{productTotal.toLocaleString()}원</li>
