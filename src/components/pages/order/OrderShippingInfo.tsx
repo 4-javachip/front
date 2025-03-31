@@ -1,38 +1,48 @@
 'use client';
 
-import { dummyCartAddresses } from '@/data/dummyDatas';
+import { dummyAddresses } from '@/data/dummyDatas';
 import Link from 'next/link';
-import AddressEmptySection from '../AddressEmptySection';
+import OrderAddressEmptySection from './OrderAddressEmptySection';
+import { CommonLayout } from '@/components/layouts/CommonLayout';
 
 export default function OrderShippingInfo() {
-  const defaultAddress = dummyCartAddresses.find((addr) => addr.defaultAddress);
+  const defaultAddress = dummyAddresses.find((addr) => addr.defaultAddress);
 
   return (
-    <section
-      className="w-full bg-[#F7F7F7] border-lightGray-6 px-6 text-sm py-6"
-      aria-label="배송지 정보"
-    >
+    <main className="flex flex-col justify-between w-full bg-background border-lightGray-6 text-sm pt-6">
+      <ul className="w-full flex justify-between items-start">
+        <li>
+          <h2 className="w-full text-left text-lg font-pretendard font-semibold text-foreground mb-4">
+            배송정보
+          </h2>
+        </li>
+        <li>
+          <Link
+            href="/address"
+            className="flex justify-center items-center border font-pretendard border-lightGray-4 text-foreground px-4 py-1 rounded-full text-sm"
+          >
+            변경
+          </Link>
+        </li>
+      </ul>
       {defaultAddress ? (
-        <section className="flex justify-between items-start">
-          <address className="not-italic text-black leading-snug">
-            <p className="font-medium mb-1">{defaultAddress.addressName}</p>
-            <p className="text-gray-600">
+        <address className="flex justify-between items-start">
+          <ul className="not-italic text-foreground font-pretendard">
+            <li className="font-normal  mb-1">
+              {defaultAddress.recipientName} ({defaultAddress.addressName})
+            </li>
+            <li>
               ({defaultAddress.zipCode}) {defaultAddress.baseAddress}
               {defaultAddress.detailAddress &&
                 ` ${defaultAddress.detailAddress}`}
-            </p>
-          </address>
-
-          <Link
-            href="/address"
-            className="text-brown font-medium whitespace-nowrap"
-          >
-            배송지 변경
-          </Link>
-        </section>
+            </li>
+            <li className="font-medium pt-2">{defaultAddress.phoneNumber}</li>
+          </ul>
+        </address>
       ) : (
-        <AddressEmptySection />
+        <OrderAddressEmptySection />
       )}
-    </section>
+      <CommonLayout.CommonBorder />
+    </main>
   );
 }

@@ -8,7 +8,6 @@ interface CheckboxProps {
 export default function Checkbox({
   checked,
   onChange,
-  ariaLabel,
   className = '',
 }: CheckboxProps) {
   return (
@@ -17,7 +16,6 @@ export default function Checkbox({
       checked={checked}
       onChange={onChange}
       className={`accent-green-600 ${className}`}
-      aria-label={ariaLabel}
     />
   );
 }

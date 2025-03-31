@@ -11,21 +11,11 @@ export default function QuantityControl({
 }: QuantityControlProps) {
   return (
     <div className="flex items-center border border-gray-300 rounded-md w-24 justify-between px-2">
-      <button
-        type="button"
-        onClick={onDecrease}
-        className="text-xl"
-        aria-label="수량 감소"
-      >
+      <button type="button" onClick={onDecrease} className="text-xl">
         -
       </button>
       <span>{quantity}</span>
-      <button
-        type="button"
-        onClick={onIncrease}
-        className="text-xl"
-        aria-label="수량 증가"
-      >
+      <button type="button" onClick={onIncrease} className="text-xl">
         +
       </button>
     </div>

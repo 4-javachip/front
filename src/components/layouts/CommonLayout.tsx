@@ -5,7 +5,7 @@ function SectionInnerPadding({
   children,
   className,
 }: Readonly<{ children: React.ReactNode; className?: string }>) {
-  return <section className={cn('px-4 py-10', className)}>{children}</section>;
+  return <section className={cn('px-6', className)}>{children}</section>;
 }
 
 function SectionNoPadding({
@@ -31,7 +31,15 @@ function CommonHeader({
   );
 }
 
+export function CommonBorder({ className }: Readonly<{ className?: string }>) {
+  return (
+    <section
+      className={cn('mt-7 mb-5 border-t border-gray-200 w-full', className)}
+    ></section>
+  );
+}
 export const CommonLayout = {
+  CommonBorder,
   SectionInnerPadding,
   SectionNoPadding,
   CommonHeader,

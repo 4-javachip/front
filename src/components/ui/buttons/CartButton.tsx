@@ -7,7 +7,7 @@ interface Props {
 
 export default function CartButton({ cartCount }: Props) {
   return (
-    <Link href="/cart" aria-label="장바구니 페이지 이동">
+    <Link href="/cart">
       <CartIcon size={32} cartCount={5} />
     </Link>
   );

@@ -87,22 +87,13 @@ export interface AddressType {
   shippingNote: string;
   defaultAddress?: boolean;
 }
-//장바구니 배송지
-export interface CartAddressType {
-  id: number;
-  addressName: string;
-  baseAddress: string;
-  zipCode: string;
-  detailAddress?: string;
-  defaultAddress?: boolean;
-}
 
 //장바구니상품
 export interface CartProductType {
   id: number; //
   userUuid: string;
   cartUuid: string;
-  discount?: number;
+  discountRate?: number;
   productQuantity: number;
   checked: boolean;
   productOptionListUuid: string;

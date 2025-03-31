@@ -6,7 +6,7 @@ interface Props {
 
 export default function MenuButton({ onClick }: Props) {
   return (
-    <button onClick={onClick} aria-label="메뉴 열기">
+    <button onClick={onClick}>
       <MenuIcon />
     </button>
   );

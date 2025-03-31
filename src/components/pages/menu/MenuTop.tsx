@@ -6,7 +6,7 @@ interface Props {
 
 export default function MenuTop({ onClose }: Props) {
   return (
-    <section className="px-6 pt-5 " aria-label="메뉴 상단 영역">
+    <section className="px-6 pt-5 ">
       <nav className="flex justify-end">
         <button onClick={onClose} className="inline-flex items-center">
           <CloseIcon />
