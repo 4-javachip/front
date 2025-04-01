@@ -6,7 +6,11 @@ import LargeDropdownModal from '../../../ui/dropdown/LargeDropdownModal';
 import { useRef, useState } from 'react';
 import { genderOptions } from '@/data/initialDatas';
 
-export default function SignUpProfileInput() {
+export default function SignUpProfileInput({
+  onChange,
+}: {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<SVGSVGElement>(null);
   const [selectedOption, setSelectedOption] = useState('성별');

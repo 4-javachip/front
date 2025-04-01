@@ -3,7 +3,11 @@
 import CommonInput from '@/components/ui/inputs/CommonInput';
 import AuthEmailInput from './AuthEmailInput';
 
-export default function SignUpAccountInput() {
+export default function SignUpAccountInput({
+  onChange,
+}: {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <>
       <AuthEmailInput />
