@@ -2,7 +2,8 @@
 
 import { useRef, useState } from 'react';
 import DropDownIcon from '@/components/ui/icons/DropDownIcon';
-import EmailDomainDropdownModal from './EmailDomainDropdownModal';
+import LargeDropdownModal from '../../../ui/dropdown/LargeDropdownModal';
+import { emailDomains } from '@/data/initialDatas';
 
 export default function EmailDomainDropdown() {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -48,7 +49,8 @@ export default function EmailDomainDropdown() {
           />
         </button>
       </div>
-      <EmailDomainDropdownModal
+      <LargeDropdownModal
+        options={emailDomains}
         onSelect={handleDomainSelect}
         dropdownRef={dropdownRef}
       />

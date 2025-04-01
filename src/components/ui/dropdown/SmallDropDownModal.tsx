@@ -6,7 +6,7 @@ import DropDownItem from './DropDownItem';
 import { useSearchParams } from 'next/navigation';
 import { useRef } from 'react';
 
-export default function DropDownModal() {
+export default function SmallDropDownModal() {
   const searchParams = useSearchParams();
   const currentSort = searchParams.get('sort') || 'newest';
 

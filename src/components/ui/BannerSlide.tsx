@@ -116,6 +116,7 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
               alt={slide.description}
               fill
               className="object-cover w-full h-full pointer-events-none"
+              priority
             />
           </li>
         ))}

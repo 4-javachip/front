@@ -5,8 +5,10 @@ import AuthTermsItem from './AuthTermsItem';
 import CustomCheckBox from '@/components/ui/inputs/CustomCheckBox';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function AuthTermsList() {
+  const router = useRouter();
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
     Array(dummyAggrementData.length).fill(false)
   );
@@ -48,7 +50,9 @@ export default function AuthTermsList() {
       </section>
       <ConfirmNextButton
         text="다음"
-        href="sign-up"
+        onClick={() => {
+          router.push('sign-up');
+        }}
         isEnabled={() => isAllChecked}
       />
     </>
