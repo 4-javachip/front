@@ -9,8 +9,6 @@ import SignUpProfileInput from './SignUpProfileInput';
 import BackArrowIcon from '@/components/ui/icons/BackArrowIcon';
 import CommonInput from '@/components/ui/inputs/CommonInput';
 import { signUpSchema } from '@/schemas/signUpSchema';
-import AuthEmailInput from './AuthEmailInput';
-import { InputErrorMessage } from '@/components/layouts/CommonLayout';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -81,30 +79,11 @@ export default function MultiStepSignUp({
         {(() => {
           switch (step) {
             case 1:
-              // return <SignUpAccountInput onChange={handleChange} />;
               return (
-                <ul className="padded space-y-6">
-                  <AuthEmailInput />
-                  <li>
-                    <CommonInput
-                      placeholder="비밀번호 (10~20자리 이내)"
-                      type="password"
-                      name="password"
-                      onChange={handleChange}
-                    />
-                    {errorMessages.password && (
-                      <InputErrorMessage>
-                        {errorMessages.password}
-                      </InputErrorMessage>
-                    )}
-                  </li>
-                  <CommonInput
-                    placeholder="비밀번호 확인"
-                    type="password"
-                    name="confirm-password"
-                    onChange={handleChange}
-                  />
-                </ul>
+                <SignUpAccountInput
+                  onChange={handleChange}
+                  errorMessages={errorMessages}
+                />
               );
             case 2:
               return <SignUpProfileInput onChange={handleChange} />;
