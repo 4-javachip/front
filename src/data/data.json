@@ -1,0 +1,60 @@
+{
+  "cart": [
+    {
+      "productName": "1",
+      "productImageUrl": "Product 1",
+      "productPrice": 100000,
+      "productQuantity": 1,
+      "checked": false,
+      "productOptionListUuid": "option-uuid-457"
+    },
+    {
+      "productName": "2",
+      "productImageUrl": "Product 2",
+      "productPrice": 150000,
+      "productQuantity": 2,
+      "checked": true,
+      "productOptionListUuid": "option-uuid-458"
+    },
+    {
+      "productName": "3",
+      "productImageUrl": "Product 3",
+      "productPrice": 200000,
+      "productQuantity": 1,
+      "checked": false,
+      "productOptionListUuid": "option-uuid-459"
+    },
+    {
+      "productName": "4",
+      "productImageUrl": "Product 4",
+      "productPrice": 250000,
+      "productQuantity": 3,
+      "checked": true,
+      "productOptionListUuid": "option-uuid-460"
+    },
+    {
+      "productName": "5",
+      "productImageUrl": "Product 5",
+      "productPrice": 300000,
+      "productQuantity": 2,
+      "checked": false,
+      "productOptionListUuid": "option-uuid-461"
+    },
+    {
+      "productName": "6",
+      "productImageUrl": "Product 6",
+      "productPrice": 350000,
+      "productQuantity": 1,
+      "checked": true,
+      "productOptionListUuid": "option-uuid-462"
+    },
+    {
+      "productName": "7",
+      "productImageUrl": "Product 7",
+      "productPrice": 400000,
+      "productQuantity": 4,
+      "checked": false,
+      "productOptionListUuid": "option-uuid-463"
+    }
+  ]
+}

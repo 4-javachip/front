@@ -375,9 +375,7 @@ export const dummyAddresses: AddressType[] = [
 
 export const dummyCartItems: CartProductType[] = [
   {
-    userUuid: 'user-uuid-123',
-
-    discountRate: 20,
+    discountPrice: 15000,
     productQuantity: 2,
     checked: true,
     productOptionListUuid: 'option-uuid-456',
@@ -387,9 +385,7 @@ export const dummyCartItems: CartProductType[] = [
   },
 
   {
-    userUuid: 'user-uuid-123',
-
-    discountRate: 10,
+    discountPrice: 20000,
     productQuantity: 2,
     checked: false,
     productOptionListUuid: 'option-uuid-457',
@@ -398,9 +394,7 @@ export const dummyCartItems: CartProductType[] = [
     productPrice: 25000,
   },
   {
-    userUuid: 'user-uuid-121',
-
-    discountRate: 0,
+    discountPrice: 0,
     productQuantity: 1,
     checked: false,
     productOptionListUuid: 'option-uuid-458',
