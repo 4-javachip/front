@@ -1,18 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { CartProductType } from '@/types/ResponseDataTypes';
+import { CartProductType, OrderProductType } from '@/types/ResponseDataTypes';
 import OrderItemToggleList from './OrderItemToggleList';
 import OrderItemSummary from './OrderItemSummary';
 import ToggleButton from '@/components/ui/buttons/ToggleButton';
-import { dummyCartItems } from '@/data/dummyDatas';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 
 interface Props {
-  cartItems: CartProductType[];
+  orderItems: OrderProductType[];
 }
 
-export default function OrderInfo({ cartItems }: Props) {
+export default function OrderList({ orderItems }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -20,7 +19,7 @@ export default function OrderInfo({ cartItems }: Props) {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-pretendard font-semibold flex items-center gap-2">
           주문내역
-          <OrderItemSummary cartItems={dummyCartItems} />
+          <OrderItemSummary orderItems={orderItems} />
         </h2>
 
         <ToggleButton
@@ -29,7 +28,8 @@ export default function OrderInfo({ cartItems }: Props) {
         />
       </div>
 
-      <OrderItemToggleList cartItems={cartItems} isOpen={isOpen} />
+      <OrderItemToggleList orderItems={orderItems} isOpen={isOpen} />
+
       <CommonLayout.CommonBorder />
     </section>
   );

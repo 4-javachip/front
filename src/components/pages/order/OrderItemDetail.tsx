@@ -1,6 +1,6 @@
-import { CartProductType } from '@/types/ResponseDataTypes';
+import { CartProductType, OrderProductType } from '@/types/ResponseDataTypes';
 
-export default function OrderItemInfo({ item }: { item: CartProductType }) {
+export default function OrderItemDetail({ item }: { item: OrderProductType }) {
   const discountRate = item.discountRate ?? 0;
   const hasDiscount = discountRate > 0;
   const discountedPrice = Math.floor(

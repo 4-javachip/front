@@ -12,6 +12,7 @@ import {
   PolicyLinkType,
   AgreementType,
   AgreementTypeEnum,
+  OrderProductType,
 } from '@/types/ResponseDataTypes';
 
 export const mainBannerSlideData: BannerSlideImageType[] = [
@@ -378,7 +379,7 @@ export const dummyCartItems: CartProductType[] = [
 
     discountRate: 20,
     productQuantity: 2,
-    checked: false,
+    checked: true,
     productOptionListUuid: 'option-uuid-456',
     productName: '일이삼사오육칠팔구십일이삼사오육칠팔구십',
     productImageUrl: 'https://dummyimage.com/1000',
@@ -454,5 +455,24 @@ export const dummyAggrementData: AgreementType[] = [
     description: '마케팅 정보를 수신하기 위한 동의 약관입니다.',
     type: 0,
     required: false,
+  },
+];
+
+export const dummyOrderProduct: OrderProductType[] = [
+  {
+    productName: '아이스 아메리카노',
+    productPrice: 4500,
+    productQuantity: 2,
+    productOptionListUuid: 'option-uuid-456',
+    productImageUrl: 'https://dummyimage.com/1000',
+    discountRate: 10,
+  },
+  {
+    productName: '이제 정말 제발 되는건가요 제발 됐으면 좋겠어요',
+    productPrice: 4500,
+    productQuantity: 2,
+    productOptionListUuid: 'option-uuid-457',
+    productImageUrl: 'https://dummyimage.com/1000',
+    discountRate: 10,
   },
 ];

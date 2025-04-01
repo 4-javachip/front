@@ -9,9 +9,10 @@ interface ToggleButtonProps {
 
 export default function ToggleButton({ isOpen, onToggle }: ToggleButtonProps) {
   return (
-    <button className="text-gray-500" onClick={onToggle} aria-expanded={isOpen}>
+    <button onClick={onToggle}>
       <DropDownIcon
-        className={`transition-transform duration-300 ${
+        size={20}
+        className={`ml-1 transition-transform duration-300 ${
           isOpen ? 'rotate-180' : ''
         }`}
       />

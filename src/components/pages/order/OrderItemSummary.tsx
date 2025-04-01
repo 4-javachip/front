@@ -1,14 +1,14 @@
-import { CartProductType } from '@/types/ResponseDataTypes';
+import { CartProductType, OrderProductType } from '@/types/ResponseDataTypes';
 import React from 'react';
 
 interface OrderItemSummaryProps {
-  cartItems: CartProductType[];
+  orderItems: OrderProductType[];
 }
 
 export default function OrderProductSummary({
-  cartItems = [],
+  orderItems = [],
 }: OrderItemSummaryProps) {
-  const totalQuantity = cartItems.reduce(
+  const totalQuantity = orderItems.reduce(
     (sum, item) => sum + item.productQuantity,
     0
   );
