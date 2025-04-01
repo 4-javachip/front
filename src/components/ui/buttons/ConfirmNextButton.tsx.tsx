@@ -1,25 +1,20 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from './CommonButton';
 
 export default function ConfirmNextButton({
   text,
-  href,
+  onClick,
   isEnabled = () => false,
 }: {
   text?: string;
-  href: string;
+  onClick: () => void;
   isEnabled?: () => boolean;
 }) {
-  const router = useRouter();
   return (
     <CommonLayout.FixedButtonBgLayout>
-      <CommonButton
-        onClick={() => router.push(href)}
-        isEnabled={isEnabled() ? true : false}
-      >
+      <CommonButton onClick={onClick} isEnabled={isEnabled()}>
         {text}
       </CommonButton>
     </CommonLayout.FixedButtonBgLayout>
