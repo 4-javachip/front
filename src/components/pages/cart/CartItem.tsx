@@ -25,6 +25,7 @@ export default function CartItem({
     productName,
     productQuantity = 1,
     productPrice = 0,
+    discountPrice,
     checked,
   } = cartItem;
 
@@ -64,16 +65,14 @@ export default function CartItem({
             />
           </li>
           <li className="text-right font-body">
-            {cartItem.discountRate && cartItem.discountRate > 0 ? (
+            {cartItem.discountPrice && cartItem.discountPrice > 0 ? (
               <div className="flex flex-col items-end">
                 <span className="text-lightGray-7 line-through text-sm">
                   {(productPrice * productQuantity).toLocaleString()}원
                 </span>
                 <span className="text-foreground font-semibold">
                   {Math.floor(
-                    productPrice *
-                      productQuantity *
-                      (1 - cartItem.discountRate / 100)
+                    productPrice * productQuantity - discountPrice
                   ).toLocaleString()}
                   원
                 </span>

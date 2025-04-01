@@ -1,4 +1,4 @@
-import { CartProductType, OrderProductType } from '@/types/ResponseDataTypes';
+import { OrderProductType } from '@/types/ResponseDataTypes';
 import React from 'react';
 
 interface OrderItemSummaryProps {
