@@ -92,7 +92,7 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
 
   return (
     <section
-      className="flex w-[100vw] h=[100vw] overflow-x-auto"
+      className="relative w-full h-full overflow-hidden"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -102,19 +102,21 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
     >
       <ul
         ref={slideRef}
-        className="flex flex-row"
-        // style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        className="flex transition-transform duration-500"
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {slides.map((slide) => (
           <li
             key={slide.id}
-            className="w-[100vw] h-[100vw] overflow-hidden object-cover"
+            className="w-full flex-shrink-0 relative list-none
+            pb-[100%]"
           >
             <Image
               src={slide.imageUrl}
               alt={slide.description}
-              width={2000}
-              height={2000}
+              fill
+              className="object-cover w-full h-full pointer-events-none"
+              priority
             />
           </li>
         ))}
