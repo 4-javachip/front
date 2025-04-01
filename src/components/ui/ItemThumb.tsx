@@ -31,6 +31,7 @@ export default function ItemThumb({
         alt={thumbnail.description}
         fill
         className="rounded-sm object-cover select-none pointer-events-none"
+        priority
       />
     </Link>
   );
