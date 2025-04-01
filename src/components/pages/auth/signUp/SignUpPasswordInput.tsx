@@ -1,11 +1,10 @@
 'use client';
 
 import CommonInput from '@/components/ui/inputs/CommonInput';
-import AuthEmailInput from './AuthEmailInput';
 import { InputErrorMessage } from '@/components/layouts/CommonLayout';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 
-export default function SignUpAccountInput({
+export default function SignUpPasswordInput({
   onChange,
   errorMessages,
 }: {
@@ -13,8 +12,7 @@ export default function SignUpAccountInput({
   errorMessages: Partial<SignUpStoreStateType>;
 }) {
   return (
-    <ul className="padded space-y-6">
-      <AuthEmailInput />
+    <>
       <li>
         <CommonInput
           placeholder="비밀번호 (10~20자리 이내)"
@@ -37,6 +35,6 @@ export default function SignUpAccountInput({
           <InputErrorMessage>{errorMessages.confirmPassword}</InputErrorMessage>
         )}
       </li>
-    </ul>
+    </>
   );
 }

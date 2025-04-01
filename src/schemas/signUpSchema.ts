@@ -2,7 +2,14 @@ import { z } from 'zod';
 
 export const signUpSchema = z
   .object({
-    email: z.string().email('이메일 형식이 아닙니다.'),
+    emailId: z
+      .string()
+      .min(1, '이메일 아이디를 입력하세요.')
+      .max(15, '이메일 아이디는 15자 이하여야 합니다.'),
+    emailDomain: z
+      .string()
+      .min(1, '도메인을 입력하세요.')
+      .max(15, '도메인은 30자 이하여야 합니다.'),
     password: z
       .string()
       .min(10, '비밀번호는 10자 이상이어야 합니다.')

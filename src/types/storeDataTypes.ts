@@ -1,5 +1,6 @@
 export interface SignUpStoreStateType {
-  email: string;
+  emailId: string;
+  emailDomain: string;
   password: string;
   confirmPassword: string;
   nickname?: string;

@@ -32,15 +32,15 @@ export default function SignUpProfileInput({
   };
 
   return (
-    <>
-      <CommonInput label="닉네임 (선택)" type="text" id="nickname" />
-      <CommonInput label="이름" type="text" id="name" />
+    <ul className="padded space-y-6">
+      <CommonInput placeholder="닉네임 (선택)" type="text" name="nickname" />
+      <CommonInput placeholder="이름" type="text" name="name" />
       <div className="flex flex-row space-x-3.5">
-        <CommonInput label="YYYY" type="text" id="year" />
-        <CommonInput label="MM" type="text" id="month" />
-        <CommonInput label="DD" type="text" id="date" />
+        <CommonInput placeholder="YYYY" type="text" name="year" />
+        <CommonInput placeholder="MM" type="text" name="month" />
+        <CommonInput placeholder="DD" type="text" name="date" />
       </div>
-      <CommonInput label="전화번호" type="text" id="phone" />
+      <CommonInput placeholder="전화번호" type="text" name="phone" />
 
       <div
         className="relative flex justify-between items-end
@@ -63,6 +63,6 @@ export default function SignUpProfileInput({
           className="top-11.5"
         />
       </div>
-    </>
+    </ul>
   );
 }

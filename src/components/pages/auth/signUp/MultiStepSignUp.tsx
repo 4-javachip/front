@@ -3,12 +3,13 @@
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import { useState } from 'react';
 import AuthHeading from '@/components/ui/AuthHeading';
-import SignUpAccountInput from './SignUpAccountInput';
+import SignUpPasswordInput from './SignUpPasswordInput';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import SignUpProfileInput from './SignUpProfileInput';
 import BackArrowIcon from '@/components/ui/icons/BackArrowIcon';
 import CommonInput from '@/components/ui/inputs/CommonInput';
 import { signUpSchema } from '@/schemas/signUpSchema';
+import SignUpEmailInput from './SignUpEmailInput';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -17,7 +18,8 @@ export default function MultiStepSignUp({
 }) {
   const [step, setStep] = useState(1);
   const [inputValues, setInputValues] = useState<SignUpStoreStateType>({
-    email: '',
+    emailId: '',
+    emailDomain: '',
     password: '',
     nickname: '',
     name: '',
@@ -80,10 +82,16 @@ export default function MultiStepSignUp({
           switch (step) {
             case 1:
               return (
-                <SignUpAccountInput
-                  onChange={handleChange}
-                  errorMessages={errorMessages}
-                />
+                <ul className="padded space-y-6">
+                  <SignUpEmailInput
+                    onChange={handleChange}
+                    errorMessages={errorMessages}
+                  />
+                  <SignUpPasswordInput
+                    onChange={handleChange}
+                    errorMessages={errorMessages}
+                  />
+                </ul>
               );
             case 2:
               return <SignUpProfileInput onChange={handleChange} />;
