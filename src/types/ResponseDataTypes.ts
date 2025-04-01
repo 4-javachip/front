@@ -141,3 +141,12 @@ export interface AgreementType {
   type: AgreementTypeEnum;
   required: boolean;
 }
+
+export interface OrderProductType {
+  productName: string;
+  productPrice: number;
+  productQuantity: number;
+  productOptionListUuid: string;
+  productImageUrl: string;
+  discountRate: number;
+}

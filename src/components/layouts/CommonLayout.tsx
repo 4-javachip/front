@@ -12,7 +12,7 @@ function SectionNoPadding({
   children,
   className,
 }: Readonly<{ children: React.ReactNode; className?: string }>) {
-  return <section className={cn('px-4 py-10', className)}>{children}</section>;
+  return <section className={cn('px-0 py-0', className)}>{children}</section>;
 }
 
 function CommonHeader({
@@ -31,7 +31,6 @@ function CommonHeader({
   );
 }
 
-
 function FixedButtonBgLayout({
   children,
   className,
@@ -48,7 +47,6 @@ function FixedButtonBgLayout({
   );
 }
 
-
 export function CommonBorder({ className }: Readonly<{ className?: string }>) {
   return (
     <section
@@ -56,7 +54,7 @@ export function CommonBorder({ className }: Readonly<{ className?: string }>) {
     ></section>
   );
 }
-  
+
 export const CommonLayout = {
   CommonBorder,
   SectionInnerPadding,

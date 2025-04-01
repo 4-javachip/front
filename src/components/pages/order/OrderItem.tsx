@@ -1,20 +1,24 @@
 import Image from 'next/image';
-import { CartProductType } from '@/types/ResponseDataTypes';
-import OrderItemInfo from './OrderItemInfo';
-import { dummyCartItems } from '@/data/dummyDatas';
+import { OrderProductType } from '@/types/ResponseDataTypes';
+import OrderItemDetail from './OrderItemDetail';
+import { dummyOrderProduct } from '@/data/dummyDatas';
 
-interface Props {
-  item: CartProductType;
+interface OrderListProps {
+  item: OrderProductType;
   isFirst?: boolean;
   isOpen: boolean;
 }
 
-export default function OrderItem({ item, isFirst = false, isOpen }: Props) {
+export default function OrderItem({
+  item,
+  isFirst = false,
+  isOpen,
+}: OrderListProps) {
   const itemDisplayText =
     !isOpen && isFirst && item.productName
       ? `${item.productName}${
-          dummyCartItems.length > 1
-            ? ` ...외 ${dummyCartItems.length - 1}건`
+          dummyOrderProduct.length > 1
+            ? ` ...외 ${dummyOrderProduct.length - 1}건`
             : ''
         } `
       : item.productName;
@@ -52,7 +56,7 @@ export default function OrderItem({ item, isFirst = false, isOpen }: Props) {
           )}
         </div>
 
-        {isOpen && <OrderItemInfo item={item} />}
+        {isOpen && <OrderItemDetail item={item} />}
       </div>
     </div>
   );

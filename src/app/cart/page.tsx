@@ -1,6 +1,5 @@
 'use client';
 
-import CartAllCheckBar from '@/components/pages/cart/CartAllCheckBar';
 import CartEmpty from '@/components/pages/cart/CartEmpty';
 import CartItemList from '@/components/pages/cart/CartItemList';
 import CartNotice from '@/components/pages/cart/CartNotice';

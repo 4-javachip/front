@@ -1,21 +1,24 @@
 import React from 'react';
-import { CartProductType } from '@/types/ResponseDataTypes';
+import { OrderProductType } from '@/types/ResponseDataTypes';
 import OrderItem from './OrderItem';
 
-interface Props {
-  cartItems: CartProductType[];
+interface OrderItemToggleProps {
+  orderItems: OrderProductType[];
   isOpen: boolean;
 }
 
-export default function OrderItemToggleList({ cartItems, isOpen }: Props) {
-  const firstItem = cartItems[0];
-  const restItems = cartItems.slice(1);
+export default function OrderItemToggleList({
+  orderItems: cartItems,
+  isOpen,
+}: OrderItemToggleProps) {
+  if (!cartItems || cartItems.length === 0) return null;
+
+  const [firstItem, ...restItems] = cartItems;
 
   return (
     <section>
-      <OrderItem item={firstItem} isFirst={true} isOpen={isOpen} />
+      <OrderItem item={firstItem} isFirst isOpen={isOpen} />
 
-      {/* 추가 상품들 */}
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen ? 'max-h-[31.25rem]' : 'max-h-0'
