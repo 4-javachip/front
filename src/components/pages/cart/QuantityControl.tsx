@@ -3,33 +3,20 @@ import PlusIcon from '@/components/ui/icons/PlusIcon';
 
 interface QuantityControlProps {
   quantity: number;
-  onIncrease: () => void;
-  onDecrease: () => void;
+  // onClick: () => void;
 }
 
-export default function QuantityControl({
-  quantity,
-  onIncrease,
-  onDecrease,
-}: QuantityControlProps) {
+export default function QuantityControl({ quantity }: QuantityControlProps) {
   return (
     <ul className="flex items-center  justify-between px-2">
       <li className="pr-4">
-        <button
-          type="button"
-          onClick={onDecrease}
-          className="flex justify-center items-center"
-        >
+        <button type="button" className="flex justify-center items-center">
           <MinusIcon />
         </button>
       </li>
       <li className="pr-4 font-body font-semibold ">{quantity}</li>
       <li>
-        <button
-          type="button"
-          onClick={onIncrease}
-          className="flex justify-center items-center"
-        >
+        <button type="button" className="flex justify-center items-center">
           <PlusIcon />
         </button>
       </li>

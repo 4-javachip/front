@@ -1,71 +1,63 @@
-import { CartProductType } from '@/types/ResponseDataTypes';
+'use client';
+import {
+  CartListDataType,
+  CartProductItemType,
+} from '@/types/ResponseDataTypes';
 import QuantityControl from './QuantityControl';
 import DeleteButton from '@/components/ui/buttons/DeleteButton';
 import Checkbox from '@/components/ui/inputs/CheckBox';
 import Image from 'next/image';
+import CustomCheckBox from '@/components/ui/inputs/CustomCheckBox';
+import { useEffect, useState } from 'react';
+import { getProductItem } from '@/actions/cart-service';
 
-interface CartItemProps {
-  cartItem: CartProductType;
-  onToggleCheck: (productOptionListUuid: string) => void;
-  onIncrease: (productOptionListUuid: string) => void;
-  onDecrease: (productOptionListUuid: string) => void;
-  onDelete: (productOptionListUuid: string) => void;
-}
+export default function CartItem({ item }: { item: CartListDataType }) {
+  const [productData, setProductData] = useState<CartProductItemType>(
+    {} as CartProductItemType
+  );
 
-export default function CartItem({
-  cartItem,
-  onToggleCheck,
-  onIncrease,
-  onDecrease,
-  onDelete,
-}: CartItemProps) {
-  const {
-    productOptionListUuid,
-    productImageUrl,
-    productName,
-    productQuantity = 1,
-    productPrice = 0,
-    discountPrice,
-    checked,
-  } = cartItem;
+  useEffect(() => {
+    const getData = async () => {
+      const res = await getProductItem(item.productUuid);
+      setProductData(res);
+    };
+    getData();
+  }, [item]);
 
   return (
     <article className="flex items-start gap-3 py-5.5 border-b border-lightGray-8 px-6">
-      <Checkbox
-        checked={checked}
-        onChange={() => onToggleCheck(productOptionListUuid)}
-        className="mt-2"
-      />
-
+      {/* <CustomCheckBox
+        checked={item.checked}
+        // onChange={() => onToggleCheck(productOptionListUuid)}
+        label={`checkbox-${item.productOptionListUuid}`}
+      /> */}
+      {productData.name}
+      {productData.productUuid}
       <figure>
-        <Image
+        {/* <Image
           src={productImageUrl}
           alt={productName}
           width={80}
           height={80}
           className="w-20 h-20 rounded object-cover"
-        />
+        /> */}
       </figure>
       <section className="flex-1">
         <ul className="flex justify-between items-start mb-2">
           <li className="text-sm font-pretendard font-semibold text-foreground">
-            {productName}
+            {}
           </li>
           <li>
-            <DeleteButton onDelete={() => onDelete(productOptionListUuid)} />
+            {/* <DeleteButton onDelete={() => console.log('delete')} /> */}
           </li>
         </ul>
 
         <ul className="flex justify-between items-center">
           <li>
-            <QuantityControl
-              quantity={productQuantity}
-              onIncrease={() => onIncrease(productOptionListUuid)}
-              onDecrease={() => onDecrease(productOptionListUuid)}
-            />
+            <QuantityControl quantity={item.productQuantity} />
           </li>
           <li className="text-right font-body">
-            {cartItem.discountPrice && cartItem.discountPrice > 0 ? (
+            {/* {cartItem.discountPrice && cartItem.discountPrice > 0 ? (
               <div className="flex flex-col items-end">
                 <span className="text-lightGray-7 line-through text-sm">
                   {(productPrice * productQuantity).toLocaleString()}원
@@ -77,11 +69,11 @@ export default function CartItem({
                   원
                 </span>
               </div>
-            ) : (
-              <span className="font-semibold text-foreground">
-                {(productPrice * productQuantity).toLocaleString()}원
-              </span>
-            )}
+            ) : ( */}
+            <span className="font-semibold text-foreground">
+              {(1000 * item.productQuantity).toLocaleString()}원
+            </span>
+            {/* )} */}
           </li>
         </ul>
       </section>

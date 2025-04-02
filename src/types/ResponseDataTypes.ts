@@ -1,5 +1,4 @@
 export interface commonResponseType<T> {
-  httpStatus: string;
   isSuccess: boolean;
   message: string;
   code: number;
@@ -20,6 +19,11 @@ export interface ProductLabelType {
 export interface ImageType {
   imageUrl: string;
   description: string;
+}
+
+export interface CartProductItemType {
+  productUuid: string;
+  name: string;
 }
 
 // 리스트 상품
@@ -94,6 +98,15 @@ export interface AddressType {
   secondPhoneNumber: string;
   shippingNote: string;
   defaultAddress?: boolean;
+}
+
+export interface CartListDataType {
+  userUuid: string;
+  cartUuid: string;
+  productQuantity: number;
+  checked: true;
+  productUuid: string;
+  productOptionListUuid: string;
 }
 
 //장바구니상품
