@@ -34,12 +34,26 @@ export default function SignUpEmailInput({
   const handleDomainSelect = (domain: string) => {
     setSelectedDomain(domain);
     setIsCustom(domain === 'custom');
+
+    // if (domain === 'custom') {
+    //   if (inputRef.current) inputRef.current.value = '';
+    // } else {
+    //   const event = new Event('input', {
+    //     bubbles: true,
+    //   }) as unknown as React.ChangeEvent<HTMLInputElement>;
+    //   Object.defineProperty(event, 'target', {
+    //     writable: false,
+    //     value: { name: 'emailDomain', value: domain },
+    //   });
+    //   onChange(event);
+    // }
+
     dropdownRef.current?.classList.add('hidden');
     iconRef.current?.classList.remove('rotate-180');
   };
 
   return (
-    <>
+    <li>
       <div
         ref={containerRef}
         className="flex items-center gap-2 border-b border-lightGray-4 
@@ -70,7 +84,15 @@ export default function SignUpEmailInput({
                   onChange={onChange}
                 />
               ) : (
-                <span className="w-full text-left">{selectedDomain}</span>
+                <>
+                  <span className="w-full text-left">{selectedDomain}</span>
+                  <input
+                    type="hidden"
+                    name="emailDomain"
+                    value={selectedDomain}
+                    onChange={onChange}
+                  />
+                </>
               )}
               <button type="button" onClick={toggleDropdown}>
                 <DropDownIcon
@@ -88,12 +110,12 @@ export default function SignUpEmailInput({
           </div>
         </div>
       </div>
-      {errorMessages.password && (
+      {errorMessages.emailId && (
         <InputErrorMessage>{errorMessages.emailId}</InputErrorMessage>
       )}
-      {errorMessages.password && (
+      {errorMessages.emailDomain && (
         <InputErrorMessage>{errorMessages.emailDomain}</InputErrorMessage>
       )}
-    </>
+    </li>
   );
 }

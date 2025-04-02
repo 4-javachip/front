@@ -5,15 +5,19 @@ import CommonInput from '@/components/ui/inputs/CommonInput';
 import LargeDropdownModal from '../../../ui/dropdown/LargeDropdownModal';
 import { useRef, useState } from 'react';
 import { genderOptions } from '@/data/initialDatas';
+import { SignUpStoreStateType } from '@/types/storeDataTypes';
+import { InputErrorMessage } from '@/components/layouts/CommonLayout';
 
 export default function SignUpProfileInput({
   onChange,
+  errorMessages,
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessages: Partial<SignUpStoreStateType>;
 }) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<SVGSVGElement>(null);
-  const [selectedOption, setSelectedOption] = useState('성별');
+  const [selectedOption, setSelectedOption] = useState('남성');
   const containerRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
@@ -21,7 +25,7 @@ export default function SignUpProfileInput({
     iconRef.current?.classList.toggle('rotate-180');
   };
 
-  const handleDomainSelect = (option: string) => {
+  const handleGenderSelect = (option: string) => {
     setSelectedOption(option);
     dropdownRef.current?.classList.add('hidden');
     iconRef.current?.classList.remove('rotate-180');
@@ -32,16 +36,45 @@ export default function SignUpProfileInput({
   };
 
   return (
-    <ul className="padded space-y-6">
-      <CommonInput placeholder="닉네임 (선택)" type="text" name="nickname" />
-      <CommonInput placeholder="이름" type="text" name="name" />
-      <div className="flex flex-row space-x-3.5">
-        <CommonInput placeholder="YYYY" type="text" name="year" />
-        <CommonInput placeholder="MM" type="text" name="month" />
-        <CommonInput placeholder="DD" type="text" name="date" />
-      </div>
-      <CommonInput placeholder="전화번호" type="text" name="phone" />
-
+    <>
+      <li>
+        <CommonInput
+          placeholder="닉네임 (선택)"
+          type="text"
+          name="nickname"
+          onChange={onChange}
+        />
+        {errorMessages.nickname && (
+          <InputErrorMessage>{errorMessages.nickname}</InputErrorMessage>
+        )}
+      </li>
+      <li>
+        <CommonInput
+          placeholder="이름"
+          type="text"
+          name="name"
+          onChange={onChange}
+        />
+        {errorMessages.name && (
+          <InputErrorMessage>{errorMessages.name}</InputErrorMessage>
+        )}
+      </li>
+      <li className="flex flex-row space-x-3.5">
+        <CommonInput placeholder="YYYY" type="text" name="year" maxLength={4} />
+        <CommonInput placeholder="MM" type="text" name="month" maxLength={2} />
+        <CommonInput placeholder="DD" type="text" name="date" maxLength={2} />
+      </li>
+      <li>
+        <CommonInput
+          placeholder="전화번호"
+          type="text"
+          name="phoneNumber"
+          onChange={onChange}
+        />
+        {errorMessages.phoneNumber && (
+          <InputErrorMessage>{errorMessages.phoneNumber}</InputErrorMessage>
+        )}
+      </li>
       <div
         className="relative flex justify-between items-end
         py-2.5 px-3 w-full text-lg text-foreground bg-transparent 
@@ -49,6 +82,12 @@ export default function SignUpProfileInput({
         ref={containerRef}
       >
         {selectedOption}
+        <input
+          type="hidden"
+          name="gender"
+          value={selectedOption}
+          onChange={onChange}
+        />
         <button type="button" onClick={toggleDropdown} onFocus={handleFocus}>
           <DropDownIcon
             ref={iconRef}
@@ -58,11 +97,11 @@ export default function SignUpProfileInput({
         </button>
         <LargeDropdownModal
           options={genderOptions}
-          onSelect={handleDomainSelect}
+          onSelect={handleGenderSelect}
           dropdownRef={dropdownRef}
           className="top-11.5"
         />
       </div>
-    </ul>
+    </>
   );
 }

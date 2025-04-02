@@ -19,12 +19,13 @@ export default function MultiStepSignUp({
   const [step, setStep] = useState(1);
   const [inputValues, setInputValues] = useState<SignUpStoreStateType>({
     emailId: '',
-    emailDomain: '',
+    emailDomain: 'gmail.com',
     password: '',
-    nickname: '',
     name: '',
     confirmPassword: '',
-    birthdate: '',
+    year: '',
+    month: '',
+    date: '',
     phoneNumber: '',
     gender: '남성',
   });
@@ -78,37 +79,29 @@ export default function MultiStepSignUp({
         ))}
       </section>
       <form action={handleSignUp}>
-        {(() => {
-          switch (step) {
-            case 1:
-              return (
-                <ul className="padded space-y-6">
-                  <SignUpEmailInput
-                    onChange={handleChange}
-                    errorMessages={errorMessages}
-                  />
-                  <SignUpPasswordInput
-                    onChange={handleChange}
-                    errorMessages={errorMessages}
-                  />
-                </ul>
-              );
-            case 2:
-              return <SignUpProfileInput onChange={handleChange} />;
-            case 3:
-              return (
-                <p>
-                  <CommonInput
-                    placeholder="인증번호"
-                    type="text"
-                    name="confirm"
-                  />
-                </p>
-              );
-            default:
-              return null;
-          }
-        })()}
+        {/* 1 */}
+        <ul className={`padded space-y-6 ${step === 1 ? '' : 'hidden'}`}>
+          <SignUpEmailInput
+            onChange={handleChange}
+            errorMessages={errorMessages}
+          />
+          <SignUpPasswordInput
+            onChange={handleChange}
+            errorMessages={errorMessages}
+          />
+        </ul>
+        {/* 2 */}
+        <ul className={`padded space-y-6 ${step === 2 ? '' : 'hidden'}`}>
+          <SignUpProfileInput
+            onChange={handleChange}
+            errorMessages={errorMessages}
+          />
+          <button type="submit">Sign Up</button>
+        </ul>
+        {/* 3 */}
+        <p className={`padded space-y-6 ${step === 3 ? '' : 'hidden'}`}>
+          <CommonInput placeholder="인증번호" type="text" name="confirm" />
+        </p>
       </form>
       <ConfirmNextButton
         text="다음"

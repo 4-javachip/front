@@ -5,7 +5,9 @@ export interface SignUpStoreStateType {
   confirmPassword: string;
   nickname?: string;
   name: string;
-  birthdate: string;
+  year: string;
+  month: string;
+  date: string;
   phoneNumber: string;
   gender: string;
 }
