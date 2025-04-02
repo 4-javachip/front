@@ -1,8 +1,9 @@
 import { CartProductType } from '@/types/ResponseDataTypes';
 import QuantityControl from './QuantityControl';
 import DeleteButton from '@/components/ui/buttons/DeleteButton';
-import Checkbox from '@/components/ui/inputs/CheckBox';
+
 import Image from 'next/image';
+import Checkbox from '@/components/ui/inputs/CheckBox';
 
 interface CartItemProps {
   cartItem: CartProductType;
