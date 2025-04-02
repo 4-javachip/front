@@ -38,7 +38,7 @@ export default function SignUpProfileInput({
   };
 
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/[^\d]/g, ''); // 숫자만 남기기
+    const rawValue = e.target.value.replace(/[^\d]/g, '');
     let formattedValue = rawValue;
 
     if (rawValue.length > 6) {
@@ -48,6 +48,19 @@ export default function SignUpProfileInput({
       )}-${rawValue.slice(7, 11)}`;
     } else if (rawValue.length > 3) {
       formattedValue = `${rawValue.slice(0, 3)}-${rawValue.slice(3, 7)}`;
+    }
+
+    if (
+      e.nativeEvent instanceof InputEvent &&
+      e.nativeEvent.inputType === 'deleteContentBackward'
+    ) {
+      const cursorPosition = e.target.selectionStart ?? formattedValue.length;
+
+      if (formattedValue[cursorPosition - 1] === '-') {
+        formattedValue =
+          formattedValue.slice(0, cursorPosition - 1) +
+          formattedValue.slice(cursorPosition);
+      }
     }
 
     setPhoneNumber(formattedValue);
@@ -112,6 +125,7 @@ export default function SignUpProfileInput({
           type="text"
           name="phoneNumber"
           value={phoneNumber}
+          maxLength={13}
           onChange={handlePhoneNumberChange}
         />
         {errorMessages.phoneNumber && (
