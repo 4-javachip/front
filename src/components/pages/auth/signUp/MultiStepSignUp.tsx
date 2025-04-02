@@ -1,13 +1,12 @@
 'use client';
 
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuthHeading from '@/components/ui/AuthHeading';
 import SignUpPasswordInput from './SignUpPasswordInput';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import SignUpProfileInput from './SignUpProfileInput';
 import BackArrowIcon from '@/components/ui/icons/BackArrowIcon';
-import CommonInput from '@/components/ui/inputs/CommonInput';
 import { signUpSchema } from '@/schemas/signUpSchema';
 import SignUpEmailInput from './SignUpEmailInput';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
@@ -38,29 +37,52 @@ export default function MultiStepSignUp({
     Partial<SignUpStoreStateType>
   >({});
 
+  useEffect(() => {
+    const isAllFieldsValid = requiredFields[step].every(
+      (field) => !!inputValues[field] && !errorMessages[field]
+    );
+    setIsEnabled(isAllFieldsValid);
+  }, [inputValues, errorMessages, step]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // e.preventDefault();
     const { name, value } = e.target;
-    setInputValues({ ...inputValues, [name]: value });
-    const res = signUpSchema.safeParse({
-      ...inputValues,
-      [name]: value,
+
+    // setInputValues({ ...inputValues, [name]: value });
+    // const res = signUpSchema.safeParse({
+    //   ...inputValues,
+    //   [name]: value,
+    // });
+    // if (!res.success) {
+    //   const fieldErros: Partial<SignUpStoreStateType> = {};
+    //   res.error.errors.forEach((error) => {
+    //     const fieldName = error.path[0] as keyof SignUpStoreStateType;
+    //     fieldErros[fieldName] = error.message;
+    //   });
+    //   setErrorMessages(fieldErros);
+
+    //   setIsEnabled(false);
+    // } else {
+    //   console.log('no error');
+    //   setErrorMessages({});
+
+    setInputValues((prev) => {
+      const updatedValues = { ...prev, [name]: value };
+      const res = signUpSchema.safeParse(updatedValues);
+
+      if (!res.success) {
+        const fieldErrors: Partial<SignUpStoreStateType> = {};
+        res.error.errors.forEach((error) => {
+          const fieldName = error.path[0] as keyof SignUpStoreStateType;
+          fieldErrors[fieldName] = error.message;
+        });
+        setErrorMessages(fieldErrors);
+      } else {
+        setErrorMessages({});
+      }
+
+      return updatedValues;
     });
-    if (!res.success) {
-      const fieldErros: Partial<SignUpStoreStateType> = {};
-      res.error.errors.forEach((error) => {
-        const fieldName = error.path[0] as keyof SignUpStoreStateType;
-        fieldErros[fieldName] = error.message;
-      });
-      setErrorMessages(fieldErros);
-
-      setIsEnabled(false);
-    } else {
-      console.log('no error');
-      setErrorMessages({});
-
-      setIsEnabled(true);
-    }
   };
 
   // 엔터시 폼 전송되는 현상 방지
@@ -82,6 +104,11 @@ export default function MultiStepSignUp({
   const authMessages: Record<number, string[]> = {
     1: ['이메일과 비밀번호를', '입력해 주세요.'],
     2: ['유저 정보를', '입력해 주세요.'],
+  };
+
+  const requiredFields: Record<number, (keyof SignUpStoreStateType)[]> = {
+    1: ['emailId', 'emailDomain', 'password', 'confirmPassword'],
+    2: ['name', 'year', 'month', 'date', 'phoneNumber', 'gender'],
   };
 
   return (
@@ -116,9 +143,9 @@ export default function MultiStepSignUp({
           className={`${step === 1 ? '' : 'hidden'}`}
           text="다음"
           onClick={() => {
-            nextStep();
+            if (isEnabled) nextStep();
           }}
-          isEnabled={() => true}
+          isEnabled={() => isEnabled}
         />
 
         {/* 2 */}
