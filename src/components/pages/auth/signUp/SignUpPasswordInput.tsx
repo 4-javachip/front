@@ -19,6 +19,7 @@ export default function SignUpPasswordInput({
           type="password"
           name="password"
           onChange={onChange}
+          maxLength={20}
         />
         {errorMessages.password && (
           <InputErrorMessage>{errorMessages.password}</InputErrorMessage>
@@ -30,6 +31,7 @@ export default function SignUpPasswordInput({
           type="password"
           name="confirmPassword"
           onChange={onChange}
+          maxLength={20}
         />
         {errorMessages.confirmPassword && (
           <InputErrorMessage>{errorMessages.confirmPassword}</InputErrorMessage>

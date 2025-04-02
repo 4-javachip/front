@@ -16,20 +16,15 @@ export const signUpSchema = z
     password: z
       .string()
       .min(10, '비밀번호는 10자 이상이어야 합니다.')
-      .max(20, '비밀번호는 20자 이하여야 합니다.')
       .regex(/[a-zA-Z0-9]/, '비밀번호는 영문과 숫자를 포함해야 합니다.')
       .regex(/[!@#$%^&*]/, '비밀번호는 특수문자를 포함해야 합니다.'),
     confirmPassword: z.string().min(1, '비밀번호 확인을 입력하세요.'),
     nickname: z
       .string()
       .min(2, '닉네임은 2자 이상이어야 합니다.')
-      .max(20, '닉네임은 10자 이하여야 합니다.')
       .optional()
       .or(z.literal('')),
-    name: z
-      .string()
-      .min(2, '이름은 2자 이상이어야 합니다.')
-      .max(20, '이름은 10자 이하여야 합니다.'),
+    name: z.string().min(2, '이름은 2자 이상이어야 합니다.'),
     year: z.string(),
     month: z.string(),
     date: z.string(),

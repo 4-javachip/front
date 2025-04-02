@@ -10,6 +10,8 @@ import BackArrowIcon from '@/components/ui/icons/BackArrowIcon';
 import CommonInput from '@/components/ui/inputs/CommonInput';
 import { signUpSchema } from '@/schemas/signUpSchema';
 import SignUpEmailInput from './SignUpEmailInput';
+import { CommonLayout } from '@/components/layouts/CommonLayout';
+import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useRouter } from 'next/navigation';
 
 export default function MultiStepSignUp({
@@ -17,6 +19,7 @@ export default function MultiStepSignUp({
 }: {
   handleSignUp: (signUpFormData: FormData) => void;
 }) {
+  const router = useRouter();
   const [isEnabled, setIsEnabled] = useState(false);
   const [step, setStep] = useState(1);
   const [inputValues, setInputValues] = useState<SignUpStoreStateType>({
@@ -36,7 +39,7 @@ export default function MultiStepSignUp({
   >({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+    // e.preventDefault();
     const { name, value } = e.target;
     setInputValues({ ...inputValues, [name]: value });
     const res = signUpSchema.safeParse({
@@ -60,13 +63,25 @@ export default function MultiStepSignUp({
     }
   };
 
+  // 엔터시 폼 전송되는 현상 방지
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
   const nextStep = () => setStep((prev) => prev + 1);
-  const prevStep = () => setStep((prev) => prev - 1);
+  const prevStep = () => {
+    if (step === 1) {
+      router.back();
+    } else {
+      setStep((prev) => prev - 1);
+    }
+  };
 
   const authMessages: Record<number, string[]> = {
     1: ['이메일과 비밀번호를', '입력해 주세요.'],
     2: ['유저 정보를', '입력해 주세요.'],
-    3: ['전송된 인증 번호를', '입력해 주세요.'],
   };
 
   return (
@@ -85,7 +100,7 @@ export default function MultiStepSignUp({
           <AuthHeading key={index}>{message}</AuthHeading>
         ))}
       </section>
-      <form action={handleSignUp}>
+      <form action={handleSignUp} onKeyDown={handleKeyDown}>
         {/* 1 */}
         <ul className={`padded space-y-6 ${step === 1 ? '' : 'hidden'}`}>
           <SignUpEmailInput
@@ -97,34 +112,42 @@ export default function MultiStepSignUp({
             errorMessages={errorMessages}
           />
         </ul>
+        <ConfirmNextButton
+          className={`${step === 1 ? '' : 'hidden'}`}
+          text="다음"
+          onClick={() => {
+            nextStep();
+          }}
+          isEnabled={() => true}
+        />
+
         {/* 2 */}
         <ul className={`padded space-y-6 ${step === 2 ? '' : 'hidden'}`}>
           <SignUpProfileInput
             onChange={handleChange}
             errorMessages={errorMessages}
           />
-          <button type="submit">Sign Up</button>
         </ul>
-        {/* 3 */}
-        <p className={`padded space-y-6 ${step === 3 ? '' : 'hidden'}`}>
-          <CommonInput placeholder="인증번호" type="text" name="confirm" />
-        </p>
         {/* submit */}
-        <ConfirmNextButton
+        <CommonLayout.FixedButtonBgLayout
           className={`${step != 2 && 'hidden'}`}
-          text="submit"
-          onClick={() => {}}
-          isEnabled={() => isEnabled}
-        />
+        >
+          <CommonButton
+            onClick={() => {
+              router.push('sign-up-complete');
+            }}
+            isEnabled={isEnabled}
+            type="submit"
+          >
+            다음
+          </CommonButton>
+        </CommonLayout.FixedButtonBgLayout>
+
+        {/* 3 */}
+        {/* <p className={`padded space-y-6 ${step === 3 ? '' : 'hidden'}`}>
+          <CommonInput placeholder="인증번호" type="text" name="confirm" />
+        </p> */}
       </form>
-      <ConfirmNextButton
-        className={`${step != 1 && 'hidden'}`}
-        text="다음"
-        onClick={() => {
-          nextStep();
-        }}
-        isEnabled={() => true}
-      />
     </>
   );
 }

@@ -33,20 +33,13 @@ export default function SignUpEmailInput({
 
   const handleDomainSelect = (domain: string) => {
     setSelectedDomain(domain);
-    setIsCustom(domain === 'custom');
-
-    // if (domain === 'custom') {
-    //   if (inputRef.current) inputRef.current.value = '';
-    // } else {
-    //   const event = new Event('input', {
-    //     bubbles: true,
-    //   }) as unknown as React.ChangeEvent<HTMLInputElement>;
-    //   Object.defineProperty(event, 'target', {
-    //     writable: false,
-    //     value: { name: 'emailDomain', value: domain },
-    //   });
-    //   onChange(event);
-    // }
+    if (domain === 'custom') {
+      setIsCustom(true);
+      setSelectedDomain('');
+      onChange({
+        target: { name: 'emailDomain', value: '' },
+      } as React.ChangeEvent<HTMLInputElement>);
+    }
 
     dropdownRef.current?.classList.add('hidden');
     iconRef.current?.classList.remove('rotate-180');
@@ -81,6 +74,7 @@ export default function SignUpEmailInput({
                   className="w-full text-foreground bg-transparent focus:outline-none border-none 
             pr-5"
                   placeholder="직접 입력"
+                  defaultValue={selectedDomain}
                   autoFocus
                   maxLength={15}
                   onChange={onChange}

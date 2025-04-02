@@ -75,6 +75,7 @@ export default function SignUpProfileInput({
           type="text"
           name="nickname"
           onChange={onChange}
+          maxLength={10}
         />
         {errorMessages.nickname && (
           <InputErrorMessage>{errorMessages.nickname}</InputErrorMessage>
@@ -86,6 +87,7 @@ export default function SignUpProfileInput({
           type="text"
           name="name"
           onChange={onChange}
+          maxLength={10}
         />
         {errorMessages.name && (
           <InputErrorMessage>{errorMessages.name}</InputErrorMessage>
