@@ -54,6 +54,7 @@ export default function MultiStepSignUp({
       setIsEnabled(false);
     } else {
       console.log('no error');
+      setErrorMessages({});
 
       setIsEnabled(true);
     }

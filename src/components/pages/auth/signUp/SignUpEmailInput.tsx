@@ -66,6 +66,7 @@ export default function SignUpEmailInput({
         border-none appearance-none focus:outline-none focus:ring-0 peer"
           placeholder="아이디 입력"
           onFocus={handleFocus}
+          maxLength={15}
           onChange={onChange}
         />
         <div className="flex flex-row w-3/5 gap-3">
@@ -81,6 +82,7 @@ export default function SignUpEmailInput({
             pr-5"
                   placeholder="직접 입력"
                   autoFocus
+                  maxLength={15}
                   onChange={onChange}
                 />
               ) : (
