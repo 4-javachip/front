@@ -1,5 +1,5 @@
 import AddressAgreementIcon from '@/components/ui/icons/AddressAgreement';
-import { CouponIcon } from '@/components/ui/icons/CouponIcon';
+import CouponIcon from '@/components/ui/icons/CouponIcon';
 import OrderListIcon from '@/components/ui/icons/OrderListIcon';
 import ShippingAddressIcon from '@/components/ui/icons/ShippingAddressIcon';
 
