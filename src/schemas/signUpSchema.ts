@@ -42,4 +42,25 @@ export const signUpSchema = z
   .refine((data) => data.password === data.confirmPassword, {
     message: '비밀번호가 일치하지 않습니다.',
     path: ['confirmPassword'],
-  });
+  })
+  .refine(
+    (data) => {
+      const { year, month, date } = data;
+
+      // year이 4글자 미만인 경우
+      const isYearValid = year.length === 4;
+
+      // month는 1~12 사이의 숫자만 허용
+      const isMonthValid = parseInt(month) >= 1 && parseInt(month) <= 12;
+
+      // date는 1~31 사이의 숫자만 허용
+      const isDateValid = parseInt(date) >= 1 && parseInt(date) <= 31;
+
+      // 모든 조건이 충족되지 않으면 에러
+      return isYearValid && isMonthValid && isDateValid;
+    },
+    {
+      message: '유효한 생년월일을 입력해 주세요',
+      path: ['year'], // 에러를 year 필드에 적용
+    }
+  );
