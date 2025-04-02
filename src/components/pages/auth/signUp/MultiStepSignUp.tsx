@@ -10,12 +10,14 @@ import BackArrowIcon from '@/components/ui/icons/BackArrowIcon';
 import CommonInput from '@/components/ui/inputs/CommonInput';
 import { signUpSchema } from '@/schemas/signUpSchema';
 import SignUpEmailInput from './SignUpEmailInput';
+import { useRouter } from 'next/navigation';
 
 export default function MultiStepSignUp({
   handleSignUp,
 }: {
   handleSignUp: (signUpFormData: FormData) => void;
 }) {
+  const [isEnabled, setIsEnabled] = useState(false);
   const [step, setStep] = useState(1);
   const [inputValues, setInputValues] = useState<SignUpStoreStateType>({
     emailId: '',
@@ -48,8 +50,12 @@ export default function MultiStepSignUp({
         fieldErros[fieldName] = error.message;
       });
       setErrorMessages(fieldErros);
+
+      setIsEnabled(false);
     } else {
       console.log('no error');
+
+      setIsEnabled(true);
     }
   };
 
@@ -102,8 +108,16 @@ export default function MultiStepSignUp({
         <p className={`padded space-y-6 ${step === 3 ? '' : 'hidden'}`}>
           <CommonInput placeholder="인증번호" type="text" name="confirm" />
         </p>
+        {/* submit */}
+        <ConfirmNextButton
+          className={`${step != 2 && 'hidden'}`}
+          text="submit"
+          onClick={() => {}}
+          isEnabled={() => isEnabled}
+        />
       </form>
       <ConfirmNextButton
+        className={`${step != 1 && 'hidden'}`}
         text="다음"
         onClick={() => {
           nextStep();

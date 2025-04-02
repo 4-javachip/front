@@ -35,6 +35,29 @@ export default function SignUpProfileInput({
     containerRef.current?.classList.add('border-green');
   };
 
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value.replace(/[^\d]/g, ''); // 숫자만 남기기
+    let formattedValue = rawValue;
+
+    // 3자리, 4자리, 4자리로 나누어 - 추가
+    if (rawValue.length > 6) {
+      formattedValue = `${rawValue.slice(0, 3)}-${rawValue.slice(
+        3,
+        7
+      )}-${rawValue.slice(7, 11)}`;
+    } else if (rawValue.length > 3) {
+      formattedValue = `${rawValue.slice(0, 3)}-${rawValue.slice(3, 7)}`;
+    }
+
+    // 전화번호 포맷팅 적용 후 상태 업데이트
+    setPhoneNumber(formattedValue);
+
+    // 기존 onChange 호출하여 다른 필드 처리
+    onChange(e);
+  };
+
   return (
     <>
       <li>
@@ -69,7 +92,8 @@ export default function SignUpProfileInput({
           placeholder="전화번호"
           type="text"
           name="phoneNumber"
-          onChange={onChange}
+          value={phoneNumber}
+          onChange={handlePhoneNumberChange}
         />
         {errorMessages.phoneNumber && (
           <InputErrorMessage>{errorMessages.phoneNumber}</InputErrorMessage>
