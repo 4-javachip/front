@@ -21,8 +21,12 @@ export default function SignUpProfileInput({
   const iconRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const [selectedOption, setSelectedOption] = useState('남성');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [selectedOption, setSelectedOption] = useState(
+    inputValues?.gender ?? '남성'
+  );
+  const [phoneNumber, setPhoneNumber] = useState(
+    inputValues?.phoneNumber ?? ''
+  );
 
   const toggleDropdown = () => {
     dropdownRef.current?.classList.toggle('hidden');
@@ -33,6 +37,13 @@ export default function SignUpProfileInput({
     setSelectedOption(option);
     dropdownRef.current?.classList.add('hidden');
     iconRef.current?.classList.remove('rotate-180');
+
+    onChange({
+      target: {
+        name: 'gender',
+        value: option,
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
   };
 
   const handleFocus = () => {
@@ -148,12 +159,7 @@ export default function SignUpProfileInput({
         ref={containerRef}
       >
         {selectedOption}
-        <input
-          type="hidden"
-          name="gender"
-          value={selectedOption}
-          onChange={onChange}
-        />
+        <input type="hidden" name="gender" value={selectedOption} />
         <button
           type="button"
           onClick={toggleDropdown}
