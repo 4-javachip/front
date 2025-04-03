@@ -48,39 +48,39 @@ jobs:
       if: always()
       run: |
         STATUS="${{ job.status }}"
-        if [ \"$STATUS\" = \"success\" ]; then
-          COLOR=3066993
-          ICON=\"✅\"
-          TITLE=\"Frontend Deploy 성공\"
+        if [ "$STATUS" = "success" ]; then
+          COLOR=3066993   # green
+          ICON="✅"
+          TITLE="Frontend Deploy 성공"
         else
-          COLOR=15158332
-          ICON=\"❌\"
-          TITLE=\"Frontend Deploy 실패\"
+          COLOR=15158332  # red
+          ICON="❌"
+          TITLE="Frontend Deploy 실패"
         fi
-
+    
         curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
-        -H \"Content-Type: application/json\" \
+        -H "Content-Type: application/json" \
         -d @- <<EOF
         {
-          \"embeds\": [
+        "embeds": [
+        {
+          "title": "$ICON $TITLE",
+          "color": $COLOR,
+          "fields": [
             {
-              \"title\": \"$ICON $TITLE\",
-              \"color\": $COLOR,
-              \"fields\": [
-                {
-                  \"name\": \"🔨 Commit\",
-                  \"value\": \"${SHORT_MSG}\"
-                },
-                {
-                  \"name\": \"👤 By\",
-                  \"value\": \"${{ github.actor }}\"
-                },
-                {
-                  \"name\": \"📅 When\",
-                  \"value\": \"${{ github.event.head_commit.timestamp }}\"
-                }
-              ]
+              "name": "🔨 Commit",
+              "value": "${SHORT_MSG}}"
+            },
+            {
+              "name": "👤 By",
+              "value": "${{ github.actor }}"
+            },
+            {
+              "name": "📅 When",
+              "value": "${{ github.event.head_commit.timestamp }}"
             }
           ]
+        }
+        ]
         }
         EOF
