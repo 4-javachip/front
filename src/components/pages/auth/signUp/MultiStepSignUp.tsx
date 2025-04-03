@@ -9,6 +9,7 @@ import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useRouter } from 'next/navigation';
 import { signUpStepData } from '@/data/dummyDatas';
+import SignUpStep from './SignUpStep';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -123,12 +124,18 @@ export default function MultiStepSignUp({
       </section>
       <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
         <ul className="padded space-y-6">
-          {viewComponent?.item({
+          {/* {viewComponent?.item({
             step,
             handleChange,
             errorMessages,
             inputValues,
-          })}
+          })} */}
+          <SignUpStep
+            step={step}
+            handleChange={handleChange}
+            errorMessages={errorMessages}
+            inputValues={inputValues}
+          />
         </ul>
 
         <CommonLayout.FixedButtonBgLayout>
