@@ -10,9 +10,11 @@ import { InputErrorMessage } from '@/components/layouts/CommonLayout';
 export default function SignUpEmailInput({
   onChange,
   errorMessages,
+  inputValues,
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessages: Partial<SignUpStoreStateType>;
+  inputValues?: SignUpStoreStateType;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -65,6 +67,7 @@ export default function SignUpEmailInput({
           onFocus={handleFocus}
           maxLength={15}
           onChange={onChange}
+          value={inputValues?.emailId}
         />
         <div className="flex flex-row w-3/5 gap-3">
           <span>@</span>

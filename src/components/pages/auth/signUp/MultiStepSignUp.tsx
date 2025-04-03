@@ -1,17 +1,14 @@
 'use client';
 
-import { SignUpStoreStateType } from '@/types/storeDataTypes';
+import { SignUpStepType, SignUpStoreStateType } from '@/types/storeDataTypes';
 import { useEffect, useState } from 'react';
 import AuthHeading from '@/components/ui/AuthHeading';
-import SignUpPasswordInput from './SignUpPasswordInput';
-import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
-import SignUpProfileInput from './SignUpProfileInput';
 import BackArrowIcon from '@/components/ui/icons/BackArrowIcon';
 import { signUpSchema } from '@/schemas/signUpSchema';
-import SignUpEmailInput from './SignUpEmailInput';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useRouter } from 'next/navigation';
+import { signUpStepData } from '@/data/dummyDatas';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -48,28 +45,10 @@ export default function MultiStepSignUp({
     // e.preventDefault();
     const { name, value } = e.target;
 
-    // setInputValues({ ...inputValues, [name]: value });
-    // const res = signUpSchema.safeParse({
-    //   ...inputValues,
-    //   [name]: value,
-    // });
-    // if (!res.success) {
-    //   const fieldErros: Partial<SignUpStoreStateType> = {};
-    //   res.error.errors.forEach((error) => {
-    //     const fieldName = error.path[0] as keyof SignUpStoreStateType;
-    //     fieldErros[fieldName] = error.message;
-    //   });
-    //   setErrorMessages(fieldErros);
-
-    //   setIsEnabled(false);
-    // } else {
-    //   console.log('no error');
-    //   setErrorMessages({});
-
     setInputValues((prev) => {
       const updatedValues = { ...prev, [name]: value };
       const res = signUpSchema.safeParse(updatedValues);
-
+      console.log(updatedValues);
       if (!res.success) {
         const fieldErrors: Partial<SignUpStoreStateType> = {};
         res.error.errors.forEach((error) => {
@@ -111,6 +90,16 @@ export default function MultiStepSignUp({
     2: ['name', 'year', 'month', 'date', 'phoneNumber', 'gender'],
   };
 
+  const signUpSteper = signUpStepData as SignUpStepType[];
+  const [viewComponent, setViewComponent] = useState<SignUpStepType>();
+  useEffect(
+    () =>
+      setViewComponent(
+        signUpSteper.find((item: SignUpStepType) => item.stepId === step)
+      ),
+    [step, signUpSteper]
+  );
+
   return (
     <>
       <header className="fixed top-0 left-0 z-50 p-1.5">
@@ -128,43 +117,25 @@ export default function MultiStepSignUp({
         ))}
       </section>
       <form action={handleSignUp} onKeyDown={handleKeyDown}>
-        {/* 1 */}
-        <ul className={`padded space-y-6 ${step === 1 ? '' : 'hidden'}`}>
-          <SignUpEmailInput
-            onChange={handleChange}
-            errorMessages={errorMessages}
-          />
-          <SignUpPasswordInput
-            onChange={handleChange}
-            errorMessages={errorMessages}
-          />
+        <ul className="padded space-y-6">
+          {viewComponent?.item({
+            step,
+            handleChange,
+            errorMessages,
+            inputValues,
+          })}
         </ul>
-        <ConfirmNextButton
-          className={`${step === 1 ? '' : 'hidden'}`}
-          text="다음"
-          onClick={() => {
-            if (isEnabled) nextStep();
-          }}
-          isEnabled={() => isEnabled}
-        />
 
-        {/* 2 */}
-        <ul className={`padded space-y-6 ${step === 2 ? '' : 'hidden'}`}>
-          <SignUpProfileInput
-            onChange={handleChange}
-            errorMessages={errorMessages}
-          />
-        </ul>
-        {/* submit */}
-        <CommonLayout.FixedButtonBgLayout
-          className={`${step != 2 && 'hidden'}`}
-        >
+        <CommonLayout.FixedButtonBgLayout>
           <CommonButton
-            onClick={() => {
-              router.push('sign-up-complete');
-            }}
+            onClick={() =>
+              viewComponent?.stepId === 1
+                ? setStep(2)
+                : router.push('sign-up-complete')
+            }
+            // onClick={() => setStep((prev) => prev + 1)}
             isEnabled={isEnabled}
-            type="submit"
+            type={viewComponent?.stepId === 1 ? 'button' : 'submit'}
           >
             다음
           </CommonButton>

@@ -13,17 +13,20 @@ export async function signUpAction(signUpFormData: FormData) {
   };
 
   console.log('Payload being sent to the API:', payload);
-  // const response = await fetch(
-  //   `${process.env.BASE_API_URL}/api/v1/user/sign-up`,
-  //   {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(payload),
-  //   }
-  // );
+  const response = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/user/sign-up`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }
+  );
 
-  // if (!response.ok) {
-  //   throw new Error('Failed to sign up');
-  // }
-  // return await response.json();
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error('Sign-up failed:', errorData);
+    throw new Error(errorData.message || 'Failed to sign up');
+  }
+
+  return await response.json();
 }
