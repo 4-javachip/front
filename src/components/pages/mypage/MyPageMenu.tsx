@@ -11,19 +11,19 @@ export default function MyPageMenu() {
       </ul>
 
       <ul className="px-6">
-        <li className="font-medium text-foreground flex gap-2 pb-8">
+        <li className="font-medium text-foreground flex gap-2 pb-7">
           <OrderListIcon /> 주문 내역
         </li>
-        <li className="font-medium text-foreground flex gap-2 pb-8">
+        <li className="font-medium text-foreground flex gap-2 pb-7">
           <CouponIcon /> 쿠폰
         </li>
-        <li className="font-medium text-foreground flex gap-2 pb-8">
+        <li className="font-medium text-foreground flex gap-2 pb-7">
           <ShippingAddressIcon /> 배송지 관리
         </li>
       </ul>
 
       <ul className="px-6 font-semibold pt-2">
-        <li className=" font-semibold pt-2.2 pb-5.5">설정</li>
+        <li className=" font-semibold pt-3 pb-5.5">설정</li>
         <li className="font-medium text-foreground flex gap-2 pb-8">
           <AddressAgreementIcon /> 배송지 정보 수집 및 이용 동의
         </li>
