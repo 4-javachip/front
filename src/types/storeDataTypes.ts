@@ -17,8 +17,8 @@ export interface SignUpStepType {
   isEnable: boolean;
   item: React.FC<{
     step: number;
-    handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     errorMessages: Partial<SignUpStoreStateType>;
-    inputValues?: SignUpStoreStateType;
+    inputValues: SignUpStoreStateType;
   }>;
 }

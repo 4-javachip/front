@@ -11,9 +11,11 @@ import { InputErrorMessage } from '@/components/layouts/CommonLayout';
 export default function SignUpProfileInput({
   onChange,
   errorMessages,
+  inputValues,
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessages: Partial<SignUpStoreStateType>;
+  inputValues?: SignUpStoreStateType;
 }) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<SVGSVGElement>(null);
@@ -76,6 +78,7 @@ export default function SignUpProfileInput({
           name="nickname"
           onChange={onChange}
           maxLength={10}
+          value={inputValues?.nickname ?? ''}
         />
         {errorMessages.nickname && (
           <InputErrorMessage>{errorMessages.nickname}</InputErrorMessage>
@@ -88,6 +91,7 @@ export default function SignUpProfileInput({
           name="name"
           onChange={onChange}
           maxLength={10}
+          value={inputValues?.name}
         />
         {errorMessages.name && (
           <InputErrorMessage>{errorMessages.name}</InputErrorMessage>
@@ -101,6 +105,7 @@ export default function SignUpProfileInput({
             name="year"
             maxLength={4}
             onChange={onChange}
+            value={inputValues?.year}
           />
           <CommonInput
             placeholder="MM"
@@ -108,6 +113,7 @@ export default function SignUpProfileInput({
             name="month"
             maxLength={2}
             onChange={onChange}
+            value={inputValues?.month}
           />
           <CommonInput
             placeholder="DD"
@@ -115,6 +121,7 @@ export default function SignUpProfileInput({
             name="date"
             maxLength={2}
             onChange={onChange}
+            value={inputValues?.date}
           />
         </div>
         {errorMessages.year && (

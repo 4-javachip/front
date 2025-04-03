@@ -71,7 +71,6 @@ export default function MultiStepSignUp({
     }
   };
 
-  const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => {
     if (step === 1) {
       router.back();
@@ -134,7 +133,8 @@ export default function MultiStepSignUp({
                 : router.push('sign-up-complete')
             }
             // onClick={() => setStep((prev) => prev + 1)}
-            isEnabled={isEnabled}
+            // isEnabled={isEnabled}
+            isEnabled={true}
             type={viewComponent?.stepId === 1 ? 'button' : 'submit'}
           >
             다음

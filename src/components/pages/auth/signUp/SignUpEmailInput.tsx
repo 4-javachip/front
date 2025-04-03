@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import DropDownIcon from '@/components/ui/icons/DropDownIcon';
 import LargeDropdownModal from '@/components/ui/dropdown/LargeDropdownModal';
 import { emailDomains } from '@/data/initialDatas';
@@ -23,6 +23,20 @@ export default function SignUpEmailInput({
 
   const [selectedDomain, setSelectedDomain] = useState('gmail.com');
   const [isCustom, setIsCustom] = useState(false);
+
+  useEffect(() => {
+    if (!inputValues) return;
+    if (selectedDomain === '') return;
+
+    const domain = inputValues.emailDomain || 'gmail.com';
+    if (emailDomains.some((item) => item.value === domain)) {
+      setSelectedDomain(domain);
+      setIsCustom(false);
+    } else {
+      setIsCustom(true);
+      setSelectedDomain(domain);
+    }
+  }, [inputValues]);
 
   const handleFocus = () => {
     containerRef.current?.classList.add('border-green');

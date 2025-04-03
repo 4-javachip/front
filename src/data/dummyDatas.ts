@@ -1,3 +1,4 @@
+import SignUpStep from '@/components/pages/auth/signUp/SignUpStep';
 import SignUpStep01 from '@/components/pages/auth/signUp/step/SignUpStep01';
 import SignUpStep02 from '@/components/pages/auth/signUp/step/SignUpStep02';
 import {
@@ -484,11 +485,11 @@ export const signUpStepData: SignUpStepType[] = [
   {
     stepId: 1,
     isEnable: false,
-    item: SignUpStep01,
+    item: SignUpStep,
   },
   {
     stepId: 2,
     isEnable: false,
-    item: SignUpStep02,
+    item: SignUpStep,
   },
 ];
