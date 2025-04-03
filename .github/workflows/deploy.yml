@@ -51,11 +51,11 @@ jobs:
         if [ "$STATUS" = "success" ]; then
           COLOR=3066993   # green
           ICON="✅"
-          TITLE="Backend Deploy 성공"
+          TITLE="Frontend Deploy 성공"
         else
           COLOR=15158332  # red
           ICON="❌"
-          TITLE="Backend Deploy 실패"
+          TITLE="Frontend Deploy 실패"
         fi
     
         curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
