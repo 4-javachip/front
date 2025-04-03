@@ -147,7 +147,12 @@ export default function SignUpProfileInput({
           value={selectedOption}
           onChange={onChange}
         />
-        <button type="button" onClick={toggleDropdown} onFocus={handleFocus}>
+        <button
+          type="button"
+          onClick={toggleDropdown}
+          onFocus={handleFocus}
+          className="cursor-pointer"
+        >
           <DropDownIcon
             ref={iconRef}
             className="ml-1 mb-1 transform transition-transform duration-300"

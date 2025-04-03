@@ -46,7 +46,7 @@ export const signUpSchema = z
       return isYearValid && isMonthValid && isDateValid;
     },
     {
-      message: '유효한 생년월일을 입력해 주세요',
+      message: '유효한 생년월일을 입력해 주세요.',
       path: ['year'],
     }
   );

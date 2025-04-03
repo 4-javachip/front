@@ -39,8 +39,12 @@ export default function SignUpEmailInput({
       onChange({
         target: { name: 'emailDomain', value: '' },
       } as React.ChangeEvent<HTMLInputElement>);
+    } else {
+      setIsCustom(false);
+      onChange({
+        target: { name: 'emailDomain', value: domain },
+      } as React.ChangeEvent<HTMLInputElement>);
     }
-
     dropdownRef.current?.classList.add('hidden');
     iconRef.current?.classList.remove('rotate-180');
   };
@@ -90,7 +94,11 @@ export default function SignUpEmailInput({
                   />
                 </>
               )}
-              <button type="button" onClick={toggleDropdown}>
+              <button
+                type="button"
+                onClick={toggleDropdown}
+                className="cursor-pointer"
+              >
                 <DropDownIcon
                   ref={iconRef}
                   className="ml-1 mb-1 transform transition-transform duration-300"
