@@ -24,6 +24,7 @@ export default function MultiStepSignUp({
     password: '',
     name: '',
     confirmPassword: '',
+    nickname: '',
     year: '',
     month: '',
     date: '',
@@ -86,7 +87,7 @@ export default function MultiStepSignUp({
 
   const requiredFields: Record<number, (keyof SignUpStoreStateType)[]> = {
     1: ['emailId', 'emailDomain', 'password', 'confirmPassword'],
-    2: ['name', 'year', 'month', 'date', 'phoneNumber', 'gender'],
+    2: ['name', 'nickname', 'year', 'month', 'date', 'phoneNumber', 'gender'],
   };
 
   const signUpSteper = signUpStepData as SignUpStepType[];

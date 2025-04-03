@@ -3,7 +3,7 @@ export interface SignUpStoreStateType {
   emailDomain: string;
   password: string;
   confirmPassword: string;
-  nickname?: string;
+  nickname: string;
   name: string;
   year: string;
   month: string;

@@ -22,11 +22,7 @@ export const signUpSchema = z
       )
       .regex(/[!@#$%^&*]/, '비밀번호는 특수문자를 포함해야 합니다.'),
     confirmPassword: z.string().min(1, '비밀번호 확인을 입력하세요.'),
-    nickname: z
-      .string()
-      .min(2, '닉네임은 2자 이상이어야 합니다.')
-      .optional()
-      .or(z.literal('')),
+    nickname: z.string().min(2, '닉네임은 2자 이상이어야 합니다.'),
     name: z.string().min(2, '이름은 2자 이상이어야 합니다.'),
     year: z.string(),
     month: z.string(),

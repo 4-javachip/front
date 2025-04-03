@@ -84,12 +84,12 @@ export default function SignUpProfileInput({
     <>
       <li>
         <CommonInput
-          placeholder="닉네임 (선택)"
+          placeholder="닉네임"
           type="text"
           name="nickname"
           onChange={onChange}
           maxLength={10}
-          value={inputValues?.nickname ?? ''}
+          value={inputValues?.nickname}
         />
         {errorMessages.nickname && (
           <InputErrorMessage>{errorMessages.nickname}</InputErrorMessage>
