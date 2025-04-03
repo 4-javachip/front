@@ -13,7 +13,7 @@ import { signUpStepData } from '@/data/dummyDatas';
 export default function MultiStepSignUp({
   handleSignUp,
 }: {
-  handleSignUp: (signUpFormData: FormData) => void;
+  handleSignUp: (inputValues: SignUpStoreStateType) => Promise<void>;
 }) {
   const router = useRouter();
   const [isEnabled, setIsEnabled] = useState(false);
@@ -99,6 +99,11 @@ export default function MultiStepSignUp({
     [step, signUpSteper]
   );
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 기본 제출 방지
+    await handleSignUp(inputValues); // inputValues를 기반으로 handleSignUp 실행
+  };
+
   return (
     <>
       <header className="fixed top-0 left-0 z-50 p-1.5">
@@ -115,7 +120,7 @@ export default function MultiStepSignUp({
           <AuthHeading key={index}>{message}</AuthHeading>
         ))}
       </section>
-      <form action={handleSignUp} onKeyDown={handleKeyDown}>
+      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
         <ul className="padded space-y-6">
           {viewComponent?.item({
             step,
@@ -133,8 +138,7 @@ export default function MultiStepSignUp({
                 : router.push('sign-up-complete')
             }
             // onClick={() => setStep((prev) => prev + 1)}
-            // isEnabled={isEnabled}
-            isEnabled={true}
+            isEnabled={isEnabled}
             type={viewComponent?.stepId === 1 ? 'button' : 'submit'}
           >
             다음
