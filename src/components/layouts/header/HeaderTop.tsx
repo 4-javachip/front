@@ -4,12 +4,26 @@ import CartButton from '@/components/ui/buttons/CartButton';
 import LogoButton from '@/components/ui/buttons/LogoButton';
 import MenuButton from '@/components/ui/buttons/MenuButton';
 import SearchButton from '@/components/ui/buttons/SearchButton';
-import { categoryMenus } from '@/data/dummyDatas';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CommonLayout } from '../CommonLayout';
+import { getAllCategories } from '@/app/api/MenuCategory';
+
+import { CategoryMenuType } from '@/types/ResponseDataTypes';
 
 export default function HeaderTop() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [categoryMenus, setCategoryMenus] = useState<CategoryMenuType[]>([]);
+
+  useEffect(() => {
+    getAllCategories()
+      .then((data) => {
+        setCategoryMenus(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error('카테고리 불러오기 실패:', err);
+      });
+  }, []);
 
   return (
     <>
@@ -24,8 +38,8 @@ export default function HeaderTop() {
           </li>
 
           <li>
-            <ul className="flex justify-end  items-center py-3 ">
-              <li className="">
+            <ul className="flex justify-end items-center py-3">
+              <li>
                 <SearchButton />
               </li>
               <li className="pr-4.5 pl-2.5">

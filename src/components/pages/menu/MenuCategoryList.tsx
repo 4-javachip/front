@@ -2,7 +2,6 @@ import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import Link from 'next/link';
 import CategoryItem from './CategoryItem';
-import { on } from 'events';
 
 interface Props {
   categories: CategoryMenuType[];

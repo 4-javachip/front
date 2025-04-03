@@ -16,8 +16,8 @@ export default function CategoryItem({ category, onClose }: Props) {
     >
       <figure className="w-25 h-25 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow-md">
         <Image
-          src={category.thumbnail.imageUrl}
-          alt={category.thumbnail.description}
+          src={category.image}
+          alt={category.description}
           width={96}
           height={96}
           className="w-full h-full object-cover"

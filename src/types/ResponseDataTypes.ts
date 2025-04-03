@@ -65,16 +65,19 @@ export interface ProductCategoryType {
   subCategory?: ProductSubCategoryType[];
 }
 
+//메뉴 카테고리 타입
 export interface CategoryMenuType {
   id: number;
   name: string;
-  thumbnail: ImageType;
+  image: string;
+  description: string;
 }
 
 export interface CategoryListType {
   thumbnail: string;
   categoryId: number;
   categoryName: string;
+  description: string;
 }
 
 export interface FooterLinkItem {
