@@ -38,45 +38,45 @@ jobs:
     - name: Deploy to EC2
       run: |
         ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
-          'bash ~/starbucks-app/deploy/deploy-front.sh'
+          "FRONT_ENV_FILE='${{ secrets.FRONT_ENV_FILE }}' bash ~/starbucks-app/deploy/deploy-front.sh"
 
     - name: Discord Notify
       if: always()
       run: |
         STATUS="${{ job.status }}"
-        if [ "$STATUS" = "success" ]; then
+        if [ \"$STATUS\" = \"success\" ]; then
           COLOR=3066993
-          ICON="✅"
-          TITLE="Frontend Deploy 성공"
+          ICON=\"✅\"
+          TITLE=\"Frontend Deploy 성공\"
         else
           COLOR=15158332
-          ICON="❌"
-          TITLE="Frontend Deploy 실패"
+          ICON=\"❌\"
+          TITLE=\"Frontend Deploy 실패\"
         fi
 
         curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
-        -H "Content-Type: application/json" \
+        -H \"Content-Type: application/json\" \
         -d @- <<EOF
         {
-        "embeds": [
-          {
-            "title": "$ICON $TITLE",
-            "color": $COLOR,
-            "fields": [
-              {
-                "name": "🔨 Commit",
-                "value": "${{ github.event.head_commit.message }}"
-              },
-              {
-                "name": "👤 By",
-                "value": "${{ github.actor }}"
-              },
-              {
-                "name": "📅 When",
-                "value": "${{ github.event.head_commit.timestamp }}"
-              }
-            ]
-          }
-        ]
+          \"embeds\": [
+            {
+              \"title\": \"$ICON $TITLE\",
+              \"color\": $COLOR,
+              \"fields\": [
+                {
+                  \"name\": \"🔨 Commit\",
+                  \"value\": \"${{ github.event.head_commit.message }}\"
+                },
+                {
+                  \"name\": \"👤 By\",
+                  \"value\": \"${{ github.actor }}\"
+                },
+                {
+                  \"name\": \"📅 When\",
+                  \"value\": \"${{ github.event.head_commit.timestamp }}\"
+                }
+              ]
+            }
+          ]
         }
         EOF
