@@ -1,22 +1,20 @@
 'use client';
 
-import { SignUpStoreStateType } from '@/types/storeDataTypes';
+import { SignUpStepType, SignUpStoreStateType } from '@/types/storeDataTypes';
 import { useEffect, useState } from 'react';
 import AuthHeading from '@/components/ui/AuthHeading';
-import SignUpPasswordInput from './SignUpPasswordInput';
-import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
-import SignUpProfileInput from './SignUpProfileInput';
 import BackArrowIcon from '@/components/ui/icons/BackArrowIcon';
 import { signUpSchema } from '@/schemas/signUpSchema';
-import SignUpEmailInput from './SignUpEmailInput';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useRouter } from 'next/navigation';
+import { signUpStepData } from '@/data/dummyDatas';
+import SignUpStep from './SignUpStep';
 
 export default function MultiStepSignUp({
   handleSignUp,
 }: {
-  handleSignUp: (signUpFormData: FormData) => void;
+  handleSignUp: (inputValues: SignUpStoreStateType) => Promise<void>;
 }) {
   const router = useRouter();
   const [isEnabled, setIsEnabled] = useState(false);
@@ -27,6 +25,7 @@ export default function MultiStepSignUp({
     password: '',
     name: '',
     confirmPassword: '',
+    nickname: '',
     year: '',
     month: '',
     date: '',
@@ -48,28 +47,10 @@ export default function MultiStepSignUp({
     // e.preventDefault();
     const { name, value } = e.target;
 
-    // setInputValues({ ...inputValues, [name]: value });
-    // const res = signUpSchema.safeParse({
-    //   ...inputValues,
-    //   [name]: value,
-    // });
-    // if (!res.success) {
-    //   const fieldErros: Partial<SignUpStoreStateType> = {};
-    //   res.error.errors.forEach((error) => {
-    //     const fieldName = error.path[0] as keyof SignUpStoreStateType;
-    //     fieldErros[fieldName] = error.message;
-    //   });
-    //   setErrorMessages(fieldErros);
-
-    //   setIsEnabled(false);
-    // } else {
-    //   console.log('no error');
-    //   setErrorMessages({});
-
     setInputValues((prev) => {
       const updatedValues = { ...prev, [name]: value };
       const res = signUpSchema.safeParse(updatedValues);
-
+      console.log(updatedValues);
       if (!res.success) {
         const fieldErrors: Partial<SignUpStoreStateType> = {};
         res.error.errors.forEach((error) => {
@@ -92,7 +73,6 @@ export default function MultiStepSignUp({
     }
   };
 
-  const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => {
     if (step === 1) {
       router.back();
@@ -108,7 +88,22 @@ export default function MultiStepSignUp({
 
   const requiredFields: Record<number, (keyof SignUpStoreStateType)[]> = {
     1: ['emailId', 'emailDomain', 'password', 'confirmPassword'],
-    2: ['name', 'year', 'month', 'date', 'phoneNumber', 'gender'],
+    2: ['name', 'nickname', 'year', 'month', 'date', 'phoneNumber', 'gender'],
+  };
+
+  const signUpSteper = signUpStepData as SignUpStepType[];
+  const [viewComponent, setViewComponent] = useState<SignUpStepType>();
+  useEffect(
+    () =>
+      setViewComponent(
+        signUpSteper.find((item: SignUpStepType) => item.stepId === step)
+      ),
+    [step, signUpSteper]
+  );
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 기본 제출 방지
+    await handleSignUp(inputValues); // inputValues를 기반으로 handleSignUp 실행
   };
 
   return (
@@ -127,44 +122,32 @@ export default function MultiStepSignUp({
           <AuthHeading key={index}>{message}</AuthHeading>
         ))}
       </section>
-      <form action={handleSignUp} onKeyDown={handleKeyDown}>
-        {/* 1 */}
-        <ul className={`padded space-y-6 ${step === 1 ? '' : 'hidden'}`}>
-          <SignUpEmailInput
-            onChange={handleChange}
+      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
+        <ul className="padded space-y-6">
+          {/* {viewComponent?.item({
+            step,
+            handleChange,
+            errorMessages,
+            inputValues,
+          })} */}
+          <SignUpStep
+            step={step}
+            handleChange={handleChange}
             errorMessages={errorMessages}
-          />
-          <SignUpPasswordInput
-            onChange={handleChange}
-            errorMessages={errorMessages}
+            inputValues={inputValues}
           />
         </ul>
-        <ConfirmNextButton
-          className={`${step === 1 ? '' : 'hidden'}`}
-          text="다음"
-          onClick={() => {
-            if (isEnabled) nextStep();
-          }}
-          isEnabled={() => isEnabled}
-        />
 
-        {/* 2 */}
-        <ul className={`padded space-y-6 ${step === 2 ? '' : 'hidden'}`}>
-          <SignUpProfileInput
-            onChange={handleChange}
-            errorMessages={errorMessages}
-          />
-        </ul>
-        {/* submit */}
-        <CommonLayout.FixedButtonBgLayout
-          className={`${step != 2 && 'hidden'}`}
-        >
+        <CommonLayout.FixedButtonBgLayout>
           <CommonButton
-            onClick={() => {
-              router.push('sign-up-complete');
-            }}
+            onClick={() =>
+              viewComponent?.stepId === 1
+                ? setStep(2)
+                : router.push('sign-up-complete')
+            }
+            // onClick={() => setStep((prev) => prev + 1)}
             isEnabled={isEnabled}
-            type="submit"
+            type={viewComponent?.stepId === 1 ? 'button' : 'submit'}
           >
             다음
           </CommonButton>

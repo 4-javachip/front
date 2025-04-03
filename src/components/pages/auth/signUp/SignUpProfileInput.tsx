@@ -11,16 +11,22 @@ import { InputErrorMessage } from '@/components/layouts/CommonLayout';
 export default function SignUpProfileInput({
   onChange,
   errorMessages,
+  inputValues,
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessages: Partial<SignUpStoreStateType>;
+  inputValues?: SignUpStoreStateType;
 }) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const [selectedOption, setSelectedOption] = useState('남성');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [selectedOption, setSelectedOption] = useState(
+    inputValues?.gender ?? '남성'
+  );
+  const [phoneNumber, setPhoneNumber] = useState(
+    inputValues?.phoneNumber ?? ''
+  );
 
   const toggleDropdown = () => {
     dropdownRef.current?.classList.toggle('hidden');
@@ -31,6 +37,13 @@ export default function SignUpProfileInput({
     setSelectedOption(option);
     dropdownRef.current?.classList.add('hidden');
     iconRef.current?.classList.remove('rotate-180');
+
+    onChange({
+      target: {
+        name: 'gender',
+        value: option,
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
   };
 
   const handleFocus = () => {
@@ -71,11 +84,12 @@ export default function SignUpProfileInput({
     <>
       <li>
         <CommonInput
-          placeholder="닉네임 (선택)"
+          placeholder="닉네임"
           type="text"
           name="nickname"
           onChange={onChange}
           maxLength={10}
+          value={inputValues?.nickname}
         />
         {errorMessages.nickname && (
           <InputErrorMessage>{errorMessages.nickname}</InputErrorMessage>
@@ -88,6 +102,7 @@ export default function SignUpProfileInput({
           name="name"
           onChange={onChange}
           maxLength={10}
+          value={inputValues?.name}
         />
         {errorMessages.name && (
           <InputErrorMessage>{errorMessages.name}</InputErrorMessage>
@@ -101,6 +116,7 @@ export default function SignUpProfileInput({
             name="year"
             maxLength={4}
             onChange={onChange}
+            value={inputValues?.year}
           />
           <CommonInput
             placeholder="MM"
@@ -108,6 +124,7 @@ export default function SignUpProfileInput({
             name="month"
             maxLength={2}
             onChange={onChange}
+            value={inputValues?.month}
           />
           <CommonInput
             placeholder="DD"
@@ -115,6 +132,7 @@ export default function SignUpProfileInput({
             name="date"
             maxLength={2}
             onChange={onChange}
+            value={inputValues?.date}
           />
         </div>
         {errorMessages.year && (
@@ -141,13 +159,13 @@ export default function SignUpProfileInput({
         ref={containerRef}
       >
         {selectedOption}
-        <input
-          type="hidden"
-          name="gender"
-          value={selectedOption}
-          onChange={onChange}
-        />
-        <button type="button" onClick={toggleDropdown} onFocus={handleFocus}>
+        <input type="hidden" name="gender" value={selectedOption} />
+        <button
+          type="button"
+          onClick={toggleDropdown}
+          onFocus={handleFocus}
+          className="cursor-pointer"
+        >
           <DropDownIcon
             ref={iconRef}
             className="ml-1 mb-1 transform transition-transform duration-300"

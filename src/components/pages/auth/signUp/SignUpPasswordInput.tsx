@@ -7,9 +7,11 @@ import { SignUpStoreStateType } from '@/types/storeDataTypes';
 export default function SignUpPasswordInput({
   onChange,
   errorMessages,
+  inputValues,
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessages: Partial<SignUpStoreStateType>;
+  inputValues?: SignUpStoreStateType;
 }) {
   return (
     <>
@@ -20,6 +22,7 @@ export default function SignUpPasswordInput({
           name="password"
           onChange={onChange}
           maxLength={20}
+          value={inputValues?.password}
         />
         {errorMessages.password && (
           <InputErrorMessage>{errorMessages.password}</InputErrorMessage>
@@ -32,6 +35,7 @@ export default function SignUpPasswordInput({
           name="confirmPassword"
           onChange={onChange}
           maxLength={20}
+          value={inputValues?.confirmPassword}
         />
         {errorMessages.confirmPassword && (
           <InputErrorMessage>{errorMessages.confirmPassword}</InputErrorMessage>
