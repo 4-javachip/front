@@ -98,10 +98,12 @@ export interface AddressType {
 
 //장바구니상품
 export interface CartProductType {
+  userUuid: string;
   productName: string;
   productImageUrl: string;
   productPrice: number;
   discountPrice: number;
+  discountRate: number;
   productQuantity: number;
   checked: boolean;
   productOptionListUuid: string;

@@ -1,5 +1,6 @@
 'use client';
-import SmallDropDownModal from '@/components/ui/dropdown/DropDownModal';
+
+import SmallDropDownModal from '@/components/ui/dropdown/SmallDropDownModal';
 import { Suspense } from 'react';
 
 export default function ProductSortMenu() {

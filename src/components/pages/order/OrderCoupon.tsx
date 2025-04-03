@@ -1,5 +1,4 @@
-import { CommonLayout } from '@/components/layouts/CommonLayout';
-import { CouponIcon } from '@/components/ui/icons/CouponIcon';
+import CouponIcon from '@/components/ui/icons/CouponIcon';
 
 export default function OrderCoupon() {
   return (

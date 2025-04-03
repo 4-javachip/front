@@ -5,11 +5,13 @@ export default function CommonButton({
   className,
   onClick,
   isEnabled,
+  type,
 }: Readonly<{
   children: React.ReactNode;
   className?: string;
   onClick: () => void;
   isEnabled: boolean;
+  type?: 'button' | 'submit' | 'reset';
 }>) {
   return (
     <button
@@ -19,6 +21,7 @@ export default function CommonButton({
         className
       )}
       onClick={isEnabled ? onClick : undefined}
+      type={type ?? 'button'}
     >
       {children}
     </button>

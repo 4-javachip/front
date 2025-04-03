@@ -55,6 +55,17 @@ export function CommonBorder({ className }: Readonly<{ className?: string }>) {
   );
 }
 
+export function InputErrorMessage({
+  children,
+  className,
+}: Readonly<{ children: React.ReactNode; className?: string }>) {
+  return (
+    <p className={cn('text-red-400 text-xs px-3 pt-1', className)}>
+      {children}
+    </p>
+  );
+}
+
 export const CommonLayout = {
   CommonBorder,
   SectionInnerPadding,
