@@ -2,11 +2,7 @@
 
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import { useEffect, useState } from 'react';
-
-import BackArrowIcon from '@/components/ui/icons/BackArrowIcon';
 import { signUpSchema } from '@/schemas/signUpSchema';
-import { CommonLayout } from '@/components/layouts/CommonLayout';
-import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useRouter } from 'next/navigation';
 import { SignUpStepType } from '@/types/initialDataTypes';
 import { signUpStepData } from '@/data/initialDatas';
@@ -132,10 +128,6 @@ export default function MultiStepSignUp({
           type={viewComponent?.stepId === 3 ? 'submit' : 'button'}
           text="다음"
         />
-        {/* 3 */}
-        {/* <p className={`padded space-y-6 ${step === 3 ? '' : 'hidden'}`}>
-          <CommonInput placeholder="인증번호" type="text" name="confirm" />
-        </p> */}
       </form>
     </>
   );

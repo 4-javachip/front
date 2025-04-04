@@ -4,7 +4,7 @@ import AuthTermsList from '@/components/pages/auth/AuthTermsList';
 
 export default async function TermsAgreementPage() {
   const agreements = await getSignUpAgreementData();
-  console.log(agreements);
+
   return (
     <>
       <AuthGreeting type="signUp" />

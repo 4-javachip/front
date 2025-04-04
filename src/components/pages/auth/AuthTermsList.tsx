@@ -32,6 +32,10 @@ export default function AuthTermsList({
     setCheckedItems(Array(agreements.length).fill(isChecked));
   };
 
+  const isRequiredChecked = agreements
+    .map((item, index) => (item.required ? checkedItems[index] : true))
+    .every(Boolean);
+
   return (
     <>
       <section className="padded">
@@ -57,7 +61,7 @@ export default function AuthTermsList({
         onClick={() => {
           router.push('sign-up');
         }}
-        isEnabled={() => isAllChecked}
+        isEnabled={() => isRequiredChecked}
       />
     </>
   );
