@@ -1,14 +1,15 @@
 import CloseIcon from '@/components/ui/icons/CloseIcon';
+import { useSideBarContext } from '@/context/SideBarContext';
 
-interface Props {
-  onClose: () => void;
-}
-
-export default function MenuTop({ onClose }: Props) {
+export default function MenuTop() {
+  const { setIsOpen } = useSideBarContext();
   return (
     <section className="px-6 pt-5 ">
       <nav className="flex justify-end">
-        <button onClick={onClose} className="inline-flex items-center">
+        <button
+          className="inline-flex items-center"
+          onClick={() => setIsOpen(false)}
+        >
           <CloseIcon />
         </button>
       </nav>
