@@ -8,13 +8,14 @@ export default function CustomCheckBox({
   checked: boolean;
 }) {
   return (
-    <label className="flex items-center gap-2 cursor-pointer">
+    <label className="flex items-center gap-2">
       <div className="relative w-5.5 h-5.5">
         <input
           id="custom-checkbox"
           type="checkbox"
           className="w-full h-full appearance-none border border-green rounded 
-          checked:bg-green checked:border-transparent active:border-black"
+          checked:bg-green checked:border-transparent active:border-black
+          cursor-pointer"
           onChange={onChange}
           checked={checked}
         />

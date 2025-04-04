@@ -13,7 +13,6 @@ import {
   sendEmailVerificationAction,
   verifyEmailCodeAction,
 } from '@/actions/auth';
-import SignUpStep03 from './step/SignUpStep03';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -42,8 +41,9 @@ export default function MultiStepSignUp({
   >({});
   const signUpSteper = signUpStepData as SignUpStepType[];
   const [viewComponent, setViewComponent] = useState<SignUpStepType>();
+  const [remainingTime, setRemainingTime] = useState<number>();
+  let timer: NodeJS.Timeout;
 
-  // step마다 input field 값 체크
   useEffect(() => {
     const currentStep = signUpSteper.find((item) => item.stepId === step);
     if (!currentStep) return;
@@ -89,35 +89,57 @@ export default function MultiStepSignUp({
     await handleSignUp(inputValues);
   };
 
-  const handleVerifyCode = async () => {
-    const res = await verifyEmailCodeAction({
-      email: `${inputValues.emailId}@${inputValues.emailDomain}`,
-      verificationCode: inputValues.emailVerificationCode,
-    });
-    console.log(res);
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
     }
   };
 
+  const startTimer = () => {
+    setRemainingTime(300);
+    clearInterval(timer);
+    timer = setInterval(() => {
+      setRemainingTime((prev) => {
+        if (prev) {
+          if (prev === null || prev <= 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        }
+      });
+    }, 1000);
+  };
+
+  const handleVerifyCode = async () => {
+    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+    const code = inputValues.emailVerificationCode;
+    const res = await verifyEmailCodeAction({ email, verificationCode: code });
+    console.log(res);
+  };
+
+  const handleSendEmailVerification = async () => {
+    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+    const res = await sendEmailVerificationAction({ email });
+    if (res) {
+      startTimer();
+    }
+    console.log(res);
+    startTimer();
+  };
+
   const nextStep = async () => {
     if (viewComponent?.stepId === 3) {
-      const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-      const code = inputValues.emailVerificationCode;
-      try {
-        await verifyEmailCodeAction({ email, verificationCode: code });
-        router.push('sign-up-complete');
-      } catch (error) {
-        console.error('인증 실패:', error);
-      }
+      handleVerifyCode();
+      router.push('sign-up-complete');
+      document
+        .querySelector('form')
+        ?.dispatchEvent(
+          new Event('submit', { cancelable: true, bubbles: true })
+        );
     } else {
       if (viewComponent?.stepId === 2) {
-        const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-        const res = await sendEmailVerificationAction({ email });
-        console.log(res);
+        handleSendEmailVerification();
       }
       setStep((prev) => prev + 1);
     }
@@ -146,12 +168,24 @@ export default function MultiStepSignUp({
             handleChange,
             errorMessages,
             inputValues,
+            remainingTime,
           })}
         </ul>
+        {viewComponent?.stepId === 3 && remainingTime === 0 && (
+          <div className="padded mt-3 ml-2">
+            <button
+              onClick={handleSendEmailVerification}
+              type="button"
+              className="text-green text-sm underline cursor-pointer"
+            >
+              인증번호 다시 요청
+            </button>
+          </div>
+        )}
         <ConfirmNextButton
           onClick={nextStep}
           isEnabled={() => isEnabled}
-          type={viewComponent?.stepId === 3 ? 'submit' : 'button'}
+          type="button"
           text="다음"
         />
       </form>
