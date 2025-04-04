@@ -99,6 +99,7 @@
   --font-pretendard: 'Pretendard';
 
   --color-primary: var(--green);
+  --base-w: 600px;
 
   --font-body: 'NotoSansKR';
   --font-sub: 'SDGothic';

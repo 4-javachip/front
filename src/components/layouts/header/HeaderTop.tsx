@@ -28,12 +28,12 @@ export default function HeaderTop() {
   return (
     <>
       <CommonLayout.CommonHeader>
-        <ul className="flex justify-between">
+        <ul className="flex justify-between ">
           <li className="py-3 px-4.5">
             <MenuButton onClick={() => setIsOpen(true)} />
           </li>
 
-          <li className="flex items-center ">
+          <li>
             <LogoButton />
           </li>
           <li>
