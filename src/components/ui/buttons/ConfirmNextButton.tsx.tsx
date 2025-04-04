@@ -9,15 +9,21 @@ export default function ConfirmNextButton({
   text,
   onClick,
   isEnabled = () => false,
+  type,
 }: {
   className?: string;
   text?: string;
   onClick: () => void;
   isEnabled?: () => boolean;
+  type?: 'button' | 'submit' | 'reset';
 }) {
   return (
     <CommonLayout.FixedButtonBgLayout className={cn(className)}>
-      <CommonButton onClick={onClick} isEnabled={isEnabled()}>
+      <CommonButton
+        onClick={onClick}
+        isEnabled={isEnabled()}
+        type={type ?? 'button'}
+      >
         {text}
       </CommonButton>
     </CommonLayout.FixedButtonBgLayout>

@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation';
 import { SignUpStepType } from '@/types/initialDataTypes';
 import { signUpStepData } from '@/data/initialDatas';
 import AuthHeading from '@/components/ui/AuthHeading';
+import BackIconHeader from '@/components/layouts/BackIconHeader';
+import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -39,6 +41,7 @@ export default function MultiStepSignUp({
   const signUpSteper = signUpStepData as SignUpStepType[];
   const [viewComponent, setViewComponent] = useState<SignUpStepType>();
 
+  // step마다 input field 값 체크
   useEffect(() => {
     const currentStep = signUpSteper.find((item) => item.stepId === step);
     if (!currentStep) return;
@@ -58,7 +61,6 @@ export default function MultiStepSignUp({
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // e.preventDefault();
     const { name, value } = e.target;
 
     setInputValues((prev) => {
@@ -91,9 +93,17 @@ export default function MultiStepSignUp({
     }
   };
 
+  const nextStep = () => {
+    if (viewComponent?.stepId === 3) {
+      router.push('sign-up-complete');
+    } else {
+      setStep((prev) => prev + 1);
+    }
+  };
+
   const prevStep = () => {
     if (step === 1) {
-      router.back();
+      router.push('terms-agreement');
     } else {
       setStep((prev) => prev - 1);
     }
@@ -101,22 +111,13 @@ export default function MultiStepSignUp({
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-50 p-1.5">
-        <div
-          className="flex items-center h-14 cursor-pointer"
-          onClick={prevStep}
-        >
-          <BackArrowIcon />
-        </div>
-      </header>
-
+      <BackIconHeader onClick={prevStep} />
       <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
         <section className=" padded pb-14">
           {viewComponent?.messages.map((message: string, index: number) => (
             <AuthHeading key={index}>{message}</AuthHeading>
           ))}
         </section>
-
         <ul className="padded space-y-6">
           {viewComponent?.item({
             step,
@@ -125,20 +126,12 @@ export default function MultiStepSignUp({
             inputValues,
           })}
         </ul>
-        <CommonLayout.FixedButtonBgLayout>
-          <CommonButton
-            onClick={() =>
-              viewComponent?.stepId === 1
-                ? setStep(2)
-                : router.push('sign-up-complete')
-            }
-            isEnabled={isEnabled}
-            type={viewComponent?.stepId === 1 ? 'button' : 'submit'}
-          >
-            다음
-          </CommonButton>
-        </CommonLayout.FixedButtonBgLayout>
-
+        <ConfirmNextButton
+          onClick={nextStep}
+          isEnabled={() => isEnabled}
+          type={viewComponent?.stepId === 3 ? 'submit' : 'button'}
+          text="다음"
+        />
         {/* 3 */}
         {/* <p className={`padded space-y-6 ${step === 3 ? '' : 'hidden'}`}>
           <CommonInput placeholder="인증번호" type="text" name="confirm" />
