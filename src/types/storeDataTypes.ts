@@ -10,4 +10,5 @@ export interface SignUpStoreStateType {
   date: string;
   phoneNumber: string;
   gender: string;
+  emailVerificationCode: string;
 }

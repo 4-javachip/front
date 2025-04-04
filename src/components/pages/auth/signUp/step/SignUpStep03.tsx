@@ -1,10 +1,6 @@
-import React, { useRef } from 'react';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import CommonInput from '@/components/ui/inputs/CommonInput';
-import {
-  sendEmailVerificationAction,
-  verifyEmailCodeAction,
-} from '@/actions/auth';
+import { verifyEmailCodeAction } from '@/actions/auth';
 
 export default function SignUpStep03({
   step,
@@ -17,24 +13,29 @@ export default function SignUpStep03({
   errorMessages: Partial<SignUpStoreStateType>;
   inputValues: SignUpStoreStateType;
 }) {
-  const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-
-  // const handleVerifyCode = async () => {
-  //   const code = codeInputRef.current?.value;
-  //   if (!code) return;
-  //   await verifyEmailCodeAction({ email, verificationCode: code });
-  // };
-
   return (
-    <>
+    <div
+      className="flex flex-row space-x-5
+    border-0 border-b-1 border-lightGray-4"
+    >
       <CommonInput
         placeholder="인증번호 6자리"
-        // type="password"
-        // name="password"
-        // onChange={onChange}
+        type="text"
+        name="emailVerificationCode"
+        onChange={handleChange}
         maxLength={6}
-        // value={inputValues?.password}
+        className="border-none"
       />
-    </>
+      {/* <CommonButton
+        type="button"
+        onClick={handleVerifyCode}
+        isEnabled={true}
+        className="w-[14rem]"
+      >
+        인증번호 확인
+      </CommonButton> */}
+      {/* 타이머 */}
+      <span className="block py-2.5 px-3 text-lg text-foreground">05:00</span>
+    </div>
   );
 }

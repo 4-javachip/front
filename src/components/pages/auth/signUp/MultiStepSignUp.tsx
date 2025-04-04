@@ -9,7 +9,11 @@ import { signUpStepData } from '@/data/initialDatas';
 import AuthHeading from '@/components/ui/AuthHeading';
 import BackIconHeader from '@/components/layouts/BackIconHeader';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
-import { sendEmailVerificationAction } from '@/actions/auth';
+import {
+  sendEmailVerificationAction,
+  verifyEmailCodeAction,
+} from '@/actions/auth';
+import SignUpStep03 from './step/SignUpStep03';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -31,6 +35,7 @@ export default function MultiStepSignUp({
     date: '',
     phoneNumber: '',
     gender: '남성',
+    emailVerificationCode: '',
   });
   const [errorMessages, setErrorMessages] = useState<
     Partial<SignUpStoreStateType>
@@ -84,6 +89,14 @@ export default function MultiStepSignUp({
     await handleSignUp(inputValues);
   };
 
+  const handleVerifyCode = async () => {
+    const res = await verifyEmailCodeAction({
+      email: `${inputValues.emailId}@${inputValues.emailDomain}`,
+      verificationCode: inputValues.emailVerificationCode,
+    });
+    console.log(res);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -92,7 +105,14 @@ export default function MultiStepSignUp({
 
   const nextStep = async () => {
     if (viewComponent?.stepId === 3) {
-      router.push('sign-up-complete');
+      const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+      const code = inputValues.emailVerificationCode;
+      try {
+        await verifyEmailCodeAction({ email, verificationCode: code });
+        router.push('sign-up-complete');
+      } catch (error) {
+        console.error('인증 실패:', error);
+      }
     } else {
       if (viewComponent?.stepId === 2) {
         const email = `${inputValues.emailId}@${inputValues.emailDomain}`;

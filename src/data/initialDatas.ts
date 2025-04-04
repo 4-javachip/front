@@ -42,7 +42,7 @@ export const signUpStepData: SignUpStepType[] = [
     stepId: 3,
     isEnable: false,
     messages: ['전송된 인증 번호를', '입력해 주세요.'],
-    requiredFields: [],
+    requiredFields: ['emailVerificationCode'],
     item: SignUpStep03,
   },
 ];
