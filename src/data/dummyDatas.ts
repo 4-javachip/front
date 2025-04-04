@@ -295,58 +295,51 @@ export const categoryMenus: CategoryMenuType[] = [
   {
     id: 1,
     name: '텀블러/보온병',
-    thumbnail: {
-      imageUrl: 'https://picsum.photos/id/237/390/330',
-      description: '텀블러/보온병',
-    },
+
+    image: 'https://picsum.photos/id/237/390/330',
+    description: '텀블러/보온병',
   },
+
   {
     id: 2,
     name: '머그컵/컵',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '머그컵/컵',
-    },
+
+    image: 'https://dummyimage.com/500',
+    description: '머그컵/컵',
   },
   {
     id: 3,
     name: '라이프스타일',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '라이프스타일',
-    },
+
+    image: 'https://dummyimage.com/500',
+    description: '라이프스타일',
   },
   {
     id: 4,
     name: '티/커피용품',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '티/커피용품',
-    },
+
+    image: 'https://dummyimage.com/500',
+    description: '티/커피용품',
   },
+
   {
     id: 5,
     name: '케이크',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '케이크',
-    },
+    image: 'https://dummyimage.com/500',
+    description: '케이크',
   },
   {
     id: 6,
     name: '초콜릿/스낵',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '초콜릿/스낵',
-    },
+
+    image: 'https://dummyimage.com/500',
+    description: '초콜릿/스낵',
   },
   {
     id: 7,
     name: '세트',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '세트',
-    },
+    image: 'https://dummyimage.com/500',
+    description: '세트',
   },
 ];
 

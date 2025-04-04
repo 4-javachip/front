@@ -5,7 +5,7 @@ import ShippingAddressIcon from '@/components/ui/icons/ShippingAddressIcon';
 
 export default function MyPageMenu() {
   return (
-    <section className="h-120 w-full bg-lightGray-2">
+    <section className="h-200 w-full bg-lightGray-2">
       <ul className="px-6 font-body ">
         <li className=" font-semibold pt-7.5 pb-5.5">쇼핑정보</li>
       </ul>
