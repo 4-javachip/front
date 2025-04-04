@@ -430,27 +430,6 @@ export const dummyPolicyLinks: PolicyLinkType[] = [
   { href: '/card-terms', label: '스타벅스카드 이용약관' },
 ];
 
-export const dummyAggrementData: AgreementType[] = [
-  {
-    name: '이용약관 동의',
-    description: '회원 가입 시 필요한 약관에 대한 설명입니다.',
-    type: 0,
-    required: true,
-  },
-  {
-    name: '개인정보 수집 및 이용 동의',
-    description: '배송지 입력 및 변경 시 필요한 약관에 대한 설명입니다.',
-    type: 0,
-    required: true,
-  },
-  {
-    name: '마케팅 활용 수집 이용 동의',
-    description: '마케팅 정보를 수신하기 위한 동의 약관입니다.',
-    type: 0,
-    required: false,
-  },
-];
-
 export const dummyOrderProduct: OrderProductType[] = [
   {
     productName: '아이스 아메리카노',
