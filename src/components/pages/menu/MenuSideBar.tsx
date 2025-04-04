@@ -21,7 +21,7 @@ export default function MenuSideBar({ categories }: Props) {
         isOpen ? 'translate-x-0' : '-translate-x-full'
       )}
     >
-      <div className="w-full h-full ">
+      <div className="w-full h-full">
         <MenuTop />
         <MenuCategoryList categories={categories} />
         <MenuBannerList />

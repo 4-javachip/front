@@ -4,7 +4,7 @@ import { useSideBarContext } from '@/context/SideBarContext';
 export default function MenuTop() {
   const { setIsOpen } = useSideBarContext();
   return (
-    <section className="px-6 pt-5 ">
+    <section className="px-6 pt-5">
       <nav className="flex justify-end">
         <button
           className="inline-flex items-center"
