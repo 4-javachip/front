@@ -9,7 +9,7 @@ interface SidebarContextType {
 export const SidebarContext = createContext<SidebarContextType>(
   {} as SidebarContextType
 );
-export const useSidebarContext = () => useContext(SidebarContext);
+export const useSideBarContext = () => useContext(SidebarContext);
 
 export function SidebarContextProvider({
   children,

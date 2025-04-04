@@ -2,14 +2,14 @@ import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import Link from 'next/link';
 import CategoryItem from './CategoryItem';
-import { useSidebarContext } from '@/context/SideBarContext';
+import { useSideBarContext } from '@/context/SideBarContext';
 
 interface Props {
   categories: CategoryMenuType[];
 }
 
 export default function MenuCategoryList({ categories }: Props) {
-  const { setIsOpen } = useSidebarContext();
+  const { setIsOpen } = useSideBarContext();
   return (
     <section className="px-6 py-7 bg-background">
       <nav className="flex justify-end pb-4.5">

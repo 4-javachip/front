@@ -8,10 +8,10 @@ import React, { useEffect, useState } from 'react';
 import { CommonLayout } from '../CommonLayout';
 import { getAllCategories } from '@/app/api/MenuCategory';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
-import { useSidebarContext } from '@/context/SideBarContext';
+import { useSideBarContext } from '@/context/SideBarContext';
 
 export default function HeaderTop() {
-  const { setIsOpen } = useSidebarContext();
+  const { setIsOpen } = useSideBarContext();
   const [categoryMenus, setCategoryMenus] = useState<CategoryMenuType[]>([]);
 
   useEffect(() => {

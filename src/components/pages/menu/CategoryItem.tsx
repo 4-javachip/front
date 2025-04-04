@@ -1,4 +1,4 @@
-import { useSidebarContext } from '@/context/SideBarContext';
+import { useSideBarContext } from '@/context/SideBarContext';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function CategoryItem({ category }: Props) {
-  const { setIsOpen } = useSidebarContext();
+  const { setIsOpen } = useSideBarContext();
   return (
     <Link
       href={`/products?category=${category.id}`}
