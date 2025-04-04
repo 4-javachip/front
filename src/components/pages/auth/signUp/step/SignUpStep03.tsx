@@ -1,8 +1,10 @@
-import React from 'react';
-import SignUpEmailInput from '../SignUpEmailInput';
-import SignUpPasswordInput from '../SignUpPasswordInput';
+import React, { useRef } from 'react';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import CommonInput from '@/components/ui/inputs/CommonInput';
+import {
+  sendEmailVerificationAction,
+  verifyEmailCodeAction,
+} from '@/actions/auth';
 
 export default function SignUpStep03({
   step,
@@ -15,6 +17,14 @@ export default function SignUpStep03({
   errorMessages: Partial<SignUpStoreStateType>;
   inputValues: SignUpStoreStateType;
 }) {
+  const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+
+  // const handleVerifyCode = async () => {
+  //   const code = codeInputRef.current?.value;
+  //   if (!code) return;
+  //   await verifyEmailCodeAction({ email, verificationCode: code });
+  // };
+
   return (
     <>
       <CommonInput

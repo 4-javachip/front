@@ -9,6 +9,7 @@ import { signUpStepData } from '@/data/initialDatas';
 import AuthHeading from '@/components/ui/AuthHeading';
 import BackIconHeader from '@/components/layouts/BackIconHeader';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
+import { sendEmailVerificationAction } from '@/actions/auth';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -89,10 +90,15 @@ export default function MultiStepSignUp({
     }
   };
 
-  const nextStep = () => {
+  const nextStep = async () => {
     if (viewComponent?.stepId === 3) {
       router.push('sign-up-complete');
     } else {
+      if (viewComponent?.stepId === 2) {
+        const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+        const res = await sendEmailVerificationAction({ email });
+        console.log(res);
+      }
       setStep((prev) => prev + 1);
     }
   };
