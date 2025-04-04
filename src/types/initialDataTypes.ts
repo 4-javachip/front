@@ -10,10 +10,10 @@ export interface SignUpStepType {
   isEnable: boolean;
   messages: string[];
   requiredFields: (keyof SignUpStoreStateType)[];
-  item: React.FC<{
+  item: (args: {
     step: number;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     errorMessages: Partial<SignUpStoreStateType>;
     inputValues: SignUpStoreStateType;
-  }>;
+  }) => React.ReactNode;
 }
