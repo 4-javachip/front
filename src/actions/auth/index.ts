@@ -1,5 +1,6 @@
 'use server';
 import { SignUpDataType } from '@/types/RequestDataTypes';
+import { AgreementType } from '@/types/ResponseDataTypes';
 
 export async function signUpAction(signUpFormData: FormData) {
   const payload: Partial<SignUpDataType> = {
@@ -29,8 +30,26 @@ export async function signUpAction(signUpFormData: FormData) {
   if (!response.ok) {
     const errorData = await response.json();
     console.error('Sign-up failed:', errorData);
-    throw new Error(errorData.message || 'Failed to sign up');
+    throw new Error(errorData.message);
   }
 
   return await response.json();
+}
+
+export async function getSignUpAgreementData(): Promise<AgreementType[]> {
+  const response = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/agreement/sign-up`,
+    {
+      method: 'GET',
+      cache: 'no-cache',
+    }
+  );
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error('Failed to fetch sign up agreement data:', errorData);
+    throw new Error(errorData.message);
+  }
+
+  const data = await response.json();
+  return data.result as AgreementType[];
 }

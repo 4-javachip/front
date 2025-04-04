@@ -128,15 +128,16 @@ export interface PolicyLinkType {
 }
 
 export enum AgreementTypeEnum {
-  SIGN_UP = 0,
-  SHIPPING_ADDRESS = 1,
+  SIGN_UP = 'SIGN_UP',
+  SHIPPING_ADDRESS = 'SHIPPING_ADDRESS',
 }
 
 export interface AgreementType {
+  id: number;
   name: string;
   description: string;
-  type: AgreementTypeEnum;
   required: boolean;
+  type: AgreementTypeEnum;
 }
 
 export interface OrderProductType {
