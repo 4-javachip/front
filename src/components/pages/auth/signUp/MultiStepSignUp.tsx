@@ -36,19 +36,18 @@ export default function MultiStepSignUp({
   const [errorMessages, setErrorMessages] = useState<
     Partial<SignUpStoreStateType>
   >({});
-  const requiredFields: Record<number, (keyof SignUpStoreStateType)[]> = {
-    1: ['emailId', 'emailDomain', 'password', 'confirmPassword'],
-    2: ['name', 'nickname', 'year', 'month', 'date', 'phoneNumber', 'gender'],
-  };
   const signUpSteper = signUpStepData as SignUpStepType[];
   const [viewComponent, setViewComponent] = useState<SignUpStepType>();
 
   useEffect(() => {
-    const isAllFieldsValid = requiredFields[step].every(
+    const currentStep = signUpSteper.find((item) => item.stepId === step);
+    if (!currentStep) return;
+
+    const isAllFieldsValid = currentStep.requiredFields.every(
       (field) => !!inputValues[field] && !errorMessages[field]
     );
     setIsEnabled(isAllFieldsValid);
-  }, [inputValues, errorMessages, step]);
+  }, [inputValues, errorMessages, step, signUpSteper]);
 
   useEffect(
     () =>
@@ -111,18 +110,14 @@ export default function MultiStepSignUp({
         </div>
       </header>
 
-      <form
-        onSubmit={handleSubmit}
-        onKeyDown={handleKeyDown}
-        className="padded"
-      >
-        <section className="pb-14">
+      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
+        <section className=" padded pb-14">
           {viewComponent?.messages.map((message: string, index: number) => (
             <AuthHeading key={index}>{message}</AuthHeading>
           ))}
         </section>
 
-        <ul className="space-y-6">
+        <ul className="padded space-y-6">
           {viewComponent?.item({
             step,
             handleChange,
