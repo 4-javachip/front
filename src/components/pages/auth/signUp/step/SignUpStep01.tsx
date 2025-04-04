@@ -7,12 +7,12 @@ export default function SignUpStep01({
   step,
   handleChange,
   errorMessages,
-  inputValues,
+  inputValues = {} as SignUpStoreStateType,
 }: {
   step: number;
-  handleChange: () => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessages: Partial<SignUpStoreStateType>;
-  inputValues?: SignUpStoreStateType;
+  inputValues: SignUpStoreStateType;
 }) {
   return (
     <>

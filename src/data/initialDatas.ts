@@ -1,4 +1,6 @@
-import { DropDownOption } from '@/types/initialDataTypes';
+import SignUpStep01 from '@/components/pages/auth/signUp/step/SignUpStep01';
+import SignUpStep02 from '@/components/pages/auth/signUp/step/SignUpStep02';
+import { DropDownOption, SignUpStepType } from '@/types/initialDataTypes';
 
 export const emailDomains: DropDownOption[] = [
   { value: 'gmail.com', label: 'gmail.com' },
@@ -10,4 +12,19 @@ export const emailDomains: DropDownOption[] = [
 export const genderOptions: DropDownOption[] = [
   { value: '남성', label: '남성' },
   { value: '여성', label: '여성' },
+];
+
+export const signUpStepData: SignUpStepType[] = [
+  {
+    stepId: 1,
+    isEnable: false,
+    messages: ['이메일과 비밀번호를', '입력해 주세요.'],
+    item: SignUpStep01,
+  },
+  {
+    stepId: 2,
+    isEnable: false,
+    messages: ['유저 정보를', '입력해 주세요.'],
+    item: SignUpStep02,
+  },
 ];

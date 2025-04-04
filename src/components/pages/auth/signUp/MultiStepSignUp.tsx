@@ -1,15 +1,16 @@
 'use client';
 
-import { SignUpStepType, SignUpStoreStateType } from '@/types/storeDataTypes';
+import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import { useEffect, useState } from 'react';
-import AuthHeading from '@/components/ui/AuthHeading';
+
 import BackArrowIcon from '@/components/ui/icons/BackArrowIcon';
 import { signUpSchema } from '@/schemas/signUpSchema';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useRouter } from 'next/navigation';
-import { signUpStepData } from '@/data/dummyDatas';
-import SignUpStep from './SignUpStep';
+import { SignUpStepType } from '@/types/initialDataTypes';
+import { signUpStepData } from '@/data/initialDatas';
+import AuthHeading from '@/components/ui/AuthHeading';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -35,6 +36,12 @@ export default function MultiStepSignUp({
   const [errorMessages, setErrorMessages] = useState<
     Partial<SignUpStoreStateType>
   >({});
+  const requiredFields: Record<number, (keyof SignUpStoreStateType)[]> = {
+    1: ['emailId', 'emailDomain', 'password', 'confirmPassword'],
+    2: ['name', 'nickname', 'year', 'month', 'date', 'phoneNumber', 'gender'],
+  };
+  const signUpSteper = signUpStepData as SignUpStepType[];
+  const [viewComponent, setViewComponent] = useState<SignUpStepType>();
 
   useEffect(() => {
     const isAllFieldsValid = requiredFields[step].every(
@@ -42,6 +49,14 @@ export default function MultiStepSignUp({
     );
     setIsEnabled(isAllFieldsValid);
   }, [inputValues, errorMessages, step]);
+
+  useEffect(
+    () =>
+      setViewComponent(
+        signUpSteper.find((item: SignUpStepType) => item.stepId === step)
+      ),
+    [step, signUpSteper]
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // e.preventDefault();
@@ -66,7 +81,11 @@ export default function MultiStepSignUp({
     });
   };
 
-  // 엔터시 폼 전송되는 현상 방지
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await handleSignUp(inputValues);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -81,31 +100,6 @@ export default function MultiStepSignUp({
     }
   };
 
-  const authMessages: Record<number, string[]> = {
-    1: ['이메일과 비밀번호를', '입력해 주세요.'],
-    2: ['유저 정보를', '입력해 주세요.'],
-  };
-
-  const requiredFields: Record<number, (keyof SignUpStoreStateType)[]> = {
-    1: ['emailId', 'emailDomain', 'password', 'confirmPassword'],
-    2: ['name', 'nickname', 'year', 'month', 'date', 'phoneNumber', 'gender'],
-  };
-
-  const signUpSteper = signUpStepData as SignUpStepType[];
-  const [viewComponent, setViewComponent] = useState<SignUpStepType>();
-  useEffect(
-    () =>
-      setViewComponent(
-        signUpSteper.find((item: SignUpStepType) => item.stepId === step)
-      ),
-    [step, signUpSteper]
-  );
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // 기본 제출 방지
-    await handleSignUp(inputValues); // inputValues를 기반으로 handleSignUp 실행
-  };
-
   return (
     <>
       <header className="fixed top-0 left-0 z-50 p-1.5">
@@ -117,27 +111,25 @@ export default function MultiStepSignUp({
         </div>
       </header>
 
-      <section className="padded pb-14">
-        {authMessages[step]?.map((message, index) => (
-          <AuthHeading key={index}>{message}</AuthHeading>
-        ))}
-      </section>
-      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
-        <ul className="padded space-y-6">
-          {/* {viewComponent?.item({
+      <form
+        onSubmit={handleSubmit}
+        onKeyDown={handleKeyDown}
+        className="padded"
+      >
+        <section className="pb-14">
+          {viewComponent?.messages.map((message: string, index: number) => (
+            <AuthHeading key={index}>{message}</AuthHeading>
+          ))}
+        </section>
+
+        <ul className="space-y-6">
+          {viewComponent?.item({
             step,
             handleChange,
             errorMessages,
             inputValues,
-          })} */}
-          <SignUpStep
-            step={step}
-            handleChange={handleChange}
-            errorMessages={errorMessages}
-            inputValues={inputValues}
-          />
+          })}
         </ul>
-
         <CommonLayout.FixedButtonBgLayout>
           <CommonButton
             onClick={() =>
@@ -145,7 +137,6 @@ export default function MultiStepSignUp({
                 ? setStep(2)
                 : router.push('sign-up-complete')
             }
-            // onClick={() => setStep((prev) => prev + 1)}
             isEnabled={isEnabled}
             type={viewComponent?.stepId === 1 ? 'button' : 'submit'}
           >
