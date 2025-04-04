@@ -1,18 +1,19 @@
+import { useSidebarContext } from '@/context/SideBarContext';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import Image from 'next/image';
 import Link from 'next/link';
 
 interface Props {
   category: CategoryMenuType;
-  onClose: () => void;
 }
 
-export default function CategoryItem({ category, onClose }: Props) {
+export default function CategoryItem({ category }: Props) {
+  const { setIsOpen } = useSidebarContext();
   return (
     <Link
       href={`/products?category=${category.id}`}
-      onClick={onClose}
-      className="flex flex-col items-center"
+      className="flex flex-col items-center bg-background"
+      onClick={() => setIsOpen(false)}
     >
       <figure className="w-25 h-25 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow-md">
         <Image

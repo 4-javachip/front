@@ -2,20 +2,21 @@ import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import Link from 'next/link';
 import CategoryItem from './CategoryItem';
+import { useSidebarContext } from '@/context/SideBarContext';
 
 interface Props {
   categories: CategoryMenuType[];
-  onClose: () => void;
 }
 
-export default function MenuCategoryList({ categories, onClose }: Props) {
+export default function MenuCategoryList({ categories }: Props) {
+  const { setIsOpen } = useSidebarContext();
   return (
-    <section className="px-6 py-7">
+    <section className="px-6 py-7 bg-background">
       <nav className="flex justify-end pb-4.5">
         <Link
           href="/products"
-          onClick={onClose}
           className="text-xs font-body text-gray-1 flex items-center space-x-1"
+          onClick={() => setIsOpen(false)}
         >
           <span>전체 상품 보기</span>
           <RightArrowIcon />
@@ -28,7 +29,7 @@ export default function MenuCategoryList({ categories, onClose }: Props) {
       >
         {categories.map((category) => (
           <li key={category.id}>
-            <CategoryItem category={category} onClose={onClose} />
+            <CategoryItem category={category} />
           </li>
         ))}
       </ul>
