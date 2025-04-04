@@ -6,16 +6,19 @@ export default function SignUpStep02({
   step,
   handleChange,
   errorMessages,
+  inputValues = {} as SignUpStoreStateType,
 }: {
   step: number;
-  handleChange: () => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessages: Partial<SignUpStoreStateType>;
+  inputValues: SignUpStoreStateType;
 }) {
   return (
     <>
       <SignUpProfileInput
         onChange={handleChange}
         errorMessages={errorMessages}
+        inputValues={inputValues}
       />
     </>
   );

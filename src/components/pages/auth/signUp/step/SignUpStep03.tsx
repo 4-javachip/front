@@ -2,8 +2,9 @@ import React from 'react';
 import SignUpEmailInput from '../SignUpEmailInput';
 import SignUpPasswordInput from '../SignUpPasswordInput';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
+import CommonInput from '@/components/ui/inputs/CommonInput';
 
-export default function SignUpStep01({
+export default function SignUpStep03({
   step,
   handleChange,
   errorMessages,
@@ -16,15 +17,13 @@ export default function SignUpStep01({
 }) {
   return (
     <>
-      <SignUpEmailInput
-        onChange={handleChange}
-        errorMessages={errorMessages}
-        inputValues={inputValues}
-      />
-      <SignUpPasswordInput
-        onChange={handleChange}
-        errorMessages={errorMessages}
-        inputValues={inputValues}
+      <CommonInput
+        placeholder="인증번호 6자리"
+        // type="password"
+        // name="password"
+        // onChange={onChange}
+        maxLength={6}
+        // value={inputValues?.password}
       />
     </>
   );

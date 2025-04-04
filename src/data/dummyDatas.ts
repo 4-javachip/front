@@ -1,6 +1,3 @@
-import SignUpStep from '@/components/pages/auth/signUp/SignUpStep';
-import SignUpStep01 from '@/components/pages/auth/signUp/step/SignUpStep01';
-import SignUpStep02 from '@/components/pages/auth/signUp/step/SignUpStep02';
 import {
   AddressType,
   BannerSlideImageType,
@@ -17,7 +14,6 @@ import {
   AgreementTypeEnum,
   OrderProductType,
 } from '@/types/ResponseDataTypes';
-import { SignUpStepType } from '@/types/storeDataTypes';
 
 export const mainBannerSlideData: BannerSlideImageType[] = [
   {
@@ -471,18 +467,5 @@ export const dummyOrderProduct: OrderProductType[] = [
     productOptionListUuid: 'option-uuid-457',
     productImageUrl: 'https://dummyimage.com/1000',
     discountRate: 10,
-  },
-];
-
-export const signUpStepData: SignUpStepType[] = [
-  {
-    stepId: 1,
-    isEnable: false,
-    item: SignUpStep,
-  },
-  {
-    stepId: 2,
-    isEnable: false,
-    item: SignUpStep,
   },
 ];
