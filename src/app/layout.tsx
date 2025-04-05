@@ -42,11 +42,10 @@ export default async function RootLayout({
   return (
     <html
       lang="ko"
-      className="antialiased w-full h-screen bg-background max-w-[var(--base-w)] mx-auto overflow-x-hidden"
+      className="antialiased w-full min-h-screen bg-background max-w-[var(--base-w)] mx-auto
+      border-x border-lightGray-5"
     >
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} border-x border-lightGray-5`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AuthContextProvider isAuth={isAuth}>{children}</AuthContextProvider>
       </body>
     </html>
