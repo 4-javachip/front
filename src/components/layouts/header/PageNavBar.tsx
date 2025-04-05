@@ -16,7 +16,10 @@ const PageNavBar = () => {
   ];
 
   return (
-    <nav className="fixed top-14 left-1/2 -translate-x-1/2 z-50 bg-background h-[3.5rem] shadow-md w-full lg:max-w-[var(--base-w)]">
+    <nav
+      className="fixed top-14 left-1/2 -translate-x-1/2 z-50 bg-background h-[3.5rem] shadow-[0_0.25rem_0.25rem_-0.125rem_rgba(0,0,0,0.1)] w-full max-w-[var(--base-w)]
+    border-x border-lightGray-5"
+    >
       <ul className="flex text-gray-700 p-0 m-0 text-sm h-full">
         {navItems.map((item) => {
           const isActive = pathname === item.href;

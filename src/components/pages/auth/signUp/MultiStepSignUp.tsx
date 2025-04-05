@@ -13,6 +13,7 @@ import {
   sendEmailVerificationAction,
   verifyEmailCodeAction,
 } from '@/actions/auth';
+import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -43,6 +44,8 @@ export default function MultiStepSignUp({
   const [viewComponent, setViewComponent] = useState<SignUpStepType>();
   const [remainingTime, setRemainingTime] = useState<number>();
   let timer: NodeJS.Timeout;
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [modalErrorMessage, setModalErrorMessage] = useState('');
 
   useEffect(() => {
     const currentStep = signUpSteper.find((item) => item.stepId === step);
@@ -125,23 +128,27 @@ export default function MultiStepSignUp({
       startTimer();
     }
     console.log(res);
-    startTimer();
+    // startTimer();
   };
 
   const nextStep = async () => {
-    if (viewComponent?.stepId === 3) {
-      handleVerifyCode();
-      router.push('sign-up-complete');
-      document
-        .querySelector('form')
-        ?.dispatchEvent(
-          new Event('submit', { cancelable: true, bubbles: true })
-        );
-    } else {
-      if (viewComponent?.stepId === 2) {
-        handleSendEmailVerification();
+    try {
+      if (viewComponent?.stepId === 3) {
+        await handleVerifyCode();
+        await handleSignUp(inputValues);
+        router.push('sign-up-complete');
+      } else {
+        if (viewComponent?.stepId === 2) {
+          await handleSendEmailVerification();
+        }
+        setStep((prev) => prev + 1);
       }
-      setStep((prev) => prev + 1);
+    } catch (error) {
+      const message =
+        (error as { message?: string })?.message ??
+        '알 수 없는 오류가 발생했습니다.';
+      setModalErrorMessage(message);
+      setErrorModalOpen(true);
     }
   };
 
@@ -153,8 +160,19 @@ export default function MultiStepSignUp({
     }
   };
 
+  const handleModalConfirm = () => {
+    setErrorModalOpen(false);
+    location.reload();
+  };
+
   return (
     <>
+      <ErrorAlertModal
+        open={errorModalOpen}
+        onOpenChange={setErrorModalOpen}
+        onConfirm={handleModalConfirm}
+        errorMessage={modalErrorMessage}
+      />
       <BackIconHeader onClick={prevStep} />
       <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
         <section className=" padded pb-14">

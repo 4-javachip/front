@@ -2,7 +2,7 @@ import { LogoIcon } from '@/components/ui/icons/LogoIcon';
 
 export default function StarbucksLoading() {
   return (
-    <div className="fixed inset-0 z-[9999] bg-[#f6f5ef] flex flex-col font-pretendard items-center justify-center text-[#1e3932] lg:max-w-[var(--base-w)] mx-auto">
+    <div className="fixed inset-0 z-[9999] bg-[#f6f5ef] flex flex-col font-pretendard items-center justify-center text-[#1e3932] max-w-[var(--base-w)] mx-auto">
       <div className="mb-4">
         <LogoIcon size={50} />
       </div>
