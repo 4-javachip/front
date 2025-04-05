@@ -7,8 +7,8 @@ export default function ProductDetailLayout({
 }>) {
   return (
     <>
-      <PerchaseBar />
       {children}
+      <PerchaseBar />
     </>
   );
 }

@@ -40,9 +40,12 @@ export default async function RootLayout({
   const isAuth = !!session?.user as boolean;
   console.log('isAuth', isAuth);
   return (
-    <html lang="ko">
+    <html
+      lang="ko"
+      className="antialiased w-full h-screen bg-background max-w-[var(--base-w)] mx-auto overflow-x-hidden"
+    >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full bg-background lg:max-w-[var(--base-w)] mx-auto`}
+        className={`${geistSans.variable} ${geistMono.variable} border-x border-lightGray-5`}
       >
         <AuthContextProvider isAuth={isAuth}>{children}</AuthContextProvider>
       </body>

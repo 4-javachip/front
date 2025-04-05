@@ -22,7 +22,7 @@ function CommonHeader({
   return (
     <section
       className={cn(
-        'fixed top-0 left-1/2 -translate-x-1/2 w-full lg:max-w-[var(--base-w)] mx-auto shadow-md  bg-background z-10  h-14 ',
+        'fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[var(--base-w)] mx-auto shadow-[0_0.25rem_0.25rem_-0.125rem_rgba(0,0,0,0.1)]  bg-background z-10  h-14 border-x border-lightGray-5',
         className
       )}
     >
@@ -38,7 +38,7 @@ function FixedButtonBgLayout({
   return (
     <section
       className={cn(
-        'sticky bg-background bottom-0 w-full pt-3.5 px-6 pb-7 rounded-t-[1.3rem] shadow-md flex flex-row gap-2 items-center',
+        'fixed bg-background bottom-0 w-full pt-3.5 px-6 pb-7 rounded-t-[1.3rem] shadow-[-0.125rem_-0.125rem_0.5rem_rgba(0,0,0,0.08)] flex flex-row gap-2 items-center max-w-[var(--base-w)]',
         className
       )}
     >

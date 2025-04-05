@@ -115,6 +115,7 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
               src={slide.imageUrl}
               alt={slide.description}
               fill
+              sizes="100vw"
               className="object-cover w-full h-full pointer-events-none"
               priority
             />
