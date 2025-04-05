@@ -13,6 +13,7 @@ import {
   sendEmailVerificationAction,
   verifyEmailCodeAction,
 } from '@/actions/auth';
+import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -43,6 +44,7 @@ export default function MultiStepSignUp({
   const [viewComponent, setViewComponent] = useState<SignUpStepType>();
   const [remainingTime, setRemainingTime] = useState<number>();
   let timer: NodeJS.Timeout;
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   useEffect(() => {
     const currentStep = signUpSteper.find((item) => item.stepId === step);
@@ -119,29 +121,34 @@ export default function MultiStepSignUp({
   };
 
   const handleSendEmailVerification = async () => {
-    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-    const res = await sendEmailVerificationAction({ email });
-    if (res) {
-      startTimer();
-    }
-    console.log(res);
+    // const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+    // const res = await sendEmailVerificationAction({ email });
+    // if (res) {
+    //   startTimer();
+    // }
+    // console.log(res);
     startTimer();
   };
 
   const nextStep = async () => {
-    if (viewComponent?.stepId === 3) {
-      handleVerifyCode();
-      router.push('sign-up-complete');
-      document
-        .querySelector('form')
-        ?.dispatchEvent(
-          new Event('submit', { cancelable: true, bubbles: true })
-        );
-    } else {
-      if (viewComponent?.stepId === 2) {
-        handleSendEmailVerification();
+    try {
+      if (viewComponent?.stepId === 3) {
+        await handleVerifyCode();
+        router.push('sign-up-complete');
+        document
+          .querySelector('form')
+          ?.dispatchEvent(
+            new Event('submit', { cancelable: true, bubbles: true })
+          );
+      } else {
+        if (viewComponent?.stepId === 2) {
+          await handleSendEmailVerification();
+        }
+        setStep((prev) => prev + 1);
       }
-      setStep((prev) => prev + 1);
+    } catch (error) {
+      console.error('회원가입 중 오류 발생:', error);
+      setErrorModalOpen(true);
     }
   };
 
@@ -153,8 +160,18 @@ export default function MultiStepSignUp({
     }
   };
 
+  const handleModalConfirm = () => {
+    setErrorModalOpen(false);
+    location.reload(); // 새로고침
+  };
+
   return (
     <>
+      <ErrorAlertModal
+        open={errorModalOpen}
+        onOpenChange={setErrorModalOpen}
+        onConfirm={handleModalConfirm}
+      />
       <BackIconHeader onClick={prevStep} />
       <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
         <section className=" padded pb-14">
