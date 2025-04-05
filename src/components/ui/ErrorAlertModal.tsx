@@ -3,7 +3,6 @@
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -15,10 +14,12 @@ export default function ErrorAlertModal({
   open,
   onOpenChange,
   onConfirm,
+  errorMessage,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
+  errorMessage?: string;
 }) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -28,7 +29,8 @@ export default function ErrorAlertModal({
             오류가 발생했습니다.
           </AlertDialogTitle>
           <AlertDialogDescription className="text-left">
-            문제가 발생하여 회원가입을 처음부터 다시 진행합니다.
+            {(errorMessage ?? '알 수 없는 오류가 발생했습니다.') +
+              ' 다시 시도해 주세요.'}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="block text-right">

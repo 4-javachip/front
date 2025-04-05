@@ -45,6 +45,7 @@ export default function MultiStepSignUp({
   const [remainingTime, setRemainingTime] = useState<number>();
   let timer: NodeJS.Timeout;
   const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [modalErrorMessage, setModalErrorMessage] = useState('');
 
   useEffect(() => {
     const currentStep = signUpSteper.find((item) => item.stepId === step);
@@ -121,25 +122,21 @@ export default function MultiStepSignUp({
   };
 
   const handleSendEmailVerification = async () => {
-    // const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-    // const res = await sendEmailVerificationAction({ email });
-    // if (res) {
-    //   startTimer();
-    // }
-    // console.log(res);
-    startTimer();
+    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+    const res = await sendEmailVerificationAction({ email });
+    if (res) {
+      startTimer();
+    }
+    console.log(res);
+    // startTimer();
   };
 
   const nextStep = async () => {
     try {
       if (viewComponent?.stepId === 3) {
         await handleVerifyCode();
+        await handleSignUp(inputValues);
         router.push('sign-up-complete');
-        document
-          .querySelector('form')
-          ?.dispatchEvent(
-            new Event('submit', { cancelable: true, bubbles: true })
-          );
       } else {
         if (viewComponent?.stepId === 2) {
           await handleSendEmailVerification();
@@ -147,7 +144,10 @@ export default function MultiStepSignUp({
         setStep((prev) => prev + 1);
       }
     } catch (error) {
-      console.error('회원가입 중 오류 발생:', error);
+      const message =
+        (error as { message?: string })?.message ??
+        '알 수 없는 오류가 발생했습니다.';
+      setModalErrorMessage(message);
       setErrorModalOpen(true);
     }
   };
@@ -162,7 +162,7 @@ export default function MultiStepSignUp({
 
   const handleModalConfirm = () => {
     setErrorModalOpen(false);
-    location.reload(); // 새로고침
+    location.reload();
   };
 
   return (
@@ -171,6 +171,7 @@ export default function MultiStepSignUp({
         open={errorModalOpen}
         onOpenChange={setErrorModalOpen}
         onConfirm={handleModalConfirm}
+        errorMessage={modalErrorMessage}
       />
       <BackIconHeader onClick={prevStep} />
       <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
