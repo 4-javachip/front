@@ -15,5 +15,6 @@ export interface SignUpStepType {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     errorMessages: Partial<SignUpStoreStateType>;
     inputValues: SignUpStoreStateType;
+    remainingTime?: number;
   }) => React.ReactNode;
 }
