@@ -1,7 +1,10 @@
+import Link from 'next/link';
 import AddressAgreementIcon from '@/components/ui/icons/AddressAgreement';
 import CouponIcon from '@/components/ui/icons/CouponIcon';
 import OrderListIcon from '@/components/ui/icons/OrderListIcon';
+import ReviewIcon from '@/components/ui/icons/ReviewIcon';
 import ShippingAddressIcon from '@/components/ui/icons/ShippingAddressIcon';
+import WishIcon from '@/components/ui/icons/WishIcon';
 
 export default function MyPageMenu() {
   return (
@@ -12,20 +15,44 @@ export default function MyPageMenu() {
 
       <ul className="px-6">
         <li className="font-medium text-foreground flex gap-2 pb-7">
-          <OrderListIcon /> 주문 내역
+          <Link href="/mypage/orders" className="flex gap-2 items-center">
+            <OrderListIcon /> 주문 내역
+          </Link>
         </li>
         <li className="font-medium text-foreground flex gap-2 pb-7">
-          <CouponIcon /> 쿠폰
+          <Link href="/mypage/coupons" className="flex gap-2 items-center">
+            <CouponIcon /> 쿠폰
+          </Link>
         </li>
         <li className="font-medium text-foreground flex gap-2 pb-7">
-          <ShippingAddressIcon /> 배송지 관리
+          <Link
+            href="/mypage/shipping-addresses"
+            className="flex gap-2 items-center"
+          >
+            <ShippingAddressIcon /> 배송지 관리
+          </Link>
+        </li>
+        <li className="font-medium text-foreground flex gap-2 pb-7">
+          <Link href="/mypage/wishlist" className="flex gap-2 items-center">
+            <WishIcon /> 찜 목록
+          </Link>
+        </li>
+        <li className="font-medium text-foreground flex gap-2 pb-7">
+          <Link href="/mypage/reviews" className="flex gap-2 items-center">
+            <ReviewIcon /> 리뷰 관리
+          </Link>
         </li>
       </ul>
 
       <ul className="px-6 font-semibold pt-2">
         <li className=" font-semibold pt-3 pb-5.5">설정</li>
         <li className="font-medium text-foreground flex gap-2 pb-8">
-          <AddressAgreementIcon /> 배송지 정보 수집 및 이용 동의
+          <Link
+            href="/mypage/address-agreement"
+            className="flex gap-2 items-center"
+          >
+            <AddressAgreementIcon /> 배송지 정보 수집 및 이용 동의
+          </Link>
         </li>
       </ul>
     </section>
