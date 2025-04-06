@@ -25,10 +25,7 @@ export default function MyPageMenu() {
           </Link>
         </li>
         <li className="font-medium text-foreground flex gap-2 pb-7">
-          <Link
-            href="/mypage/shipping-addresses"
-            className="flex gap-2 items-center"
-          >
+          <Link href="/shipping-addresses" className="flex gap-2 items-center">
             <ShippingAddressIcon /> 배송지 관리
           </Link>
         </li>
