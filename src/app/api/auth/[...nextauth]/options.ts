@@ -53,6 +53,42 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    // Oauth 로그인
+    async signIn({ user, account, email, credentials }) {
+      if (account) {
+        console.log('account', account);
+        console.log('user', user);
+        // try {
+        //   const res = await fetch(
+        //     `${process.env.BASE_API_URL}/api/v1/auth/oauth/sign-in`,
+        //     {
+        //       method: 'POST',
+        //       headers: {
+        //         'Content-Type': 'application/json',
+        //       },
+        //       body: JSON.stringify({
+        //         provider: account.provider,
+        //         providerId: account.providerAccountId,
+        //         providerEmail: account.email,
+        //       }),
+        //       cache: 'no-cache',
+        //     }
+        //   );
+        //   const data = (await res.json()) as commonResponseType<signInDataType>;
+        //   console.log('server data', data);
+        //   user.accessToken = data.result.accessToken;
+        //   // user.refreshToken = data.result.refreshToken;
+        //   user.name = data.result.name;
+        //   user.uuid = data.result.uuid;
+        //   console.log('kakao', user);
+        //   return true;
+        // } catch (error) {
+        //   console.error('error', error);
+        //   return '/sign-up';
+        // }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       return { ...token, ...user };
     },
