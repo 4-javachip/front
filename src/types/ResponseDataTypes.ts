@@ -6,6 +6,12 @@ export interface commonResponseType<T> {
   result: T;
 }
 
+export interface signInDataType {
+  accessToken: string;
+  name: string;
+  uuid: string;
+}
+
 export interface BannerSlideImageType {
   id: number;
   imageUrl: string;
