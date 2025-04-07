@@ -118,7 +118,7 @@ export default function MultiStepSignUp({
 
   const prevStep = () => {
     if (step === 1) {
-      router.push('terms-agreement');
+      router.push('sign-in');
     } else {
       setStep((prev) => prev - 1);
     }
@@ -138,12 +138,19 @@ export default function MultiStepSignUp({
         errorMessage={modalErrorMessage}
       />
       <BackIconHeader onClick={prevStep} />
-      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
-        <section className=" padded pb-14">
-          {viewComponent?.messages?.map((message: string, index: number) => (
-            <AuthHeading key={index}>{message}</AuthHeading>
-          ))}
-        </section>
+      <form
+        onSubmit={handleSubmit}
+        onKeyDown={handleKeyDown}
+        className="w-full h-full"
+      >
+        {Array.isArray(viewComponent?.messages) &&
+          viewComponent.messages.length > 0 && (
+            <section className="padded pb-14">
+              {viewComponent.messages.map((message, index) => (
+                <AuthHeading key={index}>{message}</AuthHeading>
+              ))}
+            </section>
+          )}
         <ul className="padded space-y-6">
           {viewComponent?.item({
             step,

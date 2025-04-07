@@ -3,5 +3,5 @@ export default function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main className="pt-32">{children}</main>;
+  return <main className="pt-32 h-screen">{children}</main>;
 }

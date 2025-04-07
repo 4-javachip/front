@@ -16,7 +16,7 @@ export default function SignInForm() {
           <div className="flex [&>*:not(:first-child)]:before:content-['|'] [&>*:not(:first-child)]:before:mx-2">
             <AuthLinkItem text="아이디 찾기" link="/find-id" />
             <AuthLinkItem text="비밀번호 찾기" link="/find-password" />
-            <AuthLinkItem text="회원가입" link="/terms-agreement" />
+            <AuthLinkItem text="회원가입" link="/sign-up" />
           </div>
         </section>
       </div>
