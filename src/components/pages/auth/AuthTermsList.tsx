@@ -36,6 +36,14 @@ export default function AuthTermsList({
     .map((item, index) => (item.required ? checkedItems[index] : true))
     .every(Boolean);
 
+  const handleNextClick = () => {
+    const optionalIndex = agreements.findIndex((item) => !item.required);
+    const optionalChecked =
+      optionalIndex !== -1 ? checkedItems[optionalIndex] : false;
+
+    router.push(`sign-up?optionalConsent=${optionalChecked}`);
+  };
+
   return (
     <>
       <section className="padded">
@@ -58,9 +66,7 @@ export default function AuthTermsList({
       </section>
       <ConfirmNextButton
         text="다음"
-        onClick={() => {
-          router.push('sign-up');
-        }}
+        onClick={handleNextClick}
         isEnabled={() => isRequiredChecked}
       />
     </>

@@ -5,20 +5,30 @@ import { SignUpStoreStateType } from '@/types/storeDataTypes';
 export default function SignUpPage() {
   const handleSignUp = async (inputValues: SignUpStoreStateType) => {
     'use server';
-    const { emailId, emailDomain, year, month, date, ...rest } = inputValues;
+    const {
+      emailId,
+      emailDomain,
+      year,
+      month,
+      date,
+      confirmPassword,
+      emailVerificationCode,
+      ...rest
+    } = inputValues;
 
     const email = `${emailId}@${emailDomain}`;
     const formattedMonth = month.padStart(2, '0');
     const formattedDate = date.padStart(2, '0');
     const birthdate = `${year}-${formattedMonth}-${formattedDate}`;
 
-    const formData = new FormData();
-    Object.entries({ ...rest, email, birthdate }).forEach(([key, value]) => {
-      if (value) formData.append(key, value);
-    });
+    const payload = {
+      ...rest,
+      email,
+      birthdate,
+    };
+    console.log(payload);
 
-    console.log(formData);
-    const res = await signUpAction(formData);
+    const res = await signUpAction(payload);
     console.log(res);
   };
 

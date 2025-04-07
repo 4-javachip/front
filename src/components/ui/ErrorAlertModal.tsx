@@ -18,7 +18,7 @@ export default function ErrorAlertModal({
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onConfirm: () => void;
+  onConfirm?: () => void;
   errorMessage?: string;
 }) {
   return (

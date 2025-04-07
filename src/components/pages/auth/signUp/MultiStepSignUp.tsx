@@ -9,10 +9,6 @@ import { signUpStepData } from '@/data/initialDatas';
 import AuthHeading from '@/components/ui/AuthHeading';
 import BackIconHeader from '@/components/layouts/BackIconHeader';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
-import {
-  sendEmailVerificationAction,
-  verifyEmailCodeAction,
-} from '@/actions/auth';
 import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
 
 export default function MultiStepSignUp({
@@ -36,14 +32,13 @@ export default function MultiStepSignUp({
     phoneNumber: '',
     gender: '남성',
     emailVerificationCode: '',
+    isEmailVerified: '',
   });
   const [errorMessages, setErrorMessages] = useState<
     Partial<SignUpStoreStateType>
   >({});
   const signUpSteper = signUpStepData as SignUpStepType[];
   const [viewComponent, setViewComponent] = useState<SignUpStepType>();
-  const [remainingTime, setRemainingTime] = useState<number>();
-  let timer: NodeJS.Timeout;
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [modalErrorMessage, setModalErrorMessage] = useState('');
 
@@ -98,48 +93,16 @@ export default function MultiStepSignUp({
     }
   };
 
-  const startTimer = () => {
-    setRemainingTime(300);
-    clearInterval(timer);
-    timer = setInterval(() => {
-      setRemainingTime((prev) => {
-        if (prev) {
-          if (prev === null || prev <= 1) {
-            clearInterval(timer);
-            return 0;
-          }
-          return prev - 1;
-        }
-      });
-    }, 1000);
-  };
-
-  const handleVerifyCode = async () => {
-    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-    const code = inputValues.emailVerificationCode;
-    const res = await verifyEmailCodeAction({ email, verificationCode: code });
-    console.log(res);
-  };
-
-  const handleSendEmailVerification = async () => {
-    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-    const res = await sendEmailVerificationAction({ email });
-    if (res) {
-      startTimer();
-    }
-    console.log(res);
-    // startTimer();
-  };
-
   const nextStep = async () => {
     try {
       if (viewComponent?.stepId === 3) {
-        await handleVerifyCode();
-        await handleSignUp(inputValues);
+        // await handleVerifyCode();
+        // await handleSignUp(inputValues);
         router.push('sign-up-complete');
       } else {
-        if (viewComponent?.stepId === 2) {
-          await handleSendEmailVerification();
+        if (viewComponent?.stepId === 1) {
+          // const success = await handleSendEmailVerification();
+          // if (!success) return;
         }
         setStep((prev) => prev + 1);
       }
@@ -162,7 +125,7 @@ export default function MultiStepSignUp({
 
   const handleModalConfirm = () => {
     setErrorModalOpen(false);
-    location.reload();
+    setStep(1);
   };
 
   return (
@@ -174,7 +137,11 @@ export default function MultiStepSignUp({
         errorMessage={modalErrorMessage}
       />
       <BackIconHeader onClick={prevStep} />
-      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
+      <form
+        onSubmit={handleSubmit}
+        onKeyDown={handleKeyDown}
+        className="w-full h-full"
+      >
         <section className=" padded pb-14">
           {viewComponent?.messages.map((message: string, index: number) => (
             <AuthHeading key={index}>{message}</AuthHeading>
@@ -186,23 +153,12 @@ export default function MultiStepSignUp({
             handleChange,
             errorMessages,
             inputValues,
-            remainingTime,
           })}
         </ul>
-        {viewComponent?.stepId === 3 && remainingTime === 0 && (
-          <div className="padded mt-3 ml-2">
-            <button
-              onClick={handleSendEmailVerification}
-              type="button"
-              className="text-green text-sm underline cursor-pointer"
-            >
-              인증번호 다시 요청
-            </button>
-          </div>
-        )}
         <ConfirmNextButton
           onClick={nextStep}
           isEnabled={() => isEnabled}
+          // isEnabled={() => true}
           type="button"
           text="다음"
         />
