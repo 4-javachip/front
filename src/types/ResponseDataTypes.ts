@@ -154,3 +154,12 @@ export interface OrderProductType {
   productImageUrl: string;
   discountRate: number;
 }
+
+export interface ProductOptionType {
+  productUuid: string;
+  colorOptionId: number;
+  sizeOptionId: number;
+  stock: number;
+  price: number;
+  discountRate: number;
+}
