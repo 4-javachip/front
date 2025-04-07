@@ -10,6 +10,7 @@ import AuthHeading from '@/components/ui/AuthHeading';
 import BackIconHeader from '@/components/layouts/BackIconHeader';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import {
+  checkEmailDuplicate,
   sendEmailVerificationAction,
   verifyEmailCodeAction,
 } from '@/actions/auth';
@@ -121,25 +122,35 @@ export default function MultiStepSignUp({
     console.log(res);
   };
 
-  const handleSendEmailVerification = async () => {
+  const handleSendEmailVerification = async (): Promise<boolean> => {
     const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-    const res = await sendEmailVerificationAction({ email });
-    if (res) {
-      startTimer();
+    const isDuplicated = await checkEmailDuplicate({ email });
+    console.log(isDuplicated);
+
+    if (isDuplicated.result) {
+      setModalErrorMessage('이미 사용 중인 이메일입니다.');
+      setErrorModalOpen(true);
+      return false;
     }
-    console.log(res);
+    // const res = await sendEmailVerificationAction({ email });
+    // if (res) {
+    //   startTimer();
+    // }
+    // console.log(res);
     // startTimer();
+    return true;
   };
 
   const nextStep = async () => {
     try {
       if (viewComponent?.stepId === 2) {
         // await handleVerifyCode();
-        await handleSignUp(inputValues);
+        // await handleSignUp(inputValues);
         router.push('sign-up-complete');
       } else {
-        if (viewComponent?.stepId === 3) {
-          await handleSendEmailVerification();
+        if (viewComponent?.stepId === 1) {
+          const success = await handleSendEmailVerification();
+          if (!success) return;
         }
         setStep((prev) => prev + 1);
       }
@@ -162,7 +173,7 @@ export default function MultiStepSignUp({
 
   const handleModalConfirm = () => {
     setErrorModalOpen(false);
-    location.reload();
+    setStep(1);
   };
 
   return (
@@ -202,7 +213,8 @@ export default function MultiStepSignUp({
         )}
         <ConfirmNextButton
           onClick={nextStep}
-          isEnabled={() => isEnabled}
+          // isEnabled={() => isEnabled}
+          isEnabled={() => true}
           type="button"
           text="다음"
         />

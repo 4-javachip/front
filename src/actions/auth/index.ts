@@ -42,6 +42,29 @@ export async function getSignUpAgreementData(): Promise<AgreementType[]> {
   return data.result as AgreementType[];
 }
 
+export async function checkEmailDuplicate({ email }: { email: string }) {
+  const payload = {
+    email,
+  };
+
+  const response = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/auth/exists/email`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error('이메일 중복 검사 실패: ', errorData);
+    throw new Error(errorData.message);
+  }
+
+  return await response.json();
+}
+
 export async function sendEmailVerificationAction({
   email,
 }: {

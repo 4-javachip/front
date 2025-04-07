@@ -19,15 +19,24 @@ export const signUpStepData: SignUpStepType[] = [
   {
     stepId: 1,
     isEnable: false,
-    messages: ['이메일과 비밀번호를', '입력해 주세요.'],
-    requiredFields: ['emailId', 'emailDomain', 'password', 'confirmPassword'],
+    messages: ['이메일을', '입력해 주세요.'],
+    requiredFields: ['emailId', 'emailDomain'],
     item: SignUpStep01,
   },
   {
     stepId: 2,
     isEnable: false,
-    messages: ['유저 정보를', '입력해 주세요.'],
+    messages: ['전송된 인증 번호를', '입력해 주세요.'],
+    requiredFields: ['emailVerificationCode'],
+    item: SignUpStep02,
+  },
+  {
+    stepId: 3,
+    isEnable: false,
+    messages: ['비밀번호와 유저 정보를', '입력해 주세요.'],
     requiredFields: [
+      'password',
+      'confirmPassword',
       'name',
       'nickname',
       'year',
@@ -36,13 +45,6 @@ export const signUpStepData: SignUpStepType[] = [
       'phoneNumber',
       'gender',
     ],
-    item: SignUpStep02,
-  },
-  {
-    stepId: 3,
-    isEnable: false,
-    messages: ['전송된 인증 번호를', '입력해 주세요.'],
-    requiredFields: ['emailVerificationCode'],
     item: SignUpStep03,
   },
 ];

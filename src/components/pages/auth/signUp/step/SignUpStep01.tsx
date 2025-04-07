@@ -2,6 +2,7 @@ import React from 'react';
 import SignUpEmailInput from '../SignUpEmailInput';
 import SignUpPasswordInput from '../SignUpPasswordInput';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
+import CommonButton from '@/components/ui/buttons/CommonButton';
 
 export default function SignUpStep01({
   step,
@@ -21,11 +22,11 @@ export default function SignUpStep01({
         errorMessages={errorMessages}
         inputValues={inputValues}
       />
-      <SignUpPasswordInput
+      {/* <SignUpPasswordInput
         onChange={handleChange}
         errorMessages={errorMessages}
         inputValues={inputValues}
-      />
+      /> */}
     </>
   );
 }
