@@ -1,16 +1,15 @@
-'use server';
-
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 
-export const addShippingAddress = async (data: ShippingAddressDataType) => {
+export const addShippingAddress = async (value: ShippingAddressDataType) => {
   const response = await fetch(
     `${process.env.BASE_API_URL}/api/v1/shipping-address`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'userUuid': 'test-1',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(value),
     }
   );
 

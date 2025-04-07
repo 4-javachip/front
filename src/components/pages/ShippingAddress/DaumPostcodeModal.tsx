@@ -10,8 +10,12 @@ interface Props {
 }
 
 const DaumPostcodeModal: React.FC<Props> = ({ onClose, onComplete }) => {
-  const handleComplete = (data: Address) => {
-    onComplete({ zonecode: data.zonecode, address: data.address });
+  const handleComplete = async (data: Address) => {
+    const res = await onComplete({
+      zonecode: data.zonecode,
+      address: data.address,
+    });
+    console.log(res);
     onClose();
   };
 

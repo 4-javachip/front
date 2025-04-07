@@ -43,7 +43,7 @@ const CartIcon: React.FC<CartIconProps> = ({
 
       {/* ✅ 장바구니 개수가 0보다 크면 배지 표시 */}
       {cartCount > 0 && (
-        <span className="absolute top-0 right-0 transform -translate-y-0 translate-x-1 top-0.5 bg-[#00A862] text-white text-[11px] font-bold w-5 h-[14.55px] flex items-center justify-center rounded-[12px]">
+        <span className="absolute top-0 right-0 transform -translate-y-0 translate-x-1 top-0.5 bg-green text-white text-[11px] font-bold w-5 h-[14.55px] flex items-center justify-center rounded-[12px]">
           {cartCount}
         </span>
       )}
