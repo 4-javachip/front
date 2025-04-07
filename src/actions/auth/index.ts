@@ -2,24 +2,12 @@
 import { SignUpDataType } from '@/types/RequestDataTypes';
 import { AgreementType } from '@/types/ResponseDataTypes';
 
-export async function signUpAction(signUpFormData: FormData) {
-  const payload: Partial<SignUpDataType> = {
-    email: signUpFormData.get('email') as string,
-    password: signUpFormData.get('password') as string,
-    name: signUpFormData.get('name') as string,
-    birthdate: signUpFormData.get('birthdate') as string,
-    phoneNumber: signUpFormData.get('phoneNumber') as string,
-    gender: signUpFormData.get('gender') as string,
-  };
-
-  const nickname = signUpFormData.get('nickname');
-  if (nickname !== null && nickname !== undefined && nickname !== '') {
-    payload.nickname = nickname as string;
-  }
+export async function signUpAction(signUpData: Partial<SignUpDataType>) {
+  const payload: Partial<SignUpDataType> = { ...signUpData };
 
   console.log('Payload being sent to the API:', payload);
   const response = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/user/sign-up`,
+    `${process.env.BASE_API_URL}/api/v1/auth/sign-up`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -133,12 +133,12 @@ export default function MultiStepSignUp({
 
   const nextStep = async () => {
     try {
-      if (viewComponent?.stepId === 3) {
-        await handleVerifyCode();
+      if (viewComponent?.stepId === 2) {
+        // await handleVerifyCode();
         await handleSignUp(inputValues);
         router.push('sign-up-complete');
       } else {
-        if (viewComponent?.stepId === 2) {
+        if (viewComponent?.stepId === 3) {
           await handleSendEmailVerification();
         }
         setStep((prev) => prev + 1);
