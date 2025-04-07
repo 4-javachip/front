@@ -99,22 +99,6 @@ export default function MultiStepSignUp({
     }
   };
 
-  const startTimer = () => {
-    setRemainingTime(300);
-    clearInterval(timer);
-    timer = setInterval(() => {
-      setRemainingTime((prev) => {
-        if (prev) {
-          if (prev === null || prev <= 1) {
-            clearInterval(timer);
-            return 0;
-          }
-          return prev - 1;
-        }
-      });
-    }, 1000);
-  };
-
   const handleVerifyCode = async () => {
     const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
     const code = inputValues.emailVerificationCode;
@@ -143,14 +127,14 @@ export default function MultiStepSignUp({
 
   const nextStep = async () => {
     try {
-      if (viewComponent?.stepId === 2) {
+      if (viewComponent?.stepId === 3) {
         // await handleVerifyCode();
         // await handleSignUp(inputValues);
         router.push('sign-up-complete');
       } else {
         if (viewComponent?.stepId === 1) {
-          const success = await handleSendEmailVerification();
-          if (!success) return;
+          // const success = await handleSendEmailVerification();
+          // if (!success) return;
         }
         setStep((prev) => prev + 1);
       }
@@ -213,8 +197,8 @@ export default function MultiStepSignUp({
         )}
         <ConfirmNextButton
           onClick={nextStep}
-          // isEnabled={() => isEnabled}
-          isEnabled={() => true}
+          isEnabled={() => isEnabled}
+          // isEnabled={() => true}
           type="button"
           text="다음"
         />

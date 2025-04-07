@@ -1,6 +1,6 @@
 import SignUpStep01 from '@/components/pages/auth/signUp/step/SignUpStep01';
-import SignUpStep02 from '@/components/pages/auth/signUp/step/SignUpStep02';
 import SignUpStep03 from '@/components/pages/auth/signUp/step/SignUpStep03';
+import SignUpStep02 from '@/components/pages/auth/signUp/step/SignUpStep02';
 import { DropDownOption, SignUpStepType } from '@/types/initialDataTypes';
 
 export const emailDomains: DropDownOption[] = [

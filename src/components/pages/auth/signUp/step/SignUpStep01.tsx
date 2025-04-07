@@ -1,8 +1,10 @@
-import React from 'react';
 import SignUpEmailInput from '../SignUpEmailInput';
 import SignUpPasswordInput from '../SignUpPasswordInput';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import CommonButton from '@/components/ui/buttons/CommonButton';
+import SignUpEmailVerify from '../SignUpEmailVerify';
+import { checkEmailDuplicate } from '@/actions/auth';
+import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
 
 export default function SignUpStep01({
   step,
@@ -22,11 +24,10 @@ export default function SignUpStep01({
         errorMessages={errorMessages}
         inputValues={inputValues}
       />
-      {/* <SignUpPasswordInput
-        onChange={handleChange}
-        errorMessages={errorMessages}
+      <SignUpEmailVerify
+        handleChange={handleChange}
         inputValues={inputValues}
-      /> */}
+      />
     </>
   );
 }
