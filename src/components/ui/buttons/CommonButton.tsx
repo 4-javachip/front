@@ -9,7 +9,7 @@ export default function CommonButton({
 }: Readonly<{
   children: React.ReactNode;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
   isEnabled: boolean;
   type?: 'button' | 'submit' | 'reset';
 }>) {
