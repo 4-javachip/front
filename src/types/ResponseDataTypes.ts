@@ -1,3 +1,5 @@
+import { StringValidation } from 'zod';
+
 export interface commonResponseType<T> {
   httpStatus: string;
   isSuccess: boolean;
@@ -162,4 +164,17 @@ export interface ProductOptionType {
   stock: number;
   price: number;
   discountRate: number;
+}
+
+export interface ProductListDataType {
+  productUuid: string;
+  name: string;
+}
+
+export interface ProductThumbnailDataType {
+  id: number;
+  productUuid: string;
+  thumbnailUrl: string;
+  description: string;
+  defaulted: boolean;
 }

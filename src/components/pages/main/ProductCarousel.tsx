@@ -24,9 +24,9 @@ export default function ProductCarousel({
         onMouseUp={onMouseUpOrLeave}
         onMouseLeave={onMouseUpOrLeave}
       >
-        {products.map((product) => (
+        {/* {products.map((product) => (
           <ProductlItem key={product.id} {...product} size={140} />
-        ))}
+        ))} */}
       </ul>
     </section>
   );
