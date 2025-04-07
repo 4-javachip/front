@@ -1,4 +1,5 @@
 import AuthGreeting from '@/components/pages/auth/AuthGreeting';
+import OauthLoginButtons from '@/components/pages/auth/signIn/OauthLoginButtons';
 import SignInForm from '@/components/pages/auth/SignInForm';
 
 export default function SignInPage() {
@@ -7,6 +8,7 @@ export default function SignInPage() {
       <AuthGreeting type="signIn" />
 
       <SignInForm />
+      <OauthLoginButtons />
     </>
   );
 }

@@ -12,7 +12,7 @@ export default function SignInForm() {
         <FloatingInput label="아이디" id="loginId" />
         <FloatingInput label="비밀번호" id="password" />
 
-        <section className="w-full flex justify-center items-center pb-20">
+        <section className="w-full flex justify-center items-center pb-14">
           <div className="flex [&>*:not(:first-child)]:before:content-['|'] [&>*:not(:first-child)]:before:mx-2">
             <AuthLinkItem text="아이디 찾기" link="/find-id" />
             <AuthLinkItem text="비밀번호 찾기" link="/find-password" />
