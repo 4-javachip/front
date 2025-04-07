@@ -32,6 +32,7 @@ export default function MultiStepSignUp({
     phoneNumber: '',
     gender: '남성',
     emailVerificationCode: '',
+    isEmailVerified: '',
   });
   const [errorMessages, setErrorMessages] = useState<
     Partial<SignUpStoreStateType>
@@ -156,8 +157,8 @@ export default function MultiStepSignUp({
         </ul>
         <ConfirmNextButton
           onClick={nextStep}
-          // isEnabled={() => isEnabled}
-          isEnabled={() => true}
+          isEnabled={() => isEnabled}
+          // isEnabled={() => true}
           type="button"
           text="다음"
         />

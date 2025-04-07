@@ -20,7 +20,12 @@ export const signUpStepData: SignUpStepType[] = [
     stepId: 1,
     isEnable: false,
     messages: ['이메일을', '입력해 주세요.'],
-    requiredFields: ['emailId', 'emailDomain', 'emailVerificationCode'],
+    requiredFields: [
+      'emailId',
+      'emailDomain',
+      'emailVerificationCode',
+      'isEmailVerified',
+    ],
     item: SignUpStep01,
   },
   {

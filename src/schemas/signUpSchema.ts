@@ -32,6 +32,7 @@ export const signUpSchema = z
       .regex(/^010-\d{4}-\d{4}$/, '유효한 전화번호 형식이 아닙니다.'),
     gender: z.enum(['남성', '여성']),
     emailVerificationCode: z.string().min(6),
+    isEmailVerified: z.literal('true'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: '비밀번호가 일치하지 않습니다.',
