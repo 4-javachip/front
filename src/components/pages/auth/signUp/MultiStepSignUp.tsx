@@ -9,12 +9,9 @@ import { signUpStepData } from '@/data/initialDatas';
 import AuthHeading from '@/components/ui/AuthHeading';
 import BackIconHeader from '@/components/layouts/BackIconHeader';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
-import {
-  checkEmailDuplicate,
-  sendEmailVerificationAction,
-  verifyEmailCodeAction,
-} from '@/actions/auth';
 import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
+import TermsAgreementPage from '@/app/auth/terms-agreement/page';
+import TermsAgreements from './TermsAgreements';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -43,8 +40,6 @@ export default function MultiStepSignUp({
   >({});
   const signUpSteper = signUpStepData as SignUpStepType[];
   const [viewComponent, setViewComponent] = useState<SignUpStepType>();
-  const [remainingTime, setRemainingTime] = useState<number>();
-  let timer: NodeJS.Timeout;
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [modalErrorMessage, setModalErrorMessage] = useState('');
 
@@ -99,32 +94,6 @@ export default function MultiStepSignUp({
     }
   };
 
-  const handleVerifyCode = async () => {
-    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-    const code = inputValues.emailVerificationCode;
-    const res = await verifyEmailCodeAction({ email, verificationCode: code });
-    console.log(res);
-  };
-
-  const handleSendEmailVerification = async (): Promise<boolean> => {
-    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-    const isDuplicated = await checkEmailDuplicate({ email });
-    console.log(isDuplicated);
-
-    if (isDuplicated.result) {
-      setModalErrorMessage('이미 사용 중인 이메일입니다.');
-      setErrorModalOpen(true);
-      return false;
-    }
-    // const res = await sendEmailVerificationAction({ email });
-    // if (res) {
-    //   startTimer();
-    // }
-    // console.log(res);
-    // startTimer();
-    return true;
-  };
-
   const nextStep = async () => {
     try {
       if (viewComponent?.stepId === 3) {
@@ -171,7 +140,7 @@ export default function MultiStepSignUp({
       <BackIconHeader onClick={prevStep} />
       <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
         <section className=" padded pb-14">
-          {viewComponent?.messages.map((message: string, index: number) => (
+          {viewComponent?.messages?.map((message: string, index: number) => (
             <AuthHeading key={index}>{message}</AuthHeading>
           ))}
         </section>
@@ -181,24 +150,12 @@ export default function MultiStepSignUp({
             handleChange,
             errorMessages,
             inputValues,
-            remainingTime,
           })}
         </ul>
-        {viewComponent?.stepId === 3 && remainingTime === 0 && (
-          <div className="padded mt-3 ml-2">
-            <button
-              onClick={handleSendEmailVerification}
-              type="button"
-              className="text-green text-sm underline cursor-pointer"
-            >
-              인증번호 다시 요청
-            </button>
-          </div>
-        )}
         <ConfirmNextButton
           onClick={nextStep}
-          isEnabled={() => isEnabled}
-          // isEnabled={() => true}
+          // isEnabled={() => isEnabled}
+          isEnabled={() => true}
           type="button"
           text="다음"
         />

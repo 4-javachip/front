@@ -1,10 +1,5 @@
-import SignUpEmailInput from '../SignUpEmailInput';
-import SignUpPasswordInput from '../SignUpPasswordInput';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
-import CommonButton from '@/components/ui/buttons/CommonButton';
-import SignUpEmailVerify from '../SignUpEmailVerify';
-import { checkEmailDuplicate } from '@/actions/auth';
-import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
+import TermsAgreements from '../TermsAgreements';
 
 export default function SignUpStep01({
   step,
@@ -19,15 +14,7 @@ export default function SignUpStep01({
 }) {
   return (
     <>
-      <SignUpEmailInput
-        onChange={handleChange}
-        errorMessages={errorMessages}
-        inputValues={inputValues}
-      />
-      <SignUpEmailVerify
-        handleChange={handleChange}
-        inputValues={inputValues}
-      />
+      <TermsAgreements />
     </>
   );
 }

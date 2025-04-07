@@ -5,7 +5,7 @@ import SignInForm from '@/components/pages/auth/SignInForm';
 export default function SignInPage() {
   return (
     <>
-      <AuthGreeting type="signIn" />
+      <AuthGreeting type="signIn" className="padded" />
 
       <SignInForm />
       <OauthLoginButtons />

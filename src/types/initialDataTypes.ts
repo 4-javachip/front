@@ -8,13 +8,12 @@ export interface DropDownOption {
 export interface SignUpStepType {
   stepId: number;
   isEnable: boolean;
-  messages: string[];
+  messages?: string[];
   requiredFields: (keyof SignUpStoreStateType)[];
   item: (args: {
     step: number;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     errorMessages: Partial<SignUpStoreStateType>;
     inputValues: SignUpStoreStateType;
-    remainingTime?: number;
   }) => React.ReactNode;
 }

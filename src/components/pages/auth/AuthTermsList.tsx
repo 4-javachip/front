@@ -38,7 +38,7 @@ export default function AuthTermsList({
 
   return (
     <>
-      <section className="padded">
+      <section>
         <CustomCheckBox
           label="전체 동의"
           onChange={handleAllCheck}
@@ -56,13 +56,13 @@ export default function AuthTermsList({
           ))}
         </ul>
       </section>
-      <ConfirmNextButton
+      {/* <ConfirmNextButton
         text="다음"
         onClick={() => {
           router.push('sign-up');
         }}
         isEnabled={() => isRequiredChecked}
-      />
+      /> */}
     </>
   );
 }
