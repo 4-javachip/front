@@ -10,8 +10,6 @@ import AuthHeading from '@/components/ui/AuthHeading';
 import BackIconHeader from '@/components/layouts/BackIconHeader';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
-import TermsAgreementPage from '@/app/auth/terms-agreement/page';
-import TermsAgreements from './TermsAgreements';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -118,7 +116,7 @@ export default function MultiStepSignUp({
 
   const prevStep = () => {
     if (step === 1) {
-      router.push('sign-in');
+      router.push('terms-agreement');
     } else {
       setStep((prev) => prev - 1);
     }
@@ -143,14 +141,11 @@ export default function MultiStepSignUp({
         onKeyDown={handleKeyDown}
         className="w-full h-full"
       >
-        {Array.isArray(viewComponent?.messages) &&
-          viewComponent.messages.length > 0 && (
-            <section className="padded pb-14">
-              {viewComponent.messages.map((message, index) => (
-                <AuthHeading key={index}>{message}</AuthHeading>
-              ))}
-            </section>
-          )}
+        <section className=" padded pb-14">
+          {viewComponent?.messages.map((message: string, index: number) => (
+            <AuthHeading key={index}>{message}</AuthHeading>
+          ))}
+        </section>
         <ul className="padded space-y-6">
           {viewComponent?.item({
             step,

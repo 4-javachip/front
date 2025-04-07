@@ -1,8 +1,7 @@
-import React from 'react';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
-import SignUpProfileInput from '../SignUpProfileInput';
+import TermsAgreements from '../TermsAgreements';
 
-export default function SignUpStep03({
+export default function termsStep({
   step,
   handleChange,
   errorMessages,
@@ -15,11 +14,7 @@ export default function SignUpStep03({
 }) {
   return (
     <>
-      <SignUpProfileInput
-        onChange={handleChange}
-        errorMessages={errorMessages}
-        inputValues={inputValues}
-      />
+      <TermsAgreements onChange={handleChange} inputValues={inputValues} />
     </>
   );
 }

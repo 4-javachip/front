@@ -1,6 +1,6 @@
-import SignUpEmailInput from '../SignUpEmailInput';
+import React from 'react';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
-import SignUpEmailVerify from '../SignUpEmailVerify';
+import SignUpProfileInput from '../SignUpProfileInput';
 
 export default function SignUpStep02({
   step,
@@ -15,13 +15,9 @@ export default function SignUpStep02({
 }) {
   return (
     <>
-      <SignUpEmailInput
+      <SignUpProfileInput
         onChange={handleChange}
         errorMessages={errorMessages}
-        inputValues={inputValues}
-      />
-      <SignUpEmailVerify
-        handleChange={handleChange}
         inputValues={inputValues}
       />
     </>

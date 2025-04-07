@@ -8,7 +8,7 @@ export interface DropDownOption {
 export interface SignUpStepType {
   stepId: number;
   isEnable: boolean;
-  messages?: string[];
+  messages: string[];
   requiredFields: (keyof SignUpStoreStateType)[];
   item: (args: {
     step: number;

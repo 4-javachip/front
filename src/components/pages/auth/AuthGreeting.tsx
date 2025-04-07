@@ -1,15 +1,9 @@
 import AuthHeading from '@/components/ui/AuthHeading';
 import { LogoIcon } from '@/components/ui/icons/LogoIcon';
 
-export default function AuthGreeting({
-  type,
-  className = '',
-}: {
-  type: string;
-  className?: string;
-}) {
+export default function AuthGreeting({ type }: { type: string }) {
   return (
-    <section className={className}>
+    <section className="padded">
       <LogoIcon size={62} />
       <div className="font-body font-semibold text-2xl pt-6 pb-14">
         {type === 'signUp' ? (
