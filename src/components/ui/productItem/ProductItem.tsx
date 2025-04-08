@@ -25,51 +25,33 @@ export default function ProductlItem({
   const [productItem, setProductItem] = useState({
     productName: productData.name,
     productUuid: productData.productUuid,
-    thumbnailUrl: '',
-    description: '',
-    stock: 0,
-    price: 0,
-    discountRate: 0,
-    totalPrice: 0,
+    thumbnail: undefined as ProductThumbnailDataType | undefined,
+    option: undefined as ProductOptionType | undefined,
   });
-  const [thumbNailData, setThumbNailData] =
-    useState<ProductThumbnailDataType>();
-  const [optionData, setOptionData] = useState<ProductOptionType>();
 
   useEffect(() => {
-    const getThumbnail = async (): Promise<void> => {
-      const data = await getThumbnailDatasByProductUuid(
-        productData.productUuid
-      );
-      // console.log('data', data);
-      const thumbnailData = data.find((item) => item.defaulted === true);
-      if (thumbnailData === undefined) return;
-      console.log('filter', thumbnailData);
-      setProductItem({
-        ...productItem,
-        thumbnailUrl: thumbnailData.thumbnailUrl,
-        description: thumbnailData.description,
-      });
-      setThumbNailData(thumbnailData);
+    const getProductInfo = async () => {
+      const [thumbData, optionData] = await Promise.all([
+        getThumbnailDatasByProductUuid(productData.productUuid),
+        getProductOptionDatasByProductUuid(productData.productUuid),
+      ]);
+
+      setProductItem((prev) => ({
+        ...prev,
+        thumbnail: thumbData,
+        option: optionData,
+      }));
     };
-    const getOption = async (): Promise<void> => {
-      // const data = await getProductOptionDatasByProductUuid(
-      //   productData.productUuid
-      // );
-      // if (data === undefined) return;
-      // console.log(data);
-      // setOptionData(data);
-    };
-    getThumbnail();
-    getOption();
+
+    getProductInfo();
   }, [productData]);
 
   return (
     <li className="flex flex-col gap-3 mb-12" style={{ maxWidth: size }}>
-      {thumbNailData !== undefined && (
+      {productItem.thumbnail !== undefined && (
         <ItemThumb
           productUuid={productData.productUuid}
-          thumbnail={thumbNailData}
+          thumbnail={productItem.thumbnail}
           size={size}
         />
       )}
@@ -79,11 +61,13 @@ export default function ProductlItem({
         <ItemName id={productData.productUuid} name={productData.name} />
       </div>
 
-      {/* <ItemPrice
-      price={price}
-      salePrice={salePrice}
-      discountRate={discountRate}
-      /> */}
+      {productItem.option !== undefined && (
+        <ItemPrice
+          price={productItem.option.price}
+          salePrice={productItem.option.totalPrice}
+          discountRate={productItem.option.discountRate}
+        />
+      )}
     </li>
   );
 }
