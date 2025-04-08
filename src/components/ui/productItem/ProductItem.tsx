@@ -4,11 +4,11 @@ import ItemPrice from './ItemPrice';
 import ItemName from './ItemName';
 
 import {
-  getProductOptionDatasByProductUuid,
-  getThumbnailDatasByProductUuid,
+  getLowestOptionDataByProductUuid,
+  getDefaultThumbnailDataByProductUuid,
 } from '@/actions/product-service';
 import {
-  ProductListDataType,
+  ProductNameDataType,
   ProductOptionType,
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
@@ -17,12 +17,12 @@ export default async function ProductlItem({
   productData,
   size,
 }: {
-  productData: ProductListDataType;
+  productData: ProductNameDataType;
   size: number;
 }) {
   const [thumbnail, option] = await Promise.all([
-    getThumbnailDatasByProductUuid(productData.productUuid),
-    getProductOptionDatasByProductUuid(productData.productUuid),
+    getDefaultThumbnailDataByProductUuid(productData.productUuid),
+    getLowestOptionDataByProductUuid(productData.productUuid),
   ]);
   // const [productItem, setProductItem] = useState({
   //   productName: productData.name,

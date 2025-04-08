@@ -1,4 +1,4 @@
-import { ProductListDataType } from '@/types/ProductResponseDataTypes';
+import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
 import ProductlItem from '../../ui/productItem/ProductItem';
 import { Suspense } from 'react';
 import ProductItemSkeleton from '@/components/ui/skeletons/ProductItemSkeleton';
@@ -6,7 +6,7 @@ import ProductItemSkeleton from '@/components/ui/skeletons/ProductItemSkeleton';
 export default function ProductList({
   products,
 }: {
-  products: ProductListDataType[];
+  products: ProductNameDataType[];
 }) {
   return (
     <section className="padded py-6 flex justify-center">

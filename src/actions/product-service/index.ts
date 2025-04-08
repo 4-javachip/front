@@ -1,11 +1,12 @@
 import {
-  ProductListDataType,
+  ProductDescriptionType,
+  ProductNameDataType,
   ProductOptionType,
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
 import { commonResponseType } from '@/types/ResponseDataTypes';
 
-export async function getProducts() {
+export async function getProductListData() {
   //   {
   //   page,
   //   pageSize = '20',
@@ -24,11 +25,13 @@ export async function getProducts() {
     throw new Error(errorData.message);
   }
 
-  const data = (await res.json()) as commonResponseType<ProductListDataType[]>;
+  const data = (await res.json()) as commonResponseType<ProductNameDataType[]>;
   return data.result;
 }
 
-export async function getThumbnailDatasByProductUuid(productUuid: string) {
+export async function getDefaultThumbnailDataByProductUuid(
+  productUuid: string
+) {
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/product/thumbnail/default/${productUuid}`,
     {
@@ -49,7 +52,7 @@ export async function getThumbnailDatasByProductUuid(productUuid: string) {
   return data.result;
 }
 
-export async function getProductOptionDatasByProductUuid(productUuid: string) {
+export async function getLowestOptionDataByProductUuid(productUuid: string) {
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/product/option/search?productUuid=${productUuid}`,
     {
@@ -63,5 +66,78 @@ export async function getProductOptionDatasByProductUuid(productUuid: string) {
     throw new Error(errorData.message);
   }
   const data = (await res.json()) as commonResponseType<ProductOptionType>;
+  return data.result;
+}
+
+// 상세 페이지
+export async function getProductNameDataByProductUuid(productUuid: string) {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/product/${productUuid}`,
+    {
+      method: 'GET',
+      cache: 'no-cache',
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error('Product Name Data Fetching failed:', errorData);
+    throw new Error(errorData.message);
+  }
+  const data = (await res.json()) as commonResponseType<ProductNameDataType>;
+  return data.result;
+}
+
+export async function getThumbnailDatasByProductUuid(productUuid: string) {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/product/thumbnail/list/${productUuid}`,
+    {
+      method: 'GET',
+      cache: 'no-cache',
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error('Thumbnail Data Fetching failed:', errorData);
+    throw new Error(errorData.message);
+  }
+  const data = (await res.json()) as commonResponseType<
+    ProductThumbnailDataType[]
+  >;
+  return data.result;
+}
+
+export async function getOptionDatasByProductUuid(productUuid: string) {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/product/option/list/${productUuid}`,
+    {
+      method: 'GET',
+      cache: 'no-cache',
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error('Option Data Fetching failed:', errorData);
+    throw new Error(errorData.message);
+  }
+  const data = (await res.json()) as commonResponseType<ProductOptionType[]>;
+
+  return data.result;
+}
+
+export async function getDescriptionDataByProductUuid(productUuid: string) {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/product/description/${productUuid}`,
+    {
+      method: 'GET',
+      cache: 'no-cache',
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error('Description Data Fetching failed:', errorData);
+    throw new Error(errorData.message);
+  }
+  const data = (await res.json()) as commonResponseType<ProductDescriptionType>;
+
   return data.result;
 }
