@@ -7,6 +7,7 @@ import {
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
 import CommonInput from '@/components/ui/inputs/CommonInput';
+import Loader from '@/components/ui/loader';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import { useRef, useState } from 'react';
 
@@ -21,6 +22,7 @@ export default function SignUpEmailVerify({
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [modalErrorMessage, setModalErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60)
@@ -49,6 +51,7 @@ export default function SignUpEmailVerify({
   };
 
   const handleSendEmailVerification = async (): Promise<boolean> => {
+    setIsLoading(true);
     try {
       const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
       const isDuplicated = await checkEmailDuplicate({ email });
@@ -65,18 +68,28 @@ export default function SignUpEmailVerify({
         startTimer();
       }
       console.log(res);
+
+      handleChange({
+        target: {
+          name: 'isEmailSent',
+          value: 'true',
+        },
+      } as React.ChangeEvent<HTMLInputElement>);
     } catch (error) {
       const message =
         (error as { message?: string })?.message ??
         '메일 전송 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
       setModalErrorMessage(message);
       setErrorModalOpen(true);
+      setIsLoading(false);
       return false;
     }
+    setIsLoading(false);
     return true;
   };
 
   const handleVerifyCode = async () => {
+    setIsLoading(true);
     try {
       const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
       const code = inputValues.emailVerificationCode;
@@ -101,7 +114,9 @@ export default function SignUpEmailVerify({
         '인증 확인 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
       setModalErrorMessage(message);
       setErrorModalOpen(true);
+      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -112,9 +127,7 @@ export default function SignUpEmailVerify({
         errorMessage={modalErrorMessage}
       />
       {inputValues.isEmailVerified === 'true' ? (
-        <CommonButton isEnabled={false}>
-          인증번호가 확인되었습니다.
-        </CommonButton>
+        <CommonButton isEnabled={false}>이메일이 인증되었습니다.</CommonButton>
       ) : (
         <>
           {!remainingTime || remainingTime === 0 ? (
@@ -122,7 +135,7 @@ export default function SignUpEmailVerify({
               onClick={handleSendEmailVerification}
               isEnabled={true}
             >
-              인증 요청
+              {isLoading ? <Loader size={'4'} /> : '인증 요청'}
             </CommonButton>
           ) : (
             <>
@@ -151,7 +164,7 @@ export default function SignUpEmailVerify({
                     주세요.
                   </li>
                   <li>• 인증 번호 재요청은 3분에 1회씩 가능합니다.</li>
-                  <li>• 인증 5회 실패 시 인증 번호 메일을 재요청 해주세요.</li>
+                  <li>• 입력 5회 실패 시 인증 번호 메일을 재요청 해주세요.</li>
                   <li className="ml-2">
                     <button
                       onClick={handleSendEmailVerification}
@@ -164,7 +177,7 @@ export default function SignUpEmailVerify({
                 </ul>
               </li>
               <CommonButton onClick={handleVerifyCode} isEnabled={true}>
-                인증번호 확인
+                {isLoading ? <Loader size={'4'} /> : '인증번호 확인'}
               </CommonButton>
             </>
           )}

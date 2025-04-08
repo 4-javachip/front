@@ -33,6 +33,7 @@ export default function MultiStepSignUp({
     gender: '남성',
     emailVerificationCode: '',
     isEmailVerified: '',
+    isEmailSent: '',
   });
   const [errorMessages, setErrorMessages] = useState<
     Partial<SignUpStoreStateType>
