@@ -46,6 +46,27 @@ export async function signInAction(signInData: Partial<SignInDataType>) {
   return await response.json();
 }
 
+export async function LogoutAction({ refreshToken }: { refreshToken: string }) {
+  const response = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/auth/logout`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${refreshToken}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error('Logout failed:', errorData);
+    throw new Error(errorData.message);
+  }
+
+  return await response.json();
+}
+
 export async function getSignUpAgreementData(): Promise<AgreementType[]> {
   const response = await fetch(
     `${process.env.BASE_API_URL}/api/v1/agreement/sign-up`,

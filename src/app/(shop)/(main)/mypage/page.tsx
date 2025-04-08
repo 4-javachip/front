@@ -4,9 +4,9 @@ import React from 'react';
 
 export default function page() {
   return (
-    <div>
+    <main>
       <OrderDeliveryStatus />
       <MyPageMenu />
-    </div>
+    </main>
   );
 }
