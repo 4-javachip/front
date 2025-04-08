@@ -6,8 +6,7 @@ export default function LogOutButton() {
   const handleLogout = async () => {
     try {
       await LogoutAction();
-      const res = await signOut({ redirect: true, callbackUrl: '/' });
-      console.log(res);
+      await signOut({ redirect: true, callbackUrl: '/' });
     } catch (error) {
       console.error('로그아웃 실패:', error);
     }

@@ -1,4 +1,5 @@
 'use server';
+import { options } from '@/app/api/auth/[...nextauth]/options';
 import { SignInDataType, SignUpDataType } from '@/types/RequestDataTypes';
 import { AgreementType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
@@ -25,30 +26,30 @@ export async function signUpAction(signUpData: Partial<SignUpDataType>) {
   return await response.json();
 }
 
-export async function signInAction(signInData: Partial<SignInDataType>) {
-  const payload: Partial<SignInDataType> = { ...signInData };
+// export async function signInAction(signInData: Partial<SignInDataType>) {
+//   const payload: Partial<SignInDataType> = { ...signInData };
 
-  console.log('Payload being sent to the API:', payload);
-  const response = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/auth/sign-in`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }
-  );
+//   console.log('Payload being sent to the API:', payload);
+//   const response = await fetch(
+//     `${process.env.BASE_API_URL}/api/v1/auth/sign-in`,
+//     {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(payload),
+//     }
+//   );
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    console.error('Sign-in failed:', errorData);
-    throw new Error(errorData.message);
-  }
+//   if (!response.ok) {
+//     const errorData = await response.json();
+//     console.error('Sign-in failed:', errorData);
+//     throw new Error(errorData.message);
+//   }
 
-  return await response.json();
-}
+//   return await response.json();
+// }
 
 export async function LogoutAction() {
-  const session = await getServerSession();
+  const session = await getServerSession(options);
   const refreshToken = session?.user.refreshToken;
 
   const response = await fetch(
