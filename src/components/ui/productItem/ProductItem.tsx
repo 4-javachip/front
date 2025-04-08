@@ -1,14 +1,19 @@
 'use client';
-import ItemThumb from '@/components/ui/ItemThumb';
+import ItemThumb from '@/components/ui/productItem/ItemThumb';
 import ProductLabelIcon from '@/components/ui/icons/ProductLabelIcon';
 import ItemPrice from './ItemPrice';
 import ItemName from './ItemName';
+
+import { useEffect, useState } from 'react';
+import {
+  getProductOptionDatasByProductUuid,
+  getThumbnailDatasByProductUuid,
+} from '@/actions/product-service';
 import {
   ProductListDataType,
+  ProductOptionType,
   ProductThumbnailDataType,
-} from '@/types/ResponseDataTypes';
-import { useEffect, useState } from 'react';
-import { getThumbnailDatasByProductUuid } from '@/actions/product-service';
+} from '@/types/ProductResponseDataTypes';
 
 export default function ProductlItem({
   productData,
@@ -22,10 +27,14 @@ export default function ProductlItem({
     productUuid: productData.productUuid,
     thumbnailUrl: '',
     description: '',
+    stock: 0,
+    price: 0,
+    discountRate: 0,
+    totalPrice: 0,
   });
-
   const [thumbNailData, setThumbNailData] =
     useState<ProductThumbnailDataType>();
+  const [optionData, setOptionData] = useState<ProductOptionType>();
 
   useEffect(() => {
     const getThumbnail = async (): Promise<void> => {
@@ -43,7 +52,16 @@ export default function ProductlItem({
       });
       setThumbNailData(thumbnailData);
     };
+    const getOption = async (): Promise<void> => {
+      // const data = await getProductOptionDatasByProductUuid(
+      //   productData.productUuid
+      // );
+      // if (data === undefined) return;
+      // console.log(data);
+      // setOptionData(data);
+    };
     getThumbnail();
+    getOption();
   }, [productData]);
 
   return (

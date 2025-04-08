@@ -1,5 +1,5 @@
-import { ProductListDataType } from '@/types/ResponseDataTypes';
-import ProductlItem from '../../ui/ProductItem';
+import { ProductListDataType } from '@/types/ProductResponseDataTypes';
+import ProductlItem from '../../ui/productItem/ProductItem';
 import { Suspense } from 'react';
 
 export default function ProductList({

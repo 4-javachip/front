@@ -1,4 +1,4 @@
-import { ImageType, ProductThumbnailDataType } from '@/types/ResponseDataTypes';
+import { ProductThumbnailDataType } from '@/types/ProductResponseDataTypes';
 import Image from 'next/image';
 import Link from 'next/link';
 
