@@ -1,20 +1,24 @@
 export default function FloatingInput({
+  className,
   label,
   id,
+  type = 'text',
+  ...props
 }: {
   label: string;
-  id: string;
-}) {
+  className?: string;
+} & React.ComponentProps<'input'>) {
   return (
     <>
       <div className="relative z-0">
         <input
-          type="text"
+          type={type}
           id={id}
           className="block py-2.5 px-0 w-full text-sm text-foreground bg-transparent 
           border-0 border-b-1 border-lightGray-4 appearance-none 
           focus:outline-none focus:ring-0 focus:border-green peer"
           placeholder=" "
+          {...props}
         />
         <label
           htmlFor={id}

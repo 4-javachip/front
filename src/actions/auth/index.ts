@@ -1,5 +1,5 @@
 'use server';
-import { SignUpDataType } from '@/types/RequestDataTypes';
+import { SignInDataType, SignUpDataType } from '@/types/RequestDataTypes';
 import { AgreementType } from '@/types/ResponseDataTypes';
 
 export async function signUpAction(signUpData: Partial<SignUpDataType>) {
@@ -18,6 +18,28 @@ export async function signUpAction(signUpData: Partial<SignUpDataType>) {
   if (!response.ok) {
     const errorData = await response.json();
     console.error('Sign-up failed:', errorData);
+    throw new Error(errorData.message);
+  }
+
+  return await response.json();
+}
+
+export async function signInAction(signInData: Partial<SignInDataType>) {
+  const payload: Partial<SignInDataType> = { ...signInData };
+
+  console.log('Payload being sent to the API:', payload);
+  const response = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/auth/sign-in`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error('Sign-in failed:', errorData);
     throw new Error(errorData.message);
   }
 

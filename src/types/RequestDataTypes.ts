@@ -8,6 +8,11 @@ export interface SignUpDataType {
   gender: string;
 }
 
+export interface SignInDataType {
+  email: string;
+  password: string;
+}
+
 export interface ShippingAddressDataType {
   addressName: string;
   recipientName: string;

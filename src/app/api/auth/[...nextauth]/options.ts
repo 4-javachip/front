@@ -9,8 +9,8 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentilas',
       credentials: {
-        email: { labael: 'Email', type: 'text' },
-        password: { labael: 'Password', type: 'password' },
+        email: { label: 'Email', type: 'text' },
+        password: { label: 'Password', type: 'password' },
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       async authorize(credentials): Promise<any> {
@@ -53,9 +53,9 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    // Oauth 로그인
     async signIn({ user, account, email, credentials }) {
-      if (account) {
+      // Oauth 로그인
+      if (account && account.provider !== 'credentials') {
         console.log('account', account);
         console.log('user', user);
         // try {
@@ -84,7 +84,7 @@ export const options: NextAuthOptions = {
         //   return true;
         // } catch (error) {
         //   console.error('error', error);
-        //   return '/sign-up';
+        //   return '/auth/sign-up';
         // }
       }
       return true;

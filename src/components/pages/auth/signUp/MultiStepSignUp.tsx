@@ -159,8 +159,8 @@ export default function MultiStepSignUp({
         </ul>
         <ConfirmNextButton
           onClick={nextStep}
-          isEnabled={() => isEnabled}
-          // isEnabled={() => true}
+          // isEnabled={() => isEnabled}
+          isEnabled={() => true}
           type="button"
         >
           {isLoading ? <Loader /> : '다음'}
