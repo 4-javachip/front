@@ -33,15 +33,12 @@ export default function ShippingAddressForm({
   isEdit,
   hideDefaultCheckbox,
 }: Props) {
-  const [isFormValid, setIsFormValid] = useState(false); // 유효성 검사 상태
-
+  const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
-    // 유효성 검사 실행
     const res = shippingAddressSchema.safeParse(values);
 
-    // 검사 결과에 따라 버튼 활성화/비활성화
     setIsFormValid(res.success);
-  }, [values]); // values가 변경될 때마다 유효성 검사 실행
+  }, [values]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
