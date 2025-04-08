@@ -341,7 +341,7 @@ export const categoryMenus: CategoryMenuType[] = [
 
 export const dummyAddresses: AddressType[] = [
   {
-    id: 1,
+    shippingAddressUuid: 'uuid-123',
     addressName: '우리집',
     recipientName: '홍길동',
     baseAddress: '서울특별시 강남구 테헤란로 123',
@@ -350,10 +350,10 @@ export const dummyAddresses: AddressType[] = [
     phoneNumber: '010-1234-5678',
     secondPhoneNumber: '010-8765-4321',
     shippingNote: '부재 시 문 앞에 놓아주세요',
-    defaultAddress: true,
+    defaulted: true,
   },
   {
-    id: 2,
+    shippingAddressUuid: 'uuid-456',
     addressName: '회사',
     recipientName: '홍길동',
     baseAddress: '서울특별시 중구 세종대로 100',
@@ -362,7 +362,7 @@ export const dummyAddresses: AddressType[] = [
     phoneNumber: '010-2222-3333',
     secondPhoneNumber: '010-4444-5555',
     shippingNote: '리셉션에 맡겨주세요',
-    defaultAddress: false,
+    defaulted: false,
   },
 ];
 

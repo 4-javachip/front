@@ -5,7 +5,7 @@ import Link from 'next/link';
 import AddressEmptySection from '../ShippingAddress/AddressEmptySection';
 
 export default function CartShippingInfo() {
-  const defaultAddress = dummyAddresses.find((addr) => addr.defaultAddress);
+  const defaultAddress = dummyAddresses.find((addr) => addr.defaulted);
 
   return (
     <section className="w-full  bg-lightGray-2  border-lightGray-6 px-6 text-sm py-6 font-body">

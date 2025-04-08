@@ -28,6 +28,25 @@ export default function AddShippingAddress() {
     Partial<ShippingAddressErrorType>
   >({});
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+    const res = shippingAddressSchema.safeParse({
+      ...values,
+      [name]: value,
+    });
+    if (!res.success) {
+      const fieldErros: Partial<ShippingAddressErrorType> = {};
+      res.error.errors.forEach((error) => {
+        const fieldname = error.path[0] as keyof ShippingAddressErrorType;
+        fieldErros[fieldname] = error.message;
+      });
+      setErrorMessages(fieldErros);
+    } else {
+      console.log('no error');
+    }
+  };
+
   const handleAddressSelect = (data: { zonecode: string; address: string }) => {
     setValues((prev) => ({
       ...prev,

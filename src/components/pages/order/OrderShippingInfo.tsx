@@ -6,7 +6,7 @@ import OrderAddressEmptySection from './OrderAddressEmptySection';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 
 export default function OrderShippingInfo() {
-  const defaultAddress = dummyAddresses.find((addr) => addr.defaultAddress);
+  const defaultAddress = dummyAddresses.find((addr) => addr.defaulted);
 
   return (
     <main className="flex flex-col justify-between w-full bg-background border-lightGray-6 text-sm pt-6">

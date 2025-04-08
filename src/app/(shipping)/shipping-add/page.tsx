@@ -10,11 +10,11 @@ export default function page() {
         배송지 정보
       </h1>
       <AddShippingAddress />
-      <CommonLayout.FixedButtonBgLayout>
+      {/* <CommonLayout.FixedButtonBgLayout>
         <CommonButton className="font-semibold" type="submit" isEnabled={true}>
           등록하기
         </CommonButton>
-      </CommonLayout.FixedButtonBgLayout>
+      </CommonLayout.FixedButtonBgLayout> */}
     </main>
   );
 }
