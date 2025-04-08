@@ -1,17 +1,29 @@
+import {
+  getShippingAddressDatabyUuid,
+  getShippingAddressList,
+} from '@/actions/shipping-address-service';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import ShippingAddressList from '@/components/pages/ShippingAddress/ShippingAddressList';
-import CommonButton from '@/components/ui/buttons/CommonButton';
+
 import React from 'react';
 
-export default function page() {
+export default async function page() {
+  const list = await getShippingAddressList(); // ShippingAddressListType[]
+  const fullData = await Promise.all(
+    list.map(async (item) => {
+      const detail = await getShippingAddressDatabyUuid(
+        item.shippingAddressUuid
+      );
+      return {
+        address: detail,
+        addressList: item,
+      };
+    })
+  );
+
   return (
-    <div>
-      <CommonLayout.SectionInnerPadding>
-        <ShippingAddressList />
-        <CommonButton className="font-semibold" type="submit" isEnabled={true}>
-          + 새 배송지 추가하기
-        </CommonButton>
-      </CommonLayout.SectionInnerPadding>
-    </div>
+    <CommonLayout.SectionInnerPadding>
+      <ShippingAddressList address={fullData} />
+    </CommonLayout.SectionInnerPadding>
   );
 }
