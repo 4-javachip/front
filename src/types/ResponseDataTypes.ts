@@ -90,10 +90,13 @@ export interface FooterLinkItem {
   href: string;
   label: string;
 }
-
+export interface ShippingAddressListType {
+  shippingAddressUuid: string;
+  defaulted: boolean;
+}
 //배송지
 export interface AddressType {
-  id: number;
+  shippingAddressUuid: string;
   addressName: string;
   recipientName: string;
   baseAddress: string;
@@ -102,7 +105,7 @@ export interface AddressType {
   phoneNumber: string;
   secondPhoneNumber: string;
   shippingNote: string;
-  defaultAddress?: boolean;
+  defaulted?: boolean;
 }
 
 //장바구니상품

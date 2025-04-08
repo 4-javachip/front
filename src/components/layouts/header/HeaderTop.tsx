@@ -6,7 +6,7 @@ import MenuButton from '@/components/ui/buttons/MenuButton';
 import SearchButton from '@/components/ui/buttons/SearchButton';
 import React, { useEffect, useState } from 'react';
 import { CommonLayout } from '../CommonLayout';
-import { getAllCategories } from '@/app/api/MenuCategory';
+import { getAllCategories } from '@/actions/MenuCategory-service';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import { useSideBarContext } from '@/context/SideBarContext';
 
