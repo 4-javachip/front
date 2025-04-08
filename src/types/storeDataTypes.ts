@@ -15,3 +15,8 @@ export interface SignUpStoreStateType {
   isEmailSent: string;
   isOptionalConsentChecked: string;
 }
+
+export interface SignInStoreStateType {
+  email: string;
+  password: string;
+}

@@ -1,15 +1,12 @@
 'use client';
 import { LogoutAction } from '@/actions/auth';
-import { getSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 export default function LogOutButton() {
   const handleLogout = async () => {
     try {
-      const session = await getSession();
-      const refreshToken = session?.user.refreshToken;
-      await LogoutAction({ refreshToken });
-      const res = await signOut({ redirect: true, callbackUrl: '/' });
-      console.log(res);
+      await LogoutAction();
+      await signOut({ redirect: true, callbackUrl: '/' });
     } catch (error) {
       console.error('로그아웃 실패:', error);
     }

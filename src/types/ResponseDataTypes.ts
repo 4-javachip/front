@@ -1,5 +1,3 @@
-import { StringValidation } from 'zod';
-
 export interface commonResponseType<T> {
   httpStatus: string;
   isSuccess: boolean;
@@ -10,8 +8,7 @@ export interface commonResponseType<T> {
 
 export interface signInDataType {
   accessToken: string;
-  name: string;
-  uuid: string;
+  refreshToken: string;
 }
 
 export interface BannerSlideImageType {

@@ -35,9 +35,17 @@ export const options: NextAuthOptions = {
           const user =
             (await response.json()) as commonResponseType<signInDataType>;
           console.log('user', user);
+
+          if (!user.isSuccess) {
+            throw new Error(user.message);
+          }
+
           return user.result;
         } catch (error) {
-          console.error('error', error);
+          console.error('authorize error:', error);
+          throw new Error(
+            (error as { message?: string })?.message ?? '로그인에 실패했습니다.'
+          );
         }
         // 회원로그인 api 호출
         return null;
