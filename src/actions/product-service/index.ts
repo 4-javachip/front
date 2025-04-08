@@ -25,7 +25,6 @@ export async function getProducts() {
   }
 
   const data = (await res.json()) as commonResponseType<ProductListDataType[]>;
-  console.log(data);
   return data.result;
 }
 
