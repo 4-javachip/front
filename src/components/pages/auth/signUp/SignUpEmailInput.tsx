@@ -6,7 +6,6 @@ import LargeDropdownModal from '@/components/ui/dropdown/LargeDropdownModal';
 import { emailDomains } from '@/data/initialDatas';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import { InputErrorMessage } from '@/components/layouts/CommonLayout';
-import CommonButton from '@/components/ui/buttons/CommonButton';
 
 export default function SignUpEmailInput({
   onChange,

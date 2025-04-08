@@ -49,46 +49,59 @@ export default function SignUpEmailVerify({
   };
 
   const handleSendEmailVerification = async (): Promise<boolean> => {
-    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-    const isDuplicated = await checkEmailDuplicate({ email });
-    console.log(isDuplicated);
+    try {
+      const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+      const isDuplicated = await checkEmailDuplicate({ email });
+      console.log(isDuplicated);
 
-    if (isDuplicated.result) {
-      setModalErrorMessage('이미 사용 중인 이메일입니다.');
+      if (isDuplicated.result) {
+        setModalErrorMessage('이미 사용 중인 이메일입니다.');
+        setErrorModalOpen(true);
+        setRemainingTime(0);
+        return false;
+      }
+      const res = await sendEmailVerificationAction({ email });
+      if (res) {
+        startTimer();
+      }
+      console.log(res);
+    } catch (error) {
+      const message =
+        (error as { message?: string })?.message ??
+        '메일 전송 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
+      setModalErrorMessage(message);
       setErrorModalOpen(true);
-      setRemainingTime(0);
       return false;
     }
-    const res = await sendEmailVerificationAction({ email });
-    if (res) {
-      startTimer();
-    }
-    console.log(res);
-    // startTimer();
     return true;
   };
 
   const handleVerifyCode = async () => {
-    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-    const code = inputValues.emailVerificationCode;
-    const res = await verifyEmailCodeAction({ email, verificationCode: code });
+    try {
+      const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+      const code = inputValues.emailVerificationCode;
+      const res = await verifyEmailCodeAction({
+        email,
+        verificationCode: code,
+      });
 
-    if (res && !res.error) {
-      handleChange({
-        target: {
-          name: 'isEmailVerified',
-          value: 'true',
-        },
-      } as React.ChangeEvent<HTMLInputElement>);
+      if (res && !res.error) {
+        handleChange({
+          target: {
+            name: 'isEmailVerified',
+            value: 'true',
+          },
+        } as React.ChangeEvent<HTMLInputElement>);
+      }
+
+      console.log(res);
+    } catch (error) {
+      const message =
+        (error as { message?: string })?.message ??
+        '인증 확인 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
+      setModalErrorMessage(message);
+      setErrorModalOpen(true);
     }
-
-    console.log(res);
-    // handleChange({
-    //   target: {
-    //     name: 'isEmailVerified',
-    //     value: 'true',
-    //   },
-    // } as React.ChangeEvent<HTMLInputElement>);
   };
 
   return (
@@ -98,52 +111,63 @@ export default function SignUpEmailVerify({
         onOpenChange={setErrorModalOpen}
         errorMessage={modalErrorMessage}
       />
-      {!remainingTime || remainingTime === 0 ? (
-        <CommonButton onClick={handleSendEmailVerification} isEnabled={true}>
-          인증 요청
+      {inputValues.isEmailVerified === 'true' ? (
+        <CommonButton isEnabled={false}>
+          인증번호가 확인되었습니다.
         </CommonButton>
       ) : (
         <>
-          <li>
-            <div
-              className="flex flex-row space-x-5
-        border-0 border-b-1 border-lightGray-4"
+          {!remainingTime || remainingTime === 0 ? (
+            <CommonButton
+              onClick={handleSendEmailVerification}
+              isEnabled={true}
             >
-              <CommonInput
-                placeholder="인증번호 6자리"
-                type="text"
-                name="emailVerificationCode"
-                onChange={handleChange}
-                maxLength={6}
-                className="border-none"
-              />
-              <input
-                type="hidden"
-                name="isEmailVerified"
-                value={inputValues.isEmailVerified}
-              />
-              <span className="block py-2.5 px-3 text-lg text-foreground">
-                {formatTime(remainingTime)}
-              </span>
-            </div>
-            <ul className="text-lightGray-6 text-sm mt-5">
+              인증 요청
+            </CommonButton>
+          ) : (
+            <>
               <li>
-                • 인증 번호 메일이 오지 않을 시, 스팸 메일함을 확인해 주세요.
+                <div className="flex flex-row space-x-5 border-0 border-b-1 border-lightGray-4">
+                  <CommonInput
+                    placeholder="인증번호 6자리"
+                    type="text"
+                    name="emailVerificationCode"
+                    onChange={handleChange}
+                    maxLength={6}
+                    className="border-none"
+                  />
+                  <input
+                    type="hidden"
+                    name="isEmailVerified"
+                    value={inputValues.isEmailVerified}
+                  />
+                  <span className="block py-2.5 px-3 text-lg text-foreground">
+                    {formatTime(remainingTime)}
+                  </span>
+                </div>
+                <ul className="text-lightGray-6 text-sm mt-5">
+                  <li>
+                    • 인증 번호 메일이 오지 않을 시, 스팸 메일함을 확인해
+                    주세요.
+                  </li>
+                  <li>• 인증 번호 재요청은 3분에 1회씩 가능합니다.</li>
+                  <li>• 인증 5회 실패 시 인증 번호 메일을 재요청 해주세요.</li>
+                  <li className="ml-2">
+                    <button
+                      onClick={handleSendEmailVerification}
+                      type="button"
+                      className="text-green text-sm underline cursor-pointer"
+                    >
+                      인증번호 다시 요청
+                    </button>
+                  </li>
+                </ul>
               </li>
-              <li className="ml-2 mt-3">
-                <button
-                  onClick={handleSendEmailVerification}
-                  type="button"
-                  className="text-green text-sm underline cursor-pointer"
-                >
-                  인증번호 다시 요청
-                </button>
-              </li>
-            </ul>
-          </li>
-          <CommonButton onClick={handleVerifyCode} isEnabled={true}>
-            인증번호 확인
-          </CommonButton>
+              <CommonButton onClick={handleVerifyCode} isEnabled={true}>
+                인증번호 확인
+              </CommonButton>
+            </>
+          )}
         </>
       )}
     </>

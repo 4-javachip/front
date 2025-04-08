@@ -29,8 +29,7 @@ export default function ErrorAlertModal({
             오류가 발생했습니다.
           </AlertDialogTitle>
           <AlertDialogDescription className="text-left">
-            {(errorMessage ?? '알 수 없는 오류가 발생했습니다.') +
-              ' 다시 시도해 주세요.'}
+            {errorMessage ?? '알 수 없는 오류가 발생했습니다.'}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="block text-right">
