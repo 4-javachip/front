@@ -1,6 +1,6 @@
 import React from 'react';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
-import SignUpProfileInput from '../SignUpProfileInput';
+import SignUpPasswordInput from '../SignUpPasswordInput';
 
 export default function SignUpStep02({
   step,
@@ -15,7 +15,7 @@ export default function SignUpStep02({
 }) {
   return (
     <>
-      <SignUpProfileInput
+      <SignUpPasswordInput
         onChange={handleChange}
         errorMessages={errorMessages}
         inputValues={inputValues}

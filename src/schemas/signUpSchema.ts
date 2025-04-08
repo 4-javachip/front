@@ -33,6 +33,7 @@ export const signUpSchema = z
     gender: z.enum(['남성', '여성']),
     emailVerificationCode: z.string().min(6),
     isEmailVerified: z.literal('true'),
+    isEmailSent: z.literal('true'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: '비밀번호가 일치하지 않습니다.',

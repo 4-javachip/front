@@ -6,7 +6,6 @@ import LargeDropdownModal from '@/components/ui/dropdown/LargeDropdownModal';
 import { emailDomains } from '@/data/initialDatas';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import { InputErrorMessage } from '@/components/layouts/CommonLayout';
-import CommonButton from '@/components/ui/buttons/CommonButton';
 
 export default function SignUpEmailInput({
   onChange,
@@ -83,6 +82,7 @@ export default function SignUpEmailInput({
           maxLength={15}
           onChange={onChange}
           value={inputValues?.emailId}
+          readOnly={inputValues?.isEmailSent === 'true'}
         />
         <div className="flex flex-row w-3/5 gap-3">
           <span>@</span>
@@ -100,6 +100,7 @@ export default function SignUpEmailInput({
                   autoFocus
                   maxLength={15}
                   onChange={onChange}
+                  readOnly={inputValues?.isEmailSent === 'true'}
                 />
               ) : (
                 <>
@@ -115,6 +116,7 @@ export default function SignUpEmailInput({
               <button
                 type="button"
                 onClick={toggleDropdown}
+                disabled={inputValues?.isEmailSent === 'true'}
                 className="cursor-pointer"
               >
                 <DropDownIcon

@@ -28,7 +28,11 @@ export default function TermsAgreements({
   }, []);
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <section className="absolute inset-0 flex items-center justify-center">
+        <Loader />
+      </section>
+    );
   }
 
   return (

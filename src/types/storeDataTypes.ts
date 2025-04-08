@@ -12,4 +12,6 @@ export interface SignUpStoreStateType {
   gender: string;
   emailVerificationCode: string;
   isEmailVerified: string;
+  isEmailSent: string;
+  isOptionalConsentChecked: string;
 }

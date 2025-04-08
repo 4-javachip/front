@@ -1,10 +1,12 @@
-export default function Loader() {
+export default function Loader({ size }: { size?: string }) {
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
+    <div>
       <div role="status">
         <svg
           aria-hidden="true"
-          className="inline w-10 h-10 text-gray-200 animate-spin dark:text-lightGray-1 fill-green"
+          className={`inline ${
+            size ? `w${size} h-${size}` : 'w-4 h-4'
+          } text-gray-200 animate-spin dark:text-lightGray-1 fill-green`}
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

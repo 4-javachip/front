@@ -6,13 +6,13 @@ import { cn } from '@/lib/utils';
 
 export default function ConfirmNextButton({
   className,
-  text,
+  children,
   onClick,
   isEnabled = () => false,
   type,
 }: {
   className?: string;
-  text?: string;
+  children?: React.ReactNode;
   onClick: () => void;
   isEnabled?: () => boolean;
   type?: 'button' | 'submit' | 'reset';
@@ -24,7 +24,7 @@ export default function ConfirmNextButton({
         isEnabled={isEnabled()}
         type={type ?? 'button'}
       >
-        {text}
+        {children}
       </CommonButton>
     </CommonLayout.FixedButtonBgLayout>
   );

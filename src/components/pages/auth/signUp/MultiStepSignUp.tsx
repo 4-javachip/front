@@ -3,13 +3,14 @@
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import { useEffect, useState } from 'react';
 import { signUpSchema } from '@/schemas/signUpSchema';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { SignUpStepType } from '@/types/initialDataTypes';
 import { signUpStepData } from '@/data/initialDatas';
 import AuthHeading from '@/components/ui/AuthHeading';
 import BackIconHeader from '@/components/layouts/BackIconHeader';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
+import Loader from '@/components/ui/loader';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -17,6 +18,9 @@ export default function MultiStepSignUp({
   handleSignUp: (inputValues: SignUpStoreStateType) => Promise<void>;
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const optionalConsentParam = searchParams.get('optionalConsent');
+
   const [isEnabled, setIsEnabled] = useState(false);
   const [step, setStep] = useState(1);
   const [inputValues, setInputValues] = useState<SignUpStoreStateType>({
@@ -33,6 +37,9 @@ export default function MultiStepSignUp({
     gender: '남성',
     emailVerificationCode: '',
     isEmailVerified: '',
+    isEmailSent: '',
+    isOptionalConsentChecked:
+      optionalConsentParam === 'true' ? 'true' : 'false',
   });
   const [errorMessages, setErrorMessages] = useState<
     Partial<SignUpStoreStateType>
@@ -41,6 +48,7 @@ export default function MultiStepSignUp({
   const [viewComponent, setViewComponent] = useState<SignUpStepType>();
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [modalErrorMessage, setModalErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const currentStep = signUpSteper.find((item) => item.stepId === step);
@@ -82,10 +90,10 @@ export default function MultiStepSignUp({
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await handleSignUp(inputValues);
-  };
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   await handleSignUp(inputValues);
+  // };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key === 'Enter') {
@@ -94,24 +102,22 @@ export default function MultiStepSignUp({
   };
 
   const nextStep = async () => {
-    try {
-      if (viewComponent?.stepId === 3) {
-        // await handleVerifyCode();
-        // await handleSignUp(inputValues);
+    if (step === 3) {
+      setIsLoading(true);
+      try {
+        await handleSignUp(inputValues);
         router.push('sign-up-complete');
-      } else {
-        if (viewComponent?.stepId === 1) {
-          // const success = await handleSendEmailVerification();
-          // if (!success) return;
-        }
-        setStep((prev) => prev + 1);
+        setIsLoading(false);
+      } catch (error) {
+        const message =
+          (error as { message?: string })?.message ??
+          '회원 가입 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
+        setModalErrorMessage(message);
+        setErrorModalOpen(true);
+        setIsLoading(false);
       }
-    } catch (error) {
-      const message =
-        (error as { message?: string })?.message ??
-        '알 수 없는 오류가 발생했습니다.';
-      setModalErrorMessage(message);
-      setErrorModalOpen(true);
+    } else {
+      setStep((prev) => prev + 1);
     }
   };
 
@@ -137,11 +143,7 @@ export default function MultiStepSignUp({
         errorMessage={modalErrorMessage}
       />
       <BackIconHeader onClick={prevStep} />
-      <form
-        onSubmit={handleSubmit}
-        onKeyDown={handleKeyDown}
-        className="w-full h-full"
-      >
+      <form onKeyDown={handleKeyDown} className="w-full h-full">
         <section className=" padded pb-14">
           {viewComponent?.messages.map((message: string, index: number) => (
             <AuthHeading key={index}>{message}</AuthHeading>
@@ -160,8 +162,9 @@ export default function MultiStepSignUp({
           isEnabled={() => isEnabled}
           // isEnabled={() => true}
           type="button"
-          text="다음"
-        />
+        >
+          {isLoading ? <Loader /> : '다음'}
+        </ConfirmNextButton>
       </form>
     </>
   );
