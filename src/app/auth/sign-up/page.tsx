@@ -15,6 +15,7 @@ export default function SignUpPage() {
       emailVerificationCode,
       isEmailVerified,
       isEmailSent,
+      isOptionalConsentChecked,
       ...rest
     } = inputValues;
 

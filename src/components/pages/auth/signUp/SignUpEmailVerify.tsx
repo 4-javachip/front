@@ -135,7 +135,7 @@ export default function SignUpEmailVerify({
               onClick={handleSendEmailVerification}
               isEnabled={true}
             >
-              {isLoading ? <Loader size={'4'} /> : '인증 요청'}
+              {isLoading ? <Loader /> : '인증 요청'}
             </CommonButton>
           ) : (
             <>
@@ -177,7 +177,7 @@ export default function SignUpEmailVerify({
                 </ul>
               </li>
               <CommonButton onClick={handleVerifyCode} isEnabled={true}>
-                {isLoading ? <Loader size={'4'} /> : '인증번호 확인'}
+                {isLoading ? <Loader /> : '인증번호 확인'}
               </CommonButton>
             </>
           )}

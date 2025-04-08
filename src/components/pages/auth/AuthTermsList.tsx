@@ -65,10 +65,11 @@ export default function AuthTermsList({
         </ul>
       </section>
       <ConfirmNextButton
-        text="다음"
         onClick={handleNextClick}
         isEnabled={() => isRequiredChecked}
-      />
+      >
+        다음
+      </ConfirmNextButton>
     </>
   );
 }
