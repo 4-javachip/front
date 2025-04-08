@@ -1,6 +1,7 @@
 'use server';
 import { SignInDataType, SignUpDataType } from '@/types/RequestDataTypes';
 import { AgreementType } from '@/types/ResponseDataTypes';
+import { getServerSession } from 'next-auth';
 
 export async function signUpAction(signUpData: Partial<SignUpDataType>) {
   const payload: Partial<SignUpDataType> = { ...signUpData };
@@ -46,7 +47,10 @@ export async function signInAction(signInData: Partial<SignInDataType>) {
   return await response.json();
 }
 
-export async function LogoutAction({ refreshToken }: { refreshToken: string }) {
+export async function LogoutAction() {
+  const session = await getServerSession();
+  const refreshToken = session?.user.refreshToken;
+
   const response = await fetch(
     `${process.env.BASE_API_URL}/api/v1/auth/logout`,
     {

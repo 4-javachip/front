@@ -6,9 +6,29 @@ import CommonButton from '@/components/ui/buttons/CommonButton';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import { useSpharosSession } from '@/context/SessionContext';
 import { signIn } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { SignInStoreStateType } from '@/types/storeDataTypes';
+import { signInSchema } from '@/schemas/signInSchema';
 
 export default function SignInForm() {
-  console.log(useSpharosSession());
+  // console.log(useSpharosSession());
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [inputValues, setInputValues] = useState<SignInStoreStateType>({
+    email: '',
+    password: '',
+  });
+
+  useEffect(() => {
+    const result = signInSchema.safeParse(inputValues);
+    setIsEnabled(result.success);
+  }, [inputValues]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInputValues((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -23,12 +43,18 @@ export default function SignInForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="padded space-y-6">
-        <FloatingInput label="아이디" id="email" name="email" />
+        <FloatingInput
+          label="이메일"
+          id="email"
+          name="email"
+          onChange={handleChange}
+        />
         <FloatingInput
           label="비밀번호"
           id="password"
           name="password"
           type="password"
+          onChange={handleChange}
         />
 
         <section className="w-full flex justify-center items-center pb-14">
@@ -41,7 +67,7 @@ export default function SignInForm() {
       </div>
 
       <CommonLayout.FixedButtonBgLayout>
-        <CommonButton onClick={() => {}} isEnabled={true} type="submit">
+        <CommonButton onClick={() => {}} isEnabled={isEnabled} type="submit">
           로그인하기
         </CommonButton>
       </CommonLayout.FixedButtonBgLayout>
