@@ -16,7 +16,7 @@ interface Props {
   setValues: (values: ShippingAddressDataType) => void;
   setErrorMessages: (errors: Partial<ShippingAddressErrorType>) => void;
   setIsModalOpen: (open: boolean) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  action: (addressForm: FormData) => Promise<void>;
   isEdit?: boolean;
   hideDefaultCheckbox?: boolean;
 }
@@ -29,16 +29,20 @@ export default function ShippingAddressForm({
   setValues,
   setErrorMessages,
   setIsModalOpen,
-  handleSubmit,
+  action,
   isEdit,
   hideDefaultCheckbox,
 }: Props) {
   const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
     const res = shippingAddressSchema.safeParse(values);
-
-    setIsFormValid(res.success);
-  }, [values]);
+    if (res.success) {
+      setErrorMessages({});
+      setIsFormValid(true);
+      return;
+    }
+    setIsFormValid(false);
+  }, [values, setErrorMessages]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,13 +60,11 @@ export default function ShippingAddressForm({
         fieldErrors[fieldname] = error.message;
       });
       setErrorMessages(fieldErrors);
-    } else {
-      setErrorMessages({});
     }
   };
 
   return (
-    <form className="mt-[1.25rem] mb-[10rem]" onSubmit={handleSubmit}>
+    <form className="mt-[1.25rem] mb-[10rem]" action={action}>
       <section className="space-y-[1.25rem] px-6">
         <AddressInput
           id="addressName"
@@ -104,6 +106,7 @@ export default function ShippingAddressForm({
         <AddressInput
           id="baseAddress"
           label="기본 주소 *"
+          name="baseAddress"
           readOnly
           value={values.baseAddress}
           onChange={handleChange}
@@ -149,11 +152,12 @@ export default function ShippingAddressForm({
         {!hideDefaultCheckbox && (
           <div className="flex items-center gap-1.5 pb-10">
             <CustomCheckBox
+              name="defaulted"
               label="기본배송지로 지정하기"
               onChange={(e) =>
                 setValues({ ...values, defaulted: e.target.checked })
               }
-              checked={values.defaulted}
+              checked={values.defaulted || false}
             />
           </div>
         )}

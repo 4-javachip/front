@@ -28,6 +28,8 @@ export default function ShippingNoteSelect({
     <div className="space-y-2">
       <label className="font-medium text-[0.75rem]">배송메모</label>
       <select
+        id="shippingNote"
+        name="shippingNote"
         value={isCustom ? '직접입력' : value}
         onChange={(e) => {
           if (e.target.value === '직접입력') {
@@ -57,6 +59,7 @@ export default function ShippingNoteSelect({
       {isCustom && (
         <AddressInput
           id="customNote"
+          name="customNote"
           label=""
           placeholder="배송 시 요청사항을 기재해 주세요."
           value={customNote}

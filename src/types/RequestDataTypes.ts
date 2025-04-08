@@ -18,5 +18,5 @@ export interface ShippingAddressDataType {
   phoneNumber: string;
   secondPhoneNumber: string;
   shippingNote: string;
-  defaulted: boolean;
+  defaulted?: boolean;
 }

@@ -20,7 +20,8 @@ export default function CommonButton({
         isEnabled ? 'bg-green cursor-pointer' : 'bg-lightGray-4',
         className
       )}
-      onClick={isEnabled ? onClick : undefined}
+      disabled={!isEnabled}
+      onClick={type === 'button' ? onClick : undefined}
       type={type ?? 'button'}
     >
       {children}
