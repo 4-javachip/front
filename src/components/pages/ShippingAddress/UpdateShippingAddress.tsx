@@ -3,26 +3,19 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DaumPostcodeModal from './DaumPostcodeModal';
-import { addShippingAddress } from '@/actions/shipping-address-service';
+import { updateShippingAddress } from '@/actions/shipping-address-service';
+import ShippingAddressForm from './ShippingAddressForm';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import { ShippingAddressErrorType } from '@/types/ErrorDataType';
-import ShippingAddressForm from './ShippingAddressForm';
 
-export default function AddShippingAddress() {
+export default function UpdateShippingAddress({
+  initialData,
+}: {
+  initialData: ShippingAddressDataType;
+}) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [values, setValues] = useState<ShippingAddressDataType>({
-    addressName: '',
-    recipientName: '',
-    zipCode: '',
-    baseAddress: '',
-    detailAddress: '',
-    phoneNumber: '',
-    secondPhoneNumber: '',
-    shippingNote: '',
-    defaulted: false,
-  });
-
+  const [values, setValues] = useState(initialData);
   const [errorMessages, setErrorMessages] = useState<
     Partial<ShippingAddressErrorType>
   >({});
@@ -34,18 +27,20 @@ export default function AddShippingAddress() {
       baseAddress: data.address,
     }));
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('데이터:', values);
-
+    console.log('수정 ', values);
     try {
-      await addShippingAddress(values);
-
-      alert('배송지 등록이 완료되었습니다.');
-      router.push('/mypage');
+      await updateShippingAddress({
+        ...values,
+        shippingAddressUuid: initialData.shippingAddressUuid,
+      });
+      alert('배송지 수정 완료!');
+      router.push('/shipping-addresses');
     } catch (error) {
       console.error(error);
-      alert('배송지 등록에 실패했습니다.');
+      alert('배송지 수정 실패');
     }
   };
 
@@ -56,12 +51,10 @@ export default function AddShippingAddress() {
         setValues={setValues}
         errorMessages={errorMessages}
         setErrorMessages={setErrorMessages}
-        // isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         handleSubmit={handleSubmit}
-        isEdit={false}
+        isEdit={true}
       />
-
       {isModalOpen && (
         <DaumPostcodeModal
           onClose={() => setIsModalOpen(false)}

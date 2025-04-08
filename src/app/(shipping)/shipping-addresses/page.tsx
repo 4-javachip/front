@@ -8,7 +8,7 @@ import ShippingAddressList from '@/components/pages/ShippingAddress/ShippingAddr
 import React from 'react';
 
 export default async function page() {
-  const list = await getShippingAddressList(); // ShippingAddressListType[]
+  const list = await getShippingAddressList();
   const fullData = await Promise.all(
     list.map(async (item) => {
       const detail = await getShippingAddressDatabyUuid(
@@ -22,8 +22,8 @@ export default async function page() {
   );
 
   return (
-    <CommonLayout.SectionInnerPadding>
+    <>
       <ShippingAddressList address={fullData} />
-    </CommonLayout.SectionInnerPadding>
+    </>
   );
 }

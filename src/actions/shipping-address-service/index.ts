@@ -12,7 +12,7 @@ export const addShippingAddress = async (value: ShippingAddressDataType) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'userUuid': 'test-1',
+        'userUuid': 'test-2',
       },
       body: JSON.stringify(value),
     }
@@ -34,7 +34,7 @@ export const getShippingAddressList = async (): Promise<
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'userUuid': 'test-1',
+        'userUuid': 'test-2',
       },
       cache: 'no-store',
     }
@@ -66,6 +66,29 @@ export const getShippingAddressDatabyUuid = async (
     throw new Error(`배송지 조회 실패: ${res.statusText}`);
   }
 
+  const data =
+    (await res.json()) as commonResponseType<ShippingAddressDataType>;
+
+  return data.result;
+};
+
+export const updateShippingAddress = async (value: ShippingAddressDataType) => {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/shipping-address`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'userUuid': 'test-2',
+      },
+      body: JSON.stringify(value),
+    }
+  );
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || '배송지 수정 실패');
+  }
   const data =
     (await res.json()) as commonResponseType<ShippingAddressDataType>;
   console.log(data);

@@ -8,8 +8,8 @@ export const shippingAddressSchema = z.object({
   detailAddress: z.string().min(1, '상세주소를 입력해주세요.'),
   phoneNumber: z
     .string()
-    .regex(/^010-\d{4}-\d{4}$/, '유효한 전화번호 형식이 아닙니다.'),
+    .regex(/^010\d{4}\d{4}$/, '유효한 전화번호 형식이 아닙니다.'),
   secondPhoneNumber: z.string().optional(),
-  shippingNote: z.string().min(1, '배송 메모를 선택해주세요.'),
+  shippingNote: z.string().optional(),
   defaulted: z.boolean(),
 });

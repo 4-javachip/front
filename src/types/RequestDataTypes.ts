@@ -9,6 +9,7 @@ export interface SignUpDataType {
 }
 
 export interface ShippingAddressDataType {
+  shippingAddressUuid?: string;
   addressName: string;
   recipientName: string;
   zipCode: string;

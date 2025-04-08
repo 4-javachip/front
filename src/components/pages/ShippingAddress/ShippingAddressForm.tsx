@@ -6,26 +6,43 @@ import { shippingAddressSchema } from '@/schemas/shippingAddressSchema';
 import AddressInput from '@/components/ui/inputs/AddressInput';
 import CustomCheckBox from '@/components/ui/inputs/CustomCheckBox';
 import ShippingNote from './ShippingNote';
+import { CommonLayout } from '@/components/layouts/CommonLayout';
+import CommonButton from '@/components/ui/buttons/CommonButton';
 
 interface Props {
   values: ShippingAddressDataType;
   errorMessages: Partial<ShippingAddressErrorType>;
-  isModalOpen: boolean;
+  // isModalOpen: boolean;
   setValues: (values: ShippingAddressDataType) => void;
   setErrorMessages: (errors: Partial<ShippingAddressErrorType>) => void;
   setIsModalOpen: (open: boolean) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  isEdit?: boolean;
+  hideDefaultCheckbox?: boolean;
 }
+
+import { useState, useEffect } from 'react';
 
 export default function ShippingAddressForm({
   values,
   errorMessages,
-  isModalOpen,
   setValues,
   setErrorMessages,
   setIsModalOpen,
-  onSubmit,
+  handleSubmit,
+  isEdit,
+  hideDefaultCheckbox,
 }: Props) {
+  const [isFormValid, setIsFormValid] = useState(false); // 유효성 검사 상태
+
+  useEffect(() => {
+    // 유효성 검사 실행
+    const res = shippingAddressSchema.safeParse(values);
+
+    // 검사 결과에 따라 버튼 활성화/비활성화
+    setIsFormValid(res.success);
+  }, [values]); // values가 변경될 때마다 유효성 검사 실행
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -48,7 +65,7 @@ export default function ShippingAddressForm({
   };
 
   return (
-    <form className="mt-[1.25rem] mb-[10rem]" onSubmit={onSubmit}>
+    <form className="mt-[1.25rem] mb-[10rem]" onSubmit={handleSubmit}>
       <section className="space-y-[1.25rem] px-6">
         <AddressInput
           id="addressName"
@@ -132,17 +149,28 @@ export default function ShippingAddressForm({
           value={values.shippingNote}
           onChange={(value) => setValues({ ...values, shippingNote: value })}
         />
-
-        <div className="flex items-center gap-1.5 pb-10">
-          <CustomCheckBox
-            label="기본배송지로 지정하기"
-            onChange={(e) =>
-              setValues({ ...values, defaulted: e.target.checked })
-            }
-            checked={values.defaulted}
-          />
-        </div>
+        {!hideDefaultCheckbox && (
+          <div className="flex items-center gap-1.5 pb-10">
+            <CustomCheckBox
+              label="기본배송지로 지정하기"
+              onChange={(e) =>
+                setValues({ ...values, defaulted: e.target.checked })
+              }
+              checked={values.defaulted}
+            />
+          </div>
+        )}
       </section>
+
+      <CommonLayout.FixedButtonBgLayout>
+        <CommonButton
+          className="font-semibold"
+          type="submit"
+          isEnabled={isFormValid}
+        >
+          {isEdit ? '수정하기' : '등록하기'}
+        </CommonButton>
+      </CommonLayout.FixedButtonBgLayout>
     </form>
   );
 }
