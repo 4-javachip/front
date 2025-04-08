@@ -1,3 +1,4 @@
+// 'use server';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 
 interface CategoryListResponse {
@@ -8,7 +9,9 @@ interface CategoryListResponse {
 }
 
 export async function getAllCategories(): Promise<CategoryMenuType[]> {
-  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/category/list`);
+  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/category/list`, {
+    cache: 'no-cache',
+  });
 
   if (!res.ok) {
     const error = await res.json();

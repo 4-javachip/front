@@ -1,16 +1,19 @@
-import { ProductItemType } from '@/types/ResponseDataTypes';
-import ProductlItem from '../../ui/ProductItem';
+import { ProductListDataType } from '@/types/ProductResponseDataTypes';
+import ProductlItem from '../../ui/productItem/ProductItem';
+import { Suspense } from 'react';
 
 export default function ProductList({
   products,
 }: {
-  products: ProductItemType[];
+  products: ProductListDataType[];
 }) {
   return (
     <section className="padded py-6 flex justify-center">
       <ul className="w-full grid grid-cols-2 gap-4">
         {products.map((product) => (
-          <ProductlItem key={product.id} {...product} size={800} />
+          <Suspense fallback={<></>} key={product.productUuid}>
+            <ProductlItem productData={product} size={800} />
+          </Suspense>
         ))}
       </ul>
     </section>
