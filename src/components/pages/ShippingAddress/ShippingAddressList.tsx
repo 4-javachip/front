@@ -7,6 +7,7 @@ import { ShippingAddressListType } from '@/types/ResponseDataTypes';
 import EmptyAddress from './EmptyAddress';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useRouter } from 'next/navigation';
+import { deleteShippingAddress } from '@/actions/shipping-address-service';
 
 interface ShippingAddressItemProps {
   address: ShippingAddressDataType;
@@ -21,6 +22,13 @@ export default function ShippingAddressList({
   const addressLength = address.length;
   const router = useRouter();
 
+  const handleDelete = async (shippingAddressUuid: string) => {
+    try {
+      await deleteShippingAddress(shippingAddressUuid);
+    } catch (error) {
+      console.error('배송지 삭제 실패:', error);
+    }
+  };
   return (
     <main className="w-full bg-background text-sm pt-6 ">
       <CommonLayout.SectionInnerPadding>
@@ -68,7 +76,12 @@ export default function ShippingAddressList({
                       수정
                     </Link>
                     {!addressList.defaulted && (
-                      <button className="border-l-2 border-lightGray-5 pl-2 leading-3 text-lightGray-7">
+                      <button
+                        className="border-l-2 border-lightGray-5 pl-2 leading-3 text-lightGray-7"
+                        onClick={() =>
+                          handleDelete(addressList.shippingAddressUuid)
+                        }
+                      >
                         삭제
                       </button>
                     )}

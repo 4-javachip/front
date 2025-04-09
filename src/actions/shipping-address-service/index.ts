@@ -4,6 +4,7 @@ import {
   commonResponseType,
   ShippingAddressListType,
 } from '@/types/ResponseDataTypes';
+import { revalidateTag } from 'next/cache';
 
 export const addShippingAddress = async (value: ShippingAddressDataType) => {
   const response = await fetch(
@@ -12,7 +13,9 @@ export const addShippingAddress = async (value: ShippingAddressDataType) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'userUuid': 'test-2',
+        'Authorization': `Bearer ${
+          process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
+        }`,
       },
       body: JSON.stringify(value),
     }
@@ -34,9 +37,11 @@ export const getShippingAddressList = async (): Promise<
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'userUuid': 'test-2',
+        'Authorization': `Bearer ${
+          process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
+        }`,
       },
-      cache: 'no-store',
+      next: { tags: ['getshippingAddressList'] },
     }
   );
 
@@ -80,7 +85,9 @@ export const updateShippingAddress = async (value: ShippingAddressDataType) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'userUuid': 'test-2',
+        'Authorization': `Bearer ${
+          process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
+        }`,
       },
       body: JSON.stringify(value),
     }
@@ -104,7 +111,9 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'userUuid': 'test-2',
+        'Authorization': `Bearer ${
+          process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
+        }`,
       },
       body: JSON.stringify({ shippingAddressUuid }),
     }
@@ -115,6 +124,7 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
   }
   const data =
     (await res.json()) as commonResponseType<ShippingAddressDataType>;
+  revalidateTag('getshippingAddressList');
   console.log(data);
   return data.result;
 };

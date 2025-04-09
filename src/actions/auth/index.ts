@@ -102,6 +102,7 @@ export async function verifyEmailCodeAction({
   const payload = {
     email,
     verificationCode,
+    purpose: 'sign_up',
   };
 
   const response = await fetch(
