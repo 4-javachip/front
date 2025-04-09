@@ -16,12 +16,10 @@ export default function ShippingNoteSelect({
     isCustom ? value.replace('[직접입력]', '') : ''
   );
 
-  // 직접입력일 경우 customNote로 반영
   useEffect(() => {
     if (isCustom) {
       onChange(`[직접입력]${customNote}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customNote]);
 
   return (

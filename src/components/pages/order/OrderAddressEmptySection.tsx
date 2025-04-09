@@ -1,6 +1,6 @@
 'use client';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
-import AddressRegisterButton from '@/components/ui/buttons/AddressRegisterButton';
+import AddressRegisterButton from '@/components/ui/buttons/SubmitButton';
 
 export default function OrderAddressEmptySection() {
   return (
@@ -9,7 +9,7 @@ export default function OrderAddressEmptySection() {
         <p>등록된 배송지가 없습니다.</p>
         <p>배송지를 등록해주세요.</p>
       </article>
-      <AddressRegisterButton />
+      {/* <AddressRegisterButton /> */}
       <CommonLayout.CommonBorder />
     </section>
   );

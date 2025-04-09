@@ -10,8 +10,10 @@ import { ShippingAddressErrorType } from '@/types/ErrorDataType';
 
 export default function UpdateShippingAddress({
   initialData,
+  action,
 }: {
   initialData: ShippingAddressDataType;
+  action: (addressForm: FormData) => Promise<void>;
 }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,22 +30,6 @@ export default function UpdateShippingAddress({
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('수정 ', values);
-    try {
-      await updateShippingAddress({
-        ...values,
-        shippingAddressUuid: initialData.shippingAddressUuid,
-      });
-      alert('배송지 수정 완료!');
-      router.push('/shipping-addresses');
-    } catch (error) {
-      console.error(error);
-      alert('배송지 수정 실패');
-    }
-  };
-
   return (
     <>
       <ShippingAddressForm
@@ -52,7 +38,7 @@ export default function UpdateShippingAddress({
         errorMessages={errorMessages}
         setErrorMessages={setErrorMessages}
         setIsModalOpen={setIsModalOpen}
-        handleSubmit={handleSubmit}
+        action={action}
         isEdit={true}
       />
       {isModalOpen && (

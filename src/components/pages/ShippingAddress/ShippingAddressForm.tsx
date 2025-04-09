@@ -7,7 +7,8 @@ import AddressInput from '@/components/ui/inputs/AddressInput';
 import CustomCheckBox from '@/components/ui/inputs/CustomCheckBox';
 import ShippingNote from './ShippingNote';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
-import CommonButton from '@/components/ui/buttons/CommonButton';
+import { useState, useEffect } from 'react';
+import SubmitButton from '@/components/ui/buttons/SubmitButton';
 
 interface Props {
   values: ShippingAddressDataType;
@@ -16,12 +17,10 @@ interface Props {
   setValues: (values: ShippingAddressDataType) => void;
   setErrorMessages: (errors: Partial<ShippingAddressErrorType>) => void;
   setIsModalOpen: (open: boolean) => void;
-  action: (addressForm: FormData) => Promise<void>;
+  action?: (addressForm: FormData) => Promise<void>;
   isEdit?: boolean;
   hideDefaultCheckbox?: boolean;
 }
-
-import { useState, useEffect } from 'react';
 
 export default function ShippingAddressForm({
   values,
@@ -164,13 +163,13 @@ export default function ShippingAddressForm({
       </section>
 
       <CommonLayout.FixedButtonBgLayout>
-        <CommonButton
+        <SubmitButton
           className="font-semibold"
           type="submit"
           isEnabled={isFormValid}
         >
           {isEdit ? '수정하기' : '등록하기'}
-        </CommonButton>
+        </SubmitButton>
       </CommonLayout.FixedButtonBgLayout>
     </form>
   );

@@ -9,7 +9,11 @@ export const shippingAddressSchema = z.object({
   phoneNumber: z
     .string()
     .regex(/^010\d{4}\d{4}$/, '유효한 전화번호 형식이 아닙니다.'),
-  secondPhoneNumber: z.string().optional(),
+  secondPhoneNumber: z
+    .string()
+    // .regex(/^010\d{4}\d{4}$/, '유효한 전화번호 형식이 아닙니다.')
+    .optional(),
+
   shippingNote: z.string().optional(),
   defaulted: z.boolean(),
 });

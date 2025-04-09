@@ -2,6 +2,7 @@ import { addShippingAddress } from '@/actions/shipping-address-service';
 import AddShippingAddress from '@/components/pages/ShippingAddress/AddShippingAddress';
 import TextTitleH1 from '@/components/ui/texts/TextTitleH1';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 export default async function page() {
@@ -25,6 +26,8 @@ export default async function page() {
 
     console.log('폼데이터:', payload);
     await addShippingAddress(payload);
+
+    redirect('/shipping-addresses');
   };
   return (
     <main>
