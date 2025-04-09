@@ -5,7 +5,6 @@ import {
 import EventCarousel from '@/components/pages/event/EventCarousel';
 import EventSection from '@/components/pages/event/EventSection';
 import { redirect } from 'next/navigation';
-
 export default async function page({
   searchParams,
 }: {
@@ -17,12 +16,12 @@ export default async function page({
     name: event.name,
   }));
 
-  const param = await searchParams;
-  if (!param.event) {
-    redirect(`?event=${eventsData[0].eventUuid}`);
+  const { event } = await searchParams;
+  if (event === undefined || '') {
+    redirect('/error');
   }
-  const selectedEventUuid = param.event || eventsData[0].eventUuid;
-  const selectedEventData = await getEventDataByEventUuid(selectedEventUuid);
+
+  const selectedEventData = await getEventDataByEventUuid(event);
 
   return (
     <main>

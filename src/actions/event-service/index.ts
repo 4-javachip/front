@@ -7,7 +7,7 @@ import { CommonResponseType } from '@/types/ResponseDataTypes';
 export async function getEventDatas() {
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/event/list`, {
     method: 'GET',
-    cache: 'no-cache',
+    next: { revalidate: 24 * 60 * 60 },
   });
   if (!res.ok) {
     const errorData = await res.json();
