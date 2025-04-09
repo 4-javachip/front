@@ -15,6 +15,7 @@ export interface BannerSlideImageType {
   id: number;
   imageUrl: string;
   description: string;
+  defaulted?: boolean;
 }
 
 export interface ProductLabelType {

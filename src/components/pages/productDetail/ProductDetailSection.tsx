@@ -14,7 +14,7 @@ export default async function ProductDetailSection({
 }: {
   product: ProductNameDataType;
 }) {
-  const tumbnails = await getThumbnailDatasByProductUuid(product.productUuid);
+  const thumbnails = await getThumbnailDatasByProductUuid(product.productUuid);
   const options = await getOptionDatasByProductUuid(product.productUuid);
   const option = options[0];
   const description = await getDescriptionDataByProductUuid(
@@ -23,7 +23,7 @@ export default async function ProductDetailSection({
 
   return (
     <>
-      <ProductImg {...tumbnails[0]} />
+      <ProductImg thumbnails={thumbnails} />
       <div className="flex flex-col gap-10 padded">
         <ProductInfo
           name={product.name}
