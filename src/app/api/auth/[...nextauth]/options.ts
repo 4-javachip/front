@@ -2,15 +2,15 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import KakaoProvider from 'next-auth/providers/kakao';
 import GoogleProvider from 'next-auth/providers/google';
-import { commonResponseType, signInDataType } from '@/types/ResponseDataTypes';
+import { CommonResponseType, signInDataType } from '@/types/ResponseDataTypes';
 
 export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentilas',
       credentials: {
-        email: { labael: 'Email', type: 'text' },
-        password: { labael: 'Password', type: 'password' },
+        email: { label: 'Email', type: 'text' },
+        password: { label: 'Password', type: 'password' },
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       async authorize(credentials): Promise<any> {
@@ -33,11 +33,19 @@ export const options: NextAuthOptions = {
           );
 
           const user =
-            (await response.json()) as commonResponseType<signInDataType>;
+            (await response.json()) as CommonResponseType<signInDataType>;
           console.log('user', user);
+
+          if (!user.isSuccess) {
+            throw new Error(user.message);
+          }
+
           return user.result;
         } catch (error) {
-          console.error('error', error);
+          console.error('authorize error:', error);
+          throw new Error(
+            (error as { message?: string })?.message ?? '로그인에 실패했습니다.'
+          );
         }
         // 회원로그인 api 호출
         return null;
@@ -53,9 +61,9 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    // Oauth 로그인
     async signIn({ user, account, email, credentials }) {
-      if (account) {
+      // Oauth 로그인
+      if (account && account.provider !== 'credentials') {
         console.log('account', account);
         console.log('user', user);
         // try {
@@ -84,7 +92,7 @@ export const options: NextAuthOptions = {
         //   return true;
         // } catch (error) {
         //   console.error('error', error);
-        //   return '/sign-up';
+        //   return '/auth/sign-up';
         // }
       }
       return true;

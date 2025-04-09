@@ -1,6 +1,16 @@
-export interface ProductListDataType {
+export interface PaginatedResponseType<T> {
+  content: T;
+  nextCursor: number;
+  hasNext: boolean;
+  pageSize: number;
+  page: number;
+}
+
+export interface ProductNameDataType {
   productUuid: string;
   name: string;
+  best: boolean;
+  new: boolean;
 }
 
 export interface ProductThumbnailDataType {
@@ -23,7 +33,16 @@ export interface ProductOptionType {
 
 export interface ProductDescriptionType {
   productUuid: string;
-  productOptionUuid: string;
   description: string;
   detailDescription: string;
+}
+
+export interface ProductInfoDataType {
+  name: string;
+  price: number;
+  totalPrice: number;
+  discountRate: number;
+  description?: string;
+  best: boolean;
+  new: boolean;
 }

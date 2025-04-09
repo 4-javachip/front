@@ -90,11 +90,6 @@ export default function MultiStepSignUp({
     });
   };
 
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   await handleSignUp(inputValues);
-  // };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -160,7 +155,6 @@ export default function MultiStepSignUp({
         <ConfirmNextButton
           onClick={nextStep}
           isEnabled={() => isEnabled}
-          // isEnabled={() => true}
           type="button"
         >
           {isLoading ? <Loader /> : '다음'}

@@ -1,6 +1,8 @@
 'use server';
-import { SignUpDataType } from '@/types/RequestDataTypes';
+import { options } from '@/app/api/auth/[...nextauth]/options';
+import { SignInDataType, SignUpDataType } from '@/types/RequestDataTypes';
 import { AgreementType } from '@/types/ResponseDataTypes';
+import { getServerSession } from 'next-auth';
 
 export async function signUpAction(signUpData: Partial<SignUpDataType>) {
   const payload: Partial<SignUpDataType> = { ...signUpData };
@@ -18,6 +20,30 @@ export async function signUpAction(signUpData: Partial<SignUpDataType>) {
   if (!response.ok) {
     const errorData = await response.json();
     console.error('Sign-up failed:', errorData);
+    throw new Error(errorData.message);
+  }
+
+  return await response.json();
+}
+
+export async function LogoutAction() {
+  const session = await getServerSession(options);
+  const refreshToken = session?.user.refreshToken;
+
+  const response = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/auth/logout`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${refreshToken}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error('Logout failed:', errorData);
     throw new Error(errorData.message);
   }
 

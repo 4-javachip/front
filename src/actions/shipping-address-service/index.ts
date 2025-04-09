@@ -1,7 +1,7 @@
 'use server';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import {
-  commonResponseType,
+  CommonResponseType,
   ShippingAddressListType,
 } from '@/types/ResponseDataTypes';
 import { revalidateTag } from 'next/cache';
@@ -125,6 +125,7 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
   const data =
     (await res.json()) as commonResponseType<ShippingAddressDataType>;
   revalidateTag('getshippingAddressList');
+
   console.log(data);
   return data.result;
 };
