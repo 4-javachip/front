@@ -1,4 +1,4 @@
-export interface commonResponseType<T> {
+export interface CommonResponseType<T> {
   httpStatus: string;
   isSuccess: boolean;
   message: string;
@@ -15,6 +15,7 @@ export interface BannerSlideImageType {
   id: number;
   imageUrl: string;
   description: string;
+  defaulted?: boolean;
 }
 
 export interface ProductLabelType {

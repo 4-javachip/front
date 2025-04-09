@@ -26,28 +26,6 @@ export async function signUpAction(signUpData: Partial<SignUpDataType>) {
   return await response.json();
 }
 
-// export async function signInAction(signInData: Partial<SignInDataType>) {
-//   const payload: Partial<SignInDataType> = { ...signInData };
-
-//   console.log('Payload being sent to the API:', payload);
-//   const response = await fetch(
-//     `${process.env.BASE_API_URL}/api/v1/auth/sign-in`,
-//     {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(payload),
-//     }
-//   );
-
-//   if (!response.ok) {
-//     const errorData = await response.json();
-//     console.error('Sign-in failed:', errorData);
-//     throw new Error(errorData.message);
-//   }
-
-//   return await response.json();
-// }
-
 export async function LogoutAction() {
   const session = await getServerSession(options);
   const refreshToken = session?.user.refreshToken;
@@ -150,6 +128,7 @@ export async function verifyEmailCodeAction({
   const payload = {
     email,
     verificationCode,
+    purpose: 'sign_up',
   };
 
   const response = await fetch(

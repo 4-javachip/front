@@ -7,7 +7,12 @@ const nextConfig: NextConfig = {
     BASE_API_URL: process.env.Base_API_URL,
   },
   images: {
-    domains: ['picsum.photos', 'dummyimage.com', 'sitem.ssgcdn.com'],
+    domains: [
+      'picsum.photos',
+      'dummyimage.com',
+      'sitem.ssgcdn.com',
+      'sui.ssgcdn.com',
+    ],
   },
 };
 

@@ -1,11 +1,28 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { getEventDatas } from '@/actions/event-service';
 
 const PageNavBar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const [eventLinkId, setEventLinkId] = useState<string>('');
+
+  useEffect(() => {
+    const getEventData = async () => {
+      const eventsData = await getEventDatas();
+      setEventLinkId(eventsData[0].eventUuid);
+    };
+
+    getEventData();
+  }, []);
+
+  const handleEventRoute = () => {
+    router.push(`/event?event=${eventLinkId}`);
+  };
 
   // 각 메뉴의 경로
   const navItems = [
@@ -32,9 +49,18 @@ const PageNavBar = () => {
                   : 'font-Ragular'
               }`}
             >
-              <Link href={item.href}>
-                <span className="hover:text-green-600">{item.label}</span>
-              </Link>
+              {item.label === '기획전' ? (
+                <span
+                  onClick={handleEventRoute}
+                  className="hover:text-green-600 cursor-pointer"
+                >
+                  {item.label}
+                </span>
+              ) : (
+                <Link href={item.href}>
+                  <span className="hover:text-green-600">{item.label}</span>
+                </Link>
+              )}
             </li>
           );
         })}
