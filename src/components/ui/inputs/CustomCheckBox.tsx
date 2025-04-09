@@ -5,7 +5,7 @@ export default function CustomCheckBox({
   checked,
 }: {
   label: string;
-  name: string;
+  name?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
 }) {
@@ -14,7 +14,7 @@ export default function CustomCheckBox({
       <div className="relative w-5.5 h-5.5">
         <input
           id="custom-checkbox"
-          name={name}
+          name={name ? name : 'custom-checkbox'}
           type="checkbox"
           className="w-full h-full appearance-none border border-green rounded 
           checked:bg-green checked:border-transparent active:border-black

@@ -20,6 +20,7 @@ export default async function Page({
   const action = async (addressForm: FormData) => {
     'use server';
     const payload = {
+      shippingAddressUuid: shippingAddressUuid,
       addressName: addressForm.get('addressName'),
       recipientName: addressForm.get('recipientName'),
       zipCode: addressForm.get('zipCode'),
@@ -31,24 +32,12 @@ export default async function Page({
         addressForm.get('shippingNote') === '직접입력'
           ? addressForm.get('customNote')
           : addressForm.get('shippingNote'),
-      // defaulted: addressForm.get('defaulted') === 'on' ? true : false,
+      defaulted: addressForm.get('defaulted') === 'on' ? true : false,
     } as ShippingAddressDataType;
 
-    // if (addressForm.defaulted !== undefined) {
-    //   formData.append('defaulted', addressForm.defaulted ? 'on' : 'off');
-    // }
-
-    if (shippingAddressUuid) {
-      addressForm.append('shippingAddressUuid', shippingAddressUuid);
-    }
-    try {
-      await updateShippingAddress(payload as ShippingAddressDataType);
-      alert('배송지 수정 완료!');
-      redirect('/shipping-addresses');
-    } catch (error) {
-      console.error(error);
-      alert('배송지 수정 실패');
-    }
+    await updateShippingAddress(payload as ShippingAddressDataType);
+    console.log('수정:', payload);
+    redirect('/shipping-addresses');
   };
   return (
     <>

@@ -73,6 +73,7 @@ export const getShippingAddressDatabyUuid = async (
 };
 
 export const updateShippingAddress = async (value: ShippingAddressDataType) => {
+  console.log('배송지 수정 요청:', value);
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/shipping-address`,
     {
@@ -88,6 +89,29 @@ export const updateShippingAddress = async (value: ShippingAddressDataType) => {
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message || '배송지 수정 실패');
+  }
+  const data =
+    (await res.json()) as commonResponseType<ShippingAddressDataType>;
+  console.log(data);
+  return data.result;
+};
+
+export const deleteShippingAddress = async (shippingAddressUuid: string) => {
+  console.log('배송지 삭제 요청:', shippingAddressUuid);
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/shipping-address`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'userUuid': 'test-2',
+      },
+      body: JSON.stringify({ shippingAddressUuid }),
+    }
+  );
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || '배송지 삭제 실패');
   }
   const data =
     (await res.json()) as commonResponseType<ShippingAddressDataType>;

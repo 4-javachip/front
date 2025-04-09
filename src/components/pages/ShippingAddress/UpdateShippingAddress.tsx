@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import DaumPostcodeModal from './DaumPostcodeModal';
-import { updateShippingAddress } from '@/actions/shipping-address-service';
 import ShippingAddressForm from './ShippingAddressForm';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import { ShippingAddressErrorType } from '@/types/ErrorDataType';
@@ -15,7 +13,6 @@ export default function UpdateShippingAddress({
   initialData: ShippingAddressDataType;
   action: (addressForm: FormData) => Promise<void>;
 }) {
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [values, setValues] = useState(initialData);
   const [errorMessages, setErrorMessages] = useState<

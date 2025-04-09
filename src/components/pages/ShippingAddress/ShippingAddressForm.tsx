@@ -13,7 +13,6 @@ import SubmitButton from '@/components/ui/buttons/SubmitButton';
 interface Props {
   values: ShippingAddressDataType;
   errorMessages: Partial<ShippingAddressErrorType>;
-  // isModalOpen: boolean;
   setValues: (values: ShippingAddressDataType) => void;
   setErrorMessages: (errors: Partial<ShippingAddressErrorType>) => void;
   setIsModalOpen: (open: boolean) => void;
@@ -145,7 +144,7 @@ export default function ShippingAddressForm({
         />
 
         <ShippingNote
-          value={values.shippingNote}
+          value={values.shippingNote || ''}
           onChange={(value) => setValues({ ...values, shippingNote: value })}
         />
         {!hideDefaultCheckbox && (

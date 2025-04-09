@@ -10,15 +10,15 @@ export default function ShippingNoteSelect({
   value,
   onChange,
 }: ShippingNoteSelectProps) {
-  const isCustom = value.startsWith('[직접입력]');
+  const isCustom = value && value.startsWith('직접입력');
 
   const [customNote, setCustomNote] = useState(
-    isCustom ? value.replace('[직접입력]', '') : ''
+    isCustom ? value.replace('직접입력', '') : ''
   );
 
   useEffect(() => {
     if (isCustom) {
-      onChange(`[직접입력]${customNote}`);
+      onChange(`직접입력${customNote}`);
     }
   }, [customNote]);
 
@@ -31,7 +31,7 @@ export default function ShippingNoteSelect({
         value={isCustom ? '직접입력' : value}
         onChange={(e) => {
           if (e.target.value === '직접입력') {
-            onChange('[직접입력]');
+            onChange('직접입력');
           } else {
             onChange(e.target.value);
           }

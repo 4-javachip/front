@@ -21,7 +21,7 @@ export default async function page() {
         addressForm.get('shippingNote') === '직접입력'
           ? addressForm.get('customNote')
           : addressForm.get('shippingNote'),
-      // defaulted: addressForm.get('defaulted') === 'on' ? true : false,
+      defaulted: addressForm.get('defaulted') === 'on' ? true : false,
     } as ShippingAddressDataType;
 
     console.log('폼데이터:', payload);
