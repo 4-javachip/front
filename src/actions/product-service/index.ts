@@ -1,5 +1,6 @@
 'use server';
 import {
+  PaginatedResponseType,
   ProductDescriptionType,
   ProductNameDataType,
   ProductOptionType,
@@ -26,7 +27,9 @@ export async function getProductListData() {
     throw new Error(errorData.message);
   }
 
-  const data = (await res.json()) as CommonResponseType<ProductNameDataType[]>;
+  const data = (await res.json()) as CommonResponseType<
+    PaginatedResponseType<ProductNameDataType[]>
+  >;
   return data.result;
 }
 

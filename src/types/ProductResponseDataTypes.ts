@@ -1,5 +1,5 @@
 export interface PaginatedResponseType<T> {
-  content: T[];
+  content: T;
   nextCursor: number;
   hasNext: boolean;
   pageSize: number;
@@ -9,6 +9,8 @@ export interface PaginatedResponseType<T> {
 export interface ProductNameDataType {
   productUuid: string;
   name: string;
+  best?: boolean;
+  new?: boolean;
 }
 
 export interface ProductThumbnailDataType {

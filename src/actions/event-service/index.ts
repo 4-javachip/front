@@ -32,7 +32,24 @@ export async function getEventProductDatasByEventUuid(eventUuid: string) {
     throw new Error(errorData.message);
   }
   const data = (await res.json()) as CommonResponseType<
-    PaginatedResponseType<EventProductType>
+    PaginatedResponseType<EventProductType[]>
   >;
+  return data.result;
+}
+
+export async function getEventDataByEventUuid(eventUuid: string) {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/event/${eventUuid}`,
+    {
+      method: 'GET',
+      cache: 'no-cache',
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error('Data Fetching failed:', errorData);
+    throw new Error(errorData.message);
+  }
+  const data = (await res.json()) as CommonResponseType<EventDataType>;
   return data.result;
 }
