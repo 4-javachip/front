@@ -72,7 +72,7 @@ export const getShippingAddressDatabyUuid = async (
   }
 
   const data =
-    (await res.json()) as commonResponseType<ShippingAddressDataType>;
+    (await res.json()) as CommonResponseType<ShippingAddressDataType>;
 
   return data.result;
 };
@@ -98,7 +98,7 @@ export const updateShippingAddress = async (value: ShippingAddressDataType) => {
     throw new Error(error.message || '배송지 수정 실패');
   }
   const data =
-    (await res.json()) as commonResponseType<ShippingAddressDataType>;
+    (await res.json()) as CommonResponseType<ShippingAddressDataType>;
   console.log(data);
   return data.result;
 };
@@ -123,7 +123,7 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
     throw new Error(error.message || '배송지 삭제 실패');
   }
   const data =
-    (await res.json()) as commonResponseType<ShippingAddressDataType>;
+    (await res.json()) as CommonResponseType<ShippingAddressDataType>;
   revalidateTag('getshippingAddressList');
 
   console.log(data);
