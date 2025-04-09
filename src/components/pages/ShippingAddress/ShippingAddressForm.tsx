@@ -6,26 +6,42 @@ import { shippingAddressSchema } from '@/schemas/shippingAddressSchema';
 import AddressInput from '@/components/ui/inputs/AddressInput';
 import CustomCheckBox from '@/components/ui/inputs/CustomCheckBox';
 import ShippingNote from './ShippingNote';
+import { CommonLayout } from '@/components/layouts/CommonLayout';
+import { useState, useEffect } from 'react';
+import SubmitButton from '@/components/ui/buttons/SubmitButton';
 
 interface Props {
   values: ShippingAddressDataType;
   errorMessages: Partial<ShippingAddressErrorType>;
-  isModalOpen: boolean;
   setValues: (values: ShippingAddressDataType) => void;
   setErrorMessages: (errors: Partial<ShippingAddressErrorType>) => void;
   setIsModalOpen: (open: boolean) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  action?: (addressForm: FormData) => Promise<void>;
+  isEdit?: boolean;
+  hideDefaultCheckbox?: boolean;
 }
 
 export default function ShippingAddressForm({
   values,
   errorMessages,
-  isModalOpen,
   setValues,
   setErrorMessages,
   setIsModalOpen,
-  onSubmit,
+  action,
+  isEdit,
+  hideDefaultCheckbox,
 }: Props) {
+  const [isFormValid, setIsFormValid] = useState(false);
+  useEffect(() => {
+    const res = shippingAddressSchema.safeParse(values);
+    if (res.success) {
+      setErrorMessages({});
+      setIsFormValid(true);
+      return;
+    }
+    setIsFormValid(false);
+  }, [values, setErrorMessages]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -42,13 +58,11 @@ export default function ShippingAddressForm({
         fieldErrors[fieldname] = error.message;
       });
       setErrorMessages(fieldErrors);
-    } else {
-      setErrorMessages({});
     }
   };
 
   return (
-    <form className="mt-[1.25rem] mb-[10rem]" onSubmit={onSubmit}>
+    <form className="mt-[1.25rem] mb-[10rem]" action={action}>
       <section className="space-y-[1.25rem] px-6">
         <AddressInput
           id="addressName"
@@ -90,6 +104,7 @@ export default function ShippingAddressForm({
         <AddressInput
           id="baseAddress"
           label="기본 주소 *"
+          name="baseAddress"
           readOnly
           value={values.baseAddress}
           onChange={handleChange}
@@ -129,20 +144,32 @@ export default function ShippingAddressForm({
         />
 
         <ShippingNote
-          value={values.shippingNote}
+          value={values.shippingNote || ''}
           onChange={(value) => setValues({ ...values, shippingNote: value })}
         />
-
-        <div className="flex items-center gap-1.5 pb-10">
-          <CustomCheckBox
-            label="기본배송지로 지정하기"
-            onChange={(e) =>
-              setValues({ ...values, defaulted: e.target.checked })
-            }
-            checked={values.defaulted}
-          />
-        </div>
+        {!hideDefaultCheckbox && (
+          <div className="flex items-center gap-1.5 pb-10">
+            <CustomCheckBox
+              name="defaulted"
+              label="기본배송지로 지정하기"
+              onChange={(e) =>
+                setValues({ ...values, defaulted: e.target.checked })
+              }
+              checked={values.defaulted || false}
+            />
+          </div>
+        )}
       </section>
+
+      <CommonLayout.FixedButtonBgLayout>
+        <SubmitButton
+          className="font-semibold"
+          type="submit"
+          isEnabled={isFormValid}
+        >
+          {isEdit ? '수정하기' : '등록하기'}
+        </SubmitButton>
+      </CommonLayout.FixedButtonBgLayout>
     </form>
   );
 }

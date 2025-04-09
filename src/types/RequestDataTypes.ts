@@ -14,6 +14,7 @@ export interface SignInDataType {
 }
 
 export interface ShippingAddressDataType {
+  shippingAddressUuid?: string;
   addressName: string;
   recipientName: string;
   zipCode: string;
@@ -21,6 +22,6 @@ export interface ShippingAddressDataType {
   detailAddress: string;
   phoneNumber: string;
   secondPhoneNumber: string;
-  shippingNote: string;
+  shippingNote?: string;
   defaulted: boolean;
 }

@@ -10,28 +10,28 @@ export default function ShippingNoteSelect({
   value,
   onChange,
 }: ShippingNoteSelectProps) {
-  const isCustom = value.startsWith('[직접입력]');
+  const isCustom = value && value.startsWith('직접입력');
 
   const [customNote, setCustomNote] = useState(
-    isCustom ? value.replace('[직접입력]', '') : ''
+    isCustom ? value.replace('직접입력', '') : ''
   );
 
-  // 직접입력일 경우 customNote로 반영
   useEffect(() => {
     if (isCustom) {
-      onChange(`[직접입력]${customNote}`);
+      onChange(`직접입력${customNote}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customNote]);
 
   return (
     <div className="space-y-2">
       <label className="font-medium text-[0.75rem]">배송메모</label>
       <select
+        id="shippingNote"
+        name="shippingNote"
         value={isCustom ? '직접입력' : value}
         onChange={(e) => {
           if (e.target.value === '직접입력') {
-            onChange('[직접입력]');
+            onChange('직접입력');
           } else {
             onChange(e.target.value);
           }
@@ -57,6 +57,7 @@ export default function ShippingNoteSelect({
       {isCustom && (
         <AddressInput
           id="customNote"
+          name="customNote"
           label=""
           placeholder="배송 시 요청사항을 기재해 주세요."
           value={customNote}

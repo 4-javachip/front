@@ -1,16 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 import DaumPostcodeModal from './DaumPostcodeModal';
-import { addShippingAddress } from '@/actions/shipping-address-service';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
-import { shippingAddressSchema } from '@/schemas/shippingAddressSchema';
 import { ShippingAddressErrorType } from '@/types/ErrorDataType';
 import ShippingAddressForm from './ShippingAddressForm';
+import { getShippingAddressList } from '@/actions/shipping-address-service';
+import Loader from '@/components/ui/loader';
 
-export default function AddShippingAddress() {
-  const router = useRouter();
+export default function AddShippingAddress({
+  action,
+}: {
+  action: (addressForm: FormData) => Promise<void>;
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [values, setValues] = useState<ShippingAddressDataType>({
     addressName: '',
@@ -28,6 +30,27 @@ export default function AddShippingAddress() {
     Partial<ShippingAddressErrorType>
   >({});
 
+  const [hideDefaultCheckbox, setHideDefaultCheckbox] = useState(false);
+  const [isloading, setisloading] = useState(false);
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        setisloading(true);
+        const response = await getShippingAddressList();
+        if (response.length === 0) {
+          setHideDefaultCheckbox(true);
+        } else {
+          setHideDefaultCheckbox(false);
+        }
+      } catch (error) {
+        console.error('주소 목록 불러오기 실패', error);
+      }
+      setisloading(false);
+    };
+
+    fetchAddresses();
+  }, []);
+
   const handleAddressSelect = (data: { zonecode: string; address: string }) => {
     setValues((prev) => ({
       ...prev,
@@ -36,38 +59,32 @@ export default function AddShippingAddress() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('데이터:', values);
-
-    try {
-      await addShippingAddress(values);
-
-      alert('배송지 등록이 완료되었습니다.');
-      router.push('/mypage');
-    } catch (error) {
-      console.error(error);
-      alert('배송지 등록에 실패했습니다.');
-    }
-  };
-
   return (
     <>
-      <ShippingAddressForm
-        values={values}
-        setValues={setValues}
-        errorMessages={errorMessages}
-        setErrorMessages={setErrorMessages}
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        onSubmit={handleSubmit}
-      />
-
-      {isModalOpen && (
-        <DaumPostcodeModal
-          onClose={() => setIsModalOpen(false)}
-          onComplete={handleAddressSelect}
-        />
+      {isloading ? (
+        <div className="flex justify-center items-center ">
+          <Loader size="10" />
+        </div>
+      ) : (
+        <>
+          {' '}
+          <ShippingAddressForm
+            values={values}
+            setValues={setValues}
+            errorMessages={errorMessages}
+            setErrorMessages={setErrorMessages}
+            setIsModalOpen={setIsModalOpen}
+            action={action}
+            isEdit={false}
+            hideDefaultCheckbox={hideDefaultCheckbox}
+          />
+          {isModalOpen && (
+            <DaumPostcodeModal
+              onClose={() => setIsModalOpen(false)}
+              onComplete={handleAddressSelect}
+            />
+          )}
+        </>
       )}
     </>
   );

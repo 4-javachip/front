@@ -1,20 +1,38 @@
-import { CommonLayout } from '@/components/layouts/CommonLayout';
+import { addShippingAddress } from '@/actions/shipping-address-service';
 import AddShippingAddress from '@/components/pages/ShippingAddress/AddShippingAddress';
-import CommonButton from '@/components/ui/buttons/CommonButton';
+import TextTitleH1 from '@/components/ui/texts/TextTitleH1';
+import { ShippingAddressDataType } from '@/types/RequestDataTypes';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
-export default function page() {
+export default async function page() {
+  const handleAddAddress = async (addressForm: FormData) => {
+    'use server';
+    console.log('서버에서 처리:', addressForm);
+    const payload = {
+      addressName: addressForm.get('addressName'),
+      recipientName: addressForm.get('recipientName'),
+      zipCode: addressForm.get('zipCode'),
+      baseAddress: addressForm.get('baseAddress'),
+      detailAddress: addressForm.get('detailAddress'),
+      phoneNumber: addressForm.get('phoneNumber'),
+      secondPhoneNumber: addressForm.get('secondPhoneNumber'),
+      shippingNote:
+        addressForm.get('shippingNote') === '직접입력'
+          ? addressForm.get('customNote')
+          : addressForm.get('shippingNote'),
+      defaulted: addressForm.get('defaulted') === 'on' ? true : false,
+    } as ShippingAddressDataType;
+
+    console.log('폼데이터:', payload);
+    await addShippingAddress(payload);
+
+    redirect('/shipping-addresses');
+  };
   return (
     <main>
-      <h1 className="py-[1.25rem] text-[1.625rem] font-semibold font-pretendard px-6">
-        배송지 정보
-      </h1>
-      <AddShippingAddress />
-      {/* <CommonLayout.FixedButtonBgLayout>
-        <CommonButton className="font-semibold" type="submit" isEnabled={true}>
-          등록하기
-        </CommonButton>
-      </CommonLayout.FixedButtonBgLayout> */}
+      <TextTitleH1 className="mb-4">배송지 추가</TextTitleH1>
+      <AddShippingAddress action={handleAddAddress} />
     </main>
   );
 }
