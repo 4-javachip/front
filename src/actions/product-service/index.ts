@@ -8,18 +8,20 @@ import {
 } from '@/types/ProductResponseDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 
-export async function getProductListData() {
-  //   {
-  //   page,
-  //   pageSize = '20',
-  // }: {
-  //   page: string;
-  //   pageSize?: string;
-  // }
-  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/product/list`, {
-    // next: { tags: ['getProducts', 'changePage'] },
-    cache: 'no-cache',
-  });
+export async function getProductListData({
+  cursor,
+}: {
+  cursor?: number;
+} = {}) {
+  const query = cursor !== undefined ? `?cursor=${cursor}` : '';
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/product/list${query}`,
+    {
+      // next: { tags: ['getProducts', 'changePage'] },
+      method: 'GET',
+      cache: 'no-cache',
+    }
+  );
 
   if (!res.ok) {
     const errorData = await res.json();
