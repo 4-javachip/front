@@ -8,6 +8,7 @@ export default async function ProductDetailPage({
   params: Promise<{ productUuid: string }>;
 }) {
   const productUuid = (await params).productUuid;
+  console.log(productUuid);
   const product = await getProductNameDataByProductUuid(productUuid);
 
   if (!product) {

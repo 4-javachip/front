@@ -9,8 +9,8 @@ export interface PaginatedResponseType<T> {
 export interface ProductNameDataType {
   productUuid: string;
   name: string;
-  best?: boolean;
-  new?: boolean;
+  best: boolean;
+  new: boolean;
 }
 
 export interface ProductThumbnailDataType {
@@ -43,4 +43,6 @@ export interface ProductInfoDataType {
   totalPrice: number;
   discountRate: number;
   description?: string;
+  best: boolean;
+  new: boolean;
 }

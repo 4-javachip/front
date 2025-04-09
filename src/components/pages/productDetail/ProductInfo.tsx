@@ -3,21 +3,22 @@ import ShareIcon from '@/components/ui/icons/ShareIcon';
 import { ProductInfoDataType } from '@/types/ProductResponseDataTypes';
 
 export default function ProductInfo({
-  // label,
   name,
   price,
   totalPrice,
   discountRate,
   description,
+  best: isBest,
+  new: isNew,
 }: ProductInfoDataType) {
   return (
     <section className="pt-6 font-pretendard">
       <div className="grid grid-flow-col gap-4">
         <h1 className="font-semibold text-[1.375rem] pb-4">
           <span className="pr-3">{name}</span>
-          {/* <span className="inline-flex">
-            <ProductLabelIcon isBest={label.isBest} isNew={label.isNew} />
-          </span> */}
+          <span className="inline-flex">
+            <ProductLabelIcon isBest={isBest} isNew={isNew} />
+          </span>
         </h1>
         <div className="justify-self-end">
           <ShareIcon />

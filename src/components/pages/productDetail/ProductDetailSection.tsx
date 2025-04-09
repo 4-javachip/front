@@ -1,4 +1,9 @@
-import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
+import {
+  ProductDescriptionType,
+  ProductNameDataType,
+  ProductOptionType,
+  ProductThumbnailDataType,
+} from '@/types/ProductResponseDataTypes';
 import PolicySection from './PolicySection';
 import ProductDesc from './ProductDesc';
 import ProductImg from './ProductImg';
@@ -14,12 +19,22 @@ export default async function ProductDetailSection({
 }: {
   product: ProductNameDataType;
 }) {
-  const thumbnails = await getThumbnailDatasByProductUuid(product.productUuid);
-  const options = await getOptionDatasByProductUuid(product.productUuid);
+  let thumbnails = [] as ProductThumbnailDataType[];
+  let options = [] as ProductOptionType[];
+  let description = {
+    productUuid: '',
+    description: '',
+    detailDescription: '',
+  } as ProductDescriptionType;
+
+  try {
+    thumbnails = await getThumbnailDatasByProductUuid(product.productUuid);
+    options = await getOptionDatasByProductUuid(product.productUuid);
+    description = await getDescriptionDataByProductUuid(product.productUuid);
+  } catch (error) {
+    console.log('데이터 페칭 에러');
+  }
   const option = options[0];
-  const description = await getDescriptionDataByProductUuid(
-    product.productUuid
-  );
 
   return (
     <>
@@ -31,6 +46,8 @@ export default async function ProductDetailSection({
           totalPrice={option.totalPrice}
           discountRate={option.discountRate}
           description={description.description}
+          best={product.best}
+          new={product.new}
         />
         <ProductDesc {...description} />
         <PolicySection />
