@@ -1,7 +1,7 @@
 'use server';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import {
-  commonResponseType,
+  CommonResponseType,
   ShippingAddressListType,
 } from '@/types/ResponseDataTypes';
 
@@ -67,7 +67,7 @@ export const getShippingAddressDatabyUuid = async (
   }
 
   const data =
-    (await res.json()) as commonResponseType<ShippingAddressDataType>;
+    (await res.json()) as CommonResponseType<ShippingAddressDataType>;
   console.log(data);
   return data.result;
 };

@@ -8,7 +8,7 @@ export default function TextCarousel({
   items,
   queryKey,
 }: {
-  items: { id: number; name: string }[];
+  items: { id: number | string; name: string }[];
   queryKey: string;
 }) {
   const { containerRef, onMouseDown, onMouseMove, onMouseUpOrLeave } =
@@ -16,15 +16,15 @@ export default function TextCarousel({
 
   const searchParams = useSearchParams();
   const router = useRouter();
-  const selectedCategoryId = Number(searchParams.get(queryKey));
+  const selectedCategoryId = searchParams.get(queryKey);
 
-  const handleSelect = (id: number | null) => {
+  const handleSelect = (id: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (id === null) {
       params.delete(queryKey);
     } else {
-      params.set(queryKey, String(id));
+      params.set(queryKey, id);
     }
 
     if (queryKey === 'category') {
@@ -57,8 +57,8 @@ export default function TextCarousel({
         <TextCarouselItem
           key={item.id}
           category={item.name}
-          isSelected={item.id === selectedCategoryId}
-          onClick={() => handleSelect(item.id)}
+          isSelected={String(item.id) === selectedCategoryId}
+          onClick={() => handleSelect(String(item.id))}
         />
       ))}
     </ul>

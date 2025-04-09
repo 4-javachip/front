@@ -8,8 +8,8 @@ export default function ProductInfo({
   price,
   totalPrice,
   discountRate,
-}: // description,
-ProductInfoDataType) {
+  description,
+}: ProductInfoDataType) {
   return (
     <section className="pt-6 font-pretendard">
       <div className="grid grid-flow-col gap-4">
@@ -24,9 +24,9 @@ ProductInfoDataType) {
         </div>
       </div>
 
-      {/* <p className="font-medium text-xs text-lightGray-10 pb-5">
+      <p className="font-medium text-xs text-lightGray-10 pb-5">
         {description}
-      </p> */}
+      </p>
 
       {totalPrice && discountRate != 0 ? (
         <>

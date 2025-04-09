@@ -2,7 +2,7 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import KakaoProvider from 'next-auth/providers/kakao';
 import GoogleProvider from 'next-auth/providers/google';
-import { commonResponseType, signInDataType } from '@/types/ResponseDataTypes';
+import { CommonResponseType, signInDataType } from '@/types/ResponseDataTypes';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -33,7 +33,7 @@ export const options: NextAuthOptions = {
           );
 
           const user =
-            (await response.json()) as commonResponseType<signInDataType>;
+            (await response.json()) as CommonResponseType<signInDataType>;
           console.log('user', user);
 
           if (!user.isSuccess) {

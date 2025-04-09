@@ -1,4 +1,4 @@
-export interface commonResponseType<T> {
+export interface CommonResponseType<T> {
   httpStatus: string;
   isSuccess: boolean;
   message: string;

@@ -1,3 +1,11 @@
+export interface PaginatedResponseType<T> {
+  content: T[];
+  nextCursor: number;
+  hasNext: boolean;
+  pageSize: number;
+  page: number;
+}
+
 export interface ProductNameDataType {
   productUuid: string;
   name: string;

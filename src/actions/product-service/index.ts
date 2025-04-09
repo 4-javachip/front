@@ -1,10 +1,11 @@
+'use server';
 import {
   ProductDescriptionType,
   ProductNameDataType,
   ProductOptionType,
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
-import { commonResponseType } from '@/types/ResponseDataTypes';
+import { CommonResponseType } from '@/types/ResponseDataTypes';
 
 export async function getProductListData() {
   //   {
@@ -25,7 +26,7 @@ export async function getProductListData() {
     throw new Error(errorData.message);
   }
 
-  const data = (await res.json()) as commonResponseType<ProductNameDataType[]>;
+  const data = (await res.json()) as CommonResponseType<ProductNameDataType[]>;
   return data.result;
 }
 
@@ -47,7 +48,7 @@ export async function getDefaultThumbnailDataByProductUuid(
   }
 
   const data =
-    (await res.json()) as commonResponseType<ProductThumbnailDataType>;
+    (await res.json()) as CommonResponseType<ProductThumbnailDataType>;
 
   return data.result;
 }
@@ -65,7 +66,7 @@ export async function getLowestOptionDataByProductUuid(productUuid: string) {
     console.error('Product Option Data Fetching failed:', errorData);
     throw new Error(errorData.message);
   }
-  const data = (await res.json()) as commonResponseType<ProductOptionType>;
+  const data = (await res.json()) as CommonResponseType<ProductOptionType>;
   return data.result;
 }
 
@@ -83,7 +84,7 @@ export async function getProductNameDataByProductUuid(productUuid: string) {
     console.error('Product Name Data Fetching failed:', errorData);
     throw new Error(errorData.message);
   }
-  const data = (await res.json()) as commonResponseType<ProductNameDataType>;
+  const data = (await res.json()) as CommonResponseType<ProductNameDataType>;
   return data.result;
 }
 
@@ -100,7 +101,7 @@ export async function getThumbnailDatasByProductUuid(productUuid: string) {
     console.error('Thumbnail Data Fetching failed:', errorData);
     throw new Error(errorData.message);
   }
-  const data = (await res.json()) as commonResponseType<
+  const data = (await res.json()) as CommonResponseType<
     ProductThumbnailDataType[]
   >;
   return data.result;
@@ -119,7 +120,7 @@ export async function getOptionDatasByProductUuid(productUuid: string) {
     console.error('Option Data Fetching failed:', errorData);
     throw new Error(errorData.message);
   }
-  const data = (await res.json()) as commonResponseType<ProductOptionType[]>;
+  const data = (await res.json()) as CommonResponseType<ProductOptionType[]>;
 
   return data.result;
 }
@@ -137,7 +138,7 @@ export async function getDescriptionDataByProductUuid(productUuid: string) {
     console.error('Description Data Fetching failed:', errorData);
     throw new Error(errorData.message);
   }
-  const data = (await res.json()) as commonResponseType<ProductDescriptionType>;
+  const data = (await res.json()) as CommonResponseType<ProductDescriptionType>;
 
   return data.result;
 }

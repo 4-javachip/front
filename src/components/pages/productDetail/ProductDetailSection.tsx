@@ -30,6 +30,7 @@ export default async function ProductDetailSection({
           price={option.price}
           totalPrice={option.totalPrice}
           discountRate={option.discountRate}
+          description={description.description}
         />
         <ProductDesc {...description} />
         <PolicySection />

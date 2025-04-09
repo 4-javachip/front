@@ -110,14 +110,15 @@ export default function BannerSlide({
         ))}
       </ul>
       <ul className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-        {slides.map((_, index) => (
-          <li
-            key={index}
-            className={`w-[0.59375rem] h-[0.59375rem] rounded-full transition-colors duration-300 cursor-pointer 
+        {slides.length > 1 &&
+          slides.map((_, index) => (
+            <li
+              key={index}
+              className={`w-[0.59375rem] h-[0.59375rem] rounded-full transition-colors duration-300 cursor-pointer 
               ${currentIndex === index ? 'bg-gray-2' : 'bg-white'}`}
-            onClick={() => handleDotClick(index)}
-          />
-        ))}
+              onClick={() => handleDotClick(index)}
+            />
+          ))}
       </ul>
     </section>
   );
