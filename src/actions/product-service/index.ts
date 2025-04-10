@@ -13,11 +13,12 @@ export async function getProductListData({
   page,
 }: {
   pageSize: number;
-  page?: number;
+  page: number;
 }) {
-  const query = page !== undefined ? `&page=${page}` : '';
+  // const query = page !== undefined ? `&page=${page}` : '';
+  console.log(pageSize, page);
   const res = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/product/list?pageSize=${pageSize}${query}`,
+    `${process.env.BASE_API_URL}/api/v1/product/list?pageSize=${pageSize}&page=${page}`,
     {
       method: 'GET',
       // cache: 'no-cache',
@@ -34,6 +35,7 @@ export async function getProductListData({
   const data = (await res.json()) as CommonResponseType<
     PaginatedResponseType<ProductNameDataType[]>
   >;
+  console.log(data);
   return data.result;
 }
 
