@@ -19,7 +19,9 @@ export const addShippingAddress = async (value: ShippingAddressDataType) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+
         'Authorization': `Bearer ${token}`,
+
       },
       body: JSON.stringify(value),
     }
@@ -45,7 +47,9 @@ export const getShippingAddressList = async (): Promise<
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+
         'Authorization': `Bearer ${token}`,
+
       },
       next: { tags: ['getshippingAddressList'] },
     }
@@ -94,7 +98,9 @@ export const updateShippingAddress = async (value: ShippingAddressDataType) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+
         'Authorization': `Bearer ${token}`,
+
       },
       body: JSON.stringify(value),
     }
@@ -119,7 +125,9 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+
         'Authorization': `Bearer ${token}`,
+
       },
       body: JSON.stringify({ shippingAddressUuid }),
     }
