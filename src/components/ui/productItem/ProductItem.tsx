@@ -14,7 +14,10 @@ import {
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
 import { useEffect, useState } from 'react';
-import ProductItemSkeleton from '../skeletons/ProductItemSkeleton';
+import ProductItemSkeleton, {
+  ItemPriceSkeleton,
+  ItemThumbSkeleton,
+} from '../skeletons/ProductItemSkeleton';
 
 export default function ProductlItem({
   productData,
@@ -48,30 +51,21 @@ export default function ProductlItem({
           size={size}
         />
       ) : (
-        <div
-          className="relative bg-lightGray-5 rounded-sm animate-pulse"
-          style={
-            size === 140
-              ? { width: size, height: size }
-              : { width: '100%', aspectRatio: '1 / 1' }
-          }
-        />
+        <ItemThumbSkeleton size={size} />
       )}
-
       <div className="flex flex-col gap-2">
-        {productData.best || productData.new ? (
-          <ProductLabelIcon isBest={productData.best} isNew={productData.new} />
-        ) : (
-          <div className="h-6 bg-lightGray-5 rounded-sm animate-pulse w-16" />
-        )}
-
-        {productData.name ? (
-          <ItemName id={productData.productUuid} name={productData.name} />
+        {productData.best || productData.new || productData.name ? (
+          <>
+            <ProductLabelIcon
+              isBest={productData.best}
+              isNew={productData.new}
+            />
+            <ItemName id={productData.productUuid} name={productData.name} />
+          </>
         ) : (
           <div className="h-6 bg-lightGray-5 rounded-sm animate-pulse w-2/3" />
         )}
       </div>
-
       {option ? (
         <ItemPrice
           price={option.price}
@@ -79,11 +73,7 @@ export default function ProductlItem({
           discountRate={option.discountRate}
         />
       ) : (
-        <div className="relative flex flex-col gap-1">
-          <div className="h-6 bg-lightGray-5 rounded-sm w-1/3 animate-pulse" />
-          <div className="h-6 bg-lightGray-5 rounded-sm w-1/2 animate-pulse" />
-          <div className="absolute bottom-0 right-0 h-6 w-10 bg-lightGray-5 rounded-sm animate-pulse" />
-        </div>
+        <ItemPriceSkeleton />
       )}
     </li>
   );
