@@ -1,35 +1,78 @@
+'use client';
+
 import {
   PaginatedResponseType,
   ProductNameDataType,
 } from '@/types/ProductResponseDataTypes';
 import ProductlItem from '../../ui/productItem/ProductItem';
-import { Suspense } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ProductItemSkeleton from '@/components/ui/skeletons/ProductItemSkeleton';
-import ScrollObserver from '@/components/ui/productItem/ProductScrollObserver';
+import { getProductListData } from '@/actions/product-service';
+import Loader from '@/components/ui/loader';
 
 export default function ProductList({
-  products,
-  cursor = 1,
+  initialProducts,
 }: {
-  products: PaginatedResponseType<ProductNameDataType[]>;
-  cursor?: number;
+  initialProducts: PaginatedResponseType<ProductNameDataType[]>;
 }) {
-  const data = products.content;
-  const nextCursor = products.nextCursor;
-  const hasNext = products.hasNext;
+  const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState(initialProducts.content);
+  const [page, setPage] = useState(2);
+  const [pageSize, setPageSize] = useState(initialProducts.pageSize);
+  const [hasNext, setHasNext] = useState(initialProducts.hasNext);
+
+  const loaderRef = useRef<HTMLDivElement>(null);
+
+  const loadMore = async () => {
+    if (!hasNext) return;
+
+    setIsLoading(true);
+    const newData = await getProductListData({
+      pageSize: pageSize,
+      page: page,
+    });
+    console.log(page, newData);
+    setProducts((prev) => [...prev, ...newData.content]);
+    setPage((prev) => prev + 1);
+    setHasNext(newData.hasNext);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        loadMore();
+      }
+    });
+
+    const ref = loaderRef.current;
+    if (ref) observer.observe(ref);
+
+    return () => {
+      if (ref) observer.unobserve(ref);
+    };
+  }, [loaderRef, page, hasNext]);
+
   return (
-    <section className="padded py-6 flex justify-center">
+    <section className="padded py-6 flex justify-center flex-col">
       <ul className="w-full grid grid-cols-2 gap-4">
-        {data.map((product) => (
-          <Suspense
-            fallback={<ProductItemSkeleton size={800} />}
+        {products.map((product) => (
+          <ProductlItem
             key={product.productUuid}
-          >
-            <ProductlItem productData={product} size={800} />
-          </Suspense>
+            productData={product}
+            size={800}
+          />
         ))}
-        {hasNext && <ScrollObserver cursor={nextCursor} />}
+        {isLoading &&
+          Array.from({ length: pageSize }).map((_, index) => (
+            <ProductItemSkeleton size={800} key={index} />
+          ))}
       </ul>
+      {hasNext && (
+        <div ref={loaderRef} className="h-10 pt-3 w-full flex justify-center">
+          <Loader size="8" />
+        </div>
+      )}
     </section>
   );
 }

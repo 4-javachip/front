@@ -33,7 +33,7 @@ export default async function EventSection({
         height={300}
       />
       {/* 기획전 유의사항 */}
-      <ProductList products={productNameDataList} />
+      {/* <ProductList products={productNameDataList} /> */}
     </>
   );
 }

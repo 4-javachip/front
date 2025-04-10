@@ -1,6 +1,6 @@
 export interface PaginatedResponseType<T> {
   content: T;
-  nextCursor: number;
+  nextCursor?: number;
   hasNext: boolean;
   pageSize: number;
   page: number;

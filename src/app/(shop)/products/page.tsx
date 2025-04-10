@@ -5,20 +5,19 @@ import ProductSortMenu from '@/components/pages/products/ProductSortMenu';
 export default async function ProductListPage({
   searchParams,
 }: {
-  searchParams: Promise<{ cursor: number }>;
+  searchParams: Promise<{ page: string }>;
 }) {
-  const { cursor } = await searchParams;
-  let productsData;
-  if (cursor === undefined || '') {
-    productsData = await getProductListData();
-  } else {
-    productsData = await getProductListData({ cursor });
-  }
-  // console.log(productsData);
+  const { page } = await searchParams;
+  const pageSize = 4;
+  const productsData = await getProductListData({
+    pageSize: Number(pageSize),
+    page: Number(page) || 1,
+  });
+
   return (
     <main>
       <ProductSortMenu />
-      <ProductList products={productsData} />
+      <ProductList initialProducts={productsData} />
     </main>
   );
 }
