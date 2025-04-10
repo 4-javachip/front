@@ -8,18 +8,22 @@ import {
 } from '@/types/ProductResponseDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 
-export async function getProductListData() {
-  //   {
-  //   page,
-  //   pageSize = '20',
-  // }: {
-  //   page: string;
-  //   pageSize?: string;
-  // }
-  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/product/list`, {
-    // next: { tags: ['getProducts', 'changePage'] },
-    cache: 'no-cache',
-  });
+export async function getProductListData({
+  pageSize,
+  page,
+}: {
+  pageSize: number;
+  page?: number;
+}) {
+  const query = page !== undefined ? `&page=${page}` : '';
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/product/list?pageSize=${pageSize}${query}`,
+    {
+      method: 'GET',
+      // cache: 'no-cache',
+      next: { tags: ['getProducts', 'changePage'] },
+    }
+  );
 
   if (!res.ok) {
     const errorData = await res.json();
@@ -40,7 +44,7 @@ export async function getDefaultThumbnailDataByProductUuid(
     `${process.env.BASE_API_URL}/api/v1/product/thumbnail/default/${productUuid}`,
     {
       method: 'GET',
-      cache: 'no-cache',
+      cache: 'force-cache',
     }
   );
 
@@ -61,7 +65,7 @@ export async function getLowestOptionDataByProductUuid(productUuid: string) {
     `${process.env.BASE_API_URL}/api/v1/product/option/search?productUuid=${productUuid}`,
     {
       method: 'GET',
-      cache: 'no-cache',
+      cache: 'force-cache',
     }
   );
   if (!res.ok) {

@@ -64,9 +64,26 @@ export default function OauthLoginButtons() {
         </svg>
         Google 계정으로 로그인
       </Button>
-      {/* <Button type="button" name="naver" onClick={handleOauthLogin}>
-        Naver Login
-      </Button> */}
+      <Button
+        type="button"
+        name="naver"
+        onClick={handleOauthLogin}
+        className="bg-[#03c75a] hover:bg-[#03c75a] cursor-pointer"
+      >
+        <svg
+          width="800px"
+          height="800px"
+          viewBox="0 0 512 512"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill="#FFFFFF"
+            d="M9 32V480H181.366V255.862L331.358 480H504V32H331.358V255.862L181.366 32H9Z"
+          ></path>
+        </svg>
+        네이버 로그인
+      </Button>
     </div>
   );
 }
