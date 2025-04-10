@@ -5,9 +5,9 @@ import { CommonLayout } from '@/components/layouts/CommonLayout';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import { ShippingAddressListType } from '@/types/ResponseDataTypes';
 import EmptyAddress from './EmptyAddress';
-import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useRouter } from 'next/navigation';
 import { deleteShippingAddress } from '@/actions/shipping-address-service';
+import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 
 interface ShippingAddressItemProps {
   address: ShippingAddressDataType;
@@ -21,6 +21,9 @@ export default function ShippingAddressList({
 }) {
   const addressLength = address.length;
   const router = useRouter();
+
+  const maxAddressLimit = 10;
+  const isAddButtonDisalbed = addressLength >= maxAddressLimit;
 
   const sortedAddress = address.sort((a, b) => {
     if (a.addressList.defaulted && !b.addressList.defaulted) return -1;
@@ -36,7 +39,7 @@ export default function ShippingAddressList({
     }
   };
   return (
-    <main className="w-full bg-background text-sm pt-6 ">
+    <main className="w-full bg-background text-sm pt-6 py-24">
       <CommonLayout.SectionInnerPadding>
         {addressLength === 0 ? (
           <EmptyAddress />
@@ -99,15 +102,16 @@ export default function ShippingAddressList({
           </ul>
         )}
       </CommonLayout.SectionInnerPadding>
-      <CommonLayout.FixedButtonBgLayout>
-        <CommonButton
-          className="font-semibold"
-          isEnabled={true}
-          onClick={() => router.push('/shipping-add')}
-        >
-          +새로운배송지추가
-        </CommonButton>
-      </CommonLayout.FixedButtonBgLayout>
+
+      <ConfirmNextButton
+        className="font-semibold"
+        isEnabled={() => !isAddButtonDisalbed}
+        onClick={() => router.push('/shipping-add')}
+      >
+        {isAddButtonDisalbed
+          ? '최대 배송지 등록은 10개 까지 입니다 '
+          : '+새로운배송지추가'}
+      </ConfirmNextButton>
     </main>
   );
 }
