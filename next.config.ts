@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       'dummyimage.com',
       'sitem.ssgcdn.com',
       'sui.ssgcdn.com',
+      'simg.ssgcdn.com',
     ],
   },
 };

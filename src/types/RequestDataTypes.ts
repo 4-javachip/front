@@ -25,3 +25,8 @@ export interface ShippingAddressDataType {
   shippingNote?: string;
   defaulted: boolean;
 }
+
+export interface UserAgreementType {
+  agreementId: number;
+  agreed: boolean;
+}

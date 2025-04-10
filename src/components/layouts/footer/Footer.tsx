@@ -3,7 +3,7 @@ import FooterPolicyLinks from './FooterPolicyLinks';
 
 export default function Footer() {
   return (
-    <footer className="fixed bottom-0 mt-10 w-full pb-25 max-w-[var(--base-w)] mx-auto">
+    <footer className=" mt-10 w-full pb-25 max-w-[var(--base-w)] mx-auto">
       <div>
         <FooterPolicyLinks />
 

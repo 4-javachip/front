@@ -10,7 +10,6 @@ import { deleteShippingAddress } from '@/actions/shipping-address-service';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import DefaultIcon from '@/components/ui/icons/DefaultIcon';
 
-
 interface ShippingAddressItemProps {
   address: ShippingAddressDataType;
   addressList: ShippingAddressListType;
@@ -24,7 +23,7 @@ export default function ShippingAddressList({
   const addressLength = address.length;
   const router = useRouter();
 
-  const maxAddressLimit = 10;
+  const maxAddressLimit = 5;
   const isAddButtonDisalbed = addressLength >= maxAddressLimit;
 
   const sortedAddress = address.sort((a, b) => {

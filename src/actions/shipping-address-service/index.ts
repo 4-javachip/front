@@ -8,10 +8,12 @@ import { revalidateTag } from 'next/cache';
 import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 
-const session = await getServerSession(options);
-const token = (await session?.user.accessToken) || session?.user.refreshToken;
+// const session = await getServerSession(options);
+// const token = (await session?.user.accessToken) || session?.user.refreshToken;
 
 export const addShippingAddress = async (value: ShippingAddressDataType) => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
   console.log('토큰', token);
   const response = await fetch(
     `${process.env.BASE_API_URL}/api/v1/shipping-address`,
@@ -21,7 +23,6 @@ export const addShippingAddress = async (value: ShippingAddressDataType) => {
         'Content-Type': 'application/json',
 
         'Authorization': `Bearer ${token}`,
-
       },
       body: JSON.stringify(value),
     }
@@ -39,6 +40,8 @@ export const addShippingAddress = async (value: ShippingAddressDataType) => {
 export const getShippingAddressList = async (): Promise<
   ShippingAddressListType[]
 > => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
   console.log('리프레쉬 토큰 ', session?.user.refreshToken);
   console.log('토큰 ', token);
   const res = await fetch(
@@ -47,9 +50,7 @@ export const getShippingAddressList = async (): Promise<
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-
         'Authorization': `Bearer ${token}`,
-
       },
       next: { tags: ['getshippingAddressList'] },
     }
@@ -65,6 +66,7 @@ export const getShippingAddressList = async (): Promise<
   return data.result;
 };
 
+//배송지 상세 조회
 export const getShippingAddressDatabyUuid = async (
   shippingAddressUuid: string
 ) => {
@@ -85,11 +87,12 @@ export const getShippingAddressDatabyUuid = async (
 
   const data =
     (await res.json()) as CommonResponseType<ShippingAddressDataType>;
-
   return data.result;
 };
 
 export const updateShippingAddress = async (value: ShippingAddressDataType) => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
   console.log('배송지 수정 요청:', value);
   console.log('토큰', token);
   const res = await fetch(
@@ -98,9 +101,7 @@ export const updateShippingAddress = async (value: ShippingAddressDataType) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-
         'Authorization': `Bearer ${token}`,
-
       },
       body: JSON.stringify(value),
     }
@@ -117,6 +118,8 @@ export const updateShippingAddress = async (value: ShippingAddressDataType) => {
 };
 
 export const deleteShippingAddress = async (shippingAddressUuid: string) => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
   console.log('배송지 삭제 요청:', shippingAddressUuid);
 
   const res = await fetch(
@@ -127,7 +130,6 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
         'Content-Type': 'application/json',
 
         'Authorization': `Bearer ${token}`,
-
       },
       body: JSON.stringify({ shippingAddressUuid }),
     }
@@ -140,5 +142,25 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
     (await res.json()) as CommonResponseType<ShippingAddressDataType>;
   revalidateTag('getshippingAddressList');
   console.log(data);
+  return data.result;
+};
+
+export const shippingAddressAgreement = async () => {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/shipping-address/agreement`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || '배송지 동의서 조회 실패');
+  }
+
+  const data = await res.json();
   return data.result;
 };
