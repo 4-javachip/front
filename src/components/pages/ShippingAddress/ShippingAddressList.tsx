@@ -8,6 +8,7 @@ import EmptyAddress from './EmptyAddress';
 import { useRouter } from 'next/navigation';
 import { deleteShippingAddress } from '@/actions/shipping-address-service';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
+import DefaultIcon from '@/components/ui/icons/DefaultIcon';
 
 interface ShippingAddressItemProps {
   address: ShippingAddressDataType;
@@ -55,13 +56,7 @@ export default function ShippingAddressList({
                           {address.addressName} ({address.recipientName})
                         </strong>
                       </li>
-                      {addressList.defaulted && (
-                        <li>
-                          <span className="inline-flex items-center text-[10px] text-green px-1 py-0.5 bg-emerald-50">
-                            기본
-                          </span>
-                        </li>
-                      )}
+                      {addressList.defaulted && <DefaultIcon />}
                     </ul>
 
                     <address className="not-italic font-light text-sm text-foreground">
