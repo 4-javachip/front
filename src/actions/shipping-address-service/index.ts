@@ -13,10 +13,10 @@ export const addShippingAddress = async (value: ShippingAddressDataType) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${
-        //   process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
-        // }`,
-        'userUuid': ' test-2',
+        'Authorization': `Bearer ${
+          process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
+        }`,
+        // 'userUuid': ' test-2',
       },
       body: JSON.stringify(value),
     }
@@ -38,10 +38,10 @@ export const getShippingAddressList = async (): Promise<
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${
-        //   process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
-        // }`,
-        'userUuid': ' test-2',
+        'Authorization': `Bearer ${
+          process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
+        }`,
+        // 'userUuid': ' test-2',
       },
       next: { tags: ['getshippingAddressList'] },
     }
@@ -87,10 +87,10 @@ export const updateShippingAddress = async (value: ShippingAddressDataType) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${
-        //   process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
-        // }`,
-        'userUuid': ' test-2',
+        'Authorization': `Bearer ${
+          process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
+        }`,
+        // 'userUuid': ' test-2',
       },
       body: JSON.stringify(value),
     }
@@ -114,10 +114,10 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${
-        //   process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
-        // }`,
-        'userUuid': ' test-2',
+        'Authorization': `Bearer ${
+          process.env.ACCESS_TOKEN || process.env.REFRESH_TOKEN
+        }`,
+        // 'userUuid': ' test-2',
       },
       body: JSON.stringify({ shippingAddressUuid }),
     }
