@@ -11,7 +11,7 @@ export default function ProductList() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const pageSize = 6;
+  const pageSize = 20;
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   const initialPage = Number(searchParams.get('page')) || 1;
@@ -28,11 +28,11 @@ export default function ProductList() {
       const res = await getProductListData({ pageSize, page });
 
       // 중복 제거
-      // const newItems = res.content.filter(
-      //   (item) => !products.some((p) => p.productUuid === item.productUuid)
-      // );
+      const newItems = res.content.filter(
+        (item) => !products.some((p) => p.productUuid === item.productUuid)
+      );
 
-      setProducts((prev) => [...prev, ...res.content]);
+      setProducts((prev) => [...prev, ...newItems]);
       setHasMore(res.hasNext);
       setIsLoading(false);
     };
