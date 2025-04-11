@@ -26,7 +26,8 @@ export default function ProductInfo({
       </div>
 
       <p className="font-medium text-xs text-lightGray-10 pb-5">
-        {description}
+        {/* {description} */}
+        {name}
       </p>
 
       {totalPrice && discountRate != 0 ? (
