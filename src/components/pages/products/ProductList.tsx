@@ -28,11 +28,11 @@ export default function ProductList() {
       const res = await getProductListData({ pageSize, page });
 
       // 중복 제거
-      const newItems = res.content.filter(
-        (item) => !products.some((p) => p.productUuid === item.productUuid)
-      );
+      // const newItems = res.content.filter(
+      //   (item) => !products.some((p) => p.productUuid === item.productUuid)
+      // );
 
-      setProducts((prev) => [...prev, ...newItems]);
+      setProducts((prev) => [...prev, ...res.content]);
       setHasMore(res.hasNext);
       setIsLoading(false);
     };
@@ -72,7 +72,7 @@ export default function ProductList() {
           />
         ))}
       </ul>
-      <div ref={loaderRef} className="h-10 pt-10 w-full flex justify-center">
+      <div ref={loaderRef} className="h-10 pt-4 w-full flex justify-center">
         {isLoading && <Loader size="8" />}
       </div>
     </section>
