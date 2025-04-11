@@ -7,8 +7,6 @@ import TextTitleH1 from '@/components/ui/texts/TextTitleH1';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import { redirect } from 'next/navigation';
 
-import React from 'react';
-
 export default async function Page({
   params,
 }: {

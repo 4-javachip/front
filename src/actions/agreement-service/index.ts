@@ -88,13 +88,14 @@ export const getUserShippingAddressAgreement = async (): Promise<
     }
   );
 
-  const data = (await res.json()) as CommonResponseType<UserAgreementType[]>;
-  console.log('배송지 정보 수집 및 이용 동의 여부 응답:', data);
-
-  if (!data.isSuccess) {
-    return [] as UserAgreementType[];
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(
+      errorData.message || '배송지 정보 수집 및 이용 동의 내용 조회 실패'
+    );
   }
 
-  // ✅ 성공 시 실제 동의 정보 반환
+  const data = (await res.json()) as CommonResponseType<UserAgreementType[]>;
+
   return data.result;
 };

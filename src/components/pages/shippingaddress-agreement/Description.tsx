@@ -1,10 +1,10 @@
-import { ShipingAddressAGgreementType } from '@/types/AgreementDataType';
+import { shippingAddressAgreementType } from '@/types/ResponseDataTypes';
 import React from 'react';
 
 export default function Description({
   agreement,
 }: {
-  agreement: ShipingAddressAGgreementType;
+  agreement: shippingAddressAgreementType;
 }) {
   return (
     <div>
