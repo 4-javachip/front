@@ -4,16 +4,20 @@ import {
 } from '@/actions/agreement-service';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import Description from '@/components/pages/shippingaddress-agreement/Description';
-import SATTop from '@/components/pages/shippingaddress-agreement/SATTop';
+import ShippingAddressAgreementHeader from '@/components/pages/shippingaddress-agreement/ShippingAddressAgreementHeader';
 
-import React from 'react';
+export default async function page() {
+  const [agreements, userAgreed] = await Promise.all([
+    getShippingAddressAgreement(),
+    getUserShippingAddressAgreement(),
+  ]);
 
-const agreements = await getShippingAddressAgreement();
-const userAgreed = await getUserShippingAddressAgreement();
-export default function page() {
   return (
     <main>
-      <SATTop userAgreed={userAgreed} />
+      <ShippingAddressAgreementHeader
+        userAgreed={userAgreed}
+        agreementId={agreements[0].id}
+      />
       <CommonLayout.SectionInnerPadding>
         {agreements.map((agreement) => (
           <Description key={agreement.id} agreement={agreement} />

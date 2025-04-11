@@ -1,25 +1,29 @@
 'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import {
-  ShipingAddressAGgreementType,
+  ShipingAddressAgreementType,
   UserAgreementType,
+  userShippingAgreementRequestType,
 } from '@/types/AgreementDataType';
 
 import { AgreementType, CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
+import { revalidateTag } from 'next/cache';
 const session = await getServerSession(options);
 const token = (await session?.user.accessToken) || session?.user.refreshToken;
 
 //배송지 동의 & 비동의
-export const Agreement = async (Agreement: AgreementType) => {
-  console.log('배송지 정보 수집 및 이용 동의 여부 요청:', Agreement);
+export const userAgreement = async (
+  payload: userShippingAgreementRequestType
+) => {
+  // console.log('배송지 정보 수집 및 이용 동의 여부 요청:', Agreement);
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/user-agreement`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify(Agreement),
+    body: JSON.stringify(payload),
   });
 
   if (!res.ok) {
@@ -30,13 +34,15 @@ export const Agreement = async (Agreement: AgreementType) => {
   }
 
   const data = (await res.json()) as CommonResponseType<AgreementType>;
+  revalidateTag('get-user-agreement');
+  console.log('배송지 정보 수집 및 이용 동의 여부 응답:', data);
 
   return data.result;
 };
 
 //배송지 약관 내용 조회
 export const getShippingAddressAgreement = async (): Promise<
-  ShipingAddressAGgreementType[]
+  ShipingAddressAgreementType[]
 > => {
   console.log('배송지 정보 수집 및 이용 동의 내용 조회 요청');
   const res = await fetch(
@@ -48,6 +54,7 @@ export const getShippingAddressAgreement = async (): Promise<
       },
     }
   );
+  console.log('배송지 정보 수집 및 이용 동의 내용 조회 응답:', res);
 
   if (!res.ok) {
     const errorData = await res.json();
@@ -57,7 +64,7 @@ export const getShippingAddressAgreement = async (): Promise<
   }
 
   const data = (await res.json()) as CommonResponseType<
-    ShipingAddressAGgreementType[]
+    ShipingAddressAgreementType[]
   >;
 
   return data.result;
@@ -77,21 +84,15 @@ export const getUserShippingAddressAgreement = async (): Promise<
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      cache: 'no-store',
+      next: { tags: ['get-user-agreement'] },
     }
   );
 
   const data = (await res.json()) as CommonResponseType<UserAgreementType[]>;
+  console.log('배송지 정보 수집 및 이용 동의 여부 응답:', data);
 
   if (!data.isSuccess) {
-    return [
-      {
-        agreementId: 1,
-        agreed: false,
-        userUuid: '',
-        userAgreementUuid: '',
-      },
-    ];
+    return [] as UserAgreementType[];
   }
 
   // ✅ 성공 시 실제 동의 정보 반환

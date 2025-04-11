@@ -1,6 +1,6 @@
 import { AgreementTypeEnum } from './ResponseDataTypes';
 
-export interface ShipingAddressAGgreementType {
+export interface ShipingAddressAgreementType {
   id: number;
   name: string;
   description: string;
@@ -17,7 +17,7 @@ export interface UserAgreementType {
 }
 
 // 약관 동의 비동의 여부
-export interface AgreementType {
+export interface userShippingAgreementRequestType {
   agreementId: number;
   agreed: boolean;
 }
