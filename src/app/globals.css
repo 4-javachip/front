@@ -227,3 +227,12 @@
     font-family: var(--font-body);
   }
 }
+
+.inner-html img {
+  width: 100% !important;
+  height: auto !important;
+}
+
+button.btn_a11y {
+  display: none !important;
+}

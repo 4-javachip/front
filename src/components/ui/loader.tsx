@@ -1,6 +1,6 @@
 export default function Loader({ size }: { size?: string }) {
   return (
-    <div>
+    <div className="w-full mx-auto">
       <div role="status">
         <svg
           aria-hidden="true"

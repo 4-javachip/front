@@ -1,53 +1,58 @@
 'use client';
 
 import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
-import ProductlItem from '../../ui/productItem/ProductItem';
-import React, { useEffect, useRef, useState } from 'react';
+import ProductItem from '../../ui/productItem/ProductItem';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { getProductListData } from '@/actions/product-service';
 import Loader from '@/components/ui/loader';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-export default function ProductList() {
-  const searchParams = useSearchParams();
+export default function ProductList({
+  initialProducts,
+  initialHasNext,
+  pageSize,
+  page,
+}: {
+  initialProducts: ProductNameDataType[];
+  initialHasNext: boolean;
+  pageSize: number;
+  page: number;
+}) {
   const router = useRouter();
-
-  const pageSize = 6;
-  const loaderRef = useRef<HTMLDivElement | null>(null);
-
-  const initialPage = Number(searchParams.get('page')) || 1;
-
-  const [page, setPage] = useState(initialPage);
-  const [products, setProducts] = useState<ProductNameDataType[]>([]);
+  const [products, setProducts] = useState(initialProducts);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(initialHasNext);
+  const loaderRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    console.log('Fetching data for page:', page);
+    try {
       const res = await getProductListData({ pageSize, page });
-
-      // 중복 제거
-      // const newItems = res.content.filter(
-      //   (item) => !products.some((p) => p.productUuid === item.productUuid)
-      // );
+      console.log('Fetched data:', res);
 
       setProducts((prev) => [...prev, ...res.content]);
       setHasMore(res.hasNext);
+    } catch (error) {
+      console.error('Failed to fetch product data:', error);
+    } finally {
       setIsLoading(false);
-    };
+    }
+  }, [page, pageSize]);
 
-    fetchData();
-  }, [page]);
+  useEffect(() => {
+    if (page > 1) {
+      fetchData();
+    }
+  }, [page, fetchData]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        console.log('entries', entries);
         const entry = entries[0];
-        if (entry.isIntersecting && !isLoading && hasMore) {
-          const nextPage = page + 1;
-          setPage(nextPage);
-          router.push(`/products?page=${nextPage}`, { scroll: false });
+        if (entry.isIntersecting) {
+          router.push(`/products?page=${page + 1}`, { scroll: false });
         }
       },
       { threshold: 1 }
@@ -59,22 +64,24 @@ export default function ProductList() {
     return () => {
       if (current) observer.unobserve(current);
     };
-  }, [loaderRef, isLoading, hasMore, page, router]);
+  }, [isLoading, hasMore, router, page]);
 
   return (
     <section className="padded py-6 flex justify-center flex-col">
       <ul className="w-full grid grid-cols-2 gap-4 min-h-[80vh]">
         {products.map((product) => (
-          <ProductlItem
+          <ProductItem
             key={product.productUuid}
             productData={product}
             size={800}
           />
         ))}
       </ul>
-      <div ref={loaderRef} className="h-10 pt-10 w-full flex justify-center">
-        {isLoading && <Loader size="8" />}
-      </div>
+
+      {!isLoading && hasMore && (
+        <div className="w-full flex justify-center h-10" ref={loaderRef} />
+      )}
+      {isLoading && <Loader size="10" />}
     </section>
   );
 }
