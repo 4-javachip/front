@@ -46,7 +46,7 @@ export default function MyPageMenu() {
         <li className=" font-semibold pt-3 pb-5.5">설정</li>
         <li className="font-medium text-foreground flex gap-2 pb-8">
           <Link
-            href="/mypage/address-agreement"
+            href="/shippingaddress-agreement"
             className="flex gap-2 items-center"
           >
             <AddressAgreementIcon /> 배송지 정보 수집 및 이용 동의

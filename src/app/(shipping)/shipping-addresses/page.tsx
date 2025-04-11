@@ -7,6 +7,7 @@ import ShippingAddressList from '@/components/pages/ShippingAddress/ShippingAddr
 import React from 'react';
 
 export default async function page() {
+  'use server';
   const list = await getShippingAddressList();
   const fullData = await Promise.all(
     list.map(async (item) => {
