@@ -19,6 +19,7 @@ export default function ItemThumb({
   return (
     <Link
       href={`product/${productUuid}`}
+      target="_blank"
       className="relative bg-lightGray-4 rounded-sm
     cursor-pointer"
       style={style}

@@ -6,12 +6,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getProductListData } from '@/actions/product-service';
 import Loader from '@/components/ui/loader';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { CategoryMenuType } from '@/types/ResponseDataTypes';
+import { getProductDataType } from '@/types/RequestDataTypes';
 
-export default function ProductList() {
+export default function ProductList({
+  params,
+}: {
+  params?: getProductDataType;
+}) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const pageSize = 6;
+  const pageSize = 20;
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   const initialPage = Number(searchParams.get('page')) || 1;
@@ -25,14 +31,23 @@ export default function ProductList() {
     const fetchData = async () => {
       setIsLoading(true);
 
-      const res = await getProductListData({ pageSize, page });
+      const res = await getProductListData({
+        pageSize,
+        page,
+        categoryId: params?.categoryId,
+        sortType: params?.sortType,
+        keyword: params?.keyword,
+        subCategoryId: params?.subCategoryId,
+        seasonId: params?.seasonId,
+      });
+      console.log(res);
 
-      // 중복 제거
-      // const newItems = res.content.filter(
-      //   (item) => !products.some((p) => p.productUuid === item.productUuid)
-      // );
-
-      setProducts((prev) => [...prev, ...res.content]);
+      setProducts((prev) => {
+        const newItems = res.content.filter(
+          (item) => !prev.some((p) => p.productUuid === item.productUuid)
+        );
+        return [...prev, ...newItems];
+      });
       setHasMore(res.hasNext);
       setIsLoading(false);
     };
@@ -72,7 +87,7 @@ export default function ProductList() {
           />
         ))}
       </ul>
-      <div ref={loaderRef} className="h-10 pt-10 w-full flex justify-center">
+      <div ref={loaderRef} className="h-10 pt-4 w-full flex justify-center">
         {isLoading && <Loader size="8" />}
       </div>
     </section>

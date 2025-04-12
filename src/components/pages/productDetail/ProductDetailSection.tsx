@@ -39,7 +39,7 @@ export default async function ProductDetailSection({
   return (
     <>
       <ProductImg thumbnails={thumbnails} />
-      <div className="flex flex-col gap-10 padded">
+      <div className="flex flex-col gap-10">
         <ProductInfo
           name={product.name}
           price={option.price}
@@ -49,7 +49,9 @@ export default async function ProductDetailSection({
           best={product.best}
           new={product.new}
         />
+        <hr />
         <ProductDesc {...description} />
+        <hr />
         <PolicySection />
       </div>
     </>

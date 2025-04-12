@@ -115,6 +115,7 @@ export default function BannerSlide({
             <li
               key={index}
               className={`w-[0.59375rem] h-[0.59375rem] rounded-full transition-colors duration-300 cursor-pointer 
+                shadow-md
               ${currentIndex === index ? 'bg-gray-2' : 'bg-white'}`}
               onClick={() => handleDotClick(index)}
             />

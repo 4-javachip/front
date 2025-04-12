@@ -6,25 +6,28 @@ import {
   ProductOptionType,
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
+import { getProductDataType } from '@/types/RequestDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 
-export async function getProductListData({
-  pageSize,
-  page,
-}: {
-  pageSize: number;
-  page: number;
-}) {
-  // const query = page !== undefined ? `&page=${page}` : '';
-  console.log(pageSize, page);
+export async function getProductListData(params: getProductDataType) {
+  const queryString = params
+    ? Object.entries(params)
+        .reduce((acc, [key, value]) => {
+          if (value !== undefined) acc.append(key, String(value));
+          return acc;
+        }, new URLSearchParams())
+        .toString()
+    : '';
+
   const res = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/product/list?pageSize=${pageSize}&page=${page}`,
+    `${process.env.BASE_API_URL}/api/v1/product/list?${queryString}`,
     {
       method: 'GET',
       // cache: 'no-cache',
-      next: { tags: ['getProducts', 'changePage'] },
+      // next: { tags: ['getProducts', 'changePage'] },
     }
   );
+  console.log(res);
 
   if (!res.ok) {
     const errorData = await res.json();

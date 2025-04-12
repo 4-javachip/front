@@ -13,8 +13,10 @@ const PageNavBar = () => {
 
   useEffect(() => {
     const getEventData = async () => {
-      const eventsData = await getEventDatas();
-      setEventLinkId(eventsData[0].eventUuid);
+      try {
+        const eventsData = await getEventDatas();
+        setEventLinkId(eventsData[0].eventUuid);
+      } catch (error) {}
     };
 
     getEventData();
