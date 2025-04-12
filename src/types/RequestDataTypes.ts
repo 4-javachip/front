@@ -26,6 +26,17 @@ export interface ShippingAddressDataType {
   defaulted: boolean;
 }
 
+
+export interface getProductDataType {
+  categoryId?: number;
+  subCategoryId?: number;
+  seasonId?: number;
+  sortType?: 'PRICE_ASC' | 'PRICE_DESC' | 'RECOMMEND';
+  keyword?: string;
+  cursor?: number;
+  pageSize?: number;
+  page?: number;
+
 export interface UserAgreementType {
   agreementId: number;
   agreed: boolean;

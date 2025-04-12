@@ -12,7 +12,7 @@ export default function ProductInfo({
   new: isNew,
 }: ProductInfoDataType) {
   return (
-    <section className="pt-6 font-pretendard">
+    <section className="pt-6 font-pretendard padded">
       <div className="grid grid-flow-col gap-4">
         <h1 className="font-semibold text-[1.375rem] pb-4">
           <span className="pr-3">{name}</span>
@@ -26,7 +26,8 @@ export default function ProductInfo({
       </div>
 
       <p className="font-medium text-xs text-lightGray-10 pb-5">
-        {description}
+        {/* {description} */}
+        {name}
       </p>
 
       {totalPrice && discountRate != 0 ? (

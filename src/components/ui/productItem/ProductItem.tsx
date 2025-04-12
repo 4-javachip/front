@@ -13,13 +13,13 @@ import {
   ProductOptionType,
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductItemSkeleton, {
   ItemPriceSkeleton,
   ItemThumbSkeleton,
 } from '../skeletons/ProductItemSkeleton';
 
-export default function ProductlItem({
+function ProductlItem({
   productData,
   size,
 }: {
@@ -78,3 +78,5 @@ export default function ProductlItem({
     </li>
   );
 }
+
+export default React.memo(ProductlItem);

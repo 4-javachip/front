@@ -60,15 +60,16 @@ export interface EventCarouselType {
 
 // 카테고리
 
-export interface ProductSubCategoryType {
+export interface SubCategoryType {
   id: number;
   name: string;
+  categoryId: number;
 }
 
 export interface ProductCategoryType {
   id: number;
   name: string;
-  subCategory?: ProductSubCategoryType[];
+  subCategory?: SubCategoryType[];
 }
 
 //메뉴 카테고리 타입

@@ -16,7 +16,7 @@ export default function MenuCategoryList({ categories }: Props) {
   const handleClickCategory = (categoryId: string) => {
     setIsOpen(false);
     if (categoryId === 'all') {
-      router.push('/products');
+      router.push('/products?page=1');
       return;
     }
     router.push(`/products?categoryId=${categoryId}`);

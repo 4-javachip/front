@@ -10,7 +10,7 @@ export default function EventCarousel({
 }) {
   return (
     <section className="flex flex-row container py-4.5">
-      <TextCarousel items={eventItems} queryKey="event" />
+      <TextCarousel items={eventItems} type="event" />
     </section>
   );
 }
