@@ -26,13 +26,14 @@ export default function ProductList() {
       setIsLoading(true);
 
       const res = await getProductListData({ pageSize, page });
+      console.log(res);
 
-      // 중복 제거
-      // const newItems = res.content.filter(
-      //   (item) => !products.some((p) => p.productUuid === item.productUuid)
-      // );
-
-      setProducts((prev) => [...prev, ...res.content]);
+      setProducts((prev) => {
+        const newItems = res.content.filter(
+          (item) => !prev.some((p) => p.productUuid === item.productUuid)
+        );
+        return [...prev, ...newItems];
+      });
       setHasMore(res.hasNext);
       setIsLoading(false);
     };
