@@ -8,8 +8,8 @@ import React from 'react';
 
 export default async function page() {
   const agreementData = await getUserShippingAddressAgreement();
-
-  const usershippingagree = agreementData[0]?.agreed === true;
+  const usershippingagreement = agreementData[0];
+  // const usershippingagree = agreementData[0]?.agreed === true;
 
   const handleAddAddress = async (addressForm: FormData) => {
     'use server';
@@ -39,7 +39,7 @@ export default async function page() {
       <TextTitleH1 className="mb-4">배송지 추가</TextTitleH1>
       <AddShippingAddress
         action={handleAddAddress}
-        usershippingagree={usershippingagree}
+        usershippingagree={usershippingagreement}
       />
     </main>
   );
