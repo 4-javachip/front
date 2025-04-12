@@ -26,6 +26,7 @@ export interface ShippingAddressDataType {
   defaulted: boolean;
 }
 
+
 export interface getProductDataType {
   categoryId?: number;
   subCategoryId?: number;
@@ -35,4 +36,8 @@ export interface getProductDataType {
   cursor?: number;
   pageSize?: number;
   page?: number;
+
+export interface UserAgreementType {
+  agreementId: number;
+  agreed: boolean;
 }

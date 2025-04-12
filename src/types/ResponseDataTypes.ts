@@ -158,3 +158,18 @@ export interface OrderProductType {
   productImageUrl: string;
   discountRate: number;
 }
+
+export interface usershippingAddressAgreementType {
+  agreementId: number;
+  agreed: boolean;
+  userUuid: string;
+  userAgreementUuid: string;
+}
+
+export interface shippingAddressAgreementType {
+  id: number;
+  name: string;
+  description: string;
+  required: boolean;
+  type: AgreementTypeEnum;
+}
