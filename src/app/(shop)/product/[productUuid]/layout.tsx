@@ -5,10 +5,5 @@ export default function ProductDetailLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      {children}
-      <PerchaseBar />
-    </>
-  );
+  return <>{children}</>;
 }
