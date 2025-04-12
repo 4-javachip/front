@@ -1,6 +1,8 @@
 import {
+  AddressType,
   BannerSlideImageType,
   CartProductType,
+  CategoryMenuType,
   EventCarouselType,
   ProductCategoryType,
   ProductDetailType,
@@ -282,6 +284,85 @@ export const productCategories: ProductCategoryType[] = [
       { id: 2, name: '텀블러 파우치' },
       { id: 3, name: '키링' },
     ],
+  },
+];
+
+export const categoryMenus: CategoryMenuType[] = [
+  {
+    id: 1,
+    name: '텀블러/보온병',
+
+    image: 'https://picsum.photos/id/237/390/330',
+    description: '텀블러/보온병',
+  },
+
+  {
+    id: 2,
+    name: '머그컵/컵',
+
+    image: 'https://dummyimage.com/500',
+    description: '머그컵/컵',
+  },
+  {
+    id: 3,
+    name: '라이프스타일',
+
+    image: 'https://dummyimage.com/500',
+    description: '라이프스타일',
+  },
+  {
+    id: 4,
+    name: '티/커피용품',
+
+    image: 'https://dummyimage.com/500',
+    description: '티/커피용품',
+  },
+
+  {
+    id: 5,
+    name: '케이크',
+    image: 'https://dummyimage.com/500',
+    description: '케이크',
+  },
+  {
+    id: 6,
+    name: '초콜릿/스낵',
+
+    image: 'https://dummyimage.com/500',
+    description: '초콜릿/스낵',
+  },
+  {
+    id: 7,
+    name: '세트',
+    image: 'https://dummyimage.com/500',
+    description: '세트',
+  },
+];
+
+export const dummyAddresses: AddressType[] = [
+  {
+    shippingAddressUuid: 'uuid-123',
+    addressName: '우리집',
+    recipientName: '홍길동',
+    baseAddress: '서울특별시 강남구 테헤란로 123',
+    zipCode: '06134',
+    detailAddress: '101동 202호',
+    phoneNumber: '010-1234-5678',
+    secondPhoneNumber: '010-8765-4321',
+    shippingNote: '부재 시 문 앞에 놓아주세요',
+    defaulted: true,
+  },
+  {
+    shippingAddressUuid: 'uuid-456',
+    addressName: '회사',
+    recipientName: '홍길동',
+    baseAddress: '서울특별시 중구 세종대로 100',
+    zipCode: '04523',
+    detailAddress: '스타타워 15층',
+    phoneNumber: '010-2222-3333',
+    secondPhoneNumber: '010-4444-5555',
+    shippingNote: '리셉션에 맡겨주세요',
+    defaulted: false,
   },
 ];
 

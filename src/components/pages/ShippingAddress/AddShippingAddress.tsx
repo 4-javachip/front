@@ -81,6 +81,7 @@ export default function AddShippingAddress({
             action={action}
             isEdit={false}
             hideDefaultCheckbox={hideDefaultCheckbox}
+            isShippingAddressAgreed={usershippingagree || agree}
           />
           {!usershippingagree && (
             <div className="flex items-center gap-1.5 pb-10 px-6">

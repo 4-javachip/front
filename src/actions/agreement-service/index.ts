@@ -9,14 +9,16 @@ import {
 import { AgreementType, CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
-const session = await getServerSession(options);
-const token = (await session?.user.accessToken) || session?.user.refreshToken;
+// const session = await getServerSession(options);
+// const token = (await session?.user.accessToken) || session?.user.refreshToken;
 
 //배송지 동의 & 비동의
 export const userAgreement = async (
   payload: userShippingAgreementRequestType
 ) => {
   // console.log('배송지 정보 수집 및 이용 동의 여부 요청:', Agreement);
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/user-agreement`, {
     method: 'POST',
     headers: {
@@ -45,6 +47,7 @@ export const getShippingAddressAgreement = async (): Promise<
   ShipingAddressAgreementType[]
 > => {
   console.log('배송지 정보 수집 및 이용 동의 내용 조회 요청');
+
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/agreement/shipping-address`,
     {
@@ -74,6 +77,8 @@ export const getShippingAddressAgreement = async (): Promise<
 export const getUserShippingAddressAgreement = async (): Promise<
   UserAgreementType[]
 > => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
   console.log('토큰', token);
 
   const res = await fetch(

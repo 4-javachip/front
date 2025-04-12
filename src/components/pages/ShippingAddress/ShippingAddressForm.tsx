@@ -21,6 +21,7 @@ interface Props {
   hideDefaultCheckbox?: boolean;
   hideAgreementCheckbox?: boolean;
   userAgreed?: boolean[];
+  isShippingAddressAgreed?: boolean;
 }
 
 export default function ShippingAddressForm({
@@ -32,6 +33,7 @@ export default function ShippingAddressForm({
   action,
   isEdit,
   hideDefaultCheckbox,
+  isShippingAddressAgreed,
 }: Props) {
   const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
@@ -167,7 +169,7 @@ export default function ShippingAddressForm({
         <SubmitButton
           className="font-semibold"
           type="submit"
-          isEnabled={isFormValid}
+          isEnabled={isFormValid && (isShippingAddressAgreed ?? false)}
         >
           {isEdit ? '수정하기' : '등록하기'}
         </SubmitButton>
