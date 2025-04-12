@@ -18,7 +18,6 @@ export default function HeaderTop() {
     getAllCategories()
       .then((data) => {
         setCategoryMenus(data);
-        console.log(data);
       })
       .catch((err) => {
         console.error('카테고리 불러오기 실패:', err);

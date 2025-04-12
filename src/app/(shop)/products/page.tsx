@@ -30,12 +30,12 @@ export default async function ProductListPage({
 
   return (
     <main>
-      <Suspense fallback={<div></div>}>
-        <ProductFilterList
-          categoryItems={categoryItems}
-          selectedCategory={selectedCategory}
-        />
-      </Suspense>
+      {/* <Suspense fallback={<div></div>}> */}
+      <ProductFilterList
+        categoryItems={categoryItems}
+        selectedCategory={selectedCategory}
+      />
+      {/* </Suspense> */}
       <ProductSortMenu />
       {/* <Suspense
         fallback={Array.from({ length: pageSize }).map((_, index) => (

@@ -22,7 +22,7 @@ export async function getProductListData({
     {
       method: 'GET',
       // cache: 'no-cache',
-      next: { tags: ['getProducts', 'changePage'] },
+      // next: { tags: ['getProducts', 'changePage'] },
     }
   );
 
