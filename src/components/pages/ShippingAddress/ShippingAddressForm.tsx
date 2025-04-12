@@ -19,6 +19,8 @@ interface Props {
   action?: (addressForm: FormData) => Promise<void>;
   isEdit?: boolean;
   hideDefaultCheckbox?: boolean;
+  hideAgreementCheckbox?: boolean;
+  userAgreed?: boolean[];
 }
 
 export default function ShippingAddressForm({
@@ -62,7 +64,7 @@ export default function ShippingAddressForm({
   };
 
   return (
-    <form className="mt-[1.25rem] mb-[10rem]" action={action}>
+    <form className="mt-[1.25rem] pb-6 " action={action}>
       <section className="space-y-[1.25rem] px-6">
         <AddressInput
           id="addressName"

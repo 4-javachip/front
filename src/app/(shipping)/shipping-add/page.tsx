@@ -1,3 +1,4 @@
+import { getUserShippingAddressAgreement } from '@/actions/agreement-service';
 import { addShippingAddress } from '@/actions/shipping-address-service';
 import AddShippingAddress from '@/components/pages/ShippingAddress/AddShippingAddress';
 import TextTitleH1 from '@/components/ui/texts/TextTitleH1';
@@ -6,6 +7,10 @@ import { redirect } from 'next/navigation';
 import React from 'react';
 
 export default async function page() {
+  const agreementData = await getUserShippingAddressAgreement();
+
+  const usershippingagree = agreementData[0]?.agreed === true;
+
   const handleAddAddress = async (addressForm: FormData) => {
     'use server';
     console.log('서버에서 처리:', addressForm);
@@ -32,7 +37,10 @@ export default async function page() {
   return (
     <main>
       <TextTitleH1 className="mb-4">배송지 추가</TextTitleH1>
-      <AddShippingAddress action={handleAddAddress} />
+      <AddShippingAddress
+        action={handleAddAddress}
+        usershippingagree={usershippingagree}
+      />
     </main>
   );
 }
