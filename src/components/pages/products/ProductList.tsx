@@ -6,8 +6,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getProductListData } from '@/actions/product-service';
 import Loader from '@/components/ui/loader';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { CategoryMenuType } from '@/types/ResponseDataTypes';
+import { getProductDataType } from '@/types/RequestDataTypes';
 
-export default function ProductList() {
+export default function ProductList({
+  params,
+}: {
+  params?: getProductDataType;
+}) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -25,7 +31,15 @@ export default function ProductList() {
     const fetchData = async () => {
       setIsLoading(true);
 
-      const res = await getProductListData({ pageSize, page });
+      const res = await getProductListData({
+        pageSize,
+        page,
+        categoryId: params?.categoryId,
+        sortType: params?.sortType,
+        keyword: params?.keyword,
+        subCategoryId: params?.subCategoryId,
+        seasonId: params?.seasonId,
+      });
       console.log(res);
 
       setProducts((prev) => {

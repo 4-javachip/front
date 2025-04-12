@@ -38,7 +38,8 @@ export default function TextCarousel({
   return (
     <ul
       ref={containerRef}
-      className="flex flex-row overflow-x-auto cursor-grab active:cursor-grabbing select-none"
+      className="flex flex-row overflow-x-auto cursor-grab active:cursor-grabbing select-none
+      h-[24px]"
       style={{ scrollbarWidth: 'none' }}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
