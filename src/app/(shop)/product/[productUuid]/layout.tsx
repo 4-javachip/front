@@ -1,4 +1,4 @@
-import PerchaseBar from '@/components/pages/productDetail/PerchaseBar';
+import PerchaseBar from '@/components/pages/productDetail/PerchaseBar/PerchaseBar';
 
 export default function ProductDetailLayout({
   children,

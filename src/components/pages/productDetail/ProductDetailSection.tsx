@@ -13,6 +13,7 @@ import {
   getOptionDatasByProductUuid,
   getThumbnailDatasByProductUuid,
 } from '@/actions/product-service';
+import PerchaseBar from './PerchaseBar/PerchaseBar';
 
 export default async function ProductDetailSection({
   product,
@@ -51,6 +52,7 @@ export default async function ProductDetailSection({
 
   return (
     <>
+      <PerchaseBar options={options} />
       <ProductImg thumbnails={thumbnails} />
       <div className="flex flex-col gap-10">
         <ProductInfo
