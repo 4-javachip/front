@@ -10,6 +10,8 @@ import PurchaseBarBottomContent from './PurchaseBarBottomContent';
 import { ProductOptionType } from '@/types/ProductResponseDataTypes';
 import PurchaseItem from './PurchaseItem';
 import { SelectableOptionType } from '@/types/ProductResponseDataTypes';
+import { useState } from 'react';
+import PurchaseOptionItem from './PurchaseOptionItem';
 
 export default function PurchaseBottomSheet({
   isOpen,
@@ -25,6 +27,7 @@ export default function PurchaseBottomSheet({
   colorData?: SelectableOptionType[];
 }) {
   const side = 'bottom';
+  const [selectedOption, setSelectedOption] = useState<ProductOptionType[]>();
 
   return (
     <SheetContent
@@ -37,33 +40,16 @@ export default function PurchaseBottomSheet({
       <SheetDescription></SheetDescription>
       <div className="w-1/6 h-1 bg-lightGray-10 rounded-full mx-auto mb-7" />
 
-      <div className="flex flex-col gap-3 mb-6 w-full">
+      <ul className="flex flex-col gap-3 mb-6 w-full">
         {options.map((option) => (
-          <div
+          <PurchaseOptionItem
             key={option.productOptionUuid}
-            className="flex justify-between items-center border rounded-xl px-4 py-3"
-          >
-            <div className="flex gap-4 items-center text-sm">
-              {option.colorOptionId !== null && colorData && (
-                <span>
-                  컬러{' '}
-                  {colorData.find((c) => c.id === option.colorOptionId)?.name}
-                </span>
-              )}
-              {option.sizeOptionId !== null && sizeData && (
-                <span>
-                  사이즈{' '}
-                  {sizeData.find((s) => s.id === option.sizeOptionId)?.name}
-                </span>
-              )}
-            </div>
-
-            <div className="text-base font-semibold font-sd-gothic">
-              {option.totalPrice.toLocaleString()}원
-            </div>
-          </div>
+            option={option}
+            sizeData={sizeData}
+            colorData={colorData}
+          />
         ))}
-      </div>
+      </ul>
 
       <PurchaseItem />
 
