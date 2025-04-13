@@ -36,8 +36,5 @@ export interface getProductDataType {
   cursor?: number;
   pageSize?: number;
   page?: number;
-
-export interface UserAgreementType {
-  agreementId: number;
-  agreed: boolean;
 }
+

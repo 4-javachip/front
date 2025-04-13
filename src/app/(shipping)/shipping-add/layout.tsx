@@ -1,10 +1,10 @@
-import AddShippingAddressHeader from '@/components/pages/ShippingAddress/AddShippingAddressHeader';
+import ShippingAddressHeader from '@/components/pages/ShippingAddress/ShippingAddressHeader';
 import React from 'react';
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <AddShippingAddressHeader />
+      <ShippingAddressHeader />
       <div className="pt-15">{children}</div>
     </>
   );
