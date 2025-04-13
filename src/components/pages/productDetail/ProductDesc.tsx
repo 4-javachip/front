@@ -1,7 +1,7 @@
 'use client';
 
 import { ProductDescriptionType } from '@/types/ProductResponseDataTypes';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import ExpandCollapseButton from './ExpandCollapseButton';
 
 export default function ProductDesc({
@@ -17,10 +17,13 @@ export default function ProductDesc({
     }
     setExpanded(!expanded);
   };
+  const renderedHTML = useMemo(() => {
+    return <article dangerouslySetInnerHTML={{ __html: detailDescription }} />;
+  }, [detailDescription]);
 
   return (
     <section className="padded" ref={sectionRef}>
-      <h2 className="font-pretendard font-bold pb-10">상품 정보</h2>
+      <h2 className="font-pretendard font-bold text-lg pb-10">상품 정보</h2>
       <style jsx global>{`
         .collapse_on,
         .collapse_off,
@@ -36,10 +39,10 @@ export default function ProductDesc({
       `}</style>
       <section
         className={`relative inner-html overflow-hidden transition-all duration-300 ease-in-out ${
-          expanded ? 'max-h-[9999px]' : 'max-h-[35rem]'
+          expanded ? 'max-h-[9999rem]' : 'max-h-[75rem]'
         }`}
       >
-        <article dangerouslySetInnerHTML={{ __html: detailDescription }} />
+        {renderedHTML}
         {!expanded && (
           <div className="absolute bottom-0 left-0 w-full flex justify-center bg-gradient-to-t from-white via-white/90 to-transparent pt-8 pb-4">
             <ExpandCollapseButton
