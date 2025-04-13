@@ -1,17 +1,25 @@
 'use client';
 
 import { ProductDescriptionType } from '@/types/ProductResponseDataTypes';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ExpandCollapseButton from './ExpandCollapseButton';
 
 export default function ProductDesc({
   detailDescription,
 }: ProductDescriptionType) {
   const [expanded, setExpanded] = useState(false);
-  const toggleExpanded = () => setExpanded(!expanded);
+  const sectionRef = useRef<HTMLElement>(null);
+  const toggleExpanded = () => {
+    if (expanded && sectionRef.current) {
+      const top =
+        sectionRef.current.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+    setExpanded(!expanded);
+  };
 
   return (
-    <section className="padded">
+    <section className="padded" ref={sectionRef}>
       <h2 className="font-pretendard font-bold pb-10">상품 정보</h2>
       <style jsx global>{`
         .collapse_on,
@@ -26,13 +34,12 @@ export default function ProductDesc({
           width: 100%;
         }
       `}</style>
-      <div
+      <section
         className={`relative inner-html overflow-hidden transition-all duration-300 ease-in-out ${
           expanded ? 'max-h-[9999px]' : 'max-h-[35rem]'
         }`}
       >
-        <div dangerouslySetInnerHTML={{ __html: detailDescription }} />
-
+        <article dangerouslySetInnerHTML={{ __html: detailDescription }} />
         {!expanded && (
           <div className="absolute bottom-0 left-0 w-full flex justify-center bg-gradient-to-t from-white via-white/90 to-transparent pt-8 pb-4">
             <ExpandCollapseButton
@@ -41,8 +48,7 @@ export default function ProductDesc({
             />
           </div>
         )}
-      </div>
-
+      </section>
       {expanded && (
         <div className="mt-5">
           <ExpandCollapseButton expanded={expanded} onClick={toggleExpanded} />
