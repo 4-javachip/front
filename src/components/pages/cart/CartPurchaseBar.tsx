@@ -2,12 +2,10 @@
 
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
-import CartIcon from '@/components/ui/icons/CartIcon';
 
-export default function PerchaseBar() {
+export default function CartPurchaseBar() {
   return (
     <CommonLayout.FixedButtonBgLayout>
-      <CartIcon />
       <CommonButton
         className="font-semibold"
         onClick={() => {}}

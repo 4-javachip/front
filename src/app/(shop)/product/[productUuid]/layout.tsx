@@ -1,14 +1,9 @@
-import PerchaseBar from '@/components/pages/productDetail/PerchaseBar';
+import PurchaseBar from '@/components/pages/productDetail/PurchaseBar/PurchaseBar';
 
 export default function ProductDetailLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      {children}
-      <PerchaseBar />
-    </>
-  );
+  return <>{children}</>;
 }

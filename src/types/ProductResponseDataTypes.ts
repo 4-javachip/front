@@ -23,6 +23,7 @@ export interface ProductThumbnailDataType {
 
 export interface ProductOptionType {
   productUuid: string;
+  productOptionUuid: string;
   colorOptionId?: number;
   sizeOptionId?: number;
   stock: number;
@@ -45,4 +46,9 @@ export interface ProductInfoDataType {
   description?: string;
   best: boolean;
   new: boolean;
+}
+
+export interface SelectableOptionType {
+  id: number;
+  name: string;
 }

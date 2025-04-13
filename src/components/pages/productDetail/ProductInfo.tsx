@@ -25,23 +25,25 @@ export default function ProductInfo({
         </div>
       </div>
 
-      <p className="font-medium text-xs text-lightGray-10 pb-5">
+      <p className="font-medium text-sm text-lightGray-10 pb-5">
         {/* {description} */}
         {name}
       </p>
 
       {totalPrice && discountRate != 0 ? (
         <>
-          <del className="font-light text-lightGray-6">
+          <del className="font-light text-lg text-lightGray-6 font-sd-gothic">
             {price.toLocaleString()}원
           </del>
-          <div className="flex flex-row font-bold text-xl gap-2">
+          <div className="flex flex-row font-bold text-2xl gap-2 font-sd-gothic">
             <p className="text-green">{discountRate}%</p>
             <p className="">{totalPrice.toLocaleString()}원</p>
           </div>
         </>
       ) : (
-        <p className="font-bold text-xl">{price.toLocaleString()}원</p>
+        <p className="font-bold text-xl font-sd-gothic">
+          {price.toLocaleString()}원
+        </p>
       )}
     </section>
   );

@@ -5,6 +5,7 @@ import {
   ProductNameDataType,
   ProductOptionType,
   ProductThumbnailDataType,
+  SelectableOptionType,
 } from '@/types/ProductResponseDataTypes';
 import { getProductDataType } from '@/types/RequestDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
@@ -124,7 +125,7 @@ export async function getOptionDatasByProductUuid(productUuid: string) {
     `${process.env.BASE_API_URL}/api/v1/product/option/list/${productUuid}`,
     {
       method: 'GET',
-      cache: 'no-cache',
+      cache: 'force-cache',
     }
   );
   if (!res.ok) {
@@ -133,6 +134,24 @@ export async function getOptionDatasByProductUuid(productUuid: string) {
     throw new Error(errorData.message);
   }
   const data = (await res.json()) as CommonResponseType<ProductOptionType[]>;
+
+  return data.result;
+}
+
+export async function getSelectableOptionListData(type: 'size' | 'color') {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/option/${type}/list`,
+    {
+      method: 'GET',
+      cache: 'force-cache',
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error(`${type} Data Fetching failed:`, errorData);
+    throw new Error(errorData.message);
+  }
+  const data = (await res.json()) as CommonResponseType<SelectableOptionType[]>;
 
   return data.result;
 }

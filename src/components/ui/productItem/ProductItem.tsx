@@ -31,12 +31,26 @@ function ProductlItem({
 
   useEffect(() => {
     const fetchData = async () => {
-      const [thumbData, optionData] = await Promise.all([
-        getDefaultThumbnailDataByProductUuid(productData.productUuid),
-        getLowestOptionDataByProductUuid(productData.productUuid),
-      ]);
-      setThumbnail(thumbData);
-      setOption(optionData);
+      try {
+        const thumb = await getDefaultThumbnailDataByProductUuid(
+          productData.productUuid
+        );
+        setThumbnail(thumb);
+      } catch (e) {
+        setThumbnail({
+          id: -1,
+          productUuid: productData.productUuid,
+          thumbnailUrl: '/images/no-image-icon.jpg',
+          description: 'no image',
+          defaulted: false,
+        });
+      }
+      try {
+        const opt = await getLowestOptionDataByProductUuid(
+          productData.productUuid
+        );
+        setOption(opt);
+      } catch (e) {}
     };
 
     fetchData();

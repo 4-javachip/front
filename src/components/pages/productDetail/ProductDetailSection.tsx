@@ -13,6 +13,7 @@ import {
   getOptionDatasByProductUuid,
   getThumbnailDatasByProductUuid,
 } from '@/actions/product-service';
+import PurchaseBar from './PurchaseBar/PurchaseBar';
 
 export default async function ProductDetailSection({
   product,
@@ -34,10 +35,24 @@ export default async function ProductDetailSection({
   } catch (error) {
     console.log('데이터 페칭 에러');
   }
+
   const option = options[0];
+
+  if (thumbnails.length === 0) {
+    thumbnails = [
+      {
+        id: -1,
+        productUuid: product.productUuid,
+        thumbnailUrl: '/images/no-image-icon.jpg',
+        description: 'No image available',
+        defaulted: false,
+      },
+    ];
+  }
 
   return (
     <>
+      <PurchaseBar options={options} />
       <ProductImg thumbnails={thumbnails} />
       <div className="flex flex-col gap-10">
         <ProductInfo

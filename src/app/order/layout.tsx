@@ -1,7 +1,7 @@
 import Footer from '@/components/layouts/footer/Footer';
-import CartPerchaseBar from '@/components/pages/cart/CartPerchaseBar';
+import CartPurchaseBar from '@/components/pages/cart/CartPurchaseBar';
 import OrderHeader from '@/components/pages/order/OrderHeader';
-import PerchaseBar from '@/components/pages/productDetail/PerchaseBar';
+import PurchaseBar from '@/components/pages/productDetail/PurchaseBar/PurchaseBar';
 import React, { Children } from 'react';
 export default function CartLayout({
   children,
@@ -13,7 +13,7 @@ export default function CartLayout({
       <OrderHeader />
       <div className="pt-15"> {children}</div>
       <Footer />
-      <CartPerchaseBar />
+      <CartPurchaseBar />
     </>
   );
 }
