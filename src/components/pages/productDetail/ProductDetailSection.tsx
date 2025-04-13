@@ -34,7 +34,20 @@ export default async function ProductDetailSection({
   } catch (error) {
     console.log('데이터 페칭 에러');
   }
+
   const option = options[0];
+
+  if (thumbnails.length === 0) {
+    thumbnails = [
+      {
+        id: -1,
+        productUuid: product.productUuid,
+        thumbnailUrl: '/images/no-image-icon.jpg',
+        description: 'No image available',
+        defaulted: false,
+      },
+    ];
+  }
 
   return (
     <>
