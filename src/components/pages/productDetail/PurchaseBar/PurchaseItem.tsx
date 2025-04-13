@@ -1,6 +1,6 @@
 import QuantityControl from '../../cart/QuantityControl';
 
-export default function PerchaseItem() {
+export default function PurchaseItem() {
   return (
     <div className="w-full padded py-5 bg-lightGray-2 mb-4">
       <p className="text-lightGray-1 text-sm">SS 시그니처 나수 텀블러 355ml</p>

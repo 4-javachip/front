@@ -1,7 +1,7 @@
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import CartIcon from '@/components/ui/icons/CartIcon';
 
-export default function PerchaseBarBottomContent({
+export default function PurchaseBarBottomContent({
   onClickPurchase,
 }: {
   onClickPurchase: () => void;

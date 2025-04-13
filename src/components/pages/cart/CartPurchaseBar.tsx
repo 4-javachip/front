@@ -3,7 +3,7 @@
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 
-export default function CartPerchaseBar() {
+export default function CartPurchaseBar() {
   return (
     <CommonLayout.FixedButtonBgLayout>
       <CommonButton

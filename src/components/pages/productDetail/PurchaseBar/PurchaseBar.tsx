@@ -3,10 +3,10 @@
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import CartIcon from '@/components/ui/icons/CartIcon';
-import PerchaseBottomSheet from './PerchaseBottomSheet';
+import PurchaseBottomSheet from './PurchaseBottomSheet';
 import { Sheet, SheetTrigger } from '@/components/ui/sheet';
 import { useEffect, useState } from 'react';
-import PerchaseBarBottomContent from './PerchaseBarBottomContent';
+import PurchaseBarBottomContent from './PurchaseBarBottomContent';
 import {
   ProductOptionType,
   SelectableOptionType,
@@ -15,7 +15,7 @@ import { getSelectableOptionListData } from '@/actions/product-service';
 
 const side = 'bottom';
 
-export default function PerchaseBar({
+export default function PurchaseBar({
   options,
 }: {
   options: ProductOptionType[];
@@ -58,11 +58,11 @@ export default function PerchaseBar({
               </SheetTrigger>
             </>
           ) : (
-            <PerchaseBarBottomContent onClickPurchase={() => {}} />
+            <PurchaseBarBottomContent onClickPurchase={() => {}} />
           )}
         </CommonLayout.FixedButtonBgLayout>
 
-        <PerchaseBottomSheet
+        <PurchaseBottomSheet
           isOpen={isOpen}
           onClickPurchase={() => console.log('click')}
           options={options}

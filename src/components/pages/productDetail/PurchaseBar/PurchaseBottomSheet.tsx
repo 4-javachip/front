@@ -6,12 +6,12 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
-import PerchaseBarBottomContent from './PerchaseBarBottomContent';
+import PurchaseBarBottomContent from './PurchaseBarBottomContent';
 import { ProductOptionType } from '@/types/ProductResponseDataTypes';
-import PerchaseItem from './PerchaseItem';
+import PurchaseItem from './PurchaseItem';
 import { SelectableOptionType } from '@/types/ProductResponseDataTypes';
 
-export default function PerchaseBottomSheet({
+export default function PurchaseBottomSheet({
   isOpen,
   onClickPurchase,
   options,
@@ -65,13 +65,13 @@ export default function PerchaseBottomSheet({
         ))}
       </div>
 
-      <PerchaseItem />
+      <PurchaseItem />
 
       <CommonLayout.FixedButtonBgLayout
         className={`z-[2000] transition-all duration-300 relative
         ${isOpen ? `rounded-none shadow-none px-0` : ``}`}
       >
-        <PerchaseBarBottomContent onClickPurchase={onClickPurchase} />
+        <PurchaseBarBottomContent onClickPurchase={onClickPurchase} />
       </CommonLayout.FixedButtonBgLayout>
     </SheetContent>
   );
