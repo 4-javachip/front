@@ -15,6 +15,7 @@ export default function ShippingAddressAgreementHeader({
   userAgreed: UserAgreementType[];
   agreementId: number;
 }) {
+  const [loading, setLoading] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
   console.log('userAgreed', userAgreed);
   const [openModal, setOpenModal] = useState(false);
@@ -22,7 +23,16 @@ export default function ShippingAddressAgreementHeader({
     if (isCheck) {
       setOpenModal(true);
     } else {
-      setIsCheck(true);
+      try {
+        setLoading(true);
+        await userAgreement({ agreementId, agreed: true });
+        setIsCheck(true);
+      } catch (err) {
+        console.error('동의 처리 실패', err);
+        alert('동의 처리에 실패했습니다.');
+      } finally {
+        setLoading(false);
+      }
     }
   };
   const handleDisagreeConfirm = async () => {
@@ -50,13 +60,14 @@ export default function ShippingAddressAgreementHeader({
           <TextTitleH1>배송지 정보 수집 및 이용 동의</TextTitleH1>
         </li>
         <div className="flex items-center justify-center px-6 ">
-          <Switch checked={isCheck} onClick={handleClick} />
+          <Switch checked={isCheck} onClick={handleClick} disabled={loading} />
         </div>
         <ConfirmModal
           open={openModal}
           onOpenChange={setOpenModal}
           title="배송지 정보 수집 및 이용 동의"
-          description="배송지 정보 수집 및 이용 동의를 해제하시겠습니까 ? 해제 시 저장된 배송지 정보가 모두 삭제됩니다"
+          description="배송지 정보 수집 및 이용 동의를 해제하시겠습니까?
+           해제 시 저장된 배송지 정보가 모두 삭제됩니다"
           confirmText="동의하지 않음"
           cancelText="취소"
           onConfirm={handleDisagreeConfirm}

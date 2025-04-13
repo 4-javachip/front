@@ -36,8 +36,13 @@ export default function ConfirmModal({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancelText}</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>
+          <AlertDialogCancel className="text-lightGray-7">
+            {cancelText}
+          </AlertDialogCancel>
+          <AlertDialogAction
+            className="text-green bg-background "
+            onClick={onConfirm}
+          >
             {confirmText}
           </AlertDialogAction>
         </AlertDialogFooter>
