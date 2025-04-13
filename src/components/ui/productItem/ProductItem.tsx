@@ -14,7 +14,7 @@ import {
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
 import { useEffect, useState } from 'react';
-import ProductItemSkeleton, {
+import {
   ItemPriceSkeleton,
   ItemThumbSkeleton,
 } from '../skeletons/ProductItemSkeleton';

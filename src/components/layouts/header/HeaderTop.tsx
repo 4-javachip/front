@@ -15,14 +15,14 @@ export default function HeaderTop() {
   const [categoryMenus, setCategoryMenus] = useState<CategoryMenuType[]>([]);
 
   useEffect(() => {
-    getAllCategories()
-      .then((data) => {
-        setCategoryMenus(data);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.error('카테고리 불러오기 실패:', err);
-      });
+    // getAllCategories()
+    //   .then((data) => {
+    //     setCategoryMenus(data);
+    //     console.log(data);
+    //   })
+    //   .catch((err) => {
+    //     console.error('카테고리 불러오기 실패:', err);
+    //   });
   }, []);
 
   return (

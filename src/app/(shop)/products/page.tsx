@@ -5,28 +5,26 @@ import ProductSortMenu from '@/components/pages/products/ProductSortMenu';
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: { page: Promise<{ page: string }> };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const INITIAL_PAGE = 1;
   const PAGE_SIZE = 10;
 
+  const { page } = await searchParams;
+  const pageParam = Array.isArray(page) ? page[0] : page;
+  const pageNumber = pageParam ? Number(pageParam) : INITIAL_PAGE;
+
   const initialProducts = await getProductListData({
-    page: INITIAL_PAGE,
+    page: pageNumber,
     pageSize: PAGE_SIZE,
   });
 
-  const page = searchParams.page || INITIAL_PAGE;
-  const pageNumber = Number(page);
+  // console.log('Initial products:', initialProducts, pageNumber);
 
   return (
     <main>
       <ProductSortMenu />
-      <ProductList
-        page={pageNumber}
-        initialProducts={initialProducts.content}
-        initialHasNext={initialProducts.hasNext}
-        pageSize={PAGE_SIZE}
-      />
+      <ProductList initialProducts={initialProducts} page={pageNumber} />
     </main>
   );
 }

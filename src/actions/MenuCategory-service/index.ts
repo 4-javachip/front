@@ -7,9 +7,9 @@ interface CategoryListResponse {
   code: number;
   result: CategoryMenuType[];
 }
-
+const BASE_API_URL = process.env.BASE_API_URL;
 export async function getAllCategories(): Promise<CategoryMenuType[]> {
-  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/category/list`, {
+  const res = await fetch(`${BASE_API_URL}/api/v1/category/list`, {
     cache: 'no-cache',
   });
 

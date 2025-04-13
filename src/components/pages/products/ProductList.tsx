@@ -1,87 +1,101 @@
 'use client';
 
-import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
-import ProductItem from '../../ui/productItem/ProductItem';
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { getProductListData } from '@/actions/product-service';
-import Loader from '@/components/ui/loader';
+import {
+  PaginatedResponseType,
+  ProductNameDataType,
+} from '@/types/ProductResponseDataTypes';
+import React, { useEffect, useState } from 'react';
+import { BottomLoader } from '@/components/ui/refLoader/BottomLoader';
+import { ProductItemListSection } from './ProductItemSection';
+import PageNumberViewer from '@/components/ui/utils/PageNumberViewer';
 import { useRouter } from 'next/navigation';
+import Loader from '@/components/ui/loader';
 
 export default function ProductList({
   initialProducts,
-  initialHasNext,
-  pageSize,
   page,
 }: {
-  initialProducts: ProductNameDataType[];
-  initialHasNext: boolean;
-  pageSize: number;
+  initialProducts: PaginatedResponseType<ProductNameDataType[]>;
   page: number;
 }) {
-  const router = useRouter();
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState<
+    PaginatedResponseType<ProductNameDataType[]>[]
+  >([] as PaginatedResponseType<ProductNameDataType[]>[]);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(initialHasNext);
-  const loaderRef = useRef<HTMLDivElement>(null);
-
-  const fetchData = useCallback(async () => {
-    setIsLoading(true);
-    console.log('Fetching data for page:', page);
-    try {
-      const res = await getProductListData({ pageSize, page });
-      console.log('Fetched data:', res);
-
-      setProducts((prev) => [...prev, ...res.content]);
-      setHasMore(res.hasNext);
-    } catch (error) {
-      console.error('Failed to fetch product data:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [page, pageSize]);
+  const [pageNumber, setPageNumber] = useState(page);
+  const [hasMore, setHasMore] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    if (page > 1) {
-      fetchData();
+    if (initialProducts.content.length === 0) {
+      setHasMore(false);
+      return;
     }
-  }, [page, fetchData]);
+
+    setIsLoading(false);
+    if (
+      products[0]?.page === initialProducts.page &&
+      initialProducts.page !== 1
+    ) {
+      scrollTo(0, 10);
+      return;
+    }
+    if (products.find((p) => p.page === initialProducts.page)) {
+      return;
+    }
+
+    setProducts((prev) => {
+      if (prev[0]?.page > initialProducts.page) {
+        return [initialProducts, ...prev];
+      }
+      return [...prev, initialProducts];
+    });
+    setHasMore(initialProducts.hasNext);
+  }, [initialProducts, products]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        console.log('entries', entries);
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          router.push(`/products?page=${page + 1}`, { scroll: false });
-        }
-      },
-      { threshold: 1 }
-    );
-
-    const current = loaderRef.current;
-    if (current) observer.observe(current);
-
-    return () => {
-      if (current) observer.unobserve(current);
+    const handleScroll = () => {
+      if (
+        window.scrollY === 0 &&
+        pageNumber > 1 &&
+        products[0]?.page === pageNumber
+      ) {
+        setIsLoading(true);
+        router.push(`/products?page=${pageNumber - 1}`, { scroll: false });
+      }
     };
-  }, [isLoading, hasMore, router, page]);
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [pageNumber, page, router, products]);
 
   return (
-    <section className="padded py-6 flex justify-center flex-col">
-      <ul className="w-full grid grid-cols-2 gap-4 min-h-[80vh]">
-        {products.map((product) => (
-          <ProductItem
-            key={product.productUuid}
-            productData={product}
-            size={800}
-          />
-        ))}
-      </ul>
-
-      {!isLoading && hasMore && (
-        <div className="w-full flex justify-center h-10" ref={loaderRef} />
-      )}
-      {isLoading && <Loader size="10" />}
-    </section>
+    <>
+      <section className="padded py-6 flex justify-center flex-col">
+        {isLoading && (
+          <div className="h-20">
+            <Loader size="10" />
+          </div>
+        )}
+        {products.map(
+          (product: PaginatedResponseType<ProductNameDataType[]>, index) => (
+            <ProductItemListSection
+              key={index}
+              products={product}
+              setPageNumber={setPageNumber}
+            />
+          )
+        )}
+        <BottomLoader
+          page={pageNumber}
+          hasMore={hasMore}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+        />
+        <PageNumberViewer pageNumber={pageNumber} currentPage={page} />
+      </section>
+    </>
   );
 }
