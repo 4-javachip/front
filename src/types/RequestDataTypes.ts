@@ -41,3 +41,4 @@ export interface UserAgreementType {
   agreementId: number;
   agreed: boolean;
 }
+
