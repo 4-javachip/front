@@ -7,6 +7,7 @@ import {
 import { revalidateTag } from 'next/cache';
 import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
+import { DefaultShippingAddressType } from '@/types/ShippingAddressDataType';
 
 // const session = await getServerSession(options);
 // const token = (await session?.user.accessToken) || session?.user.refreshToken;
@@ -164,3 +165,33 @@ export const shippingAddressAgreement = async () => {
   const data = await res.json();
   return data.result;
 };
+
+//기본 배송지 조회 api
+export const getDefaultShippingAddress =
+  async (): Promise<DefaultShippingAddressType> => {
+    const session = await getServerSession(options);
+    const token =
+      (await session?.user.accessToken) || session?.user.refreshToken;
+    const res = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/shipping-address/user/default`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('기본 배송지 조회 응답 :', res);
+
+    if (!res.ok) {
+      // const errorData = await res.json();
+      // throw new Error(errorData.message || '기본 배송지 조회 실패 ');
+      return {} as DefaultShippingAddressType;
+    }
+
+    const data =
+      (await res.json()) as CommonResponseType<DefaultShippingAddressType>;
+
+    return data.result;
+  };

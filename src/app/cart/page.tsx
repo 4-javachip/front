@@ -1,48 +1,16 @@
-'use client';
-
-import CartAllCheckBar from '@/components/pages/cart/CartAllCheckBar';
-import CartEmpty from '@/components/pages/cart/CartEmpty';
-import CartItemList from '@/components/pages/cart/CartItemList';
-import CartNotice from '@/components/pages/cart/CartNotice';
-import CartPriceSummary from '@/components/pages/cart/CartPriceSummary';
+import { getDefaultShippingAddress } from '@/actions/shipping-address-service';
 import CartShippingInfo from '@/components/pages/cart/CartShippingInfo';
-import useCartHandlers from '@/components/pages/cart/useCartHandlers';
+import { DefaultShippingAddressType } from '@/types/ShippingAddressDataType';
 
-export default function CartPage() {
-  const {
-    cartItems,
-    isAllChecked,
-    toggleCheck,
-    toggleAll,
-    increase,
-    decrease,
-    deleteItem,
-    deleteSelected,
-    deleteAll,
-  } = useCartHandlers();
+import React from 'react';
+
+export default async function page() {
+  const defaultedShippingAddress =
+    (await getDefaultShippingAddress()) as DefaultShippingAddressType;
 
   return (
     <main>
-      <CartShippingInfo />
-      {cartItems.length === 0 ? (
-        <CartEmpty />
-      ) : (
-        <>
-          <CartItemList
-            items={cartItems}
-            onToggleCheck={toggleCheck}
-            onIncrease={increase}
-            onDecrease={decrease}
-            onDelete={deleteItem}
-            isAllChecked={isAllChecked}
-            onToggleAll={toggleAll}
-            onDeleteSelected={deleteSelected}
-            onDeleteAll={deleteAll}
-          />
-          <CartPriceSummary cartitem={cartItems} />
-          <CartNotice />
-        </>
-      )}
+      <CartShippingInfo defaultShippingAddress={defaultedShippingAddress} />
     </main>
   );
 }

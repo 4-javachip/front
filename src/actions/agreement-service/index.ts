@@ -9,8 +9,6 @@ import {
 import { AgreementType, CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
-// const session = await getServerSession(options);
-// const token = (await session?.user.accessToken) || session?.user.refreshToken;
 
 //배송지 동의 & 비동의
 export const userAgreement = async (
