@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import { deleteShippingAddress } from '@/actions/shipping-address-service';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import DefaultIcon from '@/components/ui/icons/DefaultIcon';
+import { useState } from 'react';
+import ConfirmModal from '@/components/ui/ConfirmModal';
 
 interface ShippingAddressItemProps {
   address: ShippingAddressDataType;
@@ -31,12 +33,14 @@ export default function ShippingAddressList({
     if (!a.addressList.defaulted && b.addressList.defaulted) return 1;
     return 0;
   });
-
+  const [openDiolog, setOpenDiolog] = useState(false);
   const handleDelete = async (shippingAddressUuid: string) => {
     try {
       await deleteShippingAddress(shippingAddressUuid);
     } catch (error) {
       console.error('배송지 삭제 실패:', error);
+    } finally {
+      setOpenDiolog(false);
     }
   };
   return (
@@ -81,13 +85,22 @@ export default function ShippingAddressList({
                     {!addressList.defaulted && (
                       <button
                         className="border-l-2 border-lightGray-5 pl-2 leading-3"
-                        onClick={() =>
-                          handleDelete(addressList.shippingAddressUuid)
-                        }
+                        onClick={() => setOpenDiolog(true)}
                       >
                         삭제
                       </button>
                     )}
+                    <ConfirmModal
+                      open={openDiolog}
+                      onOpenChange={setOpenDiolog}
+                      title="배송지 삭제"
+                      description="배송지를 삭제하시겠습니까?"
+                      confirmText="삭제"
+                      cancelText="취소"
+                      onConfirm={() =>
+                        handleDelete(addressList.shippingAddressUuid)
+                      }
+                    />
                   </nav>
                 </article>
 

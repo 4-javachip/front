@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DaumPostcodeModal from './DaumPostcodeModal';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import { ShippingAddressErrorType } from '@/types/ErrorDataType';
@@ -85,7 +85,6 @@ export default function AddShippingAddress({
         </div>
       ) : (
         <>
-          {' '}
           <ShippingAddressForm
             values={values}
             setValues={setValues}
