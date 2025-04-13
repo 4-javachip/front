@@ -1,5 +1,3 @@
-// components/ui/dialogs/ReusableConfirmDialog.tsx
-
 import {
   AlertDialog,
   AlertDialogAction,

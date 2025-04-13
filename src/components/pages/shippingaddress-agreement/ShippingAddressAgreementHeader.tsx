@@ -1,6 +1,7 @@
 'use client';
 import { userAgreement } from '@/actions/agreement-service';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
+import ConfirmModal from '@/components/ui/ConfirmModal';
 import { Switch } from '@/components/ui/switch';
 
 import TextTitleH1 from '@/components/ui/texts/TextTitleH1';
@@ -16,12 +17,26 @@ export default function ShippingAddressAgreementHeader({
 }) {
   const [isCheck, setIsCheck] = useState(false);
   console.log('userAgreed', userAgreed);
+  const [openModal, setOpenModal] = useState(false);
   const handleClick = async () => {
-    console.log('handleClick', isCheck);
-    await userAgreement({
-      agreementId: agreementId,
-      agreed: !isCheck,
-    });
+    if (isCheck) {
+      setOpenModal(true);
+    } else {
+      setIsCheck(true);
+    }
+  };
+  const handleDisagreeConfirm = async () => {
+    try {
+      await userAgreement({
+        agreementId,
+        agreed: false,
+      });
+      setIsCheck(false);
+    } catch (err) {
+      console.error('약관 비동의 실패:', err);
+    } finally {
+      setOpenModal(false);
+    }
   };
 
   useEffect(() => {
@@ -37,6 +52,15 @@ export default function ShippingAddressAgreementHeader({
         <div className="flex items-center justify-center px-6 ">
           <Switch checked={isCheck} onClick={handleClick} />
         </div>
+        <ConfirmModal
+          open={openModal}
+          onOpenChange={setOpenModal}
+          title="배송지 정보 수집 및 이용 동의"
+          description="배송지 정보 수집 및 이용 동의를 해제하시겠습니까 ? 해제 시 저장된 배송지 정보가 모두 삭제됩니다"
+          confirmText="동의하지 않음"
+          cancelText="취소"
+          onConfirm={handleDisagreeConfirm}
+        />
       </ul>
       <CommonLayout.SectionInnerPadding>
         <CommonLayout.CommonBorder />
