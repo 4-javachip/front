@@ -4,23 +4,39 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { SelectableOptionType } from '@/types/ProductResponseDataTypes';
 
-export default function AccordionSelector() {
+export default function AccordionSelector({
+  title,
+  options,
+  selectedId,
+  onOptionSelect,
+  isOpen,
+}: {
+  title: string;
+  options: SelectableOptionType[];
+  selectedId?: number;
+  onOptionSelect: (id: number) => void;
+  isOpen?: boolean;
+}) {
   return (
-    <Accordion
-      type="single"
-      collapsible
-      defaultValue="item-1"
-      className="w-full border-2 border-lightGray-8 rounded-md"
-    >
-      <AccordionItem value="item-1">
-        <AccordionTrigger className="padded text-[0.9375rem] text-black hover:no-underline hover:black">
-          색상
-        </AccordionTrigger>
-        <hr />
-        <AccordionContent>11</AccordionContent>
-        <AccordionContent>22</AccordionContent>
-      </AccordionItem>
-    </Accordion>
+    <AccordionItem value={title}>
+      <AccordionTrigger className="p-0 padded py-3.5 text-[0.9375rem] font-semibold text-black hover:no-underline hover:black">
+        {title}
+      </AccordionTrigger>
+      <hr />
+      <AccordionContent className="flex flex-col w-full p-0">
+        {options.map((option) => (
+          <button
+            key={option.id}
+            className="text-left padded py-3.5 cursor-pointer
+              border-b border-lightGray-2 last:border-b-0"
+            onClick={() => onOptionSelect(option.id)}
+          >
+            {option.name}
+          </button>
+        ))}
+      </AccordionContent>
+    </AccordionItem>
   );
 }
