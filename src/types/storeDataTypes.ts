@@ -1,3 +1,5 @@
+import { ProductOptionType } from './ProductResponseDataTypes';
+
 export interface SignUpStoreStateType {
   emailId: string;
   emailDomain: string;
@@ -19,4 +21,9 @@ export interface SignUpStoreStateType {
 export interface SignInStoreStateType {
   email: string;
   password: string;
+}
+
+export interface SelectedOptionWithNames extends ProductOptionType {
+  colorName?: string;
+  sizeName?: string;
 }
