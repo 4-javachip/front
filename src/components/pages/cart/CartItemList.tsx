@@ -1,54 +1,31 @@
-import { CartProductType } from '@/types/ResponseDataTypes';
-import CartItem from './CartItem';
-import { dummyCartItems } from '@/data/dummyDatas';
-import CartAllCheckBar from './CartAllCheckBar';
+import CartItem from '@/components/ui/CartItem/CartItem';
+import { CartItemListType, CartProductItemType } from '@/types/CartDataType';
 
-interface Props {
-  items: CartProductType[];
-  onToggleCheck: (productOptionListUuid: string) => void;
-  onIncrease: (productOptionListUuid: string) => void;
-  onDecrease: (productOptionListUuid: string) => void;
-  onDelete: (productOptionListUuid: string) => void;
-  isAllChecked: boolean;
-  onToggleAll: () => void;
-  onDeleteSelected: () => void;
-  onDeleteAll: () => void;
+interface CartItemListProps {
+  cartItemList: CartItemListType[];
+  productNameList: CartProductItemType[];
 }
 
 export default function CartItemList({
-  items,
-  onToggleCheck,
-  onIncrease,
-  onDecrease,
-  onDelete,
-  isAllChecked,
-  onToggleAll,
-  onDeleteSelected,
-  onDeleteAll,
-}: Props) {
-  const userUuid = dummyCartItems[0].userUuid;
-
-  // 로그인 유저의 장바구니 상품만 필터링
-  const filteredItems = items.filter((item) => item.userUuid === userUuid);
-
+  cartItemList,
+  productNameList,
+}: CartItemListProps) {
   return (
-    <section>
-      <CartAllCheckBar
-        isAllChecked={isAllChecked}
-        onToggleAll={onToggleAll}
-        onDeleteSelected={onDeleteSelected}
-        onDeleteAll={onDeleteAll}
-      />
-      {filteredItems.map((item) => (
-        <CartItem
-          key={item.productOptionListUuid}
-          cartItem={item}
-          onToggleCheck={onToggleCheck}
-          onIncrease={onIncrease}
-          onDecrease={onDecrease}
-          onDelete={onDelete}
-        />
-      ))}
-    </section>
+    <ul>
+      {cartItemList.map((item) => {
+        const matched = productNameList.find(
+          (p) => p.productUuid === item.productUuid
+        );
+
+        return (
+          <CartItem
+            key={item.cartUuid}
+            cartItem={item}
+            name={matched?.name ?? '상품명 없음'}
+            size={80}
+          />
+        );
+      })}
+    </ul>
   );
 }

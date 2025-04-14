@@ -13,7 +13,7 @@ interface CartItemProps {
   onDelete: (productOptionListUuid: string) => void;
 }
 
-export default function CartItem({
+export default function CartProduct({
   cartItem,
   onToggleCheck,
   onIncrease,
