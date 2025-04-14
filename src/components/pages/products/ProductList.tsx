@@ -33,14 +33,19 @@ export default function ProductList({
     }
 
     setIsLoading(false);
-    if (
-      products[0]?.page === initialProducts.page &&
-      initialProducts.page !== 1
-    ) {
+
+    const isSamePage = products[0]?.page === initialProducts.page;
+    const isFirstPage = initialProducts.page === 1;
+    const isPageAlreadyLoaded = products.some(
+      (p) => p.page === initialProducts.page
+    );
+
+    if (isSamePage && !isFirstPage) {
       scrollTo(0, 10);
       return;
     }
-    if (products.find((p) => p.page === initialProducts.page)) {
+
+    if (isPageAlreadyLoaded) {
       return;
     }
 
