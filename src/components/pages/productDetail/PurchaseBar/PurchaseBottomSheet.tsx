@@ -55,6 +55,12 @@ export default function PurchaseBottomSheet({
     options.some((opt) => opt.colorOptionId === color.id)
   );
 
+  const handleRemoveOption = (uuid: string) => {
+    setSelectedOption((prev) =>
+      prev.filter((opt) => opt.productOptionUuid !== uuid)
+    );
+  };
+
   useEffect(() => {
     const selectOption = () => {
       const option = options.find(
@@ -80,7 +86,8 @@ export default function PurchaseBottomSheet({
             colorName,
             sizeName,
           };
-
+          setSelectedSizeId(undefined);
+          setSelectedColorId(undefined);
           return alreadyExists ? prev : [...prev, enrichedOption];
         });
       }
@@ -139,7 +146,11 @@ export default function PurchaseBottomSheet({
 
         <li className="my-5 space-y-2">
           {selectedOption.map((option) => (
-            <PurchaseItem key={option.productOptionUuid} {...option} />
+            <PurchaseItem
+              key={option.productOptionUuid}
+              option={option}
+              onRemove={handleRemoveOption}
+            />
           ))}
         </li>
       </ul>
