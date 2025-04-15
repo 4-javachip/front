@@ -25,7 +25,10 @@ export const BottomLoader = ({
         // console.log('entries', entries);
         const entry = entries[0];
         if (entry.isIntersecting) {
-          router.push(`/products?page=${page + 1}`, { scroll: false });
+          const urlParams = new URLSearchParams(window.location.search);
+          urlParams.set('page', String(page + 1));
+          const nextUrl = `${window.location.pathname}?${urlParams.toString()}`;
+          router.push(nextUrl, { scroll: false });
           setIsLoading(true);
         }
       },

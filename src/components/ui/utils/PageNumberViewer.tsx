@@ -27,7 +27,7 @@ export default function PageNumberViewer({
         'left-[50%] transform translate-x-[-50%] bottom-10 z-[100]',
         'px-4 py-2 text-xs text-white',
         'bg-green opacity-90 rounded-full',
-        'text-md'
+        'text-sm font-sd-gothic'
       )}
     >
       {pageNumber > 0 ? pageNumber + ' 페이지' : '검색결과가 없습니다.'}

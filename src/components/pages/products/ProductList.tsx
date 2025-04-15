@@ -61,14 +61,20 @@ export default function ProductList({
 
   useEffect(() => {
     const handleScroll = () => {
+      console.log(products[0]?.page, pageNumber);
       if (
         window.scrollY === 0 &&
         pageNumber &&
         pageNumber > 1 &&
         products[0]?.page === pageNumber
       ) {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('page', String(pageNumber - 1));
+
+        const nextUrl = `${window.location.pathname}?${urlParams.toString()}`;
+
+        router.push(nextUrl, { scroll: false });
         setIsLoading(true);
-        router.push(`/products?page=${pageNumber - 1}`, { scroll: false });
       }
     };
 
@@ -76,27 +82,13 @@ export default function ProductList({
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [pageNumber, params.page, router, products]);
+  }, [pageNumber, router, products]);
 
   return (
-    // <section className="padded py-6 flex justify-center flex-col">
-    //   <ul className="w-full grid grid-cols-2 gap-4 min-h-[80vh]">
-    //     {products.map((product) => (
-    //       <ProductlItem
-    //         key={product.productUuid}
-    //         productData={product}
-    //         size={800}
-    //       />
-    //     ))}
-    //   </ul>
-    //   <div ref={loaderRef} className="h-10 pt-4 w-full flex justify-center">
-    //     {isLoading && <Loader size="8" />}
-    //   </div>
-    // </section>
     <>
       <section className="padded py-6 flex justify-center flex-col">
         {isLoading && (
-          <div className="h-20">
+          <div className="h-20 pb-4 w-full flex justify-center">
             <Loader size="10" />
           </div>
         )}
