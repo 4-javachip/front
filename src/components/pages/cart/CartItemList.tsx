@@ -1,19 +1,17 @@
 import CartItem from '@/components/ui/CartItem/CartItem';
-import { CartItemListType, CartProductItemType } from '@/types/CartDataType';
+import { CartItemListType } from '@/types/CartDataType';
 
 interface CartItemListProps {
   cartItemList: CartItemListType[];
-  productNameList: CartProductItemType[];
+  cartItemName: string;
+  option: string;
 }
 
-export default function CartItemList({
-  cartItemList,
-  productNameList,
-}: CartItemListProps) {
+export default function CartItemList({ cartItemList }: CartItemListProps) {
   return (
     <ul>
       {cartItemList.map((item) => {
-        const matched = productNameList.find(
+        const matched = cartItemList.find(
           (p) => p.productUuid === item.productUuid
         );
 
@@ -21,7 +19,7 @@ export default function CartItemList({
           <CartItem
             key={item.cartUuid}
             cartItem={item}
-            name={matched?.name ?? '상품명 없음'}
+            name={cartItemList}
             size={80}
           />
         );
