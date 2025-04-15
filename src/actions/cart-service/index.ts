@@ -94,7 +94,7 @@ export const updateCartItemQuantity = async (
   console.log('토큰 ', token);
   console.log('장바구니 uuid', cartUuid, '수량', quantity);
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/quantity`, {
-    method: 'UPDATE',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
@@ -108,5 +108,6 @@ export const updateCartItemQuantity = async (
     const errorData = await res.json();
     throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
   }
-  // revalidateTag('getCartData');
+
+  revalidateTag('getCartData');
 };
