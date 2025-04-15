@@ -59,6 +59,7 @@ export default function SignUpEmailVerify({
 
       if (isDuplicated.result) {
         setModalErrorMessage('이미 사용 중인 이메일입니다.');
+        setIsLoading(false);
         setErrorModalOpen(true);
         setRemainingTime(0);
         return false;
@@ -133,7 +134,10 @@ export default function SignUpEmailVerify({
           {!remainingTime || remainingTime === 0 ? (
             <CommonButton
               onClick={handleSendEmailVerification}
-              isEnabled={true}
+              isEnabled={
+                inputValues.emailId.length >= 1 &&
+                inputValues.emailDomain.length >= 1
+              }
             >
               {isLoading ? <Loader /> : '인증 요청'}
             </CommonButton>
@@ -176,7 +180,10 @@ export default function SignUpEmailVerify({
                   </li>
                 </ul>
               </li>
-              <CommonButton onClick={handleVerifyCode} isEnabled={true}>
+              <CommonButton
+                onClick={handleVerifyCode}
+                isEnabled={inputValues.emailVerificationCode.length === 6}
+              >
                 {isLoading ? <Loader /> : '인증번호 확인'}
               </CommonButton>
             </>

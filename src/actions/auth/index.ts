@@ -19,7 +19,7 @@ export async function signUpAction(signUpData: Partial<SignUpDataType>) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    console.error('Sign-up failed:', errorData);
+    // console.error('Sign-up failed:', errorData);
     throw new Error(errorData.message);
   }
 
@@ -43,7 +43,7 @@ export async function LogoutAction() {
 
   if (!response.ok) {
     const errorData = await response.json();
-    console.error('Logout failed:', errorData);
+    // console.error('Logout failed:', errorData);
     throw new Error(errorData.message);
   }
 
@@ -60,7 +60,7 @@ export async function getSignUpAgreementData(): Promise<AgreementType[]> {
   );
   if (!response.ok) {
     const errorData = await response.json();
-    console.error('Failed to fetch sign up agreement data:', errorData);
+    // console.error('Failed to fetch sign up agreement data:', errorData);
     throw new Error(errorData.message);
   }
 
@@ -84,7 +84,7 @@ export async function checkEmailDuplicate({ email }: { email: string }) {
 
   if (!response.ok) {
     const errorData = await response.json();
-    console.error('이메일 중복 검사 실패: ', errorData);
+    // console.error('이메일 중복 검사 실패: ', errorData);
     throw new Error(errorData.message);
   }
 
@@ -112,7 +112,7 @@ export async function sendEmailVerificationAction({
 
   if (!response.ok) {
     const errorData = await response.json();
-    console.error('이메일 인증 코드 전송 실패: ', errorData);
+    // console.error('이메일 인증 코드 전송 실패: ', errorData);
     throw new Error(errorData.message);
   }
 
@@ -145,7 +145,7 @@ export async function verifyEmailCodeAction({
 
   if (!response.ok) {
     const errorData = await response.json();
-    console.error('이메일 인증 실패: ', errorData);
+    // console.error('이메일 인증 실패: ', errorData);
     throw new Error(errorData.message);
   }
 
