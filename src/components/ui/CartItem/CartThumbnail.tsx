@@ -12,7 +12,7 @@ export default function CartThumbnail({
   size: number;
 }) {
   const style =
-    size === 10
+    size === 140
       ? { width: size, height: size }
       : { width: '100%', aspectRatio: '1 / 1' };
 
@@ -28,7 +28,8 @@ export default function CartThumbnail({
       <Image
         src={thumbnail.thumbnailUrl}
         alt={thumbnail.description}
-        fill
+        width={size}
+        height={size}
         sizes={size === 140 ? '140px' : '100%'}
         className="rounded-sm object-cover select-none pointer-events-none"
         loading="lazy"

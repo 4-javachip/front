@@ -7,10 +7,10 @@ import Checkbox from '@/components/ui/inputs/CheckBox';
 
 interface CartItemProps {
   cartItem: CartProductType;
-  onToggleCheck: (productOptionListUuid: string) => void;
-  onIncrease: (productOptionListUuid: string) => void;
-  onDecrease: (productOptionListUuid: string) => void;
-  onDelete: (productOptionListUuid: string) => void;
+  onToggleCheck: (productUuid: string) => void;
+  onIncrease: (productUuid: string) => void;
+  onDecrease: (productUuid: string) => void;
+  onDelete: (productUuid: string) => void;
 }
 
 export default function CartProduct({
@@ -34,7 +34,7 @@ export default function CartProduct({
     <article className="flex items-start gap-3 py-5.5 border-b border-lightGray-8 px-6">
       <Checkbox
         checked={checked}
-        onChange={() => onToggleCheck(productOptionListUuid)}
+        onChange={() => onToggleCheck(productUuid)}
         className="mt-2"
       />
 
@@ -53,7 +53,7 @@ export default function CartProduct({
             {productName}
           </li>
           <li>
-            <DeleteButton onDelete={() => onDelete(productOptionListUuid)} />
+            <DeleteButton onDelete={() => onDelete(productUuid)} />
           </li>
         </ul>
 
@@ -61,8 +61,8 @@ export default function CartProduct({
           <li>
             <QuantityControl
               quantity={productQuantity}
-              onIncrease={() => onIncrease(productOptionListUuid)}
-              onDecrease={() => onDecrease(productOptionListUuid)}
+              onIncrease={() => onIncrease(productUuid)}
+              onDecrease={() => onDecrease(productUuid)}
             />
           </li>
           <li className="text-right font-body">
