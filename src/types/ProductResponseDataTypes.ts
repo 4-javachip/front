@@ -24,8 +24,8 @@ export interface ProductThumbnailDataType {
 export interface ProductOptionType {
   productUuid: string;
   productOptionUuid: string;
-  colorOptionId?: number;
-  sizeOptionId?: number;
+  colorOptionId: number;
+  sizeOptionId: number;
   stock: number;
   price: number;
   discountRate: number;

@@ -1,11 +1,19 @@
+import { cn } from '@/lib/utils';
+import { ChangeEvent } from 'react';
+
 interface CheckboxProps {
   checked: boolean;
   onChange?: () => void;
+  className?: string;
 }
 
-export default function Checkbox({ checked, onChange }: CheckboxProps) {
+export default function Checkbox({ checked, className }: CheckboxProps) {
+  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    console.log('Checkbox clicked', e.target.checked);
+  };
   return (
-    <label className="flex items-center gap-2">
+    <label className={cn('flex items-center gap-2', className)}>
       <div className="relative w-5.5 h-5.5">
         <input
           id="custom-checkbox"
@@ -13,8 +21,8 @@ export default function Checkbox({ checked, onChange }: CheckboxProps) {
           className="w-full h-full appearance-none border border-green rounded 
           checked:bg-green checked:border-transparent active:border-black
           cursor-pointer"
-          onChange={onChange}
           checked={checked}
+          onChange={handleCheck}
         />
         {checked && (
           <svg

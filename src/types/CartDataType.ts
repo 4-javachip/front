@@ -1,7 +1,7 @@
-export interface CartItemListType {
+export interface CartItemType {
   userUuid: string;
   cartUuid: string;
-  productQauntity: number;
+  productQuantity: number;
   checked: boolean;
   productUuid: string;
   productOptionUuid: string;

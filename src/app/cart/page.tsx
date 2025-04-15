@@ -20,22 +20,22 @@ export default async function page() {
   //   )
   // );
 
-  const cartItemData = await Promise.all(
-    cartItemList.map(async (item) => {
-      const [ItemName, ItemPrice, ItemThumb] = await Promise.all([
-        getProductNameDataByProductUuid(item.productUuid),
-        getOptionDatasByProductUuid(item.productUuid),
-        getDefaultThumbnailDataByProductUuid(item.productUuid),
-      ]);
+  // const cartItemData = await Promise.all(
+  //   cartItemList.map(async (item) => {
+  //     const [ItemName, ItemPrice, ItemThumb] = await Promise.all([
+  //       getProductNameDataByProductUuid(item.productUuid),
+  //       getOptionDatasByProductUuid(item.productUuid),
+  //       getDefaultThumbnailDataByProductUuid(item.productUuid),
+  //     ]);
 
-      return {
-        ...item,
-        cartItemName: ItemName.name,
-        option: ItemPrice,
-        thumbnail: ItemThumb,
-      };
-    })
-  );
+  //     return {
+  //       ...item,
+  //       cartItemName: ItemName.name,
+  //       option: ItemPrice,
+  //       thumbnail: ItemThumb,
+  //     };
+  //   })
+  // );
 
   const defaultedShippingAddress =
     (await getDefaultShippingAddress()) as DefaultShippingAddressType;
@@ -43,7 +43,7 @@ export default async function page() {
   return (
     <main>
       <CartShippingInfo defaultShippingAddress={defaultedShippingAddress} />
-      <CartItemList cartItemList={cartItemData} />
+      <CartItemList cartItemList={cartItemList} />
     </main>
   );
 }
