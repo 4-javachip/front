@@ -1,4 +1,6 @@
-// 'use server';
+
+'use server';
+
 import {
   CategoryMenuType,
   CommonResponseType,
