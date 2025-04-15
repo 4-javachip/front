@@ -13,9 +13,9 @@ export default function CartItemList({ cartItemList }: CartItemListProps) {
       {cartItemList.map((item) => (
         <Suspense
           key={item.productUuid}
-          fallback={<ItemThumbSkeleton size={200} />}
+          fallback={<ItemThumbSkeleton size={80} />}
         >
-          <CartItem data={item} size={200} />
+          <CartItem data={item} size={80} />
         </Suspense>
       ))}
     </ul>

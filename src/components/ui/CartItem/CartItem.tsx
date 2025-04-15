@@ -1,20 +1,10 @@
 'use client';
 import {
-  getThumbnailDatasByProductUuid,
-  getOptionDatasByProductUuid,
   getProductNameDataByProductUuid,
   getProductOptionDataByProductOptionUuid,
-  getDefaultThumbnailDataByProductUuid,
 } from '@/actions/product-service';
-import {
-  ProductOptionType,
-  ProductThumbnailDataType,
-} from '@/types/ProductResponseDataTypes';
 
-import {
-  ItemPriceSkeleton,
-  ItemThumbSkeleton,
-} from '../skeletons/ProductItemSkeleton';
+import { ItemThumbSkeleton } from '../skeletons/ProductItemSkeleton';
 
 import CartPrice from './CartPrice';
 import CartThumbnail from './CartThumbnail';
@@ -26,8 +16,6 @@ import { Check } from 'lucide-react';
 import Checkbox from '../inputs/CheckBox';
 import { Suspense, useEffect, useState } from 'react';
 import { CartItemType } from '@/types/CartDataType';
-import { getCartItemData } from '@/actions/cart-service';
-import { Thumb } from '@radix-ui/react-switch';
 import QuantityControl from '@/components/pages/cart/QuantityControl';
 
 export default function CartItem({
@@ -77,14 +65,6 @@ export default function CartItem({
     return;
   }, [data]);
 
-  // try {
-  //   thumbnails = await getThumbnailDatasByProductUuid(cartItem.productUuid);
-  //   options = await getOptionDatasByProductUuid(cartItem.productUuid);
-  // } catch (error) {
-  //   console.log('데이터 페칭 에러');
-  // }
-  // const option = options[0];
-  // const thumbnail = thumbnails[0];
   return (
     <CommonLayout.SectionInnerPadding>
       <article className="grid grid-cols-12 items-start gap-4 py-6 border-b border-lightGray-8">
@@ -98,12 +78,13 @@ export default function CartItem({
           </Suspense>
         </div>
 
-        <div className="col-span-8 space-y-7">
-          <div className="text-base font-semibold text-foreground break-words">
+        <div className="col-span-8 space-y-5">
+          <div className="flex justify-between text-base font-semibold text-foreground break-words">
             <CartItemName
               id={cartItem.productUuid}
               name={cartItem.productName}
             />
+            <DeleteIcon />
           </div>
           {/* <DeleteButton
               cartUuid={cartItem.cartUuid}
@@ -111,7 +92,7 @@ export default function CartItem({
                 console.log('삭제 버튼 클릭됨');
               }}
             /> */}
-          {/* <DeleteIcon /> */}
+
           <div className="flex items-end justify-between mt-2">
             <QuantityControl
               cartUuid={cartItem.cartUuid}
