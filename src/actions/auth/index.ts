@@ -98,6 +98,7 @@ export async function sendEmailVerificationAction({
 }) {
   const payload = {
     email,
+    purpose: 'sign_up',
   };
 
   const response = await fetch(

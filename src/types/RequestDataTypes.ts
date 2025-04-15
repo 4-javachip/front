@@ -1,3 +1,5 @@
+import { SortType } from './initialDataTypes';
+
 export interface SignUpDataType {
   email: string;
   password: string;
@@ -30,11 +32,11 @@ export interface getProductDataType {
   categoryId?: number;
   subCategoryId?: number;
   seasonId?: number;
-  sortType?: 'PRICE_ASC' | 'PRICE_DESC' | 'RECOMMEND';
+  sortType?: SortType;
   keyword?: string;
   cursor?: number;
-  pageSize: number;
-  page: number;
+  pageSize?: number;
+  page?: number;
 }
 
 export interface UserAgreementType {
