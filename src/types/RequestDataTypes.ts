@@ -1,5 +1,3 @@
-import { SortType } from './initialDataTypes';
-
 export interface SignUpDataType {
   email: string;
   password: string;
@@ -32,7 +30,7 @@ export interface getProductDataType {
   categoryId?: number;
   subCategoryId?: number;
   seasonId?: number;
-  sortType?: SortType;
+  sortType?: string;
   keyword?: string;
   cursor?: number;
   pageSize?: number;

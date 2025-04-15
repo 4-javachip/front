@@ -28,11 +28,13 @@ export default async function ProductListPage({
     categoryId: params.category ? Number(params.category) : undefined,
     subCategoryId: params.subCategory ? Number(params.subCategory) : undefined,
     seasonId: params.season ? Number(params.season) : undefined,
-    sortType: params.sortType as
-      | 'PRICE_ASC'
-      | 'PRICE_DESC'
-      | 'RECOMMEND'
-      | undefined,
+    sortType: params.sortType
+      ? (params.sortType.toUpperCase() as
+          | 'NEW'
+          | 'PRICE_ASC'
+          | 'PRICE_DESC'
+          | 'RECOMMEND')
+      : undefined,
     keyword: params.keyword ?? undefined,
     cursor: params.cursor ? Number(params.cursor) : undefined,
     pageSize: params.pageSize ? Number(params.pageSize) : undefined,

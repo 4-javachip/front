@@ -16,7 +16,7 @@ export default function ProductList({
   // const searchParams = useSearchParams();
   const router = useRouter();
 
-  const pageSize = 20;
+  const pageSize = 10;
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   // const initialPage = Number(searchParams.get('page')) || 1;
@@ -24,15 +24,18 @@ export default function ProductList({
   const [page, setPage] = useState(1);
   const [products, setProducts] = useState<ProductNameDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isParamsLoading, setIsParamsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  console.log('page: ', page, 'hasmore: ', hasMore, 'isLoading: ', isLoading);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      setIsParamsLoading(true);
+      setPage(1);
 
       const res = await getProductListData({
         pageSize,
-        page,
+        page: 1,
         categoryId: params?.categoryId,
         sortType: params?.sortType,
         keyword: params?.keyword,
@@ -42,7 +45,7 @@ export default function ProductList({
 
       setProducts(res.content);
       setHasMore(res.hasNext);
-      setIsLoading(false);
+      setIsParamsLoading(false);
     };
 
     fetchData();
@@ -99,18 +102,34 @@ export default function ProductList({
 
   return (
     <section className="padded py-6 flex justify-center flex-col">
-      <ul className="w-full grid grid-cols-2 gap-4 min-h-[80vh]">
-        {products.map((product) => (
-          <ProductlItem
-            key={product.productUuid}
-            productData={product}
-            size={800}
-          />
-        ))}
-      </ul>
-      <div ref={loaderRef} className="h-10 pt-4 w-full flex justify-center">
-        {isLoading && <Loader size="8" />}
-      </div>
+      {isParamsLoading ? (
+        <div className="h-80 pt-4 w-full flex justify-center items-center">
+          <Loader size="10" />
+        </div>
+      ) : (
+        <>
+          <ul className="w-full grid grid-cols-2 gap-4 min-h-[80vh]">
+            {products.map((product) => (
+              <ProductlItem
+                key={product.productUuid}
+                productData={product}
+                size={800}
+              />
+            ))}
+          </ul>
+          {!isLoading && hasMore && (
+            <div
+              ref={loaderRef}
+              className="flex justify-center items-center h-20"
+            ></div>
+          )}
+          {isLoading && (
+            <div className="h-10 pt-4 w-full flex justify-center">
+              <Loader size="10" />
+            </div>
+          )}
+        </>
+      )}
     </section>
   );
 }
