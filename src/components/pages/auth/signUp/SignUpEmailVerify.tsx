@@ -52,70 +52,65 @@ export default function SignUpEmailVerify({
 
   const handleSendEmailVerification = async (): Promise<boolean> => {
     setIsLoading(true);
-    try {
-      const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-      const isDuplicated = await checkEmailDuplicate({ email });
-      console.log(isDuplicated);
 
-      if (isDuplicated.result) {
-        setModalErrorMessage('이미 사용 중인 이메일입니다.');
-        setErrorModalOpen(true);
-        setRemainingTime(0);
-        return false;
-      }
-      const res = await sendEmailVerificationAction({ email });
-      if (res) {
-        startTimer();
-      }
-      console.log(res);
+    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+    const isDuplicated = await checkEmailDuplicate({ email });
+    console.log(isDuplicated);
 
-      handleChange({
-        target: {
-          name: 'isEmailSent',
-          value: 'true',
-        },
-      } as React.ChangeEvent<HTMLInputElement>);
-    } catch (error) {
-      const message =
-        (error as { message?: string })?.message ??
-        '메일 전송 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
-      setModalErrorMessage(message);
+    // true : 중복 / false : 체크 통과(중복X)
+    if (isDuplicated.result) {
+      setModalErrorMessage('이미 사용 중인 이메일입니다.');
+      setIsLoading(false);
+      setErrorModalOpen(true);
+      setRemainingTime(0);
+      return false;
+    }
+
+    const res = await sendEmailVerificationAction({ email });
+
+    if (res.success === false) {
+      setModalErrorMessage(res.message);
       setErrorModalOpen(true);
       setIsLoading(false);
       return false;
     }
+
+    startTimer();
+
+    handleChange({
+      target: {
+        name: 'isEmailSent',
+        value: 'true',
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
+
     setIsLoading(false);
     return true;
   };
 
   const handleVerifyCode = async () => {
     setIsLoading(true);
-    try {
-      const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-      const code = inputValues.emailVerificationCode;
-      const res = await verifyEmailCodeAction({
-        email,
-        verificationCode: code,
-      });
+    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+    const code = inputValues.emailVerificationCode;
+    const res = await verifyEmailCodeAction({
+      email,
+      verificationCode: code,
+    });
 
-      if (res && !res.error) {
-        handleChange({
-          target: {
-            name: 'isEmailVerified',
-            value: 'true',
-          },
-        } as React.ChangeEvent<HTMLInputElement>);
-      }
-
-      console.log(res);
-    } catch (error) {
-      const message =
-        (error as { message?: string })?.message ??
-        '인증 확인 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
-      setModalErrorMessage(message);
+    if (res.success === false) {
+      setModalErrorMessage(res.message);
       setErrorModalOpen(true);
       setIsLoading(false);
+      return;
     }
+
+    handleChange({
+      target: {
+        name: 'isEmailVerified',
+        value: 'true',
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
+
     setIsLoading(false);
   };
 
@@ -133,7 +128,10 @@ export default function SignUpEmailVerify({
           {!remainingTime || remainingTime === 0 ? (
             <CommonButton
               onClick={handleSendEmailVerification}
-              isEnabled={true}
+              isEnabled={
+                inputValues.emailId.length >= 1 &&
+                inputValues.emailDomain.length >= 1
+              }
             >
               {isLoading ? <Loader /> : '인증 요청'}
             </CommonButton>
@@ -176,7 +174,10 @@ export default function SignUpEmailVerify({
                   </li>
                 </ul>
               </li>
-              <CommonButton onClick={handleVerifyCode} isEnabled={true}>
+              <CommonButton
+                onClick={handleVerifyCode}
+                isEnabled={inputValues.emailVerificationCode.length === 6}
+              >
                 {isLoading ? <Loader /> : '인증번호 확인'}
               </CommonButton>
             </>

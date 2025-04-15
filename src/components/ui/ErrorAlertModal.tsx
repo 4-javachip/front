@@ -36,7 +36,7 @@ export default function ErrorAlertModal({
           <AlertDialogAction
             onClick={onConfirm}
             className="bg-green rounded-[3.125rem] py-3 px-6 hover:bg-green
-            cursor-pointer"
+            cursor-pointer text-white hover:text-white"
           >
             확인
           </AlertDialogAction>

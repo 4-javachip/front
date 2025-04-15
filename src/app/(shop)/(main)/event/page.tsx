@@ -11,6 +11,8 @@ export default async function page({
   searchParams: Promise<{ event: string }>;
 }) {
   const eventsData = await getEventDatas();
+  if (!eventsData) return <div>진행중인 이벤트가 없습니다.</div>;
+
   const eventItems = eventsData.map((event) => ({
     id: event.eventUuid,
     name: event.name,

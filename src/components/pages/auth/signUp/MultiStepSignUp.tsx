@@ -15,7 +15,9 @@ import Loader from '@/components/ui/loader';
 export default function MultiStepSignUp({
   handleSignUp,
 }: {
-  handleSignUp: (inputValues: SignUpStoreStateType) => Promise<void>;
+  handleSignUp: (
+    inputValues: SignUpStoreStateType
+  ) => Promise<{ success: boolean; message?: string }>;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -74,7 +76,7 @@ export default function MultiStepSignUp({
     setInputValues((prev) => {
       const updatedValues = { ...prev, [name]: value };
       const res = signUpSchema.safeParse(updatedValues);
-      console.log(updatedValues);
+      // console.log(updatedValues);
       if (!res.success) {
         const fieldErrors: Partial<SignUpStoreStateType> = {};
         res.error.errors.forEach((error) => {
@@ -99,18 +101,20 @@ export default function MultiStepSignUp({
   const nextStep = async () => {
     if (step === 3) {
       setIsLoading(true);
-      try {
-        await handleSignUp(inputValues);
-        router.push('sign-up-complete');
-        setIsLoading(false);
-      } catch (error) {
+
+      const res = await handleSignUp(inputValues);
+
+      console.log(res);
+      if (res.success === false) {
         const message =
-          (error as { message?: string })?.message ??
+          res.message ??
           '회원 가입 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
         setModalErrorMessage(message);
         setErrorModalOpen(true);
-        setIsLoading(false);
+      } else {
+        router.push('sign-up-complete');
       }
+      setIsLoading(false);
     } else {
       setStep((prev) => prev + 1);
     }
@@ -126,7 +130,6 @@ export default function MultiStepSignUp({
 
   const handleModalConfirm = () => {
     setErrorModalOpen(false);
-    setStep(1);
   };
 
   return (
