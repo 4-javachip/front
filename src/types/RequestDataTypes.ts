@@ -33,12 +33,11 @@ export interface getProductDataType {
   sortType?: 'PRICE_ASC' | 'PRICE_DESC' | 'RECOMMEND';
   keyword?: string;
   cursor?: number;
-  pageSize?: number;
-  page?: number;
+  pageSize: number;
+  page: number;
 }
 
 export interface UserAgreementType {
   agreementId: number;
   agreed: boolean;
 }
-
