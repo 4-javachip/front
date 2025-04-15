@@ -73,22 +73,27 @@ export async function checkEmailDuplicate({ email }: { email: string }) {
     email,
   };
 
-  const response = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/auth/exists/email`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+  try {
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/auth/exists/email`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      // console.error('이메일 중복 검사 실패: ', errorData);
+      // throw new Error(errorData.message);
+      return { success: false, message: errorData.message };
     }
-  );
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    // console.error('이메일 중복 검사 실패: ', errorData);
-    throw new Error(errorData.message);
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
   }
-
-  return await response.json();
 }
 
 export async function sendEmailVerificationAction({
@@ -101,22 +106,27 @@ export async function sendEmailVerificationAction({
     purpose: 'sign_up',
   };
 
-  const response = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/email/send-code`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+  try {
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/email/send-code`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('이메일 인증 코드 전송 실패: ', errorData);
+      // throw new Error(errorData.message);
+      return { success: false, message: errorData.message };
     }
-  );
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    // console.error('이메일 인증 코드 전송 실패: ', errorData);
-    throw new Error(errorData.message);
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
   }
-
-  return await response.json();
 }
 
 export async function verifyEmailCodeAction({
@@ -132,22 +142,27 @@ export async function verifyEmailCodeAction({
     purpose: 'sign_up',
   };
 
-  const response = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/email/verify`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
+  try {
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/email/verify`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('이메일 인증 실패: ', errorData);
+      // throw new Error(errorData.message);
+      return { success: false, message: errorData.message };
     }
-  );
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    // console.error('이메일 인증 실패: ', errorData);
-    throw new Error(errorData.message);
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
   }
-
-  return await response.json();
 }
