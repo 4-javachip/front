@@ -8,7 +8,7 @@ import { useRef } from 'react';
 
 export default function SmallDropDownModal() {
   const searchParams = useSearchParams();
-  const currentSort = searchParams.get('sort') || 'newest';
+  const currentSort = searchParams.get('sortType') || 'NEW';
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<SVGSVGElement>(null);

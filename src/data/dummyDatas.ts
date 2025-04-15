@@ -325,10 +325,10 @@ export const seasonList: SeasonType[] = [
 ];
 
 export const sortOptions: ProductSortOptionType[] = [
-  { label: '신상품순', value: 'newest' },
-  { label: '추천순', value: 'recommended' },
-  { label: '낮은가격순', value: 'lowPrice' },
-  { label: '높은가격순', value: 'highPrice' },
+  { label: '신상품순', value: 'new' },
+  { label: '추천순', value: 'recommend' },
+  { label: '낮은가격순', value: 'price_desc' },
+  { label: '높은가격순', value: 'price_asc' },
 ];
 
 export const dummyCartSummary = {

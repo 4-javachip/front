@@ -17,3 +17,5 @@ export interface SignUpStepType {
     inputValues: SignUpStoreStateType;
   }) => React.ReactNode;
 }
+
+export type SortType = 'NEW' | 'PRICE_ASC' | 'PRICE_DESC' | 'RECOMMEND';

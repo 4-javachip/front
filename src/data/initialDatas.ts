@@ -1,6 +1,10 @@
 import SignUpStep01 from '@/components/pages/auth/signUp/step/SignUpStep01';
 import SignUpStep02 from '@/components/pages/auth/signUp/step/SignUpStep02';
-import { DropDownOption, SignUpStepType } from '@/types/initialDataTypes';
+import {
+  DropDownOption,
+  SignUpStepType,
+  SortType,
+} from '@/types/initialDataTypes';
 import SignUpStep03 from '@/components/pages/auth/signUp/step/SignUpStep03';
 
 export const emailDomains: DropDownOption[] = [
@@ -50,4 +54,11 @@ export const signUpStepData: SignUpStepType[] = [
     ],
     item: SignUpStep03,
   },
+];
+
+export const SortOptionData: SortType[] = [
+  'NEW',
+  'PRICE_ASC',
+  'PRICE_DESC',
+  'RECOMMEND',
 ];

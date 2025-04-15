@@ -8,7 +8,7 @@ export default function DropDownItem(option: { value: string; label: string }) {
 
   const handleSelect = (option: { value: string; label: string }) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set('sort', option.value);
+    params.set('sortType', option.value);
 
     router.push(`?${params.toString()}`, { scroll: false });
   };
