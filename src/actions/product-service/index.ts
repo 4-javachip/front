@@ -14,75 +14,115 @@ import { getProductDataType } from '@/types/RequestDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 
 export const getProductListData = cache(async (params: getProductDataType) => {
-  const queryString = params
-    ? Object.entries(params)
-        .reduce((acc, [key, value]) => {
-          if (value !== undefined) acc.append(key, String(value));
-          return acc;
-        }, new URLSearchParams())
-        .toString()
-    : '';
+  try {
+    const queryString = params
+      ? Object.entries(params)
+          .reduce((acc, [key, value]) => {
+            if (value !== undefined) acc.append(key, String(value));
+            return acc;
+          }, new URLSearchParams())
+          .toString()
+      : '';
 
-  const res = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/product/list?${queryString}`,
-    {
-      method: 'GET',
-      // cache: 'no-cache',
-      next: { tags: [`getProducts-${params.page}`, `page-${params.page}`] },
-    }
-  );
-
-  if (!res.ok) {
-    const errorData = await res.json();
-    console.error('Data Fetching failed:', errorData);
-    throw new Error(errorData.message);
-  }
-  const data = (await res.json()) as CommonResponseType<
-    PaginatedResponseType<ProductNameDataType[]>
-  >;
-  // console.log(data);
-  return data.result;
-});
-
-export const getDefaultThumbnailDataByProductUuid = cache(
-  async (productUuid: string) => {
     const res = await fetch(
-      `${process.env.BASE_API_URL}/api/v1/product/thumbnail/default/${productUuid}`,
+      `${process.env.BASE_API_URL}/api/v1/product/list?${queryString}`,
       {
         method: 'GET',
-        cache: 'force-cache',
+        // cache: 'no-cache',
+        next: { tags: [`getProducts-${params.page}`, `page-${params.page}`] },
       }
     );
 
     if (!res.ok) {
       const errorData = await res.json();
-      console.error('Thumbnail Data Fetching failed:', errorData);
-      throw new Error(errorData.message);
+      console.error('Data Fetching failed:', errorData);
+      // throw new Error(errorData.message);
+      return {
+        success: false,
+        data: undefined,
+      };
     }
+    const data = (await res.json()) as CommonResponseType<
+      PaginatedResponseType<ProductNameDataType[]>
+    >;
+    return {
+      success: true,
+      data: data.result,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: undefined,
+    };
+  }
+});
 
-    const data =
-      (await res.json()) as CommonResponseType<ProductThumbnailDataType>;
+export const getDefaultThumbnailDataByProductUuid = cache(
+  async (productUuid: string) => {
+    try {
+      const res = await fetch(
+        `${process.env.BASE_API_URL}/api/v1/product/thumbnail/default/${productUuid}`,
+        {
+          method: 'GET',
+          cache: 'force-cache',
+        }
+      );
 
-    return data.result;
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error('Thumbnail Data Fetching failed:', errorData);
+        // throw new Error(errorData.message);
+        return {
+          success: false,
+          data: undefined,
+        };
+      }
+
+      const data =
+        (await res.json()) as CommonResponseType<ProductThumbnailDataType>;
+      return {
+        success: true,
+        data: data.result,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        data: undefined,
+      };
+    }
   }
 );
 
 export const getLowestOptionDataByProductUuid = cache(
   async (productUuid: string) => {
-    const res = await fetch(
-      `${process.env.BASE_API_URL}/api/v1/product/option/search?productUuid=${productUuid}`,
-      {
-        method: 'GET',
-        cache: 'force-cache',
+    try {
+      const res = await fetch(
+        `${process.env.BASE_API_URL}/api/v1/product/option/search?productUuid=${productUuid}`,
+        {
+          method: 'GET',
+          cache: 'force-cache',
+        }
+      );
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error('Product Option Data Fetching failed:', errorData);
+        // throw new Error(errorData.message);
+        return {
+          success: false,
+          data: undefined,
+        };
       }
-    );
-    if (!res.ok) {
-      const errorData = await res.json();
-      console.error('Product Option Data Fetching failed:', errorData);
-      throw new Error(errorData.message);
+      const data = (await res.json()) as CommonResponseType<ProductOptionType>;
+      return {
+        success: true,
+        data: data.result,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        data: undefined,
+      };
     }
-    const data = (await res.json()) as CommonResponseType<ProductOptionType>;
-    return data.result;
   }
 );
 

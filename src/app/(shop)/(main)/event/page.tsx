@@ -11,15 +11,16 @@ export default async function page({
 }: {
   searchParams: Promise<{ event: string }>;
 }) {
+  const fallback = (
+    <NotFoundLayout
+      message="진행중인 이벤트가 없습니다."
+      linkText="홈으로"
+      linkHref="/"
+    />
+  );
+
   const { data: eventsData } = await getEventDatas();
-  if (eventsData.length <= 0)
-    return (
-      <NotFoundLayout
-        message="진행중인 이벤트가 없습니다."
-        linkText="홈으로"
-        linkHref="/"
-      />
-    );
+  if (eventsData.length <= 0) return fallback;
 
   const eventItems = eventsData.map((event) => ({
     id: event.eventUuid,
@@ -27,31 +28,15 @@ export default async function page({
   }));
 
   const { event } = await searchParams;
-  if (event === undefined || '') {
-    console.log('undefined');
-    return (
-      <NotFoundLayout
-        message="진행중인 이벤트가 없습니다."
-        linkText="홈으로"
-        linkHref="/"
-      />
-    );
-  }
+  if (event === undefined || '') return fallback;
 
   const { data: selectedEventData } = await getEventDataByEventUuid(event);
-  if (!selectedEventData) {
-    return (
-      <NotFoundLayout
-        message="진행중인 이벤트가 없습니다."
-        linkText="홈으로"
-        linkHref="/"
-      />
-    );
-  }
+  if (!selectedEventData) return fallback;
 
   return (
     <main>
       <EventCarousel eventItems={eventItems} />
+      {/* 유의사항 추가예정 */}
       <EventSection eventsData={selectedEventData} />
     </main>
   );

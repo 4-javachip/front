@@ -29,7 +29,13 @@ export default function ProductList({
         subCategoryId: p?.subCategoryId,
         seasonId: p?.seasonId,
       });
-      return { content: res.content, hasNext: res.hasNext };
+      if (!res.success)
+        return {
+          content: [],
+          hasNext: false,
+        };
+
+      return { content: res.data!.content, hasNext: res.data!.hasNext };
     },
     params,
   });

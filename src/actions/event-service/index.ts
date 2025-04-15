@@ -15,7 +15,8 @@ export async function getEventDatas() {
     if (!res.ok) {
       const errorData = await res.json();
       console.error('Data Fetching failed:', errorData);
-      throw new Error(errorData.message);
+      // throw new Error(errorData.message);
+      redirect('/error');
     }
     const data = (await res.json()) as CommonResponseType<EventDataType[]>;
 
@@ -47,7 +48,8 @@ export async function getEventProductDatasByEventUuid({
     if (!res.ok) {
       const errorData = await res.json();
       console.error('Data Fetching failed:', errorData);
-      throw new Error(errorData.message);
+      // throw new Error(errorData.message);
+      redirect('/error');
     }
     const data = (await res.json()) as CommonResponseType<
       PaginatedResponseType<EventProductType[]>
@@ -73,7 +75,8 @@ export async function getEventDataByEventUuid(eventUuid: string) {
     if (!res.ok) {
       const errorData = await res.json();
       console.error('Data Fetching failed:', errorData);
-      throw new Error(errorData.message);
+      // throw new Error(errorData.message);
+      redirect('/error');
     }
     const data = (await res.json()) as CommonResponseType<EventDataType>;
     return {
