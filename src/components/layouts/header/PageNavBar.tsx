@@ -9,27 +9,27 @@ const PageNavBar = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const [eventLinkId, setEventLinkId] = useState<string>('');
+  // const [eventLinkId, setEventLinkId] = useState<string>('');
 
-  useEffect(() => {
-    const getEventData = async () => {
-      const { data: eventsData } = await getEventDatas();
-      if (eventsData.length > 0) {
-        setEventLinkId(eventsData[0].eventUuid);
-      }
-      console.log(eventLinkId);
-    };
+  // useEffect(() => {
+  //   const getEventData = async () => {
+  //     const { data: eventsData } = await getEventDatas();
+  //     if (eventsData.length > 0) {
+  //       setEventLinkId(eventsData[0].eventUuid);
+  //     }
+  //     console.log(eventLinkId);
+  //   };
 
-    getEventData();
-  }, []);
+  //   getEventData();
+  // }, []);
 
-  const handleEventRoute = () => {
-    if (eventLinkId === '') {
-      router.push(`/event`);
-      return;
-    }
-    router.push(`/event?event=${eventLinkId}`);
-  };
+  // const handleEventRoute = () => {
+  //   if (eventLinkId === '') {
+  //     router.push(`/event`);
+  //     return;
+  //   }
+  //   router.push(`/event?event=${eventLinkId}`);
+  // };
 
   // 각 메뉴의 경로
   const navItems = [
@@ -56,18 +56,18 @@ const PageNavBar = () => {
                   : 'font-Ragular'
               }`}
             >
-              {item.label === '기획전' ? (
+              {/* {item.label === '기획전' ? (
                 <span
                   onClick={handleEventRoute}
                   className="hover:text-green-600 cursor-pointer"
                 >
                   {item.label}
                 </span>
-              ) : (
-                <Link href={item.href}>
-                  <span className="hover:text-green-600">{item.label}</span>
-                </Link>
-              )}
+              ) : ( */}
+              <Link href={item.href}>
+                <span className="hover:text-green-600">{item.label}</span>
+              </Link>
+              {/* )} */}
             </li>
           );
         })}

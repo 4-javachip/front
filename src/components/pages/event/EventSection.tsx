@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { EventDataType } from '@/types/EventResponseDataType';
 import EventProductList from './EventProductList';
+import PrecautionAccordion from './PrecautionAccordion';
 
 export default async function EventSection({
   eventsData,
@@ -22,7 +23,13 @@ export default async function EventSection({
         width={500}
         height={300}
       />
-      {/* 기획전 유의사항 추가필요 */}
+      <section>
+        <PrecautionAccordion title="기획전 유의사항">
+          <ul className="text-lightGray-1 text-sm">
+            <li>{eventsData.precaution}</li>
+          </ul>
+        </PrecautionAccordion>
+      </section>
       <EventProductList eventUuid={eventUuid} />
     </>
   );

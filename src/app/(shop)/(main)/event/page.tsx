@@ -28,15 +28,19 @@ export default async function page({
   }));
 
   const { event } = await searchParams;
-  if (event === undefined || '') return fallback;
+  // if (event === undefined || '') return fallback;
 
-  const { data: selectedEventData } = await getEventDataByEventUuid(event);
+  const selectedEventUuid =
+    event === undefined || event === '' ? eventsData[0].eventUuid : event;
+
+  const { data: selectedEventData } = await getEventDataByEventUuid(
+    selectedEventUuid
+  );
   if (!selectedEventData) return fallback;
 
   return (
     <main>
       <EventCarousel eventItems={eventItems} />
-      {/* 유의사항 추가예정 */}
       <EventSection eventsData={selectedEventData} />
     </main>
   );
