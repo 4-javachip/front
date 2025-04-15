@@ -33,6 +33,12 @@ export default function SignUpPage() {
 
     const res = await signUpAction(payload);
     console.log(res);
+
+    if (res.success === false) {
+      return { success: false, message: res.message };
+    } else {
+      return { success: true };
+    }
   };
 
   return (
