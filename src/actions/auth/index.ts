@@ -1,71 +1,87 @@
 'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { SignInDataType, SignUpDataType } from '@/types/RequestDataTypes';
+import { SignUpDataType } from '@/types/RequestDataTypes';
 import { AgreementType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
 export async function signUpAction(signUpData: Partial<SignUpDataType>) {
   const payload: Partial<SignUpDataType> = { ...signUpData };
 
-  console.log('Payload being sent to the API:', payload);
-  const response = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/auth/sign-up`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+  try {
+    console.log('Payload being sent to the API:', payload);
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/auth/sign-up`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      // console.error('Sign-up failed:', errorData);
+      // throw new Error(errorData.message);
+      return { success: false, message: errorData.message };
     }
-  );
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    // console.error('Sign-up failed:', errorData);
-    throw new Error(errorData.message);
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
   }
-
-  return await response.json();
 }
 
 export async function LogoutAction() {
-  const session = await getServerSession(options);
-  const refreshToken = session?.user.refreshToken;
+  try {
+    const session = await getServerSession(options);
+    const refreshToken = session?.user.refreshToken;
 
-  const response = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/auth/logout`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${refreshToken}`,
-      },
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/auth/logout`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${refreshToken}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Logout failed:', errorData);
+      // throw new Error(errorData.message);
+      return { success: false, message: errorData.message };
     }
-  );
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    // console.error('Logout failed:', errorData);
-    throw new Error(errorData.message);
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
   }
-
-  return await response.json();
 }
 
-export async function getSignUpAgreementData(): Promise<AgreementType[]> {
-  const response = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/agreement/sign-up`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
+export async function getSignUpAgreementData() {
+  try {
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/agreement/sign-up`,
+      {
+        method: 'GET',
+        cache: 'no-cache',
+      }
+    );
+    if (!response.ok) {
+      // const errorData = await response.json();
+      // console.error('Failed to fetch sign up agreement data:', errorData);
+      // throw new Error(errorData.message);
+      redirect('/error');
     }
-  );
-  if (!response.ok) {
-    const errorData = await response.json();
-    // console.error('Failed to fetch sign up agreement data:', errorData);
-    throw new Error(errorData.message);
-  }
 
-  const data = await response.json();
-  return data.result as AgreementType[];
+    const data = await response.json();
+    return data.result as AgreementType[];
+  } catch (error) {
+    redirect('/error');
+  }
 }
 
 export async function checkEmailDuplicate({ email }: { email: string }) {

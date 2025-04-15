@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
       'simg.ssgcdn.com',
     ],
   },
+  // compiler: {
+  //   removeConsole: true,
+  // },
 };
 
 export default nextConfig;
