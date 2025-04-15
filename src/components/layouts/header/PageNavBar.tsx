@@ -13,16 +13,21 @@ const PageNavBar = () => {
 
   useEffect(() => {
     const getEventData = async () => {
-      try {
-        const eventsData = await getEventDatas();
+      const { data: eventsData } = await getEventDatas();
+      if (eventsData.length > 0) {
         setEventLinkId(eventsData[0].eventUuid);
-      } catch (error) {}
+      }
+      console.log(eventLinkId);
     };
 
     getEventData();
   }, []);
 
   const handleEventRoute = () => {
+    if (eventLinkId === '') {
+      router.push(`/event`);
+      return;
+    }
     router.push(`/event?event=${eventLinkId}`);
   };
 

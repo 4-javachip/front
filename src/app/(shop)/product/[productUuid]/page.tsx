@@ -1,6 +1,6 @@
 import { getProductNameDataByProductUuid } from '@/actions/product-service';
+import NotFoundLayout from '@/components/layouts/NotFoundLayout';
 import ProductDetailSection from '@/components/pages/productDetail/ProductDetailSection';
-import ProductNotFound from '@/components/pages/productDetail/ProductNotFound';
 
 export default async function ProductDetailPage({
   params,
@@ -12,7 +12,13 @@ export default async function ProductDetailPage({
   try {
     product = await getProductNameDataByProductUuid(productUuid);
   } catch {
-    return <ProductNotFound />;
+    return (
+      <NotFoundLayout
+        message="상품을 찾을 수 없습니다."
+        linkText="홈으로"
+        linkHref="/"
+      />
+    );
   }
 
   return (
