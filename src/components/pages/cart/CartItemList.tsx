@@ -1,29 +1,23 @@
 import CartItem from '@/components/ui/CartItem/CartItem';
-import { CartItemListType } from '@/types/CartDataType';
+import { ItemThumbSkeleton } from '@/components/ui/skeletons/ProductItemSkeleton';
+import { CartItemType } from '@/types/CartDataType';
+import { Suspense } from 'react';
 
 interface CartItemListProps {
-  cartItemList: CartItemListType[];
-  cartItemName: string;
-  option: string;
+  cartItemList: CartItemType[];
 }
 
 export default function CartItemList({ cartItemList }: CartItemListProps) {
   return (
     <ul>
-      {cartItemList.map((item) => {
-        const matched = cartItemList.find(
-          (p) => p.productUuid === item.productUuid
-        );
-
-        return (
-          <CartItem
-            key={item.cartUuid}
-            cartItem={item}
-            name={cartItemList}
-            size={80}
-          />
-        );
-      })}
+      {cartItemList.map((item) => (
+        <Suspense
+          key={item.productUuid}
+          fallback={<ItemThumbSkeleton size={200} />}
+        >
+          <CartItem data={item} size={200} />
+        </Suspense>
+      ))}
     </ul>
   );
 }
