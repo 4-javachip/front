@@ -1,16 +1,20 @@
 'use client';
 
-import { dummyAggrementData } from '@/data/dummyDatas';
 import AuthTermsItem from './AuthTermsItem';
 import CustomCheckBox from '@/components/ui/inputs/CustomCheckBox';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { AgreementType } from '@/types/ResponseDataTypes';
 
-export default function AuthTermsList() {
+export default function AuthTermsList({
+  agreements,
+}: {
+  agreements: AgreementType[];
+}) {
   const router = useRouter();
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
-    Array(dummyAggrementData.length).fill(false)
+    Array(agreements.length).fill(false)
   );
 
   const isAllChecked = checkedItems.every(Boolean);
@@ -25,7 +29,19 @@ export default function AuthTermsList() {
 
   const handleAllCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
-    setCheckedItems(Array(dummyAggrementData.length).fill(isChecked));
+    setCheckedItems(Array(agreements.length).fill(isChecked));
+  };
+
+  const isRequiredChecked = agreements
+    .map((item, index) => (item.required ? checkedItems[index] : true))
+    .every(Boolean);
+
+  const handleNextClick = () => {
+    const optionalIndex = agreements.findIndex((item) => !item.required);
+    const optionalChecked =
+      optionalIndex !== -1 ? checkedItems[optionalIndex] : false;
+
+    router.push(`sign-up?optionalConsent=${optionalChecked}`);
   };
 
   return (
@@ -38,7 +54,7 @@ export default function AuthTermsList() {
         />
         <hr className="my-5 border-lightGray-4" />
         <ul className="space-y-7.5">
-          {dummyAggrementData.map((term, index) => (
+          {agreements.map((term, index) => (
             <AuthTermsItem
               key={index}
               {...term}
@@ -49,12 +65,11 @@ export default function AuthTermsList() {
         </ul>
       </section>
       <ConfirmNextButton
-        text="다음"
-        onClick={() => {
-          router.push('sign-up');
-        }}
-        isEnabled={() => isAllChecked}
-      />
+        onClick={handleNextClick}
+        isEnabled={() => isRequiredChecked}
+      >
+        다음
+      </ConfirmNextButton>
     </>
   );
 }

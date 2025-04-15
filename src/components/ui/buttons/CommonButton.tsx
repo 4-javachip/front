@@ -9,7 +9,7 @@ export default function CommonButton({
 }: Readonly<{
   children: React.ReactNode;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
   isEnabled: boolean;
   type?: 'button' | 'submit' | 'reset';
 }>) {
@@ -17,6 +17,7 @@ export default function CommonButton({
     <button
       className={cn(
         'text-background rounded-[3.125rem] py-3 w-full font-body text-sm',
+        'transition-colors duration-200 ease-in-out',
         isEnabled ? 'bg-green cursor-pointer' : 'bg-lightGray-4',
         className
       )}

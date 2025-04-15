@@ -2,8 +2,11 @@ import PolicyTab from './PolitcyTab';
 
 export default function PolicySection() {
   return (
-    <section>
+    <section className="padded">
       <ul>
+        <li>
+          <PolicyTab />
+        </li>
         <li>
           <PolicyTab />
         </li>

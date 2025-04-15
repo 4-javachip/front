@@ -1,31 +1,43 @@
 'use client';
-import MenuModal from '@/components/pages/menu/MenuModal';
+import MenuSideBar from '@/components/pages/menu/MenuSideBar';
 import CartButton from '@/components/ui/buttons/CartButton';
 import LogoButton from '@/components/ui/buttons/LogoButton';
 import MenuButton from '@/components/ui/buttons/MenuButton';
 import SearchButton from '@/components/ui/buttons/SearchButton';
-import { categoryMenus } from '@/data/dummyDatas';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CommonLayout } from '../CommonLayout';
+import { getAllCategories } from '@/actions/category-service';
+import { CategoryMenuType } from '@/types/ResponseDataTypes';
+import { useSideBarContext } from '@/context/SideBarContext';
 
 export default function HeaderTop() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { setIsOpen } = useSideBarContext();
+  const [categoryMenus, setCategoryMenus] = useState<CategoryMenuType[]>([]);
+
+  useEffect(() => {
+    getAllCategories()
+      .then((data) => {
+        setCategoryMenus(data);
+      })
+      .catch((err) => {
+        console.error('카테고리 불러오기 실패:', err);
+      });
+  }, []);
 
   return (
     <>
       <CommonLayout.CommonHeader>
-        <ul className="flex justify-between">
+        <ul className="flex justify-between ">
           <li className="py-3 px-4.5">
-            <MenuButton onClick={() => setIsMenuOpen(true)} />
-          </li>
-
-          <li className="flex items-center ">
-            <LogoButton />
+            <MenuButton onClick={() => setIsOpen(true)} />
           </li>
 
           <li>
-            <ul className="flex justify-end  items-center py-3 ">
-              <li className="">
+            <LogoButton />
+          </li>
+          <li>
+            <ul className="flex justify-end items-center py-3">
+              <li>
                 <SearchButton />
               </li>
               <li className="pr-4.5 pl-2.5">
@@ -36,11 +48,7 @@ export default function HeaderTop() {
         </ul>
       </CommonLayout.CommonHeader>
 
-      <MenuModal
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        categories={categoryMenus}
-      />
+      <MenuSideBar categories={categoryMenus} />
     </>
   );
 }

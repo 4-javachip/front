@@ -2,25 +2,35 @@ import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import Link from 'next/link';
 import CategoryItem from './CategoryItem';
-import { on } from 'events';
+import { useSideBarContext } from '@/context/SideBarContext';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   categories: CategoryMenuType[];
-  onClose: () => void;
 }
 
-export default function MenuCategoryList({ categories, onClose }: Props) {
+export default function MenuCategoryList({ categories }: Props) {
+  const router = useRouter();
+  const { setIsOpen } = useSideBarContext();
+
+  const handleClickCategory = (categoryId: string) => {
+    setIsOpen(false);
+    if (categoryId === 'all') {
+      router.push('/products');
+      return;
+    }
+    router.push(`/products?categoryId=${categoryId}`);
+  };
   return (
-    <section className="px-6 py-7">
+    <section className="px-6 py-7 bg-background">
       <nav className="flex justify-end pb-4.5">
-        <Link
-          href="/products"
-          onClick={onClose}
+        <p
           className="text-xs font-body text-gray-1 flex items-center space-x-1"
+          onClick={() => handleClickCategory('all')}
         >
           <span>전체 상품 보기</span>
           <RightArrowIcon />
-        </Link>
+        </p>
       </nav>
 
       <ul
@@ -28,9 +38,11 @@ export default function MenuCategoryList({ categories, onClose }: Props) {
         className="grid grid-cols-3 gap-x-5.1 gap-y-5 place-items-center"
       >
         {categories.map((category) => (
-          <li key={category.id}>
-            <CategoryItem category={category} onClose={onClose} />
-          </li>
+          <CategoryItem
+            category={category}
+            handler={handleClickCategory}
+            key={category.id}
+          />
         ))}
       </ul>
     </section>

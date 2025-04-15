@@ -5,7 +5,6 @@ import { AgreementType } from '@/types/ResponseDataTypes';
 export default function AuthTermsItem({
   name,
   description,
-  type,
   required,
   checked,
   onChange,

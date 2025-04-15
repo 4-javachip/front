@@ -1,4 +1,4 @@
-export interface commonResponseType<T> {
+export interface CommonResponseType<T> {
   httpStatus: string;
   isSuccess: boolean;
   message: string;
@@ -6,10 +6,16 @@ export interface commonResponseType<T> {
   result: T;
 }
 
+export interface signInDataType {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export interface BannerSlideImageType {
   id: number;
   imageUrl: string;
   description: string;
+  defaulted?: boolean;
 }
 
 export interface ProductLabelType {
@@ -54,37 +60,44 @@ export interface EventCarouselType {
 
 // 카테고리
 
-export interface ProductSubCategoryType {
+export interface SubCategoryType {
   id: number;
   name: string;
+  categoryId: number;
 }
 
 export interface ProductCategoryType {
   id: number;
   name: string;
-  subCategory?: ProductSubCategoryType[];
+  subCategory?: SubCategoryType[];
 }
 
+//메뉴 카테고리 타입
 export interface CategoryMenuType {
   id: number;
   name: string;
-  thumbnail: ImageType;
+  image: string;
+  description: string;
 }
 
 export interface CategoryListType {
   thumbnail: string;
   categoryId: number;
   categoryName: string;
+  description: string;
 }
 
 export interface FooterLinkItem {
   href: string;
   label: string;
 }
-
+export interface ShippingAddressListType {
+  shippingAddressUuid: string;
+  defaulted: boolean;
+}
 //배송지
 export interface AddressType {
-  id: number;
+  shippingAddressUuid: string;
   addressName: string;
   recipientName: string;
   baseAddress: string;
@@ -93,7 +106,7 @@ export interface AddressType {
   phoneNumber: string;
   secondPhoneNumber: string;
   shippingNote: string;
-  defaultAddress?: boolean;
+  defaulted?: boolean;
 }
 
 //장바구니상품
@@ -125,15 +138,16 @@ export interface PolicyLinkType {
 }
 
 export enum AgreementTypeEnum {
-  SIGN_UP = 0,
-  SHIPPING_ADDRESS = 1,
+  SIGN_UP = 'SIGN_UP',
+  SHIPPING_ADDRESS = 'SHIPPING_ADDRESS',
 }
 
 export interface AgreementType {
+  id: number;
   name: string;
   description: string;
-  type: AgreementTypeEnum;
   required: boolean;
+  type: AgreementTypeEnum;
 }
 
 export interface OrderProductType {
@@ -143,4 +157,19 @@ export interface OrderProductType {
   productOptionListUuid: string;
   productImageUrl: string;
   discountRate: number;
+}
+
+export interface usershippingAddressAgreementType {
+  agreementId: number;
+  agreed: boolean;
+  userUuid: string;
+  userAgreementUuid: string;
+}
+
+export interface shippingAddressAgreementType {
+  id: number;
+  name: string;
+  description: string;
+  required: boolean;
+  type: AgreementTypeEnum;
 }

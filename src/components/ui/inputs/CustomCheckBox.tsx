@@ -1,19 +1,24 @@
 export default function CustomCheckBox({
   label,
+  name,
   onChange,
   checked,
 }: {
   label: string;
+  name?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="relative">
+    <label className="flex items-center gap-2">
+      <div className="relative w-5.5 h-5.5">
         <input
+          id="custom-checkbox"
+          name={name ? name : 'custom-checkbox'}
           type="checkbox"
-          className="w-5.5 h-5.5 appearance-none border border-green rounded 
-      checked:bg-green checked:border-transparent active:border-black flex items-center justify-center"
+          className="w-full h-full appearance-none border border-green rounded 
+          checked:bg-green checked:border-transparent active:border-black
+          cursor-pointer"
           onChange={onChange}
           checked={checked}
         />
@@ -24,7 +29,7 @@ export default function CustomCheckBox({
             viewBox="0 0 14 11"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute inset-0 m-auto"
+            className="absolute inset-0 m-auto pointer-events-none"
           >
             <path
               d="M13 1.5L4.75 9.75L1 6"
@@ -37,6 +42,6 @@ export default function CustomCheckBox({
         )}
       </div>
       <span className="font-medium text-sm">{label}</span>
-    </div>
+    </label>
   );
 }

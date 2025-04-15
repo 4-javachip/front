@@ -6,19 +6,25 @@ import { cn } from '@/lib/utils';
 
 export default function ConfirmNextButton({
   className,
-  text,
+  children,
   onClick,
   isEnabled = () => false,
+  type,
 }: {
   className?: string;
-  text?: string;
+  children?: React.ReactNode;
   onClick: () => void;
   isEnabled?: () => boolean;
+  type?: 'button' | 'submit' | 'reset';
 }) {
   return (
     <CommonLayout.FixedButtonBgLayout className={cn(className)}>
-      <CommonButton onClick={onClick} isEnabled={isEnabled()}>
-        {text}
+      <CommonButton
+        onClick={onClick}
+        isEnabled={isEnabled()}
+        type={type ?? 'button'}
+      >
+        {children}
       </CommonButton>
     </CommonLayout.FixedButtonBgLayout>
   );

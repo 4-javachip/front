@@ -199,156 +199,61 @@ export const eventCarousels: EventCarouselType[] = [
   },
 ];
 
-export const productCategories: ProductCategoryType[] = [
-  {
-    id: 1,
-    name: '텀블러',
-    subCategory: [
-      { id: 1, name: '플라스틱 텀블러' },
-      { id: 2, name: '스테인리스 텀블러' },
-      { id: 3, name: '무슨 텀블러' },
-    ],
-  },
-  {
-    id: 2,
-    name: '머그컵',
-    subCategory: [
-      { id: 1, name: '머그' },
-      { id: 2, name: '글라스' },
-      { id: 3, name: '리유저블' },
-    ],
-  },
-  {
-    id: 3,
-    name: '라이프스타일',
-    subCategory: [
-      { id: 1, name: '3월 신규코어' },
-      { id: 2, name: '플라워 마켓' },
-      { id: 3, name: '러브 켄처' },
-    ],
-  },
-  {
-    id: 4,
-    name: '커피 용품',
-  },
-  {
-    id: 5,
-    name: '티 용품',
-    subCategory: [
-      { id: 1, name: '티팟' },
-      { id: 2, name: '티 인퓨저' },
-      { id: 3, name: '티 스트레이너' },
-    ],
-  },
-  {
-    id: 6,
-    name: '음료 & 시럽',
-    subCategory: [
-      { id: 1, name: '원두' },
-      { id: 2, name: '캡슐 커피' },
-      { id: 3, name: '시럽 & 소스' },
-    ],
-  },
-  {
-    id: 7,
-    name: '주방용품',
-    subCategory: [
-      { id: 1, name: '보틀' },
-      { id: 2, name: '컵 & 접시' },
-      { id: 3, name: '트레이' },
-    ],
-  },
-  {
-    id: 8,
-    name: '가전제품',
-    subCategory: [
-      { id: 1, name: '커피 머신' },
-      { id: 2, name: '그라인더' },
-      { id: 3, name: '우유 거품기' },
-    ],
-  },
-  {
-    id: 9,
-    name: '사무 & 문구',
-    subCategory: [
-      { id: 1, name: '다이어리' },
-      { id: 2, name: '펜' },
-      { id: 3, name: '노트' },
-    ],
-  },
-  {
-    id: 10,
-    name: '패션 & 액세서리',
-    subCategory: [
-      { id: 1, name: '에코백' },
-      { id: 2, name: '텀블러 파우치' },
-      { id: 3, name: '키링' },
-    ],
-  },
-];
-
 export const categoryMenus: CategoryMenuType[] = [
   {
     id: 1,
     name: '텀블러/보온병',
-    thumbnail: {
-      imageUrl: 'https://picsum.photos/id/237/390/330',
-      description: '텀블러/보온병',
-    },
+
+    image: 'https://picsum.photos/id/237/390/330',
+    description: '텀블러/보온병',
   },
+
   {
     id: 2,
     name: '머그컵/컵',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '머그컵/컵',
-    },
+
+    image: 'https://dummyimage.com/500',
+    description: '머그컵/컵',
   },
   {
     id: 3,
     name: '라이프스타일',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '라이프스타일',
-    },
+
+    image: 'https://dummyimage.com/500',
+    description: '라이프스타일',
   },
   {
     id: 4,
     name: '티/커피용품',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '티/커피용품',
-    },
+
+    image: 'https://dummyimage.com/500',
+    description: '티/커피용품',
   },
+
   {
     id: 5,
     name: '케이크',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '케이크',
-    },
+    image: 'https://dummyimage.com/500',
+    description: '케이크',
   },
   {
     id: 6,
     name: '초콜릿/스낵',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '초콜릿/스낵',
-    },
+
+    image: 'https://dummyimage.com/500',
+    description: '초콜릿/스낵',
   },
   {
     id: 7,
     name: '세트',
-    thumbnail: {
-      imageUrl: 'https://dummyimage.com/500',
-      description: '세트',
-    },
+    image: 'https://dummyimage.com/500',
+    description: '세트',
   },
 ];
 
 export const dummyAddresses: AddressType[] = [
   {
-    id: 1,
+    shippingAddressUuid: 'uuid-123',
     addressName: '우리집',
     recipientName: '홍길동',
     baseAddress: '서울특별시 강남구 테헤란로 123',
@@ -357,10 +262,10 @@ export const dummyAddresses: AddressType[] = [
     phoneNumber: '010-1234-5678',
     secondPhoneNumber: '010-8765-4321',
     shippingNote: '부재 시 문 앞에 놓아주세요',
-    defaultAddress: true,
+    defaulted: true,
   },
   {
-    id: 2,
+    shippingAddressUuid: 'uuid-456',
     addressName: '회사',
     recipientName: '홍길동',
     baseAddress: '서울특별시 중구 세종대로 100',
@@ -369,7 +274,7 @@ export const dummyAddresses: AddressType[] = [
     phoneNumber: '010-2222-3333',
     secondPhoneNumber: '010-4444-5555',
     shippingNote: '리셉션에 맡겨주세요',
-    defaultAddress: false,
+    defaulted: false,
   },
 ];
 
@@ -420,10 +325,10 @@ export const seasonList: SeasonType[] = [
 ];
 
 export const sortOptions: ProductSortOptionType[] = [
-  { label: '신상품순', value: 'newest' },
-  { label: '추천순', value: 'recommended' },
-  { label: '낮은가격순', value: 'lowPrice' },
-  { label: '높은가격순', value: 'highPrice' },
+  { label: '신상품순', value: 'new' },
+  { label: '추천순', value: 'recommend' },
+  { label: '낮은가격순', value: 'price_desc' },
+  { label: '높은가격순', value: 'price_asc' },
 ];
 
 export const dummyCartSummary = {
@@ -435,27 +340,6 @@ export const dummyPolicyLinks: PolicyLinkType[] = [
   { href: '/privacy-policy', label: '개인정보처리방침' },
   { href: '/terms', label: '홈페이지 이용약관' },
   { href: '/card-terms', label: '스타벅스카드 이용약관' },
-];
-
-export const dummyAggrementData: AgreementType[] = [
-  {
-    name: '이용약관 동의',
-    description: '회원 가입 시 필요한 약관에 대한 설명입니다.',
-    type: 0,
-    required: true,
-  },
-  {
-    name: '개인정보 수집 및 이용 동의',
-    description: '배송지 입력 및 변경 시 필요한 약관에 대한 설명입니다.',
-    type: 0,
-    required: true,
-  },
-  {
-    name: '마케팅 활용 수집 이용 동의',
-    description: '마케팅 정보를 수신하기 위한 동의 약관입니다.',
-    type: 0,
-    required: false,
-  },
 ];
 
 export const dummyOrderProduct: OrderProductType[] = [

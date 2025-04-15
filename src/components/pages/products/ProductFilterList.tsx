@@ -1,37 +1,40 @@
-'use client';
-
-import { productCategories, seasonList } from '@/data/dummyDatas';
 import CategoryCarousel from './CategoryCarousel';
 import CategoryOptionCarousel from './CategoryOptionCarousel';
-import { useSearchParams } from 'next/navigation';
+import { CategoryMenuType } from '@/types/ResponseDataTypes';
+import { getSubCategoriesByCategoryid } from '@/actions/category-service';
 
-export default function ProductFilterList() {
-  const searchParams = useSearchParams();
-  const categoryId = Number(searchParams.get('category'));
-
-  const selectedCategory = productCategories.find(
-    (category) => category.id === categoryId
-  );
+export default async function ProductFilterList({
+  categoryItems,
+  selectedCategory,
+}: {
+  categoryItems: {
+    id: number;
+    name: string;
+  }[];
+  selectedCategory?: CategoryMenuType;
+}) {
+  const subCategories = selectedCategory
+    ? await getSubCategoriesByCategoryid(selectedCategory.id)
+    : undefined;
 
   return (
     <>
-      <CategoryCarousel categories={productCategories} />
-      {selectedCategory?.subCategory &&
-        selectedCategory.subCategory.length > 0 && (
-          <CategoryOptionCarousel
-            items={selectedCategory.subCategory.map(({ id, name }) => ({
-              id,
-              name,
-            }))}
-            title="카테고리"
-            queryKey="subCategory"
-          />
-        )}
-      <CategoryOptionCarousel
+      <CategoryCarousel categories={categoryItems} />
+      {subCategories && (
+        <CategoryOptionCarousel
+          items={subCategories.map(({ id, name }) => ({
+            id,
+            name,
+          }))}
+          title="카테고리"
+          type="subCategory"
+        />
+      )}
+      {/* <CategoryOptionCarousel
         items={seasonList.map(({ seasonId, name }) => ({ id: seasonId, name }))}
         title="시즌"
         queryKey="season"
-      />
+      /> */}
     </>
   );
 }

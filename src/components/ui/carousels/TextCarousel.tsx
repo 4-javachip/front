@@ -6,28 +6,28 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function TextCarousel({
   items,
-  queryKey,
+  type,
 }: {
-  items: { id: number; name: string }[];
-  queryKey: string;
+  items: { id: number | string; name: string }[];
+  type: string;
 }) {
   const { containerRef, onMouseDown, onMouseMove, onMouseUpOrLeave } =
     useCategoryCarousel();
 
   const searchParams = useSearchParams();
   const router = useRouter();
-  const selectedCategoryId = Number(searchParams.get(queryKey));
+  const selectedCategoryId = searchParams.get(type);
 
-  const handleSelect = (id: number | null) => {
+  const handleSelect = (id: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (id === null) {
-      params.delete(queryKey);
+      params.delete(type);
     } else {
-      params.set(queryKey, String(id));
+      params.set(type, id);
     }
 
-    if (queryKey === 'category') {
+    if (type === 'category') {
       params.delete('subCategory');
       params.delete('season');
     }
@@ -38,14 +38,15 @@ export default function TextCarousel({
   return (
     <ul
       ref={containerRef}
-      className="flex flex-row overflow-x-auto cursor-grab active:cursor-grabbing select-none"
+      className="flex flex-row overflow-x-auto cursor-grab active:cursor-grabbing select-none
+      h-[24px]"
       style={{ scrollbarWidth: 'none' }}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUpOrLeave}
       onMouseLeave={onMouseUpOrLeave}
     >
-      {queryKey === 'category' && (
+      {type === 'category' && (
         <TextCarouselItem
           key="all"
           category="전체"
@@ -57,8 +58,8 @@ export default function TextCarousel({
         <TextCarouselItem
           key={item.id}
           category={item.name}
-          isSelected={item.id === selectedCategoryId}
-          onClick={() => handleSelect(item.id)}
+          isSelected={String(item.id) === selectedCategoryId}
+          onClick={() => handleSelect(String(item.id))}
         />
       ))}
     </ul>

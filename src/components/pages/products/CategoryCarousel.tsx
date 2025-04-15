@@ -11,7 +11,7 @@ export default function CategoryCarousel({
   return (
     <>
       <section className="flex flex-row container py-4.5">
-        <TextCarousel items={categories} queryKey="category" />
+        <TextCarousel items={categories} type="category" />
       </section>
       <hr className="border-t-1 border-lightGray-6" />
     </>

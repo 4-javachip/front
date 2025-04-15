@@ -36,14 +36,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(options);
-  console.log('session', session);
+  // console.log('session', session);
   const isAuth = !!session?.user as boolean;
   console.log('isAuth', isAuth);
   return (
-    <html lang="ko">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full bg-background`}
-      >
+    <html
+      lang="ko"
+      className="antialiased w-full min-h-screen bg-background max-w-[var(--base-w)] mx-auto
+      border-x border-lightGray-5 overflow-x-hidden"
+    >
+      <body className={`${geistSans.variable} ${geistMono.variable} relative`}>
         <AuthContextProvider isAuth={isAuth}>{children}</AuthContextProvider>
       </body>
     </html>

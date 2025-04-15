@@ -3,32 +3,43 @@ import { BannerSlideImageType } from '@/types/ResponseDataTypes';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
-interface BannerSlideProps {
+export default function BannerSlide({
+  slides,
+  autoSlide = true,
+}: {
   slides: BannerSlideImageType[];
-}
-
-export default function BannerSlide({ slides }: BannerSlideProps) {
+  autoSlide?: boolean;
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startX, setStartX] = useState(0);
   const [endX, setEndX] = useState(0);
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+  const intervalId = useRef<NodeJS.Timeout | null>(null);
   const slideRef = useRef<HTMLUListElement>(null);
 
+  const startAutoSlide = () => {
+    if (autoSlide && slides.length > 1) {
+      stopAutoSlide();
+      intervalId.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % slides.length);
+      }, 3000);
+    }
+  };
+
+  const stopAutoSlide = () => {
+    if (intervalId.current) {
+      clearInterval(intervalId.current);
+      intervalId.current = null;
+    }
+  };
+
   useEffect(() => {
-    const newIntervalId = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % slides.length);
-    }, 3000);
-
-    setIntervalId(newIntervalId);
-
-    return () => clearInterval(newIntervalId);
-  }, [slides.length]);
+    startAutoSlide();
+    return () => stopAutoSlide();
+  }, [slides.length, autoSlide]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setStartX(e.touches[0].clientX);
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
+    stopAutoSlide();
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -41,21 +52,12 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
     } else if (endX - startX > 50) {
       setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
     }
-
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-    const newIntervalId = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % slides.length);
-    }, 3000);
-    setIntervalId(newIntervalId);
+    startAutoSlide();
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setStartX(e.clientX);
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
+    stopAutoSlide();
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -68,26 +70,12 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
     } else if (endX - startX > 50) {
       setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
     }
-
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-    const newIntervalId = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % slides.length);
-    }, 3000);
-    setIntervalId(newIntervalId);
+    startAutoSlide();
   };
 
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
-
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-    const newIntervalId = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % slides.length);
-    }, 3000);
-    setIntervalId(newIntervalId);
+    startAutoSlide();
   };
 
   return (
@@ -108,13 +96,13 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
         {slides.map((slide) => (
           <li
             key={slide.id}
-            className="w-full flex-shrink-0 relative list-none
-            pb-[100%]"
+            className="w-full flex-shrink-0 relative list-none pb-[100%]"
           >
             <Image
               src={slide.imageUrl}
               alt={slide.description}
               fill
+              sizes="100vw"
               className="object-cover w-full h-full pointer-events-none"
               priority
             />
@@ -122,15 +110,16 @@ export default function BannerSlide({ slides }: BannerSlideProps) {
         ))}
       </ul>
       <ul className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-        {slides.map((slide, index) => (
-          <li
-            key={index}
-            className={`w-[0.59375rem] h-[0.59375rem] rounded-full transition-colors duration-300
-              cursor-pointer 
+        {slides.length > 1 &&
+          slides.map((_, index) => (
+            <li
+              key={index}
+              className={`w-[0.59375rem] h-[0.59375rem] rounded-full transition-colors duration-300 cursor-pointer 
+                shadow-md
               ${currentIndex === index ? 'bg-gray-2' : 'bg-white'}`}
-            onClick={() => handleDotClick(index)}
-          />
-        ))}
+              onClick={() => handleDotClick(index)}
+            />
+          ))}
       </ul>
     </section>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import DropDownIcon from '@/components/ui/icons/DropDownIcon';
 import LargeDropdownModal from '@/components/ui/dropdown/LargeDropdownModal';
 import { emailDomains } from '@/data/initialDatas';
@@ -10,9 +10,11 @@ import { InputErrorMessage } from '@/components/layouts/CommonLayout';
 export default function SignUpEmailInput({
   onChange,
   errorMessages,
+  inputValues,
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessages: Partial<SignUpStoreStateType>;
+  inputValues?: SignUpStoreStateType;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -21,6 +23,20 @@ export default function SignUpEmailInput({
 
   const [selectedDomain, setSelectedDomain] = useState('gmail.com');
   const [isCustom, setIsCustom] = useState(false);
+
+  useEffect(() => {
+    if (!inputValues) return;
+    if (selectedDomain === '') return;
+
+    const domain = inputValues.emailDomain || 'gmail.com';
+    if (emailDomains.some((item) => item.value === domain)) {
+      setSelectedDomain(domain);
+      setIsCustom(false);
+    } else {
+      setIsCustom(true);
+      setSelectedDomain(domain);
+    }
+  }, [inputValues]);
 
   const handleFocus = () => {
     containerRef.current?.classList.add('border-green');
@@ -39,8 +55,12 @@ export default function SignUpEmailInput({
       onChange({
         target: { name: 'emailDomain', value: '' },
       } as React.ChangeEvent<HTMLInputElement>);
+    } else {
+      setIsCustom(false);
+      onChange({
+        target: { name: 'emailDomain', value: domain },
+      } as React.ChangeEvent<HTMLInputElement>);
     }
-
     dropdownRef.current?.classList.add('hidden');
     iconRef.current?.classList.remove('rotate-180');
   };
@@ -61,6 +81,8 @@ export default function SignUpEmailInput({
           onFocus={handleFocus}
           maxLength={15}
           onChange={onChange}
+          value={inputValues?.emailId}
+          readOnly={inputValues?.isEmailSent === 'true'}
         />
         <div className="flex flex-row w-3/5 gap-3">
           <span>@</span>
@@ -78,6 +100,7 @@ export default function SignUpEmailInput({
                   autoFocus
                   maxLength={15}
                   onChange={onChange}
+                  readOnly={inputValues?.isEmailSent === 'true'}
                 />
               ) : (
                 <>
@@ -90,7 +113,12 @@ export default function SignUpEmailInput({
                   />
                 </>
               )}
-              <button type="button" onClick={toggleDropdown}>
+              <button
+                type="button"
+                onClick={toggleDropdown}
+                disabled={inputValues?.isEmailSent === 'true'}
+                className="cursor-pointer"
+              >
                 <DropDownIcon
                   ref={iconRef}
                   className="ml-1 mb-1 transform transition-transform duration-300"

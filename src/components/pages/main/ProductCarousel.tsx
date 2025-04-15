@@ -1,7 +1,7 @@
 'use client';
 
 import { EventCarouselType } from '@/types/ResponseDataTypes';
-import ProductlItem from '../../ui/ProductItem';
+import ProductlItem from '../../ui/productItem/ProductItem';
 import useCategoryCarousel from '@/hooks/useCarousel';
 
 export default function ProductCarousel({
@@ -24,9 +24,9 @@ export default function ProductCarousel({
         onMouseUp={onMouseUpOrLeave}
         onMouseLeave={onMouseUpOrLeave}
       >
-        {products.map((product) => (
+        {/* {products.map((product) => (
           <ProductlItem key={product.id} {...product} size={140} />
-        ))}
+        ))} */}
       </ul>
     </section>
   );

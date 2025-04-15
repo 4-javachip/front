@@ -9,16 +9,17 @@ export default function SignUpComplete() {
   return (
     <>
       <section className="padded">
-        <AuthHeading>ㅇㅇㅇ님,</AuthHeading>
+        <AuthHeading>user님,</AuthHeading>
         <AuthHeading>회원가입이 완료되었습니다.</AuthHeading>
       </section>
       <ConfirmNextButton
-        text="홈으로 가기"
         onClick={() => {
           router.push('/');
         }}
         isEnabled={() => true}
-      />
+      >
+        홈으로 가기
+      </ConfirmNextButton>
     </>
   );
 }

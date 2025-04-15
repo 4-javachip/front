@@ -99,6 +99,7 @@
   --font-pretendard: 'Pretendard';
 
   --color-primary: var(--green);
+  --base-w: 600px;
 
   --font-body: 'NotoSansKR';
   --font-sub: 'SDGothic';
@@ -225,4 +226,9 @@
     @apply bg-background text-foreground;
     font-family: var(--font-body);
   }
+}
+
+html body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: 0 !important;
 }
