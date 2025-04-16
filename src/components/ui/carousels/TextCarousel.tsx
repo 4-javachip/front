@@ -58,7 +58,12 @@ export default function TextCarousel({
         <TextCarouselItem
           key={item.id}
           category={item.name}
-          isSelected={String(item.id) === selectedCategoryId}
+          isSelected={
+            (type === 'event' &&
+              !selectedCategoryId &&
+              items[0]?.id === item.id) ||
+            String(item.id) === selectedCategoryId
+          }
           onClick={() => handleSelect(String(item.id))}
         />
       ))}

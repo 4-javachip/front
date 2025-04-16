@@ -78,7 +78,10 @@ export async function getSignUpAgreementData() {
     }
 
     const data = await response.json();
-    return data.result as AgreementType[];
+    return {
+      success: true,
+      data: data.result as AgreementType[],
+    };
   } catch (error) {
     redirect('/error');
   }

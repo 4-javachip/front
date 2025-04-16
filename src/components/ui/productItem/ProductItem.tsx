@@ -31,12 +31,34 @@ function ProductlItem({
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const thumb = await getDefaultThumbnailDataByProductUuid(
-          productData.productUuid
-        );
-        setThumbnail(thumb);
-      } catch (e) {
+      // const thumbRes = await getDefaultThumbnailDataByProductUuid(
+      //   productData.productUuid
+      // );
+      // if (thumbRes.success && thumbRes.data) {
+      //   setThumbnail(thumbRes.data);
+      // } else {
+      //   setThumbnail({
+      //     id: -1,
+      //     productUuid: productData.productUuid,
+      //     thumbnailUrl: '/images/no-image-icon.jpg',
+      //     description: 'no image',
+      //     defaulted: false,
+      //   });
+      // }
+      // const optRes = await getLowestOptionDataByProductUuid(
+      //   productData.productUuid
+      // );
+      // if (optRes.success && optRes.data) {
+      //   setOption(optRes.data);
+      // }
+      const [thumbRes, optRes] = await Promise.all([
+        getDefaultThumbnailDataByProductUuid(productData.productUuid),
+        getLowestOptionDataByProductUuid(productData.productUuid),
+      ]);
+
+      if (thumbRes.success && thumbRes.data) {
+        setThumbnail(thumbRes.data);
+      } else {
         setThumbnail({
           id: -1,
           productUuid: productData.productUuid,
@@ -45,12 +67,10 @@ function ProductlItem({
           defaulted: false,
         });
       }
-      try {
-        const opt = await getLowestOptionDataByProductUuid(
-          productData.productUuid
-        );
-        setOption(opt);
-      } catch (e) {}
+
+      if (optRes.success && optRes.data) {
+        setOption(optRes.data);
+      }
     };
 
     fetchData();
