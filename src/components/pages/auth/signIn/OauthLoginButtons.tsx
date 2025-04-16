@@ -10,14 +10,15 @@ export default function OauthLoginButtons() {
   const [modalErrorMessage, setModalErrorMessage] = useState('');
   const router = useRouter();
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') ?? '/';
   const signUpFailReason = searchParams.get('reason');
   const email = searchParams.get('email');
 
   const handleOauthLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     await signIn(e.currentTarget.name, {
-      redirect: true,
-      callbackUrl: '/',
+      redirect: false,
     });
+    router.push(callbackUrl);
   };
 
   useEffect(() => {
