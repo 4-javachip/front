@@ -9,6 +9,7 @@ import ShippingNote from './ShippingNote';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import { useState, useEffect } from 'react';
 import SubmitButton from '@/components/ui/buttons/SubmitButton';
+import { getUserShippingAddressAgreement } from '@/actions/agreement-service';
 
 interface Props {
   values: ShippingAddressDataType;
@@ -20,8 +21,9 @@ interface Props {
   isEdit?: boolean;
   hideDefaultCheckbox?: boolean;
   hideAgreementCheckbox?: boolean;
-  userAgreed?: boolean[];
+  // userAgreed?: boolean[];
   isShippingAddressAgreed?: boolean;
+  shippingAddressChecked?: boolean;
 }
 
 export default function ShippingAddressForm({
@@ -49,7 +51,7 @@ export default function ShippingAddressForm({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-
+    console.log('values', values);
     const res = shippingAddressSchema.safeParse({
       ...values,
       [name]: value,
@@ -64,7 +66,10 @@ export default function ShippingAddressForm({
       setErrorMessages(fieldErrors);
     }
   };
-
+  // const [agree, setAgree] = useState(false);
+  // const handleAgreeChange = async (checked: boolean) => {
+  //   setValues(checked);
+  // };
   return (
     <form className="mt-[1.25rem] pb-6 " action={action}>
       <section className="space-y-[1.25rem] px-6">
@@ -163,13 +168,28 @@ export default function ShippingAddressForm({
             />
           </div>
         )}
+        {!isShippingAddressAgreed && (
+          <div className="flex items-center gap-1.5 pb-10">
+            <CustomCheckBox
+              name="shippingaddressagreechecked"
+              label="배송지 정보 수집 및 이용동의 [필수]"
+              onChange={(e) => {
+                const checked = e.target.checked;
+                console.log('[배송지 동의 체크 변경됨]', checked);
+                const newValues = { ...values, usershippingagreed: checked };
+                setValues(newValues);
+              }}
+              checked={values.usershippingagreed || false}
+            />
+          </div>
+        )}
       </section>
 
       <CommonLayout.FixedButtonBgLayout>
         <SubmitButton
           className="font-semibold"
           type="submit"
-          isEnabled={isFormValid && (isShippingAddressAgreed ?? false)}
+          isEnabled={isFormValid}
         >
           {isEdit ? '수정하기' : '등록하기'}
         </SubmitButton>
