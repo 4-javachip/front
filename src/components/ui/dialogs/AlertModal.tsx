@@ -25,10 +25,8 @@ export default function AlertModal({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-left text-base">
-            알림
-          </AlertDialogTitle>
-          <AlertDialogDescription className="text-left">
+          <AlertDialogTitle>알림</AlertDialogTitle>
+          <AlertDialogDescription>
             {errorMessage ?? '알 수 없는 오류가 발생했습니다.'}
           </AlertDialogDescription>
         </AlertDialogHeader>

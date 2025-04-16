@@ -36,11 +36,16 @@ export default function ConfirmModal({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="text-lightGray-7">
+          <AlertDialogCancel
+            className="bg-white rounded-[3.125rem] py-3 px-6 hover:bg-white
+            cursor-pointer text-green hover:text-green
+            border-green"
+          >
             {cancelText}
           </AlertDialogCancel>
           <AlertDialogAction
-            className="text-green bg-background "
+            className="bg-green rounded-[3.125rem] py-3 px-6 hover:bg-green
+            cursor-pointer text-white hover:text-white"
             onClick={onConfirm}
           >
             {confirmText}
