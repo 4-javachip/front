@@ -34,7 +34,7 @@ export const getProductItem = async (
 ): Promise<CartProductItemType> => {
   console.log('productUuid', productUuid);
   const res = await fetch(
-    `${process.env.LOCAL_BASE_URL}/api/v1/product/search?productUuid=${productUuid}`,
+    `${process.env.BASE_API_URL}/api/v1/product/search?productUuid=${productUuid}`,
     {
       method: 'GET',
       headers: {
@@ -51,37 +51,30 @@ export const getProductItem = async (
   return data.result;
 };
 
-export const cartItemCheck = async (
-  productOptionListUuid: string,
-  checked: boolean
-) => {
-  console.log('id', productOptionListUuid);
+export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
+  console.log('id', cartUuid);
   console.log('checked', checked);
-  const res = await fetch(
-    `http://localhost:3300/cart/${productOptionListUuid}`,
-    {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        checked: checked,
-      }),
-    }
-  );
-  revalidateTag('getCartData');
-  return res.json();
-};
+  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/checked`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
 
-export const cartItemAllCheck = async (checked: boolean) => {
-  // const res = await fetch(`http://localhost:3300/cart`, {
-  //   method: 'PATCH',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({
-  //     checked: checked,
-  //   }),
-  // });
-  //  전체리스트의 checked값을 변경하는 api
+    body: JSON.stringify({
+      cartUuid,
+      checked,
+    }),
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
+  }
   revalidateTag('getCartData');
-  return null;
+  console.log('장바구니 체크', cartUuid, checked);
+  return res.json();
 };
 
 export const updateCartItemQuantity = async (
@@ -109,5 +102,28 @@ export const updateCartItemQuantity = async (
     throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
   }
 
+  revalidateTag('getCartData');
+};
+
+export const deleteCartItem = async (cartUuid: string) => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
+  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
+  console.log('토큰 ', token);
+  console.log('장바구니 uuid', cartUuid);
+  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      cartUuid: cartUuid,
+    }),
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || '장바구니 상품 삭제 실패');
+  }
   revalidateTag('getCartData');
 };

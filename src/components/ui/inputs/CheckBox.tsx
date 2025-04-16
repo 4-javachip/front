@@ -1,22 +1,38 @@
+// 'use client';
+import { cartItemCheck } from '@/actions/cart-service';
 import { cn } from '@/lib/utils';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { set } from 'zod';
 
 interface CheckboxProps {
   checked: boolean;
-  onChange?: () => void;
+  cartUuid: string;
+  onChange?: (checked: boolean, cartUuid: string) => void;
   className?: string;
 }
 
-export default function Checkbox({ checked, className }: CheckboxProps) {
+export default function Checkbox({
+  checked,
+  cartUuid,
+  className,
+}: CheckboxProps) {
+  // const [ischecked, setIschecked] = useState(checked);
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    console.log('Checkbox clicked', e.target.checked);
+    // e.preventDefault();
+    const newchecked = !checked;
+    // setIschecked(newchecked);
+
+    console.log('Checkbox checked', cartUuid, newchecked);
+    cartItemCheck(cartUuid, newchecked);
+
+    console.log('Checkbox clicked', newchecked, cartUuid);
   };
   return (
     <label className={cn('flex items-center gap-2', className)}>
       <div className="relative w-5.5 h-5.5">
         <input
           id="custom-checkbox"
+          name="productchecked"
           type="checkbox"
           className="w-full h-full appearance-none border border-green rounded 
           checked:bg-green checked:border-transparent active:border-black

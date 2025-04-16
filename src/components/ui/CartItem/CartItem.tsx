@@ -12,11 +12,11 @@ import CartItemName from './CartItemName';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 // import DeleteButton from '../buttons/DeleteButton';
 import DeleteIcon from '../icons/DeleteIcon';
-import { Check } from 'lucide-react';
 import Checkbox from '../inputs/CheckBox';
 import { Suspense, useEffect, useState } from 'react';
 import { CartItemType } from '@/types/CartDataType';
 import QuantityControl from '@/components/pages/cart/QuantityControl';
+import CartDeleteButtons from '../buttons/CartDeleteButton';
 
 export default function CartItem({
   data,
@@ -36,7 +36,7 @@ export default function CartItem({
     optionSizeId: 0,
     optionColorId: 0,
     optionDiscount: 0,
-    isChecked: true,
+    isChecked: data.checked,
   });
   useEffect(() => {
     if (!data) return;
@@ -68,7 +68,11 @@ export default function CartItem({
   return (
     <CommonLayout.SectionInnerPadding>
       <article className="grid grid-cols-12 items-start gap-4 py-6 border-b border-lightGray-8">
-        <Checkbox checked={cartItem.isChecked} className="col-span-1" />
+        <Checkbox
+          checked={cartItem.isChecked}
+          cartUuid={cartItem.cartUuid}
+          className="col-span-1"
+        />
         <div className="shrink-0 col-span-3">
           <Suspense fallback={<ItemThumbSkeleton size={80} />}>
             <CartThumbnail
@@ -102,6 +106,7 @@ export default function CartItem({
               price={cartItem.productPrice}
               salePrice={cartItem.productSalePrice}
               discountRate={cartItem.optionDiscount}
+              quantity={cartItem.quantity}
             />
           </div>
         </div>
