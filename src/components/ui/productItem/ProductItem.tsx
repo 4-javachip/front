@@ -14,7 +14,7 @@ import {
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
 import React, { useEffect, useState } from 'react';
-import ProductItemSkeleton, {
+import {
   ItemPriceSkeleton,
   ItemThumbSkeleton,
 } from '../skeletons/ProductItemSkeleton';
@@ -31,26 +31,6 @@ function ProductlItem({
 
   useEffect(() => {
     const fetchData = async () => {
-      // const thumbRes = await getDefaultThumbnailDataByProductUuid(
-      //   productData.productUuid
-      // );
-      // if (thumbRes.success && thumbRes.data) {
-      //   setThumbnail(thumbRes.data);
-      // } else {
-      //   setThumbnail({
-      //     id: -1,
-      //     productUuid: productData.productUuid,
-      //     thumbnailUrl: '/images/no-image-icon.jpg',
-      //     description: 'no image',
-      //     defaulted: false,
-      //   });
-      // }
-      // const optRes = await getLowestOptionDataByProductUuid(
-      //   productData.productUuid
-      // );
-      // if (optRes.success && optRes.data) {
-      //   setOption(optRes.data);
-      // }
       const [thumbRes, optRes] = await Promise.all([
         getDefaultThumbnailDataByProductUuid(productData.productUuid),
         getLowestOptionDataByProductUuid(productData.productUuid),

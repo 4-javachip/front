@@ -3,25 +3,21 @@
 import useInfiniteProductList from '@/hooks/useInfiniteProductList';
 import { getProductNameDataByProductUuid } from '@/actions/product-service';
 import { getProductDataType } from '@/types/RequestDataTypes';
-import ProductListView from '@/components/ui/ProductListView';
 import { getBestProductsByCategoryId } from '@/actions/best-service';
+import { CommonLoader } from '@/components/ui/loader/CommonLoader';
+import ProductItem from '@/components/ui/productItem/ProductItem';
+import BestRankIcon from '@/components/ui/icons/BestRankIcon';
 
 export default function BestProductList({
   params,
 }: {
   params?: getProductDataType;
 }) {
-  const {
-    loaderRef,
-    items: products,
-    isLoading,
-    isParamsLoading,
-    hasMore,
-  } = useInfiniteProductList({
+  const { items: products, isParamsLoading } = useInfiniteProductList({
     fetchPageData: async (page, p) => {
-      // 3은 하드코딩
+      const categoryId = p?.categoryId as number;
       const { data: bestProductDatas } = await getBestProductsByCategoryId(
-        p?.categoryId || 3
+        categoryId
       );
       const productList = await Promise.all(
         bestProductDatas.map((item) =>
@@ -34,12 +30,25 @@ export default function BestProductList({
   });
 
   return (
-    <ProductListView
-      products={products}
-      isLoading={isLoading}
-      isParamsLoading={isParamsLoading}
-      hasMore={hasMore}
-      loaderRef={loaderRef}
-    />
+    <section className="padded py-6 flex justify-center flex-col">
+      {isParamsLoading ? (
+        <CommonLoader />
+      ) : products.length === 0 ? (
+        <div className="h-80 pt-4 w-full flex justify-center items-center">
+          <p className="text-lightGray-6">상품이 없습니다.</p>
+        </div>
+      ) : (
+        <>
+          <ul className="w-full grid grid-cols-2 gap-4 min-h-[80vh]">
+            {products.map((product, index) => (
+              <figure key={product.productUuid} className="relative">
+                <BestRankIcon index={index + 1} />
+                <ProductItem productData={product} size={800} />
+              </figure>
+            ))}
+          </ul>
+        </>
+      )}
+    </section>
   );
 }

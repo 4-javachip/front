@@ -337,9 +337,9 @@ export const dummyCartSummary = {
 };
 
 export const dummyPolicyLinks: PolicyLinkType[] = [
-  { href: '/privacy-policy', label: '개인정보처리방침' },
-  { href: '/terms', label: '홈페이지 이용약관' },
-  { href: '/card-terms', label: '스타벅스카드 이용약관' },
+  { href: '/', label: '개인정보처리방침' },
+  { href: '/', label: '홈페이지 이용약관' },
+  { href: '/', label: '스타벅스카드 이용약관' },
 ];
 
 export const dummyOrderProduct: OrderProductType[] = [

@@ -1,7 +1,4 @@
-import {
-  getAllCategories,
-  getCategoryByCategoryid,
-} from '@/actions/category-service';
+import { getAllCategories } from '@/actions/category-service';
 import BestProductList from '@/components/pages/best/BestProductList';
 import CategoryCarousel from '@/components/pages/products/CategoryCarousel';
 import { getProductDataType } from '@/types/RequestDataTypes';
