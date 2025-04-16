@@ -117,12 +117,14 @@ export async function checkEmailDuplicate({ email }: { email: string }) {
 
 export async function sendEmailVerificationAction({
   email,
+  purpose,
 }: {
   email: string;
+  purpose: string;
 }) {
   const payload = {
     email,
-    purpose: 'sign_up',
+    purpose: purpose,
   };
 
   try {
@@ -151,14 +153,16 @@ export async function sendEmailVerificationAction({
 export async function verifyEmailCodeAction({
   email,
   verificationCode,
+  purpose,
 }: {
   email: string;
   verificationCode: string;
+  purpose: string;
 }) {
   const payload = {
     email,
     verificationCode,
-    purpose: 'sign_up',
+    purpose: purpose,
   };
 
   try {

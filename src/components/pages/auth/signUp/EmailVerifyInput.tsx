@@ -7,16 +7,21 @@ import {
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import CommonInput from '@/components/ui/inputs/CommonInput';
 import Loader from '@/components/ui/loaders/loader';
-import { SignUpStoreStateType } from '@/types/storeDataTypes';
+import {
+  EmailVerifyStateType,
+  SignUpStoreStateType,
+} from '@/types/storeDataTypes';
 import { useRef, useState } from 'react';
 import AlertModal from '@/components/ui/dialogs/AlertModal';
 
-export default function SignUpEmailVerify({
+export default function EmailVerifyInput({
   handleChange,
   inputValues,
+  purpose,
 }: {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  inputValues: SignUpStoreStateType;
+  inputValues: SignUpStoreStateType | EmailVerifyStateType;
+  purpose: 'sign_up' | 'password_reset' | 'account_recovery';
 }) {
   const [remainingTime, setRemainingTime] = useState<number>();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -58,15 +63,28 @@ export default function SignUpEmailVerify({
     console.log(isDuplicated);
 
     // true : 중복 / false : 체크 통과(중복X)
-    if (isDuplicated.result) {
-      setModalErrorMessage('이미 사용 중인 이메일입니다.');
-      setIsLoading(false);
-      setErrorModalOpen(true);
-      setRemainingTime(0);
-      return false;
+    if (purpose === 'sign_up') {
+      if (isDuplicated.result) {
+        setModalErrorMessage('이미 사용 중인 이메일입니다.');
+        setIsLoading(false);
+        setErrorModalOpen(true);
+        setRemainingTime(0);
+        return false;
+      }
+    } else {
+      if (!isDuplicated.result) {
+        setModalErrorMessage('등록되지 않은 이메일입니다.');
+        setIsLoading(false);
+        setErrorModalOpen(true);
+        setRemainingTime(0);
+        return false;
+      }
     }
 
-    const res = await sendEmailVerificationAction({ email });
+    const res = await sendEmailVerificationAction({
+      email,
+      purpose: purpose,
+    });
 
     if (res.success === false) {
       setModalErrorMessage(res.message);
@@ -95,6 +113,7 @@ export default function SignUpEmailVerify({
     const res = await verifyEmailCodeAction({
       email,
       verificationCode: code,
+      purpose: purpose,
     });
 
     if (res.success === false) {
