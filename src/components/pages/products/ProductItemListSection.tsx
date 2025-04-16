@@ -1,7 +1,7 @@
 'use client';
 
-import Loader from '@/components/ui/loader';
-import ProductItem from '@/components/ui/productItem/ProductItem';
+import Loader from '@/components/ui/loaders/loader';
+import ProductItem from '@/components/ui/products/ProductItem';
 import {
   PaginatedResponseType,
   ProductNameDataType,

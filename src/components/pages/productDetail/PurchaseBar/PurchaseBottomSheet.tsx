@@ -11,8 +11,8 @@ import { ProductOptionType } from '@/types/ProductResponseDataTypes';
 import PurchaseItem from './PurchaseItem';
 import { SelectableOptionType } from '@/types/ProductResponseDataTypes';
 import { useEffect, useState } from 'react';
-import AccordionSelector from '@/components/ui/AccordionSelector';
-import { Accordion } from '@/components/ui/accordion';
+import AccordionSelector from '@/components/ui/accordions/AccordionSelector';
+import { Accordion } from '@/components/ui/accordions/accordion';
 import { SelectedOptionWithNames } from '@/types/storeDataTypes';
 
 export default function PurchaseBottomSheet({

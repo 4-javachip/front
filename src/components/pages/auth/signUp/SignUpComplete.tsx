@@ -1,6 +1,6 @@
 'use client';
 
-import AuthHeading from '@/components/ui/AuthHeading';
+import AuthHeading from '@/components/pages/auth/AuthHeading';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import { useRouter } from 'next/navigation';
 

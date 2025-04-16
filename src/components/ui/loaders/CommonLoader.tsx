@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import Loader from '../loader';
+import Loader from './loader';
 
 export function CommonLoader({
   className,

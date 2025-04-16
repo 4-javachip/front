@@ -1,7 +1,7 @@
 'use client';
 
-import ItemThumb from '@/components/ui/productItem/ItemThumb';
-import ProductLabelIcon from '@/components/ui/icons/ProductLabelIcon';
+import ItemThumb from './ItemThumb';
+import ProductLabelIcon from '../icons/ProductLabelIcon';
 import ItemPrice from './ItemPrice';
 import ItemName from './ItemName';
 import {

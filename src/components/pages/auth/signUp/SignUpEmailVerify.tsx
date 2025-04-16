@@ -5,11 +5,11 @@ import {
   verifyEmailCodeAction,
 } from '@/actions/auth';
 import CommonButton from '@/components/ui/buttons/CommonButton';
-import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
 import CommonInput from '@/components/ui/inputs/CommonInput';
-import Loader from '@/components/ui/loader';
+import Loader from '@/components/ui/loaders/loader';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import { useRef, useState } from 'react';
+import AlertModal from '@/components/ui/dialogs/AlertModal';
 
 export default function SignUpEmailVerify({
   handleChange,
@@ -116,7 +116,7 @@ export default function SignUpEmailVerify({
 
   return (
     <>
-      <ErrorAlertModal
+      <AlertModal
         open={errorModalOpen}
         onOpenChange={setErrorModalOpen}
         errorMessage={modalErrorMessage}

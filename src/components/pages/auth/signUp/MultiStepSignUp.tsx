@@ -6,11 +6,12 @@ import { signUpSchema } from '@/schemas/signUpSchema';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SignUpStepType } from '@/types/initialDataTypes';
 import { signUpStepData } from '@/data/initialDatas';
-import AuthHeading from '@/components/ui/AuthHeading';
+import AuthHeading from '@/components/pages/auth/AuthHeading';
 import BackIconHeader from '@/components/layouts/BackIconHeader';
 import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
-import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
-import Loader from '@/components/ui/loader';
+
+import Loader from '@/components/ui/loaders/loader';
+import AlertModal from '@/components/ui/dialogs/AlertModal';
 
 export default function MultiStepSignUp({
   handleSignUp,
@@ -134,7 +135,7 @@ export default function MultiStepSignUp({
 
   return (
     <>
-      <ErrorAlertModal
+      <AlertModal
         open={errorModalOpen}
         onOpenChange={setErrorModalOpen}
         onConfirm={handleModalConfirm}

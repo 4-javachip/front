@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
-import Loader from '../loader';
+import Loader from './loader';
 
 export const BottomLoader = ({
   page,

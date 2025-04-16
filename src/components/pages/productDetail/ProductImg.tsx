@@ -1,4 +1,4 @@
-import BannerSlide from '@/components/ui/BannerSlide';
+import BannerSlide from '@/components/ui/carousels/BannerSlide';
 import { ProductThumbnailDataType } from '@/types/ProductResponseDataTypes';
 import { BannerSlideImageType } from '@/types/ResponseDataTypes';
 import Image from 'next/image';

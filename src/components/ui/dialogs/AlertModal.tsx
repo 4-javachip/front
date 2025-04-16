@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 
-export default function ErrorAlertModal({
+export default function AlertModal({
   open,
   onOpenChange,
   onConfirm,

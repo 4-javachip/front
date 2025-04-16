@@ -6,7 +6,7 @@ import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import { ShippingAddressErrorType } from '@/types/ErrorDataType';
 import ShippingAddressForm from './ShippingAddressForm';
 import { getShippingAddressList } from '@/actions/shipping-address-service';
-import Loader from '@/components/ui/loader';
+import Loader from '@/components/ui/loaders/loader';
 import CustomCheckBox from '@/components/ui/inputs/CustomCheckBox';
 import { userAgreement } from '@/actions/agreement-service';
 import { UserAgreementType } from '@/types/AgreementDataType';

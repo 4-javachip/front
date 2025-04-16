@@ -1,4 +1,4 @@
-import BannerSlide from '@/components/ui/BannerSlide';
+import BannerSlide from '@/components/ui/carousels/BannerSlide';
 import ProductCarousel from '@/components/pages/main/ProductCarousel';
 import { eventCarousels, mainBannerSlideData } from '@/data/dummyDatas';
 
