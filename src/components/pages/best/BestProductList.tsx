@@ -20,11 +20,13 @@ export default function BestProductList({
   } = useInfiniteProductList({
     fetchPageData: async (page, p) => {
       // 3은 하드코딩
-      const { data: res } = await getBestProductsByCategoryId(
+      const { data: bestProductDatas } = await getBestProductsByCategoryId(
         p?.categoryId || 3
       );
       const productList = await Promise.all(
-        res.map((item) => getProductNameDataByProductUuid(item.productUuid))
+        bestProductDatas.map((item) =>
+          getProductNameDataByProductUuid(item.productUuid)
+        )
       );
       return { content: productList, hasNext: false };
     },
