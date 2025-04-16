@@ -1,11 +1,16 @@
 'use client';
 
 import useInfiniteProductList from '@/hooks/useInfiniteProductList';
-import { getEventProductDatasByEventUuid } from '@/actions/event-service';
 import { getProductNameDataByProductUuid } from '@/actions/product-service';
+import { getProductDataType } from '@/types/RequestDataTypes';
 import ProductListView from '@/components/ui/ProductListView';
+import { getBestProductsByCategoryId } from '@/actions/best-service';
 
-export default function EventProductList({ eventUuid }: { eventUuid: string }) {
+export default function BestProductList({
+  params,
+}: {
+  params?: getProductDataType;
+}) {
   const {
     loaderRef,
     items: products,
@@ -13,19 +18,17 @@ export default function EventProductList({ eventUuid }: { eventUuid: string }) {
     isParamsLoading,
     hasMore,
   } = useInfiniteProductList({
-    params: eventUuid,
-    fetchPageData: async (page, eventUuid) => {
-      const { data: res } = await getEventProductDatasByEventUuid({
-        eventUuid,
-        page,
-      });
-      const productList = await Promise.all(
-        res.content.map((item) =>
-          getProductNameDataByProductUuid(item.productUuid)
-        )
+    fetchPageData: async (page, p) => {
+      // 3은 하드코딩
+      const { data: res } = await getBestProductsByCategoryId(
+        p?.categoryId || 3
       );
-      return { content: productList, hasNext: res.hasNext };
+      const productList = await Promise.all(
+        res.map((item) => getProductNameDataByProductUuid(item.productUuid))
+      );
+      return { content: productList, hasNext: false };
     },
+    params,
   });
 
   return (

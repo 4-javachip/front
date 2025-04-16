@@ -1,7 +1,8 @@
 'use server';
 
 import { PAGE_SIZE } from '@/constants/constants';
-import { EventDataType, EventProductType } from '@/types/EventResponseDataType';
+import { EventProductType } from '@/types/ProductResponseDataTypes';
+import { EventDataType } from '@/types/ProductResponseDataTypes';
 import { PaginatedResponseType } from '@/types/ProductResponseDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { redirect } from 'next/navigation';
