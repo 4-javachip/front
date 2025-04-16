@@ -3,15 +3,10 @@
 import ProductItem from '../../ui/productItem/ProductItem';
 import Loader from '@/components/ui/loader';
 import useInfiniteProductList from '@/hooks/useInfiniteProductList';
-import { getProductListData } from '@/actions/product-service';
-import { getProductDataType } from '@/types/RequestDataTypes';
-import { PAGE_SIZE } from '@/constants/constants';
+import { getEventProductDatasByEventUuid } from '@/actions/event-service';
+import { getProductNameDataByProductUuid } from '@/actions/product-service';
 
-export default function ProductList({
-  params,
-}: {
-  params?: getProductDataType;
-}) {
+export default function EventProductList({ eventUuid }: { eventUuid: string }) {
   const {
     loaderRef,
     items: products,
@@ -19,25 +14,19 @@ export default function ProductList({
     isParamsLoading,
     hasMore,
   } = useInfiniteProductList({
-    fetchPageData: async (page, p) => {
-      const res = await getProductListData({
-        pageSize: PAGE_SIZE,
+    params: eventUuid,
+    fetchPageData: async (page, eventUuid) => {
+      const { data: res } = await getEventProductDatasByEventUuid({
+        eventUuid,
         page,
-        categoryId: p?.categoryId,
-        sortType: p?.sortType,
-        keyword: p?.keyword,
-        subCategoryId: p?.subCategoryId,
-        seasonId: p?.seasonId,
       });
-      if (!res.success)
-        return {
-          content: [],
-          hasNext: false,
-        };
-
-      return { content: res.data!.content, hasNext: res.data!.hasNext };
+      const productList = await Promise.all(
+        res.content.map((item) =>
+          getProductNameDataByProductUuid(item.productUuid)
+        )
+      );
+      return { content: productList, hasNext: res.hasNext };
     },
-    params,
   });
 
   return (
@@ -75,31 +64,21 @@ export default function ProductList({
 
 // import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
 // import ProductlItem from '../../ui/productItem/ProductItem';
-// import React, { useEffect, useRef, useState } from 'react';
-// import { getProductListData } from '@/actions/product-service';
+// import { useEffect, useRef, useState } from 'react';
+// import { getProductNameDataByProductUuid } from '@/actions/product-service';
 // import Loader from '@/components/ui/loader';
-// import { useSearchParams, useRouter } from 'next/navigation';
-// import { getProductDataType } from '@/types/RequestDataTypes';
+// import { useRouter } from 'next/navigation';
+// import { getEventProductDatasByEventUuid } from '@/actions/event-service';
 
-// export default function ProductList({
-//   params,
-// }: {
-//   params?: getProductDataType;
-// }) {
-//   // const searchParams = useSearchParams();
+// export default function EventProductList({ eventUuid }: { eventUuid: string }) {
 //   const router = useRouter();
-
-//   const pageSize = 10;
 //   const loaderRef = useRef<HTMLDivElement | null>(null);
-
-//   // const initialPage = Number(searchParams.get('page')) || 1;
 
 //   const [page, setPage] = useState(1);
 //   const [products, setProducts] = useState<ProductNameDataType[]>([]);
 //   const [isLoading, setIsLoading] = useState(false);
 //   const [isParamsLoading, setIsParamsLoading] = useState(true);
 //   const [hasMore, setHasMore] = useState(true);
-//   console.log('page: ', page, 'hasmore: ', hasMore, 'isLoading: ', isLoading);
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -107,41 +86,39 @@ export default function ProductList({
 //       setIsLoading(false);
 //       setPage(1);
 
-//       const res = await getProductListData({
-//         pageSize,
-//         page: 1,
-//         categoryId: params?.categoryId,
-//         sortType: params?.sortType,
-//         keyword: params?.keyword,
-//         subCategoryId: params?.subCategoryId,
-//         seasonId: params?.seasonId,
+//       const { data: res } = await getEventProductDatasByEventUuid({
+//         eventUuid,
+//         page,
 //       });
 
-//       setProducts(res.content);
+//       const productNameDataList: ProductNameDataType[] = await Promise.all(
+//         res.content.map((item) =>
+//           getProductNameDataByProductUuid(item.productUuid)
+//         )
+//       );
+
+//       setProducts(productNameDataList);
 //       setHasMore(res.hasNext);
 //       setIsParamsLoading(false);
 //     };
 
 //     fetchData();
-//   }, [params]);
+//   }, [eventUuid]);
 
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       setIsLoading(true);
-
-//       const res = await getProductListData({
-//         pageSize,
+//       const { data: res } = await getEventProductDatasByEventUuid({
+//         eventUuid,
 //         page,
-//         categoryId: params?.categoryId,
-//         sortType: params?.sortType,
-//         keyword: params?.keyword,
-//         subCategoryId: params?.subCategoryId,
-//         seasonId: params?.seasonId,
 //       });
-//       console.log(res);
-
+//       const productNameDataList: ProductNameDataType[] = await Promise.all(
+//         res.content.map((item) =>
+//           getProductNameDataByProductUuid(item.productUuid)
+//         )
+//       );
 //       setProducts((prev) => {
-//         const newItems = res.content.filter(
+//         const newItems = productNameDataList.filter(
 //           (item) => !prev.some((p) => p.productUuid === item.productUuid)
 //         );
 //         return [...prev, ...newItems];
@@ -160,7 +137,6 @@ export default function ProductList({
 //         if (entry.isIntersecting && !isLoading && hasMore) {
 //           const nextPage = page + 1;
 //           setPage(nextPage);
-//           // router.push(`/products?page=${nextPage}`, { scroll: false });
 //         }
 //       },
 //       { threshold: 1 }
@@ -168,7 +144,6 @@ export default function ProductList({
 
 //     const current = loaderRef.current;
 //     if (current) observer.observe(current);
-
 //     return () => {
 //       if (current) observer.unobserve(current);
 //     };
