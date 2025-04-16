@@ -5,7 +5,7 @@ import {
 import NotFoundLayout from '@/components/layouts/NotFoundLayout';
 import EventCarousel from '@/components/pages/event/EventCarousel';
 import EventSection from '@/components/pages/event/EventSection';
-import { CommonLoader } from '@/components/ui/loader/CommonLoader';
+import { CommonLoader } from '@/components/ui/loaders/CommonLoader';
 import { Suspense } from 'react';
 
 export default async function page({

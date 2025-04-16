@@ -3,7 +3,7 @@
 import useInfiniteProductList from '@/hooks/useInfiniteProductList';
 import { getEventProductDatasByEventUuid } from '@/actions/event-service';
 import { getProductNameDataByProductUuid } from '@/actions/product-service';
-import ProductListView from '@/components/ui/ProductListView';
+import ProductListView from '@/components/ui/products/ProductListView';
 
 export default function EventProductList({ eventUuid }: { eventUuid: string }) {
   const {

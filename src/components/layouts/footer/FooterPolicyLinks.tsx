@@ -7,7 +7,7 @@ export default function FooterPolicyLinks() {
       <ul className="flex space-x-2.5">
         {dummyPolicyLinks.map((link, index) => (
           <FooterPolicyLinkItem
-            key={link.href}
+            key={link.label}
             href={link.href}
             label={link.label}
             showDivider={index < dummyPolicyLinks.length - 1}

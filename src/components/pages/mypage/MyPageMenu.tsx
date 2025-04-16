@@ -5,7 +5,6 @@ import OrderListIcon from '@/components/ui/icons/OrderListIcon';
 import ReviewIcon from '@/components/ui/icons/ReviewIcon';
 import ShippingAddressIcon from '@/components/ui/icons/ShippingAddressIcon';
 import WishIcon from '@/components/ui/icons/WishIcon';
-import LogOutButton from './LogOutButton';
 
 export default function MyPageMenu() {
   return (
@@ -51,9 +50,6 @@ export default function MyPageMenu() {
           >
             <AddressAgreementIcon /> 배송지 정보 수집 및 이용 동의
           </Link>
-        </li>
-        <li>
-          <LogOutButton />
         </li>
       </ul>
     </section>

@@ -4,17 +4,17 @@ import FloatingInput from '@/components/ui/inputs/FloatingInput';
 import AuthLinkItem from './AuthLinkItem';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
-import { useSpharosSession } from '@/context/SessionContext';
 import { signIn } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { SignInStoreStateType } from '@/types/storeDataTypes';
 import { signInSchema } from '@/schemas/signInSchema';
-import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import AlertModal from '@/components/ui/dialogs/AlertModal';
 
 export default function SignInForm() {
-  // console.log(useSpharosSession());
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') ?? '/';
   const [isEnabled, setIsEnabled] = useState(false);
   const [inputValues, setInputValues] = useState<SignInStoreStateType>({
     email: '',
@@ -45,9 +45,8 @@ export default function SignInForm() {
         redirect: false,
       });
 
-      console.log('res: ', res);
       if (res?.ok) {
-        router.push('/');
+        router.push(callbackUrl);
       } else {
         const message =
           res?.error ??
@@ -62,7 +61,7 @@ export default function SignInForm() {
 
   return (
     <>
-      <ErrorAlertModal
+      <AlertModal
         open={errorModalOpen}
         onOpenChange={setErrorModalOpen}
         errorMessage={modalErrorMessage}

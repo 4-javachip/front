@@ -1,4 +1,4 @@
-import AuthHeading from '@/components/ui/AuthHeading';
+import AuthHeading from '@/components/pages/auth/AuthHeading';
 import { LogoIcon } from '@/components/ui/icons/LogoIcon';
 
 export default function AuthGreeting({ type }: { type: string }) {

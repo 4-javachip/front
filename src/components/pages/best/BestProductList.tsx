@@ -4,9 +4,10 @@ import useInfiniteProductList from '@/hooks/useInfiniteProductList';
 import { getProductNameDataByProductUuid } from '@/actions/product-service';
 import { getProductDataType } from '@/types/RequestDataTypes';
 import { getBestProductsByCategoryId } from '@/actions/best-service';
-import { CommonLoader } from '@/components/ui/loader/CommonLoader';
-import ProductItem from '@/components/ui/productItem/ProductItem';
+
+import ProductItem from '@/components/ui/products/ProductItem';
 import BestRankIcon from '@/components/ui/icons/BestRankIcon';
+import { CommonLoader } from '@/components/ui/loaders/CommonLoader';
 
 export default function BestProductList({
   params,

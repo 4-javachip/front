@@ -1,9 +1,9 @@
 'use client';
 
-import ProductItem from '@/components/ui/productItem/ProductItem';
-import { CommonLoader } from '@/components/ui/loader/CommonLoader';
+import { CommonLoader } from '../loaders/CommonLoader';
 import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
 import { RefObject } from 'react';
+import ProductItem from './ProductItem';
 
 export default function ProductListView({
   products,

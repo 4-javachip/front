@@ -9,6 +9,7 @@ import { CommonLayout } from '../CommonLayout';
 import { getAllCategories } from '@/actions/category-service';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import { useSideBarContext } from '@/context/SideBarContext';
+import UserAuthButton from '@/components/ui/buttons/UserAuthButton';
 
 export default function HeaderTop() {
   const { setIsOpen } = useSideBarContext();
@@ -36,12 +37,15 @@ export default function HeaderTop() {
             <LogoButton />
           </li>
           <li>
-            <ul className="flex justify-end items-center py-3">
+            <ul className="flex justify-end items-center py-3 gap-2">
               <li>
                 <SearchButton />
               </li>
-              <li className="pr-4.5 pl-2.5">
+              <li>
                 <CartButton cartCount={5} />
+              </li>
+              <li className="pr-4.5">
+                <UserAuthButton />
               </li>
             </ul>
           </li>

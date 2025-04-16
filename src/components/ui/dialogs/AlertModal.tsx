@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 
-export default function ErrorAlertModal({
+export default function AlertModal({
   open,
   onOpenChange,
   onConfirm,
@@ -25,10 +25,8 @@ export default function ErrorAlertModal({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-left text-base">
-            알림
-          </AlertDialogTitle>
-          <AlertDialogDescription className="text-left">
+          <AlertDialogTitle className="text-left">알림</AlertDialogTitle>
+          <AlertDialogDescription className="text-left whitespace-pre-line">
             {errorMessage ?? '알 수 없는 오류가 발생했습니다.'}
           </AlertDialogDescription>
         </AlertDialogHeader>

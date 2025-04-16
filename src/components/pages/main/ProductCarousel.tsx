@@ -1,7 +1,6 @@
 'use client';
 
 import { EventCarouselType } from '@/types/ResponseDataTypes';
-import ProductlItem from '../../ui/productItem/ProductItem';
 import useCategoryCarousel from '@/hooks/useCarousel';
 
 export default function ProductCarousel({

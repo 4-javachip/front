@@ -1,10 +1,5 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { SelectableOptionType } from '@/types/ProductResponseDataTypes';
+import { AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
 
 export default function AccordionSelector({
   title,

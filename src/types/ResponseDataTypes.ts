@@ -173,3 +173,13 @@ export interface shippingAddressAgreementType {
   required: boolean;
   type: AgreementTypeEnum;
 }
+
+export interface userInfoDataType {
+  userUuid: string;
+  email: string;
+  nickname: string;
+  name: string;
+  phoneNumber: string;
+  birthdate: string;
+  gender: string;
+}

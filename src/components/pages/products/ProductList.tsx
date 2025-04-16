@@ -4,7 +4,7 @@ import useInfiniteProductList from '@/hooks/useInfiniteProductList';
 import { getProductListData } from '@/actions/product-service';
 import { getProductDataType } from '@/types/RequestDataTypes';
 import { PAGE_SIZE } from '@/constants/constants';
-import ProductListView from '@/components/ui/ProductListView';
+import ProductListView from '@/components/ui/products/ProductListView';
 
 export default function ProductList({
   params,

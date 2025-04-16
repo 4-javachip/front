@@ -1,7 +1,7 @@
 'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { SignUpDataType } from '@/types/RequestDataTypes';
-import { AgreementType } from '@/types/ResponseDataTypes';
+import { AgreementType, userInfoDataType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
@@ -183,5 +183,33 @@ export async function verifyEmailCodeAction({
     return await response.json();
   } catch (error) {
     return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
+  }
+}
+
+export async function getUserInfoData() {
+  try {
+    const session = await getServerSession(options);
+    const response = await fetch(`${process.env.BASE_API_URL}/api/v1/user`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${session?.user.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-cache',
+    });
+    if (!response.ok) {
+      // const errorData = await response.json();
+      // console.error('Failed to fetch sign up agreement data:', errorData);
+      // throw new Error(errorData.message);
+      redirect('/error');
+    }
+
+    const data = await response.json();
+    return {
+      success: true,
+      data: data.result as userInfoDataType,
+    };
+  } catch (error) {
+    redirect('/error');
   }
 }

@@ -4,14 +4,16 @@ declare module 'next-auth' {
   interface Session {
     user: {
       accessToken: string;
-      name: string;
-      uuid: string;
+      refreshToken: string;
+      name?: string;
+      userUuid?: string;
     } & DefaultSession['user'];
   }
 
   interface User extends DefaultUser {
     accessToken: string;
-    name: string;
-    uuid: string;
+    refreshToken: string;
+    name?: string;
+    userUuid?: string;
   }
 }
