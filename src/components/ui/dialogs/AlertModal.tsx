@@ -26,7 +26,7 @@ export default function AlertModal({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="text-left">알림</AlertDialogTitle>
-          <AlertDialogDescription className="text-left">
+          <AlertDialogDescription className="text-left whitespace-pre-line">
             {errorMessage ?? '알 수 없는 오류가 발생했습니다.'}
           </AlertDialogDescription>
         </AlertDialogHeader>

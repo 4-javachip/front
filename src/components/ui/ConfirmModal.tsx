@@ -37,7 +37,7 @@ export default function ConfirmModal({
             {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="block text-right space-x-1.5">
           <AlertDialogCancel
             className="bg-white rounded-[3.125rem] py-3 px-6 hover:bg-white
             cursor-pointer text-green hover:text-green

@@ -12,7 +12,6 @@ export default function OauthLoginButtons() {
   const searchParams = useSearchParams();
   const signUpFailReason = searchParams.get('reason');
   const email = searchParams.get('email');
-  const name = searchParams.get('name');
 
   const handleOauthLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     await signIn(e.currentTarget.name, {
@@ -24,7 +23,7 @@ export default function OauthLoginButtons() {
   useEffect(() => {
     if (signUpFailReason === 'unregistered') {
       setModalErrorMessage(
-        '소셜 계정이 존재하지 않습니다. 추가 정보를 입력해 회원가입 해주세요.'
+        `소셜 계정이 존재하지 않습니다. 소셜 계정의 이메일 아이디를 이용해 회원가입을 진행 후 로그인을 다시 시도해주세요.\n 유저 이메일: ${email}`
       );
       setErrorModalOpen(true);
     }
@@ -36,9 +35,7 @@ export default function OauthLoginButtons() {
         open={errorModalOpen}
         onOpenChange={setErrorModalOpen}
         errorMessage={modalErrorMessage}
-        onConfirm={() =>
-          router.push(`/auth/sign-up?type=Oauth&email=${email}&name=${name}`)
-        }
+        onConfirm={() => router.push(`/auth/sign-up`)}
       />
       <div className="padded flex flex-col space-y-3">
         <Button

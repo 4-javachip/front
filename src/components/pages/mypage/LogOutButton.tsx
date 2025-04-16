@@ -2,10 +2,13 @@
 
 import { LogoutAction } from '@/actions/auth';
 import ConfirmModal from '@/components/ui/ConfirmModal';
+import AlertModal from '@/components/ui/dialogs/AlertModal';
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
 export default function LogOutButton() {
+  const [alertConfirmModalOpen, setConfirmAlertModalOpen] = useState(false);
+  const [confirmModalMessage, setConfirmModalMessage] = useState('');
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
@@ -21,19 +24,26 @@ export default function LogOutButton() {
   return (
     <>
       <ConfirmModal
-        open={alertModalOpen}
-        onOpenChange={setAlertModalOpen}
+        open={alertConfirmModalOpen}
+        onOpenChange={setConfirmAlertModalOpen}
         title="알림"
         description={
-          modalMessage !== '' ? modalMessage : '로그아웃 하시겠습니까?'
+          confirmModalMessage !== ''
+            ? confirmModalMessage
+            : '로그아웃 하시겠습니까?'
         }
         onConfirm={handleLogout}
+      />
+      <AlertModal
+        open={alertModalOpen}
+        onOpenChange={setAlertModalOpen}
+        errorMessage={modalMessage}
       />
       <button
         type="button"
         onClick={() => {
-          setModalMessage('');
-          setAlertModalOpen(true);
+          setConfirmModalMessage('');
+          setConfirmAlertModalOpen(true);
         }}
         className="w-8 h-8 flex justify-center items-center cursor-pointer"
       >

@@ -64,12 +64,11 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, email, credentials }) {
+    async signIn({ user, account }) {
       // Oauth 로그인
       if (account && account.provider !== 'credentials') {
         console.log('account', account);
         console.log('user', user);
-        console.log('email:', email);
         try {
           const res = await fetch(
             `${process.env.BASE_API_URL}/api/v1/oauth/sign-in`,
@@ -89,16 +88,14 @@ export const options: NextAuthOptions = {
 
           console.log('server data', data);
           user.accessToken = data.result.accessToken;
-          // user.refreshToken = data.result.refreshToken;
-          user.name = user.name;
-          // user.uuid = data.result.uuid;
+          user.refreshToken = data.result.refreshToken;
+          // user.name = user.name;
+          // user.userUuid = data.result.uuid;
           console.log('provider: ', account.provider);
           return true;
         } catch (error) {
           console.error('error', error);
-          return `/auth/sign-in?reason=unregistered&email=${encodeURIComponent(
-            user.email || ''
-          )}&name=${encodeURIComponent(user.name || '')}`;
+          return `/auth/sign-in?reason=unregistered&email=${user.email || ''}`;
         }
       }
       return true;
