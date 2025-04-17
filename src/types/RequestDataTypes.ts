@@ -24,6 +24,7 @@ export interface ShippingAddressDataType {
   secondPhoneNumber: string;
   shippingNote?: string;
   defaulted: boolean;
+  usershippingagreed?: boolean;
 }
 
 export interface getProductDataType {

@@ -27,13 +27,24 @@ export default async function page() {
           ? addressForm.get('customNote')
           : addressForm.get('shippingNote'),
       defaulted: addressForm.get('defaulted') === 'on' ? true : false,
+      // shippingaddressagreechecked:
+      //   addressForm.get('shippingaddressagreechecked') === 'on' ? true : false,
     } as ShippingAddressDataType;
 
+    const agreementPayload = {
+      // agreementId: usershippingagreement.agreementId,
+      // agreed: usershippingagreement?.agreed,
+      agreementId: usershippingagreement.agreementId,
+      agreed:
+        addressForm.get('shippingaddressagreechecked') === 'on' ? true : null,
+    };
+
     console.log('폼데이터:', payload);
-    await addShippingAddress(payload);
+    await addShippingAddress(payload, agreementPayload);
 
     redirect('/shipping-addresses');
   };
+
   return (
     <main>
       <TextTitleH1 className="mb-4">배송지 추가</TextTitleH1>

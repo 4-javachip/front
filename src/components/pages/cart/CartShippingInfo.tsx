@@ -1,33 +1,51 @@
 'use client';
 
-import { dummyAddresses } from '@/data/dummyDatas';
 import Link from 'next/link';
 import AddressEmptySection from '../ShippingAddress/AddressEmptySection';
+import { DefaultShippingAddressType } from '@/types/ShippingAddressDataType';
+import DefaultIcon from '@/components/ui/icons/DefaultIcon';
 
-export default function CartShippingInfo() {
-  const defaultAddress = dummyAddresses.find((addr) => addr.defaulted);
-
+export default function CartShippingInfo({
+  defaultShippingAddress,
+}: {
+  defaultShippingAddress: DefaultShippingAddressType;
+}) {
+  const isEmpty = !defaultShippingAddress.shippingAddressUuid;
   return (
     <section className="w-full  bg-lightGray-2  border-lightGray-6 px-6 text-sm py-6 font-body">
-      {defaultAddress ? (
+      {!isEmpty ? (
         <section className="flex justify-between items-start ">
           <address className="not-italic text-foreground leading-snug">
-            <p className="font-semibold mb-1">
-              {defaultAddress.recipientName} ({defaultAddress.addressName})
-            </p>
-            <p className=" font-medium">
-              ({defaultAddress.zipCode}) {defaultAddress.baseAddress}
-              {defaultAddress.detailAddress &&
-                ` ${defaultAddress.detailAddress}`}
-            </p>
+            <ul className="flex items-center  gap-2">
+              <li>
+                <strong className="text-basefont-semibold text-lightGray-12 leading-7">
+                  {defaultShippingAddress.addressName} (
+                  {defaultShippingAddress.recipientName})
+                </strong>
+              </li>
+              {defaultShippingAddress.defaulted && <DefaultIcon />}
+            </ul>
+            <ul className="font-medium leading-snug">
+              <li>
+                ({defaultShippingAddress.zipCode}){' '}
+                {defaultShippingAddress.baseAddress}
+              </li>
+              <li>{defaultShippingAddress.detailAddress}</li>
+            </ul>
+            <ul className="flex items-center gap-2 font-pretendard text-xs text-lightGray-7 leading-7">
+              <li>{defaultShippingAddress.phoneNumber}</li>
+              <li className="border-l-2 pl-2 leading-3">
+                {defaultShippingAddress.secondPhoneNumber}
+              </li>
+            </ul>
           </address>
 
-          <Link
-            href="/address"
-            className="text-brown font-medium text-xs whitespace-nowrap"
+          {/* <Link
+            href="/cart-address-select"
+            className="text-brown font-medium text-sm whitespace-nowrap"
           >
             배송지 변경
-          </Link>
+          </Link> */}
         </section>
       ) : (
         <AddressEmptySection />

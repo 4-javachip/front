@@ -19,5 +19,5 @@ export interface UserAgreementType {
 // 약관 동의 비동의 여부
 export interface userShippingAgreementRequestType {
   agreementId: number;
-  agreed: boolean;
+  agreed: boolean | null;
 }

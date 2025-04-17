@@ -1,54 +1,51 @@
-import { CartProductType } from '@/types/ResponseDataTypes';
-import CartItem from './CartItem';
-import { dummyCartItems } from '@/data/dummyDatas';
-import CartAllCheckBar from './CartAllCheckBar';
+import CartItem from '@/components/ui/CartItem/CartItem';
+import { ItemThumbSkeleton } from '@/components/ui/skeletons/ProductItemSkeleton';
+import { CartItemType } from '@/types/CartDataType';
+import { Suspense } from 'react';
+import { CommonLayout } from '@/components/layouts/CommonLayout';
+import { getProductOptionDataByProductOptionUuid } from '@/actions/product-service';
+import CartPriceSummary from './CartPriceSummary';
+import CartPurchaseBar from './CartPurchaseBar';
 
-interface Props {
-  items: CartProductType[];
-  onToggleCheck: (productOptionListUuid: string) => void;
-  onIncrease: (productOptionListUuid: string) => void;
-  onDecrease: (productOptionListUuid: string) => void;
-  onDelete: (productOptionListUuid: string) => void;
-  isAllChecked: boolean;
-  onToggleAll: () => void;
-  onDeleteSelected: () => void;
-  onDeleteAll: () => void;
+interface CartItemListProps {
+  cartItemList: CartItemType[];
+  checked: boolean;
 }
+export default async function CartItemList({
+  cartItemList,
+}: CartItemListProps) {
+  const selectedItems = cartItemList.filter((item) => item.checked);
 
-export default function CartItemList({
-  items,
-  onToggleCheck,
-  onIncrease,
-  onDecrease,
-  onDelete,
-  isAllChecked,
-  onToggleAll,
-  onDeleteSelected,
-  onDeleteAll,
-}: Props) {
-  const userUuid = dummyCartItems[0].userUuid;
+  const cartoption: {
+    productPrice: number;
+    productSalePrice: number;
+  }[] = await Promise.all(
+    selectedItems.map(async (item) => {
+      const data = await getProductOptionDataByProductOptionUuid(
+        item.productOptionUuid
+      );
 
-  // 로그인 유저의 장바구니 상품만 필터링
-  const filteredItems = items.filter((item) => item.userUuid === userUuid);
-
+      return {
+        productSalePrice: data.totalPrice * item.productQuantity,
+        productPrice: data.price * item.productQuantity,
+      };
+    })
+  );
+  console.log('cartoption', cartoption);
+  console.log('장바구니 아이템', cartItemList);
   return (
-    <section>
-      <CartAllCheckBar
-        isAllChecked={isAllChecked}
-        onToggleAll={onToggleAll}
-        onDeleteSelected={onDeleteSelected}
-        onDeleteAll={onDeleteAll}
-      />
-      {filteredItems.map((item) => (
-        <CartItem
-          key={item.productOptionListUuid}
-          cartItem={item}
-          onToggleCheck={onToggleCheck}
-          onIncrease={onIncrease}
-          onDecrease={onDecrease}
-          onDelete={onDelete}
-        />
+    <ul>
+      <CommonLayout.CommonBorder />
+      {cartItemList.map((item) => (
+        <Suspense
+          key={item.productUuid}
+          fallback={<ItemThumbSkeleton size={80} />}
+        >
+          <CartItem data={item} size={80} />
+        </Suspense>
       ))}
-    </section>
+      <CartPriceSummary cartItemPriceList={cartoption} />
+      <CartPurchaseBar />
+    </ul>
   );
 }

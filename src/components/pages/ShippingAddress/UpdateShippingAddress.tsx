@@ -5,13 +5,16 @@ import DaumPostcodeModal from './DaumPostcodeModal';
 import ShippingAddressForm from './ShippingAddressForm';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import { ShippingAddressErrorType } from '@/types/ErrorDataType';
+import { UserAgreementType } from '@/types/AgreementDataType';
 
 export default function UpdateShippingAddress({
   initialData,
   action,
+  usershippingagree,
 }: {
   initialData: ShippingAddressDataType;
   action: (addressForm: FormData) => Promise<void>;
+  usershippingagree: UserAgreementType;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [values, setValues] = useState(initialData);
@@ -37,6 +40,7 @@ export default function UpdateShippingAddress({
         setIsModalOpen={setIsModalOpen}
         action={action}
         isEdit={true}
+        isShippingAddressAgreed={usershippingagree?.agreed === true}
       />
       {isModalOpen && (
         <DaumPostcodeModal

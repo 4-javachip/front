@@ -24,10 +24,12 @@ export default function PurchaseItem({
         {option.colorName} / {option.sizeName}
       </p>
       <div className="flex flex-row justify-between pt-4">
-        <QuantityControl
+        {/* <QuantityControl
           quantity={1}
           onDecrease={() => {}}
           onIncrease={() => {}}
+        /> */}
+        <p className="font-bold font-sd-gothic">34,000원</p>
         />
         <p className="font-bold font-sd-gothic">
           {option.totalPrice.toLocaleString()}원

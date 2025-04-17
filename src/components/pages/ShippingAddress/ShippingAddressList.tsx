@@ -25,7 +25,7 @@ export default function ShippingAddressList({
   const addressLength = address.length;
   const router = useRouter();
 
-  const maxAddressLimit = 5;
+  const maxAddressLimit = 10;
   const isAddButtonDisalbed = addressLength >= maxAddressLimit;
 
   const sortedAddress = address.sort((a, b) => {

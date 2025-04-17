@@ -1,26 +1,60 @@
+// 'use client';
+import { cartItemCheck } from '@/actions/cart-service';
+import { cn } from '@/lib/utils';
+import { ChangeEvent } from 'react';
+
 interface CheckboxProps {
   checked: boolean;
-  onChange: () => void;
-  ariaLabel?: string;
+  cartUuid: string;
+  onChange?: (checked: boolean, cartUuid: string) => void;
   className?: string;
 }
 
 export default function Checkbox({
   checked,
-  onChange,
-  className = '',
+  cartUuid,
+  className,
 }: CheckboxProps) {
+  // const [ischecked, setIschecked] = useState(checked);
+  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    // e.preventDefault();
+    const newchecked = !checked;
+    // setIschecked(newchecked);
+
+    cartItemCheck(cartUuid, newchecked);
+  };
   return (
-    <input
-      type="checkbox"
-      checked={checked}
-      onChange={onChange}
-      className={`terms-checkbox
-        w-5 h-5 appearance-none border border-green rounded
-      flex items-center justify-center 
-      checked:before:content-['✔'] checked:before:text-white checked:before:text-sm
-      checked:bg-green checked:border-transparent
-      active:border-black${className}`}
-    />
+    <label className={cn('flex items-center gap-2', className)}>
+      <div className="relative w-5.5 h-5.5">
+        <input
+          id="custom-checkbox"
+          name="productchecked"
+          type="checkbox"
+          className="w-full h-full appearance-none border border-green rounded 
+          checked:bg-green checked:border-transparent active:border-black
+          cursor-pointer"
+          checked={checked}
+          onChange={handleCheck}
+        />
+        {checked && (
+          <svg
+            width="14"
+            height="11"
+            viewBox="0 0 14 11"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute inset-0 m-auto pointer-events-none"
+          >
+            <path
+              d="M13 1.5L4.75 9.75L1 6"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        )}
+      </div>
+    </label>
   );
 }
