@@ -30,7 +30,7 @@ export default function PurchaseItem({
           onIncrease={() => {}}
         /> */}
         <p className="font-bold font-sd-gothic">34,000원</p>
-        />
+
         <p className="font-bold font-sd-gothic">
           {option.totalPrice.toLocaleString()}원
         </p>
