@@ -1,9 +1,9 @@
-import RecoverEmailVerify from '@/components/pages/auth/RecoverEmailVerify';
+import ResetPasswordForm from '@/components/pages/auth/ResetPasswordForm';
 
 export default function page() {
   return (
-    <div>
-      <RecoverEmailVerify />
-    </div>
+    <>
+      <ResetPasswordForm />
+    </>
   );
 }

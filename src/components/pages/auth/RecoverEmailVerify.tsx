@@ -1,22 +1,27 @@
 'use client';
 
-import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 import AuthHeading from './AuthHeading';
-import { useState } from 'react';
-import Loader from '@/components/ui/loaders/loader';
+import { useEffect, useState } from 'react';
 import SignUpEmailInput from './signUp/SignUpEmailInput';
 import EmailVerifyInput from './signUp/EmailVerifyInput';
 import { EmailVerifyStateType } from '@/types/storeDataTypes';
 
-export default function RecoverEmailVerify() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [inputValues, setInputValues] = useState<EmailVerifyStateType>({
-    emailId: '',
-    emailDomain: 'gmail.com',
-    emailVerificationCode: '',
-    isEmailVerified: '',
-    isEmailSent: '',
-  });
+export default function RecoverEmailVerify({
+  inputValues,
+  setInputValues,
+  setIsEnabled,
+  purpose,
+}: {
+  inputValues: EmailVerifyStateType;
+  setInputValues: React.Dispatch<React.SetStateAction<EmailVerifyStateType>>;
+  setIsEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+  purpose: 'sign_up' | 'password_reset' | 'account_recovery';
+}) {
+  useEffect(() => {
+    const isAllFieldsValid =
+      inputValues.isEmailVerified === 'true' ? true : false;
+    setIsEnabled(isAllFieldsValid);
+  }, [inputValues, setIsEnabled]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -57,16 +62,9 @@ export default function RecoverEmailVerify() {
         <EmailVerifyInput
           handleChange={handleChange}
           inputValues={inputValues}
-          purpose="password_reset"
+          purpose={purpose}
         />
       </ul>
-      <ConfirmNextButton
-        onClick={() => {}}
-        isEnabled={() => true}
-        type="button"
-      >
-        {isLoading ? <Loader /> : '다음'}
-      </ConfirmNextButton>
     </form>
   );
 }

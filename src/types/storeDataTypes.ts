@@ -31,6 +31,11 @@ export interface EmailVerifyStateType {
   isEmailSent: string;
 }
 
+export interface ResetPasswordStateType {
+  password: string;
+  confirmPassword: string;
+}
+
 export interface SelectedOptionWithNames extends ProductOptionType {
   colorName?: string;
   sizeName?: string;
