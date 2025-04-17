@@ -2,6 +2,7 @@
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { SignUpDataType } from '@/types/RequestDataTypes';
 import { AgreementType, userInfoDataType } from '@/types/ResponseDataTypes';
+import { ResetPasswordStateType } from '@/types/storeDataTypes';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
@@ -117,12 +118,14 @@ export async function checkEmailDuplicate({ email }: { email: string }) {
 
 export async function sendEmailVerificationAction({
   email,
+  purpose,
 }: {
   email: string;
+  purpose: string;
 }) {
   const payload = {
     email,
-    purpose: 'sign_up',
+    purpose: purpose,
   };
 
   try {
@@ -151,14 +154,16 @@ export async function sendEmailVerificationAction({
 export async function verifyEmailCodeAction({
   email,
   verificationCode,
+  purpose,
 }: {
   email: string;
   verificationCode: string;
+  purpose: string;
 }) {
   const payload = {
     email,
     verificationCode,
-    purpose: 'sign_up',
+    purpose: purpose,
   };
 
   try {
@@ -211,5 +216,48 @@ export async function getUserInfoData() {
     };
   } catch (error) {
     redirect('/error');
+  }
+}
+
+export async function resetUserPasswordAction({
+  email,
+  newPassword,
+  confirmPassword,
+}: {
+  email: string;
+  newPassword: string;
+  confirmPassword: string;
+}) {
+  const payload = {
+    email,
+    newPassword,
+    confirmPassword,
+  };
+  console.log(payload);
+
+  try {
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/user/password/reset`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('비밀번호 변경 실패: ', errorData);
+      // throw new Error(errorData.message);
+      return { success: false, message: errorData.message };
+    }
+
+    const data = await response.json();
+
+    return { success: true, data: data };
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
   }
 }

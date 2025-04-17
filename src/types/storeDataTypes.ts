@@ -23,6 +23,19 @@ export interface SignInStoreStateType {
   password: string;
 }
 
+export interface EmailVerifyStateType {
+  emailId: string;
+  emailDomain: string;
+  emailVerificationCode: string;
+  isEmailVerified: string;
+  isEmailSent: string;
+}
+
+export interface ResetPasswordStateType {
+  password: string;
+  confirmPassword: string;
+}
+
 export interface SelectedOptionWithNames extends ProductOptionType {
   colorName?: string;
   sizeName?: string;

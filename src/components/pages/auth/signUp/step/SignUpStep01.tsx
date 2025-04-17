@@ -1,6 +1,6 @@
 import SignUpEmailInput from '../SignUpEmailInput';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';
-import SignUpEmailVerify from '../SignUpEmailVerify';
+import EmailVerifyInput from '../EmailVerifyInput';
 
 export default function SignUpStep01({
   step,
@@ -20,9 +20,10 @@ export default function SignUpStep01({
         errorMessages={errorMessages}
         inputValues={inputValues}
       />
-      <SignUpEmailVerify
+      <EmailVerifyInput
         handleChange={handleChange}
         inputValues={inputValues}
+        purpose="sign_up"
       />
     </>
   );
