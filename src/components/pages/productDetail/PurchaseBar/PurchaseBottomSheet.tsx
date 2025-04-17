@@ -7,7 +7,10 @@ import {
 } from '@/components/ui/sheet';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import PurchaseBarBottomContent from './PurchaseBarBottomContent';
-import { ProductOptionType } from '@/types/ProductResponseDataTypes';
+import {
+  ProductNameDataType,
+  ProductOptionType,
+} from '@/types/ProductResponseDataTypes';
 import PurchaseItem from './PurchaseItem';
 import { SelectableOptionType } from '@/types/ProductResponseDataTypes';
 import { useEffect, useState } from 'react';
@@ -21,12 +24,14 @@ export default function PurchaseBottomSheet({
   options,
   sizeData,
   colorData,
+  productNameData,
 }: {
   isOpen: boolean;
   onClickPurchase: () => void;
   options: ProductOptionType[];
   sizeData?: SelectableOptionType[];
   colorData?: SelectableOptionType[];
+  productNameData: ProductNameDataType;
 }) {
   const side = 'bottom';
   const [selectedColorId, setSelectedColorId] = useState<number>();
@@ -62,6 +67,18 @@ export default function PurchaseBottomSheet({
   };
 
   useEffect(() => {
+    if (options.length === 1) {
+      const opt = options[0];
+      setSelectedOption([
+        {
+          ...opt,
+          quantity: 1,
+        },
+      ]);
+    }
+  }, [options]);
+
+  useEffect(() => {
     const selectOption = () => {
       const option = options.find(
         (opt) =>
@@ -70,29 +87,34 @@ export default function PurchaseBottomSheet({
             opt.sizeOptionId === undefined)
       );
       if (option) {
+        const colorName = colorData?.find(
+          (c) => c.id === selectedColorId
+        )?.name;
+        const sizeName = sizeData?.find((s) => s.id === selectedSizeId)?.name;
         setSelectedOption((prev) => {
-          const alreadyExists = prev.some(
+          const existingIndex = prev.findIndex(
             (opt) => opt.productOptionUuid === option.productOptionUuid
           );
-          // 같은걸 넣었으면 개수 증가시키는 작업 추가 해야함
-
-          const colorName = colorData?.find(
-            (c) => c.id === selectedColorId
-          )?.name;
-          const sizeName = sizeData?.find((s) => s.id === selectedSizeId)?.name;
-
+          if (existingIndex !== -1) {
+            const updated = [...prev];
+            updated[existingIndex] = {
+              ...updated[existingIndex],
+              quantity: updated[existingIndex].quantity + 1,
+            };
+            return updated;
+          }
           const enrichedOption: SelectedOptionWithNames = {
             ...option,
             colorName,
             sizeName,
+            quantity: 1,
           };
-          setSelectedSizeId(undefined);
-          setSelectedColorId(undefined);
-          return alreadyExists ? prev : [...prev, enrichedOption];
+          return [...prev, enrichedOption];
         });
+        setSelectedSizeId(undefined);
+        setSelectedColorId(undefined);
       }
     };
-
     selectOption();
     console.log('Selected:', {
       option: selectedOption,
@@ -118,31 +140,33 @@ export default function PurchaseBottomSheet({
       <SheetDescription />
       <div className="w-1/6 h-1 bg-lightGray-10 rounded-full mx-auto mb-7" />
       <ul className="w-full space-y-4">
-        <Accordion
-          type="single"
-          collapsible
-          className="border-2 border-lightGray-8 rounded-md"
-          value={openAccordionSelector}
-        >
-          {filteredColorData && (
-            <AccordionSelector
-              title="색상"
-              options={filteredColorData}
-              selectedId={selectedColorId}
-              onOptionSelect={handleColorSelect}
-              isOpen={!selectedColorId ? true : false}
-            />
-          )}
-          {filteredSizeData && (
-            <AccordionSelector
-              title="사이즈"
-              options={filteredSizeData}
-              selectedId={selectedSizeId}
-              onOptionSelect={handleSizeSelect}
-              isOpen={selectedColorId && !selectedSizeId ? true : false}
-            />
-          )}
-        </Accordion>
+        {options.length !== 1 && (
+          <Accordion
+            type="single"
+            collapsible
+            className="border-2 border-lightGray-8 rounded-md"
+            value={openAccordionSelector}
+          >
+            {filteredColorData && (
+              <AccordionSelector
+                title="색상"
+                options={filteredColorData}
+                selectedId={selectedColorId}
+                onOptionSelect={handleColorSelect}
+                isOpen={!selectedColorId ? true : false}
+              />
+            )}
+            {filteredSizeData && (
+              <AccordionSelector
+                title="사이즈"
+                options={filteredSizeData}
+                selectedId={selectedSizeId}
+                onOptionSelect={handleSizeSelect}
+                isOpen={selectedColorId && !selectedSizeId ? true : false}
+              />
+            )}
+          </Accordion>
+        )}
 
         <li className="my-5 space-y-2">
           {selectedOption.map((option) => (
@@ -150,6 +174,7 @@ export default function PurchaseBottomSheet({
               key={option.productOptionUuid}
               option={option}
               onRemove={handleRemoveOption}
+              productNameData={productNameData}
             />
           ))}
         </li>

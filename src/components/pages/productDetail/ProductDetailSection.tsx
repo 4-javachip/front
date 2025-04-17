@@ -52,7 +52,7 @@ export default async function ProductDetailSection({
 
   return (
     <>
-      <PurchaseBar options={options} />
+      <PurchaseBar options={options} productNameData={product} />
       <ProductImg thumbnails={thumbnails} />
       <div className="flex flex-col gap-10">
         <ProductInfo

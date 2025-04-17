@@ -1,13 +1,17 @@
 import { SelectedOptionWithNames } from '@/types/storeDataTypes';
-import QuantityControl from '../../cart/QuantityControl';
 import CloseIcon from '@/components/ui/icons/CloseIcon';
+import MinusIcon from '@/components/ui/icons/MinusIcon';
+import PlusIcon from '@/components/ui/icons/PlusIcon';
+import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
 
 export default function PurchaseItem({
   option,
   onRemove,
+  productNameData,
 }: {
   option: SelectedOptionWithNames;
   onRemove: (productOptionUuid: string) => void;
+  productNameData: ProductNameDataType;
 }) {
   return (
     <div
@@ -21,15 +25,37 @@ export default function PurchaseItem({
         <CloseIcon size={18} />
       </div>
       <p className="text-gray-1 text-sm">
-        {option.colorName} / {option.sizeName}
+        {option.colorName || option.sizeName
+          ? `${option.colorName || ''} ${
+              option.colorName && option.sizeName ? '/' : ''
+            } ${option.sizeName || ''}`
+          : productNameData.name}
       </p>
       <div className="flex flex-row justify-between pt-4">
-        {/* <QuantityControl
-          quantity={1}
-          onDecrease={() => {}}
-          onIncrease={() => {}}
-        /> */}
-        <p className="font-bold font-sd-gothic">34,000원</p>
+        <div className="w-fit flex items-center justify-start">
+          {/* 컴포넌트 분리 예정 */}
+          <button
+            type="button"
+            // disabled={quantity <= 1}
+            name="decrease"
+            // onClick={() => handleQuantityChange('decrease')}
+            className="flex justify-center items-center"
+          >
+            <MinusIcon />
+          </button>
+          <p className="font-body font-semibold w-10 text-center">
+            {option.quantity}
+          </p>
+
+          <button
+            type="button"
+            name="increase"
+            // onClick={() => handleQuantityChange('increase')}
+            className="flex justify-center items-center"
+          >
+            <PlusIcon />
+          </button>
+        </div>
 
         <p className="font-bold font-sd-gothic">
           {option.totalPrice.toLocaleString()}원

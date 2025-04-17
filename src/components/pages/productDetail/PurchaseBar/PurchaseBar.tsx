@@ -8,6 +8,7 @@ import { Sheet, SheetTrigger } from '@/components/ui/sheet';
 import { useEffect, useState } from 'react';
 import PurchaseBarBottomContent from './PurchaseBarBottomContent';
 import {
+  ProductNameDataType,
   ProductOptionType,
   SelectableOptionType,
 } from '@/types/ProductResponseDataTypes';
@@ -17,8 +18,10 @@ const side = 'bottom';
 
 export default function PurchaseBar({
   options,
+  productNameData,
 }: {
   options: ProductOptionType[];
+  productNameData: ProductNameDataType;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [sizeData, setSizeData] = useState<SelectableOptionType[]>();
@@ -68,6 +71,7 @@ export default function PurchaseBar({
           options={options}
           sizeData={sizeData}
           colorData={colorData}
+          productNameData={productNameData}
         />
       </Sheet>
     </>
