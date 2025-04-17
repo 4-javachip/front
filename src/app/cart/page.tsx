@@ -4,6 +4,7 @@ import CartAllCheck from '@/components/pages/cart/CartAllCheck';
 import CartEmpty from '@/components/pages/cart/CartEmpty';
 
 import CartItemList from '@/components/pages/cart/CartItemList';
+import CartPurchaseBar from '@/components/pages/cart/CartPurchaseBar';
 import CartShippingInfo from '@/components/pages/cart/CartShippingInfo';
 import CartDeleteButtons from '@/components/ui/buttons/CartDeleteButton';
 import { DefaultShippingAddressType } from '@/types/ShippingAddressDataType';
@@ -17,6 +18,7 @@ export default async function page() {
     (await getDefaultShippingAddress()) as DefaultShippingAddressType;
   const allChecked = cartItemList.every((item) => item.checked);
   const cartItemLength = cartItemList.length;
+
   return (
     <main>
       <CartShippingInfo defaultShippingAddress={defaultedShippingAddress} />

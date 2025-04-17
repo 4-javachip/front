@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import { getProductOptionDataByProductOptionUuid } from '@/actions/product-service';
 import CartPriceSummary from './CartPriceSummary';
+import CartPurchaseBar from './CartPurchaseBar';
 
 interface CartItemListProps {
   cartItemList: CartItemType[];
@@ -44,6 +45,7 @@ export default async function CartItemList({
         </Suspense>
       ))}
       <CartPriceSummary cartItemPriceList={cartoption} />
+      <CartPurchaseBar />
     </ul>
   );
 }
