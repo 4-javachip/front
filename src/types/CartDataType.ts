@@ -11,3 +11,8 @@ export interface CartProductItemType {
   productUuid: string;
   name: string;
 }
+
+export interface CartItemPriceData {
+  productPrice: number;
+  productSalePrice: number;
+}

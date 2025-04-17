@@ -4,6 +4,7 @@ import KakaoProvider from 'next-auth/providers/kakao';
 import GoogleProvider from 'next-auth/providers/google';
 import NaverProvider from 'next-auth/providers/naver';
 import { CommonResponseType, signInDataType } from '@/types/ResponseDataTypes';
+import { cookies } from 'next/headers';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -30,6 +31,7 @@ export const options: NextAuthOptions = {
                 email: credentials.email,
                 password: credentials.password,
               }),
+              cache: 'no-cache',
             }
           );
 
@@ -82,10 +84,26 @@ export const options: NextAuthOptions = {
                 accessToken: account.access_token,
               }),
               cache: 'no-cache',
+              credentials: 'include',
             }
           );
-          const data = (await res.json()) as CommonResponseType<signInDataType>;
 
+          // oauth 쿠키 저장
+          const setCookie = res.headers.get('set-cookie');
+          if (setCookie) {
+            const match = setCookie.match(/oauth_cookie=([^;]+)/);
+            const oauthCookieValue = match ? match[1] : null;
+            console.log('OAuth 쿠키 값:', oauthCookieValue);
+            (await cookies()).set({
+              name: 'oauth_cookie',
+              value: oauthCookieValue || '',
+              httpOnly: true,
+              secure: true,
+              path: '/',
+            });
+          }
+
+          const data = (await res.json()) as CommonResponseType<signInDataType>;
           console.log('server data', data);
           user.accessToken = data.result.accessToken;
           user.refreshToken = data.result.refreshToken;
@@ -95,7 +113,7 @@ export const options: NextAuthOptions = {
           return true;
         } catch (error) {
           console.error('error', error);
-          return `/auth/sign-in?reason=unregistered&email=${user.email || ''}`;
+          return `/auth/oauth-sign-up`;
         }
       }
       return true;
