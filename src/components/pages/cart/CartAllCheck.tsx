@@ -3,7 +3,7 @@ import { checkedAllItem } from '@/actions/cart-service';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 
 export default function CartAllCheck({ checked }: { checked: boolean }) {
-  const handleChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeCheckbox = () => {
     console.log('checked', checked);
     const newChecked = !checked;
     console.log('newChecked', newChecked);
@@ -46,8 +46,6 @@ export default function CartAllCheck({ checked }: { checked: boolean }) {
       >
         전체선택
       </label>
-
-      {/* <CartDeleteButtons cartUuid={cartItem.cartUuid} /> */}
     </CommonLayout.SectionInnerPadding>
   );
 }

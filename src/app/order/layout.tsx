@@ -13,7 +13,7 @@ export default function CartLayout({
       <OrderHeader />
       <div className="pt-15"> {children}</div>
       <Footer />
-      <CartPurchaseBar />
+      {/* <CartPurchaseBar /> */}
     </>
   );
 }

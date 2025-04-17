@@ -35,17 +35,19 @@ export default async function CartItemList({
   console.log('장바구니 아이템', cartItemList);
   return (
     <ul>
-      <CommonLayout.CommonBorder />
       {cartItemList.map((item) => (
         <Suspense
           key={item.productUuid}
-          fallback={<ItemThumbSkeleton size={80} />}
+          fallback={<ItemThumbSkeleton size={800} />}
         >
           <CartItem data={item} size={80} />
         </Suspense>
       ))}
       <CartPriceSummary cartItemPriceList={cartoption} />
-      <CartPurchaseBar />
+      <CartPurchaseBar
+        cartItemPriceList={cartoption}
+        cartItemList={cartItemList}
+      />
     </ul>
   );
 }

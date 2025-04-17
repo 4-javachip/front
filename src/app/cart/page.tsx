@@ -26,7 +26,7 @@ export default async function page() {
         <CartEmpty />
       ) : (
         <>
-          <div className="flex items-center justify-between mb-4 pt-4">
+          <div className="flex items-center justify-between  border-b pb-4 pt-4">
             <CartAllCheck checked={allChecked} />
             <CartDeleteButtons
               selectedCartUuids={cartItemList
