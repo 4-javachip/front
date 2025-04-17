@@ -8,6 +8,15 @@ export interface SignUpDataType {
   gender: string;
 }
 
+export interface OAuthSignUpDataType {
+  password: string;
+  nickname: string;
+  name: string;
+  birthdate: string;
+  phoneNumber: string;
+  gender: string;
+}
+
 export interface SignInDataType {
   email: string;
   password: string;

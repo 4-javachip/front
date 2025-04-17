@@ -1,6 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import AlertModal from '@/components/ui/dialogs/AlertModal';
+import { CommonResponseType, signInDataType } from '@/types/ResponseDataTypes';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -15,10 +16,12 @@ export default function OauthLoginButtons() {
   const email = searchParams.get('email');
 
   const handleOauthLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
-    await signIn(e.currentTarget.name, {
+    e.preventDefault();
+    console.log('click');
+    const res = await signIn(e.currentTarget.name, {
       redirect: false,
     });
-    router.push(callbackUrl);
+    if (res?.ok) router.push(callbackUrl);
   };
 
   useEffect(() => {

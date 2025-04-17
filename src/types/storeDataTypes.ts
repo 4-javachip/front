@@ -18,6 +18,18 @@ export interface SignUpStoreStateType {
   isOptionalConsentChecked: string;
 }
 
+export interface OAuthSignUpStoreStateType {
+  password: string;
+  confirmPassword: string;
+  nickname: string;
+  name: string;
+  year: string;
+  month: string;
+  date: string;
+  phoneNumber: string;
+  gender: string;
+}
+
 export interface SignInStoreStateType {
   email: string;
   password: string;
