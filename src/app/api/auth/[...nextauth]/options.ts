@@ -90,6 +90,7 @@ export const options: NextAuthOptions = {
 
           // oauth 쿠키 저장
           const setCookie = res.headers.get('set-cookie');
+          console.log(setCookie);
           if (setCookie) {
             const match = setCookie.match(/oauth_cookie=([^;]+)/);
             const oauthCookieValue = match ? match[1] : null;
@@ -98,7 +99,9 @@ export const options: NextAuthOptions = {
               name: 'oauth_cookie',
               value: oauthCookieValue || '',
               httpOnly: true,
+              sameSite: 'none',
               secure: true,
+              domain: 'back.starbucks-store.shop',
               path: '/',
             });
           }
