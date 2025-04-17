@@ -7,7 +7,7 @@ export default function MenuTop() {
     <section className="px-6 pt-5">
       <nav className="flex justify-end">
         <button
-          className="inline-flex items-center"
+          className="inline-flex items-center cursor-pointer"
           onClick={() => setIsOpen(false)}
         >
           <CloseIcon />
