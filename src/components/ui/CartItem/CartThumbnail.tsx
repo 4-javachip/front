@@ -36,8 +36,8 @@ export default function CartThumbnail({
         <Link
           href={`product/${thumbnail.productUuid}`}
           target="_blank"
-          className="relative bg-lightGray-4 rounded-sm
-    cursor-pointer"
+          className=" bg-lightGray-4 rounded-sm
+    cursor-pointer w-1 "
           style={style}
           draggable="false"
         >

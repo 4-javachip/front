@@ -1,7 +1,5 @@
-interface CartItemPriceData {
-  productPrice: number;
-  productSalePrice: number;
-}
+import { CartItemPriceData } from '@/types/CartDataType';
+
 interface CartPriceSummaryProps {
   cartItemPriceList: CartItemPriceData[];
   className?: string;
@@ -36,7 +34,7 @@ export default function CartPriceSummary({
       </ul>
       <ul className="flex justify-between">
         <li>할인 금액</li>
-        <li>- {Math.floor(discountTotal).toLocaleString()}원</li>
+        <li> {Math.floor(discountTotal).toLocaleString()}원</li>
       </ul>
       <ul className="flex justify-between text-xl pt-5">
         <li>총 결제 금액 </li>

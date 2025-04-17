@@ -4,7 +4,10 @@ import {
   getProductOptionDataByProductOptionUuid,
 } from '@/actions/product-service';
 
-import { ItemThumbSkeleton } from '../skeletons/ProductItemSkeleton';
+import {
+  ItemPriceSkeleton,
+  ItemThumbSkeleton,
+} from '../skeletons/ProductItemSkeleton';
 
 import CartPrice from './CartPrice';
 import CartThumbnail from './CartThumbnail';
@@ -16,6 +19,7 @@ import Checkbox from '../inputs/CheckBox';
 import { Suspense, useEffect, useState } from 'react';
 import { CartItemType } from '@/types/CartDataType';
 import QuantityControl from '@/components/pages/cart/QuantityControl';
+import DeleteButton from '../buttons/DeleteButton';
 
 export default function CartItem({
   data,
@@ -66,14 +70,14 @@ export default function CartItem({
 
   return (
     <CommonLayout.SectionInnerPadding>
-      <article className="grid grid-cols-12 items-start gap-4 py-6 border-b border-lightGray-8">
+      <article className="grid grid-cols-12 items-start gap-2 py-6 border-b border-lightGray-8">
         <Checkbox
           checked={cartItem.isChecked}
           cartUuid={cartItem.cartUuid}
           className="col-span-1"
         />
-        <div className="shrink-0 col-span-3">
-          <Suspense fallback={<ItemThumbSkeleton size={80} />}>
+        <div className="shrink-0 col-span-2">
+          <Suspense fallback={<ItemThumbSkeleton size={60} />}>
             <CartThumbnail
               productUuid={cartItem && cartItem.productUuid}
               size={80}
@@ -81,20 +85,14 @@ export default function CartItem({
           </Suspense>
         </div>
 
-        <div className="col-span-8 space-y-5">
-          <div className="flex justify-between text-base font-semibold text-foreground break-words">
+        <div className="col-span-9 space-y-7">
+          <div className="flex justify-between text-base font-semibold text-foreground ">
             <CartItemName
               id={cartItem.productUuid}
               name={cartItem.productName}
             />
-            <DeleteIcon />
+            <DeleteButton cartUuid={cartItem.cartUuid} />
           </div>
-          {/* <DeleteButton
-              cartUuid={cartItem.cartUuid}
-              onClick={() => {
-                console.log('삭제 버튼 클릭됨');
-              }}
-            /> */}
 
           <div className="flex items-end justify-between mt-2">
             <QuantityControl

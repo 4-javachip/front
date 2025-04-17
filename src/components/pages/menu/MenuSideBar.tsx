@@ -2,8 +2,8 @@ import MenuTop from './MenuTop';
 import MenuBannerList from './MenuBannerList';
 import MenuCategoryList from './MenuCategoryList';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
-import { useSideBarContext } from '@/context/SideBarContext';
 import { cn } from '@/lib/utils';
+import { useSideBarContext } from '@/context/SideBarContext';
 
 interface Props {
   categories: CategoryMenuType[];

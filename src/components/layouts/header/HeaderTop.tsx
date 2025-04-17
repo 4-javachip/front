@@ -42,7 +42,7 @@ export default function HeaderTop() {
                 <SearchButton />
               </li>
               <li>
-                <CartButton cartCount={5} />
+                <CartButton />
               </li>
               <li className="pr-4.5">
                 <UserAuthButton />

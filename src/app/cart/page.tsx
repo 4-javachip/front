@@ -4,6 +4,7 @@ import CartAllCheck from '@/components/pages/cart/CartAllCheck';
 import CartEmpty from '@/components/pages/cart/CartEmpty';
 
 import CartItemList from '@/components/pages/cart/CartItemList';
+import CartNotice from '@/components/pages/cart/CartNotice';
 import CartPurchaseBar from '@/components/pages/cart/CartPurchaseBar';
 import CartShippingInfo from '@/components/pages/cart/CartShippingInfo';
 import CartDeleteButtons from '@/components/ui/buttons/CartDeleteButton';
@@ -26,7 +27,7 @@ export default async function page() {
         <CartEmpty />
       ) : (
         <>
-          <div className="flex items-center justify-between mb-4 pt-4">
+          <div className="flex items-center justify-between  border-b pb-4 pt-4">
             <CartAllCheck checked={allChecked} />
             <CartDeleteButtons
               selectedCartUuids={cartItemList
@@ -35,6 +36,7 @@ export default async function page() {
             />
           </div>
           <CartItemList cartItemList={cartItemList} checked={allChecked} />
+          <CartNotice />
         </>
       )}
     </main>
