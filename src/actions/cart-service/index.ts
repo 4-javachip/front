@@ -77,6 +77,32 @@ export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
   return res.json();
 };
 
+export const checkedAllItem = async (checked: boolean) => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
+  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
+  console.log('토큰 ', token);
+  console.log('장바구니 uuid', checked);
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/cart/checked/all`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        checked: checked,
+      }),
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || '장바구니 전체선택 실패');
+  }
+  revalidateTag('getCartData');
+};
+
 export const updateCartItemQuantity = async (
   cartUuid: string,
   quantity: number
@@ -120,6 +146,25 @@ export const deleteCartItem = async (cartUuid: string) => {
     body: JSON.stringify({
       cartUuid: cartUuid,
     }),
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || '장바구니 상품 삭제 실패');
+  }
+  revalidateTag('getCartData');
+};
+
+export const deleteAllCartItem = async () => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
+  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
+  console.log('토큰 ', token);
+  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/all`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
   });
   if (!res.ok) {
     const errorData = await res.json();

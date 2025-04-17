@@ -1,10 +1,13 @@
 'use client';
+import { checkedAllItem } from '@/actions/cart-service';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 
 export default function CartAllCheck({ checked }: { checked: boolean }) {
   const handleChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('checked');
-    // cartItemAllCheck('all', e.target.checked);
+    console.log('checked', checked);
+    const newChecked = !checked;
+    console.log('newChecked', newChecked);
+    checkedAllItem(newChecked);
   };
   return (
     <CommonLayout.SectionInnerPadding className="flex gap-2 items-center ">

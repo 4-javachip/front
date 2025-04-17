@@ -1,8 +1,7 @@
 // 'use client';
 import { cartItemCheck } from '@/actions/cart-service';
 import { cn } from '@/lib/utils';
-import { ChangeEvent, useState } from 'react';
-import { set } from 'zod';
+import { ChangeEvent } from 'react';
 
 interface CheckboxProps {
   checked: boolean;
@@ -22,10 +21,7 @@ export default function Checkbox({
     const newchecked = !checked;
     // setIschecked(newchecked);
 
-    console.log('Checkbox checked', cartUuid, newchecked);
     cartItemCheck(cartUuid, newchecked);
-
-    console.log('Checkbox clicked', newchecked, cartUuid);
   };
   return (
     <label className={cn('flex items-center gap-2', className)}>

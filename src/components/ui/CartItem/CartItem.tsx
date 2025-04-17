@@ -16,7 +16,6 @@ import Checkbox from '../inputs/CheckBox';
 import { Suspense, useEffect, useState } from 'react';
 import { CartItemType } from '@/types/CartDataType';
 import QuantityControl from '@/components/pages/cart/QuantityControl';
-import CartDeleteButtons from '../buttons/CartDeleteButton';
 
 export default function CartItem({
   data,

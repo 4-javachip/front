@@ -1,5 +1,5 @@
 'use client';
-import { deleteCartItem } from '@/actions/cart-service';
+import { deleteAllCartItem, deleteCartItem } from '@/actions/cart-service';
 
 interface CartDeleteButtonsProps {
   selectedCartUuids: string[];
@@ -13,9 +13,9 @@ export default function CartDeleteButtons({
 
     await Promise.all(selectedCartUuids.map((uuid) => deleteCartItem(uuid)));
   };
-  const onDeleteAll = () => {
-    // Handle all items deletion logic here
+  const onDeleteAll = async () => {
     console.log('All items deleted');
+    await deleteAllCartItem();
   };
   return (
     <div className="text-xs space-x-2 font-body font-medium px-6">

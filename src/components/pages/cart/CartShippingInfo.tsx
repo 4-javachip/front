@@ -40,12 +40,12 @@ export default function CartShippingInfo({
             </ul>
           </address>
 
-          <Link
+          {/* <Link
             href="/cart-address-select"
             className="text-brown font-medium text-sm whitespace-nowrap"
           >
             배송지 변경
-          </Link>
+          </Link> */}
         </section>
       ) : (
         <AddressEmptySection />
