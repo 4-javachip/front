@@ -113,7 +113,7 @@ export default function MultiStepSignUp({
         setModalErrorMessage(message);
         setErrorModalOpen(true);
       } else {
-        router.push('sign-up-complete');
+        router.push('auth-complete?type=sign_up');
       }
       setIsLoading(false);
     } else {

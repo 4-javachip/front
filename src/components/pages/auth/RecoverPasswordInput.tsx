@@ -1,25 +1,33 @@
 'use client';
 
+import { z } from 'zod';
 import AuthHeading from './AuthHeading';
 import { useEffect } from 'react';
-import SignUpEmailInput from './signUp/SignUpEmailInput';
-import EmailVerifyInput from './signUp/EmailVerifyInput';
-import { EmailVerifyStateType } from '@/types/storeDataTypes';
+import { ResetPasswordStateType } from '@/types/storeDataTypes';
+import SignUpPasswordInput from './signUp/SignUpPasswordInput';
 
-export default function RecoverEmailVerify({
+export default function RecoverPasswordInput({
   inputValues,
   setInputValues,
   setIsEnabled,
-  purpose,
 }: {
-  inputValues: EmailVerifyStateType;
-  setInputValues: React.Dispatch<React.SetStateAction<EmailVerifyStateType>>;
+  inputValues: ResetPasswordStateType;
+  setInputValues: React.Dispatch<React.SetStateAction<ResetPasswordStateType>>;
   setIsEnabled: React.Dispatch<React.SetStateAction<boolean>>;
-  purpose: 'sign_up' | 'password_reset' | 'account_recovery';
 }) {
+  const passwordSchema = z
+    .string()
+    .min(10)
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)/)
+    .regex(/[!@#$%^&*]/);
+
   useEffect(() => {
+    const isPasswordValid = passwordSchema.safeParse(
+      inputValues.password
+    ).success;
     const isAllFieldsValid =
-      inputValues.isEmailVerified === 'true' ? true : false;
+      isPasswordValid && inputValues.password === inputValues.confirmPassword;
+
     setIsEnabled(isAllFieldsValid);
   }, [inputValues, setIsEnabled]);
 
@@ -41,15 +49,13 @@ export default function RecoverEmailVerify({
   return (
     <form onKeyDown={handleKeyDown} className="w-full h-full">
       <section className=" padded pb-14">
-        <AuthHeading>본인확인을 위해</AuthHeading>
-        <AuthHeading>인증을 진행해 주세요.</AuthHeading>
+        <AuthHeading>변경할 비밀번호를</AuthHeading>
+        <AuthHeading>입력해 주세요.</AuthHeading>
       </section>
       <ul className="padded space-y-6">
-        <SignUpEmailInput onChange={handleChange} inputValues={inputValues} />
-        <EmailVerifyInput
-          handleChange={handleChange}
+        <SignUpPasswordInput
+          onChange={handleChange}
           inputValues={inputValues}
-          purpose={purpose}
         />
       </ul>
     </form>
