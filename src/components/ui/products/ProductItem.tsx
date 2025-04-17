@@ -1,7 +1,7 @@
 'use client';
 
-import ItemThumb from '@/components/ui/productItem/ItemThumb';
-import ProductLabelIcon from '@/components/ui/icons/ProductLabelIcon';
+import ItemThumb from './ItemThumb';
+import ProductLabelIcon from '../icons/ProductLabelIcon';
 import ItemPrice from './ItemPrice';
 import ItemName from './ItemName';
 import {
@@ -14,7 +14,7 @@ import {
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
 import React, { useEffect, useState } from 'react';
-import ProductItemSkeleton, {
+import {
   ItemPriceSkeleton,
   ItemThumbSkeleton,
 } from '../skeletons/ProductItemSkeleton';
@@ -31,12 +31,14 @@ function ProductlItem({
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const thumb = await getDefaultThumbnailDataByProductUuid(
-          productData.productUuid
-        );
-        setThumbnail(thumb);
-      } catch (e) {
+      const [thumbRes, optRes] = await Promise.all([
+        getDefaultThumbnailDataByProductUuid(productData.productUuid),
+        getLowestOptionDataByProductUuid(productData.productUuid),
+      ]);
+
+      if (thumbRes.success && thumbRes.data) {
+        setThumbnail(thumbRes.data);
+      } else {
         setThumbnail({
           id: -1,
           productUuid: productData.productUuid,
@@ -45,12 +47,10 @@ function ProductlItem({
           defaulted: false,
         });
       }
-      try {
-        const opt = await getLowestOptionDataByProductUuid(
-          productData.productUuid
-        );
-        setOption(opt);
-      } catch (e) {}
+
+      if (optRes.success && optRes.data) {
+        setOption(optRes.data);
+      }
     };
 
     fetchData();

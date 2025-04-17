@@ -32,15 +32,22 @@ export default function ConfirmModal({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
+          <AlertDialogTitle className="text-left">{title}</AlertDialogTitle>
+          <AlertDialogDescription className="text-left">
+            {description}
+          </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel className="text-lightGray-7">
+        <AlertDialogFooter className="block text-right space-x-1.5">
+          <AlertDialogCancel
+            className="bg-white rounded-[3.125rem] py-3 px-6 hover:bg-white
+            cursor-pointer text-green hover:text-green
+            border-green"
+          >
             {cancelText}
           </AlertDialogCancel>
           <AlertDialogAction
-            className="text-green bg-background "
+            className="bg-green rounded-[3.125rem] py-3 px-6 hover:bg-green
+            cursor-pointer text-white hover:text-white"
             onClick={onConfirm}
           >
             {confirmText}

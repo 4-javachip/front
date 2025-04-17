@@ -31,7 +31,7 @@ export interface getProductDataType {
   categoryId?: number;
   subCategoryId?: number;
   seasonId?: number;
-  sortType?: 'PRICE_ASC' | 'PRICE_DESC' | 'RECOMMEND';
+  sortType?: string;
   keyword?: string;
   cursor?: number;
   pageSize?: number;

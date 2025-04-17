@@ -2,7 +2,10 @@
 
 import CommonInput from '@/components/ui/inputs/CommonInput';
 import { InputErrorMessage } from '@/components/layouts/CommonLayout';
-import { SignUpStoreStateType } from '@/types/storeDataTypes';
+import {
+  ResetPasswordStateType,
+  SignUpStoreStateType,
+} from '@/types/storeDataTypes';
 
 export default function SignUpPasswordInput({
   onChange,
@@ -10,8 +13,8 @@ export default function SignUpPasswordInput({
   inputValues,
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  errorMessages: Partial<SignUpStoreStateType>;
-  inputValues?: SignUpStoreStateType;
+  errorMessages?: Partial<SignUpStoreStateType>;
+  inputValues?: SignUpStoreStateType | ResetPasswordStateType;
 }) {
   return (
     <>
@@ -24,7 +27,7 @@ export default function SignUpPasswordInput({
           maxLength={20}
           value={inputValues?.password}
         />
-        {errorMessages.password && (
+        {errorMessages && errorMessages.password && (
           <InputErrorMessage>{errorMessages.password}</InputErrorMessage>
         )}
       </li>
@@ -37,7 +40,7 @@ export default function SignUpPasswordInput({
           maxLength={20}
           value={inputValues?.confirmPassword}
         />
-        {errorMessages.confirmPassword && (
+        {errorMessages && errorMessages.confirmPassword && (
           <InputErrorMessage>{errorMessages.confirmPassword}</InputErrorMessage>
         )}
       </li>

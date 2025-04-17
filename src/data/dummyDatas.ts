@@ -325,10 +325,10 @@ export const seasonList: SeasonType[] = [
 ];
 
 export const sortOptions: ProductSortOptionType[] = [
-  { label: '신상품순', value: 'newest' },
-  { label: '추천순', value: 'recommended' },
-  { label: '낮은가격순', value: 'lowPrice' },
-  { label: '높은가격순', value: 'highPrice' },
+  { label: '신상품순', value: 'new' },
+  { label: '추천순', value: 'recommend' },
+  { label: '낮은가격순', value: 'price_asc' },
+  { label: '높은가격순', value: 'price_desc' },
 ];
 
 export const dummyCartSummary = {
@@ -337,9 +337,9 @@ export const dummyCartSummary = {
 };
 
 export const dummyPolicyLinks: PolicyLinkType[] = [
-  { href: '/privacy-policy', label: '개인정보처리방침' },
-  { href: '/terms', label: '홈페이지 이용약관' },
-  { href: '/card-terms', label: '스타벅스카드 이용약관' },
+  { href: '/', label: '개인정보처리방침' },
+  { href: '/', label: '홈페이지 이용약관' },
+  { href: '/', label: '스타벅스카드 이용약관' },
 ];
 
 export const dummyOrderProduct: OrderProductType[] = [

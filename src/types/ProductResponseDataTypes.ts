@@ -52,3 +52,26 @@ export interface SelectableOptionType {
   id: number;
   name: string;
 }
+
+// event
+export interface EventDataType {
+  eventUuid: string;
+  name: string;
+  imageUrl: string;
+  description: string;
+  precaution: string;
+  startAt: string;
+  endAt: string;
+  state: boolean;
+}
+export interface EventProductType {
+  productUuid: string;
+  eventUuid: string;
+}
+
+// best
+export interface BestProductType {
+  id: number;
+  productUuid: string;
+  productSalesCount: number;
+}

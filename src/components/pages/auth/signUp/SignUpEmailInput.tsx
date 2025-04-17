@@ -4,7 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import DropDownIcon from '@/components/ui/icons/DropDownIcon';
 import LargeDropdownModal from '@/components/ui/dropdown/LargeDropdownModal';
 import { emailDomains } from '@/data/initialDatas';
-import { SignUpStoreStateType } from '@/types/storeDataTypes';
+import {
+  EmailVerifyStateType,
+  SignUpStoreStateType,
+} from '@/types/storeDataTypes';
 import { InputErrorMessage } from '@/components/layouts/CommonLayout';
 
 export default function SignUpEmailInput({
@@ -13,8 +16,8 @@ export default function SignUpEmailInput({
   inputValues,
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  errorMessages: Partial<SignUpStoreStateType>;
-  inputValues?: SignUpStoreStateType;
+  errorMessages?: Partial<SignUpStoreStateType>;
+  inputValues?: SignUpStoreStateType | EmailVerifyStateType;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -134,11 +137,15 @@ export default function SignUpEmailInput({
           </div>
         </div>
       </div>
-      {errorMessages.emailId && (
-        <InputErrorMessage>{errorMessages.emailId}</InputErrorMessage>
-      )}
-      {errorMessages.emailDomain && (
-        <InputErrorMessage>{errorMessages.emailDomain}</InputErrorMessage>
+      {errorMessages && (
+        <>
+          {errorMessages.emailId && (
+            <InputErrorMessage>{errorMessages.emailId}</InputErrorMessage>
+          )}
+          {errorMessages.emailDomain && (
+            <InputErrorMessage>{errorMessages.emailDomain}</InputErrorMessage>
+          )}
+        </>
       )}
     </li>
   );

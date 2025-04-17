@@ -5,18 +5,23 @@ import {
   verifyEmailCodeAction,
 } from '@/actions/auth';
 import CommonButton from '@/components/ui/buttons/CommonButton';
-import ErrorAlertModal from '@/components/ui/ErrorAlertModal';
 import CommonInput from '@/components/ui/inputs/CommonInput';
-import Loader from '@/components/ui/loader';
-import { SignUpStoreStateType } from '@/types/storeDataTypes';
+import Loader from '@/components/ui/loaders/loader';
+import {
+  EmailVerifyStateType,
+  SignUpStoreStateType,
+} from '@/types/storeDataTypes';
 import { useRef, useState } from 'react';
+import AlertModal from '@/components/ui/dialogs/AlertModal';
 
-export default function SignUpEmailVerify({
+export default function EmailVerifyInput({
   handleChange,
   inputValues,
+  purpose,
 }: {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  inputValues: SignUpStoreStateType;
+  inputValues: SignUpStoreStateType | EmailVerifyStateType;
+  purpose: 'sign_up' | 'password_reset' | 'account_recovery';
 }) {
   const [remainingTime, setRemainingTime] = useState<number>();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -52,76 +57,85 @@ export default function SignUpEmailVerify({
 
   const handleSendEmailVerification = async (): Promise<boolean> => {
     setIsLoading(true);
-    try {
-      const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-      const isDuplicated = await checkEmailDuplicate({ email });
-      console.log(isDuplicated);
 
+    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+    const isDuplicated = await checkEmailDuplicate({ email });
+    console.log(isDuplicated);
+
+    // true : 중복 / false : 체크 통과(중복X)
+    if (purpose === 'sign_up') {
       if (isDuplicated.result) {
         setModalErrorMessage('이미 사용 중인 이메일입니다.');
+        setIsLoading(false);
         setErrorModalOpen(true);
         setRemainingTime(0);
         return false;
       }
-      const res = await sendEmailVerificationAction({ email });
-      if (res) {
-        startTimer();
+    } else {
+      if (!isDuplicated.result) {
+        setModalErrorMessage('등록되지 않은 이메일입니다.');
+        setIsLoading(false);
+        setErrorModalOpen(true);
+        setRemainingTime(0);
+        return false;
       }
-      console.log(res);
+    }
 
-      handleChange({
-        target: {
-          name: 'isEmailSent',
-          value: 'true',
-        },
-      } as React.ChangeEvent<HTMLInputElement>);
-    } catch (error) {
-      const message =
-        (error as { message?: string })?.message ??
-        '메일 전송 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
-      setModalErrorMessage(message);
+    const res = await sendEmailVerificationAction({
+      email,
+      purpose: purpose,
+    });
+
+    if (res.success === false) {
+      setModalErrorMessage(res.message);
       setErrorModalOpen(true);
       setIsLoading(false);
       return false;
     }
+
+    startTimer();
+
+    handleChange({
+      target: {
+        name: 'isEmailSent',
+        value: 'true',
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
+
     setIsLoading(false);
     return true;
   };
 
   const handleVerifyCode = async () => {
     setIsLoading(true);
-    try {
-      const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
-      const code = inputValues.emailVerificationCode;
-      const res = await verifyEmailCodeAction({
-        email,
-        verificationCode: code,
-      });
+    const email = `${inputValues.emailId}@${inputValues.emailDomain}`;
+    const code = inputValues.emailVerificationCode;
+    const res = await verifyEmailCodeAction({
+      email,
+      verificationCode: code,
+      purpose: purpose,
+    });
 
-      if (res && !res.error) {
-        handleChange({
-          target: {
-            name: 'isEmailVerified',
-            value: 'true',
-          },
-        } as React.ChangeEvent<HTMLInputElement>);
-      }
-
-      console.log(res);
-    } catch (error) {
-      const message =
-        (error as { message?: string })?.message ??
-        '인증 확인 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
-      setModalErrorMessage(message);
+    if (res.success === false) {
+      setModalErrorMessage(res.message);
       setErrorModalOpen(true);
       setIsLoading(false);
+      return;
     }
+
+    handleChange({
+      target: {
+        name: 'isEmailVerified',
+        value: 'true',
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
+
     setIsLoading(false);
   };
 
   return (
     <>
-      <ErrorAlertModal
+      <AlertModal
         open={errorModalOpen}
         onOpenChange={setErrorModalOpen}
         errorMessage={modalErrorMessage}
@@ -133,7 +147,10 @@ export default function SignUpEmailVerify({
           {!remainingTime || remainingTime === 0 ? (
             <CommonButton
               onClick={handleSendEmailVerification}
-              isEnabled={true}
+              isEnabled={
+                inputValues.emailId.length >= 1 &&
+                inputValues.emailDomain.length >= 1
+              }
             >
               {isLoading ? <Loader /> : '인증 요청'}
             </CommonButton>
@@ -176,7 +193,10 @@ export default function SignUpEmailVerify({
                   </li>
                 </ul>
               </li>
-              <CommonButton onClick={handleVerifyCode} isEnabled={true}>
+              <CommonButton
+                onClick={handleVerifyCode}
+                isEnabled={inputValues.emailVerificationCode.length === 6}
+              >
                 {isLoading ? <Loader /> : '인증번호 확인'}
               </CommonButton>
             </>

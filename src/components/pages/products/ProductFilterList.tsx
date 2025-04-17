@@ -15,7 +15,7 @@ export default async function ProductFilterList({
 }) {
   const subCategories = selectedCategory
     ? await getSubCategoriesByCategoryid(selectedCategory.id)
-    : [];
+    : undefined;
 
   return (
     <>

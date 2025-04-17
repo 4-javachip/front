@@ -1,10 +1,7 @@
 import Image from 'next/image';
-import React from 'react';
-import ProductList from '../products/ProductList';
-import { EventDataType } from '@/types/EventResponseDataType';
-import { getEventProductDatasByEventUuid } from '@/actions/event-service';
-import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
-import { getProductNameDataByProductUuid } from '@/actions/product-service';
+import { EventDataType } from '@/types/ProductResponseDataTypes';
+import EventProductList from './EventProductList';
+import PrecautionAccordion from './PrecautionAccordion';
 
 export default async function EventSection({
   eventsData,
@@ -12,12 +9,6 @@ export default async function EventSection({
   eventsData: EventDataType;
 }) {
   const eventUuid = eventsData.eventUuid;
-  const eventProducts = await getEventProductDatasByEventUuid(eventUuid);
-  const content = eventProducts.content;
-  // console.log(content);
-  const productNameDataList: ProductNameDataType[] = await Promise.all(
-    content.map((item) => getProductNameDataByProductUuid(item.productUuid))
-  );
 
   return (
     <>
@@ -32,8 +23,14 @@ export default async function EventSection({
         width={500}
         height={300}
       />
-      {/* 기획전 유의사항 */}
-      {/* <ProductList products={productNameDataList} /> */}
+      <section>
+        <PrecautionAccordion title="기획전 유의사항">
+          <ul className="text-lightGray-1 text-sm">
+            <li>{eventsData.precaution}</li>
+          </ul>
+        </PrecautionAccordion>
+      </section>
+      <EventProductList eventUuid={eventUuid} />
     </>
   );
 }

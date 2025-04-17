@@ -7,9 +7,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export default function TextCarousel({
   items,
   type,
+  carouselType = 'product',
 }: {
   items: { id: number | string; name: string }[];
   type: string;
+  carouselType?: 'product' | 'best';
 }) {
   const { containerRef, onMouseDown, onMouseMove, onMouseUpOrLeave } =
     useCategoryCarousel();
@@ -46,7 +48,7 @@ export default function TextCarousel({
       onMouseUp={onMouseUpOrLeave}
       onMouseLeave={onMouseUpOrLeave}
     >
-      {type === 'category' && (
+      {type === 'category' && carouselType !== 'best' && (
         <TextCarouselItem
           key="all"
           category="전체"
@@ -58,7 +60,12 @@ export default function TextCarousel({
         <TextCarouselItem
           key={item.id}
           category={item.name}
-          isSelected={String(item.id) === selectedCategoryId}
+          isSelected={
+            ((type === 'event' || carouselType === 'best') &&
+              !selectedCategoryId &&
+              items[0]?.id === item.id) ||
+            String(item.id) === selectedCategoryId
+          }
           onClick={() => handleSelect(String(item.id))}
         />
       ))}

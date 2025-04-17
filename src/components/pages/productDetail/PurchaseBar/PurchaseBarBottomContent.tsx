@@ -10,7 +10,7 @@ export default function PurchaseBarBottomContent({
     <div className="flex flex-col w-full gap-4">
       <div className="flex flex-row justify-between">
         <p className="text-lightGray-1 text-sm">총 금액</p>
-        <p className="font-bold font-sd-gothic text-xl">34,000원</p>
+        <p className="font-bold font-sd-gothic text-xl">가격 원</p>
       </div>
 
       <div className="flex flex-row gap-2 items-center w-full">

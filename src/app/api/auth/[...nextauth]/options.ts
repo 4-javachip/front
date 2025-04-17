@@ -48,8 +48,6 @@ export const options: NextAuthOptions = {
             (error as { message?: string })?.message ?? '로그인에 실패했습니다.'
           );
         }
-        // 회원로그인 api 호출
-        return null;
       },
     }),
     KakaoProvider({
@@ -66,39 +64,39 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, email, credentials }) {
+    async signIn({ user, account }) {
       // Oauth 로그인
       if (account && account.provider !== 'credentials') {
         console.log('account', account);
         console.log('user', user);
-        // try {
-        //   const res = await fetch(
-        //     `${process.env.BASE_API_URL}/api/v1/auth/oauth/sign-in`,
-        //     {
-        //       method: 'POST',
-        //       headers: {
-        //         'Content-Type': 'application/json',
-        //       },
-        //       body: JSON.stringify({
-        //         provider: account.provider,
-        //         providerId: account.providerAccountId,
-        //         providerEmail: account.email,
-        //       }),
-        //       cache: 'no-cache',
-        //     }
-        //   );
-        //   const data = (await res.json()) as commonResponseType<signInDataType>;
-        //   console.log('server data', data);
-        //   user.accessToken = data.result.accessToken;
-        //   // user.refreshToken = data.result.refreshToken;
-        //   user.name = data.result.name;
-        //   user.uuid = data.result.uuid;
-        //   console.log('kakao', user);
-        //   return true;
-        // } catch (error) {
-        //   console.error('error', error);
-        //   return '/auth/sign-up';
-        // }
+        try {
+          const res = await fetch(
+            `${process.env.BASE_API_URL}/api/v1/oauth/sign-in`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                provider: account.provider,
+                accessToken: account.access_token,
+              }),
+              cache: 'no-cache',
+            }
+          );
+          const data = (await res.json()) as CommonResponseType<signInDataType>;
+
+          console.log('server data', data);
+          user.accessToken = data.result.accessToken;
+          user.refreshToken = data.result.refreshToken;
+          // user.name = user.name;
+          // user.userUuid = data.result.uuid;
+          console.log('provider: ', account.provider);
+          return true;
+        } catch (error) {
+          console.error('error', error);
+          return `/auth/sign-in?reason=unregistered&email=${user.email || ''}`;
+        }
       }
       return true;
     },

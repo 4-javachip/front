@@ -1,55 +1,90 @@
 'use server';
 
-import { EventDataType, EventProductType } from '@/types/EventResponseDataType';
+import { PAGE_SIZE } from '@/constants/constants';
+import { EventProductType } from '@/types/ProductResponseDataTypes';
+import { EventDataType } from '@/types/ProductResponseDataTypes';
 import { PaginatedResponseType } from '@/types/ProductResponseDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
+import { redirect } from 'next/navigation';
 
 export async function getEventDatas() {
-  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/event/list`, {
-    method: 'GET',
-    next: { revalidate: 24 * 60 * 60 },
-  });
-  if (!res.ok) {
-    const errorData = await res.json();
-    console.error('Data Fetching failed:', errorData);
-    throw new Error(errorData.message);
+  try {
+    const res = await fetch(`${process.env.BASE_API_URL}/api/v1/event/list`, {
+      method: 'GET',
+      // next: { revalidate: 24 * 60 * 60 },
+    });
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error('Data Fetching failed:', errorData);
+      // throw new Error(errorData.message);
+      redirect('/error');
+    }
+    const data = (await res.json()) as CommonResponseType<EventDataType[]>;
+
+    return {
+      success: true,
+      data: data.result,
+    };
+  } catch (error) {
+    console.log(error);
+    redirect('/error');
   }
-  const data = (await res.json()) as CommonResponseType<EventDataType[]>;
-  return data.result;
 }
 
-export async function getEventProductDatasByEventUuid(eventUuid: string) {
-  const res = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/event-product/list/${eventUuid}`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
+export async function getEventProductDatasByEventUuid({
+  eventUuid,
+  page,
+}: {
+  eventUuid: string;
+  page: number;
+}) {
+  try {
+    const res = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/event-product/list/${eventUuid}?pageSize=${PAGE_SIZE}&page=${page}`,
+      {
+        method: 'GET',
+        cache: 'no-cache',
+      }
+    );
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error('Data Fetching failed:', errorData);
+      // throw new Error(errorData.message);
+      redirect('/error');
     }
-  );
-  if (!res.ok) {
-    const errorData = await res.json();
-    console.error('Data Fetching failed:', errorData);
-    throw new Error(errorData.message);
+    const data = (await res.json()) as CommonResponseType<
+      PaginatedResponseType<EventProductType[]>
+    >;
+    return {
+      success: true,
+      data: data.result,
+    };
+  } catch (error) {
+    redirect('/error');
   }
-  const data = (await res.json()) as CommonResponseType<
-    PaginatedResponseType<EventProductType[]>
-  >;
-  return data.result;
 }
 
 export async function getEventDataByEventUuid(eventUuid: string) {
-  const res = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/event/${eventUuid}`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
+  try {
+    const res = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/event/${eventUuid}`,
+      {
+        method: 'GET',
+        cache: 'no-cache',
+      }
+    );
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error('Data Fetching failed:', errorData);
+      // throw new Error(errorData.message);
+      redirect('/error');
     }
-  );
-  if (!res.ok) {
-    const errorData = await res.json();
-    console.error('Data Fetching failed:', errorData);
-    throw new Error(errorData.message);
+    const data = (await res.json()) as CommonResponseType<EventDataType>;
+    return {
+      success: true,
+      data: data.result,
+    };
+  } catch (error) {
+    redirect('/error');
   }
-  const data = (await res.json()) as CommonResponseType<EventDataType>;
-  return data.result;
 }
