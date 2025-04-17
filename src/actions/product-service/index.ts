@@ -229,3 +229,23 @@ export const getDescriptionDataByProductUuid = cache(
     return data.result;
   }
 );
+
+export async function getProductOptionDataByProductOptionUuid(
+  productOptionListUuid: string
+) {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/product/option/${productOptionListUuid}`,
+    {
+      method: 'GET',
+      next: { tags: ['getProductOptionData'] },
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error('Product Option Data Fetching failed:', errorData);
+    throw new Error(errorData.message);
+  }
+  const data = (await res.json()) as CommonResponseType<ProductOptionType>;
+
+  return data.result;
+}

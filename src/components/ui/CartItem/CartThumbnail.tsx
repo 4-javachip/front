@@ -3,7 +3,7 @@ import { ProductThumbnailDataType } from '@/types/ProductResponseDataTypes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import Loader from '../loader';
+import { ItemThumbSkeleton } from '../skeletons/ProductItemSkeleton';
 
 export default function CartThumbnail({
   productUuid,
@@ -21,7 +21,9 @@ export default function CartThumbnail({
 
   useEffect(() => {
     const fetchThumbnail = async () => {
-      const res = await getDefaultThumbnailDataByProductUuid(productUuid);
+      const { data: res } = await getDefaultThumbnailDataByProductUuid(
+        productUuid
+      );
       setThumbnail(res);
     };
 
@@ -51,7 +53,7 @@ export default function CartThumbnail({
         </Link>
       ) : (
         <div className="w-full flex items-center justify-center">
-          <Loader size={'10'} />
+          <ItemThumbSkeleton size={80} />
         </div>
       )}
     </>
