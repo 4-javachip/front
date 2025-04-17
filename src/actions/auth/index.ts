@@ -1,6 +1,6 @@
 'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { SignUpDataType } from '@/types/RequestDataTypes';
+import { OAuthSignUpDataType, SignUpDataType } from '@/types/RequestDataTypes';
 import { AgreementType, userInfoDataType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
@@ -23,6 +23,36 @@ export async function signUpAction(signUpData: Partial<SignUpDataType>) {
       const errorData = await response.json();
       // console.error('Sign-up failed:', errorData);
       // throw new Error(errorData.message);
+      return { success: false, message: errorData.message };
+    }
+
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
+  }
+}
+
+export async function oAuthSignUpAction(
+  signUpData: Partial<OAuthSignUpDataType>
+) {
+  const payload: Partial<OAuthSignUpDataType> = { ...signUpData };
+  try {
+    console.log('Payload being sent to the API:', payload);
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/oauth/sign-up`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+        credentials: 'include',
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Sign-up failed:', errorData);
       return { success: false, message: errorData.message };
     }
 
