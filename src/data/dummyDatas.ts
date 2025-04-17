@@ -4,14 +4,11 @@ import {
   CartProductType,
   CategoryMenuType,
   EventCarouselType,
-  ProductCategoryType,
   ProductDetailType,
   ProductItemType,
   ProductSortOptionType,
   SeasonType,
   PolicyLinkType,
-  AgreementType,
-  AgreementTypeEnum,
   OrderProductType,
 } from '@/types/ResponseDataTypes';
 

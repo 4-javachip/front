@@ -2,7 +2,6 @@
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { SignUpDataType } from '@/types/RequestDataTypes';
 import { AgreementType, userInfoDataType } from '@/types/ResponseDataTypes';
-import { ResetPasswordStateType } from '@/types/storeDataTypes';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 

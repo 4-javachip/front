@@ -35,7 +35,7 @@ export default function useInfiniteProductList<TParams, TItem>({
     };
 
     fetchInitial();
-  }, [params]);
+  }, [fetchPageData, params]);
 
   useEffect(() => {
     if (page === 1) return;

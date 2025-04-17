@@ -1,7 +1,5 @@
-// 'use client';
 import { cartItemCheck } from '@/actions/cart-service';
 import { cn } from '@/lib/utils';
-import { ChangeEvent } from 'react';
 
 interface CheckboxProps {
   checked: boolean;
@@ -15,8 +13,7 @@ export default function Checkbox({
   cartUuid,
   className,
 }: CheckboxProps) {
-  // const [ischecked, setIschecked] = useState(checked);
-  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCheck = () => {
     // e.preventDefault();
     const newchecked = !checked;
     // setIschecked(newchecked);
