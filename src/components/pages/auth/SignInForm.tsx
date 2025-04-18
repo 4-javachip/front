@@ -10,11 +10,13 @@ import { SignInStoreStateType } from '@/types/storeDataTypes';
 import { signInSchema } from '@/schemas/signInSchema';
 import { useRouter, useSearchParams } from 'next/navigation';
 import AlertModal from '@/components/ui/dialogs/AlertModal';
+import Loader from '@/components/ui/loaders/loader';
 
 export default function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') ?? '/';
+  const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [inputValues, setInputValues] = useState<SignInStoreStateType>({
     email: '',
@@ -35,6 +37,7 @@ export default function SignInForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const formData = new FormData(e.currentTarget);
       console.log('formData', formData);
@@ -47,15 +50,18 @@ export default function SignInForm() {
 
       if (res?.ok) {
         router.push(callbackUrl);
+        setIsLoading(false);
       } else {
         const message =
           res?.error ??
           '로그인 중 알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.';
         setModalErrorMessage(message);
         setErrorModalOpen(true);
+        setIsLoading(false);
       }
     } catch (error) {
       //
+      setIsLoading(false);
     }
   };
 
@@ -92,7 +98,7 @@ export default function SignInForm() {
 
         <CommonLayout.FixedButtonBgLayout>
           <CommonButton onClick={() => {}} isEnabled={isEnabled} type="submit">
-            로그인하기
+            {isLoading ? <Loader /> : '로그인하기'}
           </CommonButton>
         </CommonLayout.FixedButtonBgLayout>
       </form>

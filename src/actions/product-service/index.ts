@@ -29,7 +29,7 @@ export const getProductListData = cache(async (params: getProductDataType) => {
       {
         method: 'GET',
         // cache: 'no-cache',
-        next: { tags: [`getProducts-${params.page}`, `page-${params.page}`] },
+        next: { revalidate: 3600 },
       }
     );
 

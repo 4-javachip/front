@@ -51,4 +51,5 @@ export interface ResetPasswordStateType {
 export interface SelectedOptionWithNames extends ProductOptionType {
   colorName?: string;
   sizeName?: string;
+  quantity: number;
 }

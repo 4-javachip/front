@@ -16,16 +16,18 @@ export default function AlertModal({
   onConfirm,
   errorMessage,
   isPreLine = false,
+  isOverLayHidden = false,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm?: () => void;
   errorMessage?: string;
   isPreLine?: boolean;
+  isOverLayHidden?: boolean;
 }) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent>
+      <AlertDialogContent isOverLayHidden={isOverLayHidden}>
         <AlertDialogHeader>
           <AlertDialogTitle className="text-left">알림</AlertDialogTitle>
           <AlertDialogDescription
