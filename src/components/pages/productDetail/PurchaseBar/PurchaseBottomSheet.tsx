@@ -71,6 +71,25 @@ export default function PurchaseBottomSheet({
     );
   };
 
+  const handleQuantityChange = (
+    uuid: string,
+    action: 'increase' | 'decrease'
+  ) => {
+    setSelectedOption((prev) =>
+      prev.map((opt) =>
+        opt.productOptionUuid === uuid
+          ? {
+              ...opt,
+              quantity:
+                action === 'increase'
+                  ? opt.quantity + 1
+                  : Math.max(opt.quantity - 1, 1),
+            }
+          : opt
+      )
+    );
+  };
+
   useEffect(() => {
     if (options.length === 1) {
       const opt = options[0];
@@ -187,6 +206,7 @@ export default function PurchaseBottomSheet({
               option={option}
               onRemove={handleRemoveOption}
               productNameData={productNameData}
+              onQuantityChange={handleQuantityChange}
             />
           ))}
         </li>

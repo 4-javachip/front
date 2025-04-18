@@ -1,30 +1,45 @@
 import MinusIcon from '@/components/ui/icons/MinusIcon';
 import PlusIcon from '@/components/ui/icons/PlusIcon';
+import { SelectedOptionWithNames } from '@/types/storeDataTypes';
 import React from 'react';
 
 export default function PurchaseQuantityControl({
-  quantity,
+  option,
+  onQuantityChange,
 }: {
-  quantity: number;
+  option: SelectedOptionWithNames;
+  onQuantityChange: (
+    productOptionUuid: string,
+    action: 'increase' | 'decrease'
+  ) => void;
 }) {
+  const handleDecrease = () => {
+    onQuantityChange(option.productOptionUuid, 'decrease');
+  };
+
+  const handleIncrease = () => {
+    onQuantityChange(option.productOptionUuid, 'increase');
+  };
   return (
     <>
       <button
         type="button"
-        // disabled={quantity <= 1}
+        disabled={option.quantity <= 1}
         name="decrease"
-        // onClick={() => handleQuantityChange('decrease')}
+        onClick={handleDecrease}
         className={`flex justify-center items-center cursor-pointer
-            ${quantity === 1 && 'opacity-40'}`}
+            ${option.quantity === 1 && 'opacity-40'}`}
       >
         <MinusIcon />
       </button>
-      <p className="font-body font-semibold w-10 text-center">{quantity}</p>
+      <p className="font-body font-semibold w-10 text-center">
+        {option.quantity}
+      </p>
 
       <button
         type="button"
         name="increase"
-        // onClick={() => handleQuantityChange('increase')}
+        onClick={handleIncrease}
         className="flex justify-center items-center cursor-pointer"
       >
         <PlusIcon />

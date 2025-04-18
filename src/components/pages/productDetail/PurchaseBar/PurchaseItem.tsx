@@ -7,10 +7,15 @@ export default function PurchaseItem({
   option,
   onRemove,
   productNameData,
+  onQuantityChange,
 }: {
   option: SelectedOptionWithNames;
   onRemove: (productOptionUuid: string) => void;
   productNameData: ProductNameDataType;
+  onQuantityChange: (
+    productOptionUuid: string,
+    action: 'increase' | 'decrease'
+  ) => void;
 }) {
   return (
     <div
@@ -34,7 +39,10 @@ export default function PurchaseItem({
       </p>
       <div className="flex flex-row justify-between pt-4">
         <div className="w-fit flex items-center justify-start">
-          <PurchaseQuantityControl quantity={option.quantity} />
+          <PurchaseQuantityControl
+            option={option}
+            onQuantityChange={onQuantityChange}
+          />
         </div>
 
         <p className="font-bold font-sd-gothic">
