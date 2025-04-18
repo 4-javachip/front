@@ -9,7 +9,7 @@ export default function AccordionSelector({
   isOpen,
 }: {
   title: string;
-  options: SelectableOptionType[];
+  options?: SelectableOptionType[];
   selectedId?: number;
   onOptionSelect: (id: number) => void;
   isOpen?: boolean;
@@ -21,16 +21,17 @@ export default function AccordionSelector({
       </AccordionTrigger>
       <hr />
       <AccordionContent className="flex flex-col w-full p-0">
-        {options.map((option) => (
-          <button
-            key={option.id}
-            className="text-left padded py-3.5 cursor-pointer
+        {options &&
+          options.map((option) => (
+            <button
+              key={option.id}
+              className="text-left padded py-3.5 cursor-pointer
               border-b border-lightGray-2 last:border-b-0"
-            onClick={() => onOptionSelect(option.id)}
-          >
-            {option.name}
-          </button>
-        ))}
+              onClick={() => onOptionSelect(option.id)}
+            >
+              {option.name}
+            </button>
+          ))}
       </AccordionContent>
     </AccordionItem>
   );
