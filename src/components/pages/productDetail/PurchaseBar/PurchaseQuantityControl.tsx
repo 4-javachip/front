@@ -27,8 +27,8 @@ export default function PurchaseQuantityControl({
         disabled={option.quantity <= 1}
         name="decrease"
         onClick={handleDecrease}
-        className={`flex justify-center items-center cursor-pointer
-            ${option.quantity === 1 && 'opacity-40'}`}
+        className={`flex justify-center items-center 
+            ${option.quantity === 1 ? 'opacity-40' : 'cursor-pointer'}`}
       >
         <MinusIcon />
       </button>

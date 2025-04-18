@@ -20,14 +20,12 @@ import { SelectedOptionWithNames } from '@/types/storeDataTypes';
 
 export default function PurchaseBottomSheet({
   isOpen,
-  onClickPurchase,
   options,
   sizeData,
   colorData,
   productNameData,
 }: {
   isOpen: boolean;
-  onClickPurchase: () => void;
   options: ProductOptionType[];
   sizeData?: SelectableOptionType[];
   colorData?: SelectableOptionType[];
@@ -39,6 +37,7 @@ export default function PurchaseBottomSheet({
   const [selectedOption, setSelectedOption] = useState<
     SelectedOptionWithNames[]
   >([]);
+  const [totalAmount, setTotalAmount] = useState(0);
   const colorOptionExists = options.some(
     (option) => option.colorOptionId !== null
   );
@@ -104,6 +103,14 @@ export default function PurchaseBottomSheet({
   console.log('선택: ', selectedColorId, selectedSizeId, selectedOption);
 
   useEffect(() => {
+    const total = selectedOption.reduce(
+      (sum, option) => sum + option.totalPrice,
+      0
+    );
+    setTotalAmount(total);
+  }, [selectedOption]);
+
+  useEffect(() => {
     const selectOption = () => {
       const option = options.find((opt) => {
         const matchColor =
@@ -163,14 +170,14 @@ export default function PurchaseBottomSheet({
   return (
     <SheetContent
       side={side}
-      className="bg-background bottom-0 w-full px-6 
+      className="bg-background bottom-0 w-full
       rounded-t-[1.3rem] shadow-[-0.125rem_-0.125rem_0.5rem_rgba(0,0,0,0.08)] 
       flex gap-2 items-center max-w-[var(--base-w)] mx-auto"
     >
       <SheetTitle />
       <SheetDescription />
-      <div className="w-1/6 h-1 bg-lightGray-10 rounded-full mx-auto mb-7" />
-      <ul className="w-full space-y-4 mb-5">
+      <div className="padded w-1/6 h-1 bg-lightGray-10 rounded-full mx-auto mb-7" />
+      <ul className="padded w-full space-y-4 mb-5">
         {options.length !== 1 && (
           <Accordion
             type="single"
@@ -211,12 +218,15 @@ export default function PurchaseBottomSheet({
           ))}
         </li>
       </ul>
-
+      <hr className="w-full" />
       <CommonLayout.FixedButtonBgLayout
-        className={`z-[2000] transition-all duration-300 relative
+        className={`padded z-[2000] transition-all duration-300 relative
         ${isOpen ? `rounded-none shadow-none px-0` : ``}`}
       >
-        <PurchaseBarBottomContent onClickPurchase={onClickPurchase} />
+        <PurchaseBarBottomContent
+          onClickPurchase={() => console.log('click2')}
+          totalAmount={totalAmount}
+        />
       </CommonLayout.FixedButtonBgLayout>
     </SheetContent>
   );

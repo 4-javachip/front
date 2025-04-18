@@ -48,7 +48,10 @@ export default function PurchaseBar({
         <CommonLayout.FixedButtonBgLayout
           className={`z-[1000] transition-all duration-300
           ${
-            isOpen ? `rounded-none shadow-none border-t border-lightGray-5` : ``
+            isOpen
+              ? `rounded-none shadow-none 
+            pointer-events-none`
+              : ``
           }`}
         >
           {!isOpen ? (
@@ -61,13 +64,12 @@ export default function PurchaseBar({
               </SheetTrigger>
             </>
           ) : (
-            <PurchaseBarBottomContent onClickPurchase={() => {}} />
+            <PurchaseBarBottomContent className="hidden" />
           )}
         </CommonLayout.FixedButtonBgLayout>
 
         <PurchaseBottomSheet
           isOpen={isOpen}
-          onClickPurchase={() => console.log('click')}
           options={options}
           sizeData={sizeData}
           colorData={colorData}
