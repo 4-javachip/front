@@ -1,7 +1,10 @@
 'use server';
 
 import { PAGE_SIZE } from '@/constants/constants';
-import { EventProductType } from '@/types/ProductResponseDataTypes';
+import {
+  BannerImageType,
+  EventProductType,
+} from '@/types/ProductResponseDataTypes';
 import { EventDataType } from '@/types/ProductResponseDataTypes';
 import { PaginatedResponseType } from '@/types/ProductResponseDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
@@ -11,7 +14,7 @@ export async function getEventDatas() {
   try {
     const res = await fetch(`${process.env.BASE_API_URL}/api/v1/event/list`, {
       method: 'GET',
-      // next: { revalidate: 24 * 60 * 60 },
+      next: { revalidate: 24 * 60 * 60 },
     });
     if (!res.ok) {
       const errorData = await res.json();
@@ -43,7 +46,7 @@ export async function getEventProductDatasByEventUuid({
       `${process.env.BASE_API_URL}/api/v1/event-product/list/${eventUuid}?pageSize=${PAGE_SIZE}&page=${page}`,
       {
         method: 'GET',
-        cache: 'no-cache',
+        next: { revalidate: 24 * 60 * 60 },
       }
     );
     if (!res.ok) {
@@ -70,7 +73,7 @@ export async function getEventDataByEventUuid(eventUuid: string) {
       `${process.env.BASE_API_URL}/api/v1/event/${eventUuid}`,
       {
         method: 'GET',
-        cache: 'no-cache',
+        cache: 'force-cache',
       }
     );
     if (!res.ok) {
@@ -85,6 +88,29 @@ export async function getEventDataByEventUuid(eventUuid: string) {
       data: data.result,
     };
   } catch (error) {
+    redirect('/error');
+  }
+}
+
+export async function getEventBannerImageDatas() {
+  try {
+    const res = await fetch(`${process.env.BASE_API_URL}/api/v1/banner/list`, {
+      method: 'GET',
+      next: { revalidate: 24 * 60 * 60 },
+    });
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error('getEventBannerImageDatas Fetching failed:', errorData);
+      redirect('/error');
+    }
+    const data = (await res.json()) as CommonResponseType<BannerImageType[]>;
+
+    return {
+      success: true,
+      data: data.result,
+    };
+  } catch (error) {
+    console.log(error);
     redirect('/error');
   }
 }
