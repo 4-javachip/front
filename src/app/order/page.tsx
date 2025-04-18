@@ -5,6 +5,8 @@ import {
   getShippingAddressList,
 } from '@/actions/shipping-address-service';
 import OrderList from '@/components/pages/order/OrderList';
+import OrderNotice from '@/components/pages/order/OrderNotice';
+import OrderPurchaseBar from '@/components/pages/order/OrderPurchaseBar';
 import OrderShippingInfo from '@/components/pages/order/OrderShippingInfo';
 
 export default async function page({
@@ -47,6 +49,8 @@ export default async function page({
     <main>
       <OrderShippingInfo defaultAddress={defaultedShippingAddress} />
       <OrderList orderItems={orderItems} orderPirce={orderoption} />
+      <OrderNotice />
+      <OrderPurchaseBar />
     </main>
   );
 }

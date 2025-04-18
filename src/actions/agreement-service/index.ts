@@ -35,8 +35,6 @@ export const userAgreement = async (
 
   const data = (await res.json()) as CommonResponseType<AgreementType>;
   revalidateTag('get-user-agreement');
-  console.log('배송지 정보 수집 및 이용 동의 여부 응답:', data);
-
   return data.result;
 };
 
@@ -44,8 +42,6 @@ export const userAgreement = async (
 export const getShippingAddressAgreement = async (): Promise<
   ShipingAddressAgreementType[]
 > => {
-  console.log('배송지 정보 수집 및 이용 동의 내용 조회 요청');
-
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/agreement/shipping-address`,
     {
@@ -78,7 +74,7 @@ export const getUserShippingAddressAgreement = async (): Promise<
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
   console.log('토큰', token);
-
+  if (!token) return [];
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/user-agreement/shipping-address`,
     {
