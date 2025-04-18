@@ -27,7 +27,7 @@ export default function PurchaseBar({
   const [isOpen, setIsOpen] = useState(false);
   const [sizeData, setSizeData] = useState<SelectableOptionType[]>();
   const [colorData, setColorData] = useState<SelectableOptionType[]>();
-  const [errorModalOpen, setErrorModalOpen] = useState(true);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [modalErrorMessage, setModalErrorMessage] = useState('');
 
   const handleError = (message: string) => {
