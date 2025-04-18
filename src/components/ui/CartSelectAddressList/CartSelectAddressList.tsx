@@ -31,19 +31,12 @@ export default function CartSelectAddressList({
   });
 
   const handleConfirm = () => {
-    const selected = address.find(
-      ({ addressList }) => addressList.shippingAddressUuid === selectedUuid
-    );
-
-    if (selected) {
-      sessionStorage.setItem(
-        'selectedShippingAddress',
-        JSON.stringify(selected.addressList)
-      );
-      router.push('/cart');
-    } else {
+    if (!selectedUuid) {
       alert('배송지를 선택해주세요.');
+      return;
     }
+
+    router.push(`/order?selected=${selectedUuid}`);
   };
 
   return (

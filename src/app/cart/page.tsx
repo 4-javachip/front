@@ -5,12 +5,9 @@ import CartEmpty from '@/components/pages/cart/CartEmpty';
 
 import CartItemList from '@/components/pages/cart/CartItemList';
 import CartNotice from '@/components/pages/cart/CartNotice';
-import CartPurchaseBar from '@/components/pages/cart/CartPurchaseBar';
 import CartShippingInfo from '@/components/pages/cart/CartShippingInfo';
 import CartDeleteButtons from '@/components/ui/buttons/CartDeleteButton';
 import { DefaultShippingAddressType } from '@/types/ShippingAddressDataType';
-
-import React from 'react';
 
 export default async function page() {
   const cartItemList = await getCartItemData();
