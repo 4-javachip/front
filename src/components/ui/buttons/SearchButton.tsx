@@ -3,7 +3,7 @@ import SearchIcon from '@/components/ui/icons/SearchIcon';
 
 export default function SearchButton() {
   return (
-    <Link href="/search">
+    <Link href="/">
       <SearchIcon />
     </Link>
   );

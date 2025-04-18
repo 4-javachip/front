@@ -48,7 +48,8 @@ export async function getEventProductDatasByEventUuid({
       `${process.env.BASE_API_URL}/api/v1/event-product/list/${eventUuid}?pageSize=${pageSize}&page=${page}`,
       {
         method: 'GET',
-        next: { revalidate: 24 * 60 * 60 },
+        // next: { revalidate: 24 * 60 * 60 },
+        cache: 'no-cache',
       }
     );
     if (!res.ok) {
@@ -75,7 +76,7 @@ export async function getEventDataByEventUuid(eventUuid: string) {
       `${process.env.BASE_API_URL}/api/v1/event/${eventUuid}`,
       {
         method: 'GET',
-        cache: 'force-cache',
+        next: { revalidate: 24 * 60 * 60 },
       }
     );
     if (!res.ok) {

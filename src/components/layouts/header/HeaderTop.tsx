@@ -32,7 +32,6 @@ export default function HeaderTop() {
           <li className="py-3 px-4.5">
             <MenuButton onClick={() => setIsOpen(true)} />
           </li>
-
           <li>
             <LogoButton />
           </li>

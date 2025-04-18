@@ -35,7 +35,7 @@ export default async function MainEventCarouselSection({
   );
 
   return (
-    <section className="flex flex-col pl-6 py-12 gap-12">
+    <section className="flex flex-col pl-6 pt-12 gap-3">
       {eventWithProductDatas &&
         eventWithProductDatas.map((eventProductData) => (
           <ProductCarousel
