@@ -9,8 +9,7 @@ import { revalidateTag } from 'next/cache';
 export const getCartItemData = async (): Promise<CartItemType[]> => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
+  if (!token) return [];
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/user`, {
     method: 'GET',
     headers: {
@@ -54,8 +53,7 @@ export const getProductItem = async (
 export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('id', cartUuid);
-  console.log('checked', checked);
+  if (!token) return;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/checked`, {
     method: 'PUT',
     headers: {
@@ -80,9 +78,7 @@ export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
 export const checkedAllItem = async (checked: boolean) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
-  console.log('장바구니 uuid', checked);
+  if (token) return;
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/cart/checked/all`,
     {
@@ -109,9 +105,7 @@ export const updateCartItemQuantity = async (
 ) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
-  console.log('장바구니 uuid', cartUuid, '수량', quantity);
+  if (!token) return;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/quantity`, {
     method: 'PUT',
     headers: {
@@ -134,9 +128,7 @@ export const updateCartItemQuantity = async (
 export const deleteCartItem = async (cartUuid: string) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
-  console.log('장바구니 uuid', cartUuid);
+  if (!token) return;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart`, {
     method: 'DELETE',
     headers: {
@@ -157,8 +149,7 @@ export const deleteCartItem = async (cartUuid: string) => {
 export const deleteAllCartItem = async () => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
+  if (!token) return;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/all`, {
     method: 'DELETE',
     headers: {
