@@ -1,63 +1,88 @@
-import Image from 'next/image';
-import { OrderProductType } from '@/types/ResponseDataTypes';
-import OrderItemDetail from './OrderItemDetail';
-import { dummyOrderProduct } from '@/data/dummyDatas';
+'use client';
+import { OrderItemDataType } from '@/types/OrderDataType';
+import OrderThumb from '@/components/ui/orderItem/OrderThumb';
+
+import { Suspense, useEffect, useState } from 'react';
+import { CommonLayout } from '@/components/layouts/CommonLayout';
+import { ItemThumbSkeleton } from '@/components/ui/skeletons/ProductItemSkeleton';
+import {
+  getProductNameDataByProductUuid,
+  getProductOptionDataByProductOptionUuid,
+} from '@/actions/product-service';
+import CartPrice from '@/components/ui/CartItem/CartPrice';
+import ItemName from '@/components/ui/CartItem/ItemName';
+import CartThumbnail from '@/components/ui/CartItem/CartThumbnail';
 
 interface OrderListProps {
-  item: OrderProductType;
-  isFirst?: boolean;
-  isOpen: boolean;
+  orderItems: OrderItemDataType;
+  size: number;
 }
 
-export default function OrderItem({
-  item,
-  isFirst = false,
-  isOpen,
-}: OrderListProps) {
-  const itemDisplayText =
-    !isOpen && isFirst && item.productName
-      ? `${item.productName}${
-          dummyOrderProduct.length > 1
-            ? ` ...외 ${dummyOrderProduct.length - 1}건`
-            : ''
-        } `
-      : item.productName;
-
-  const itemName = itemDisplayText.split(' ...')[0];
-  const additionalItems = itemDisplayText.split(' ...')[1];
-  const truncatedName =
-    itemName.length > 17 ? itemName.slice(0, 16) + '...' : itemName;
-
+export default function OrderItem({ orderItems }: OrderListProps) {
+  const [orderItem, setCartItem] = useState({
+    productUuid: '',
+    productName: '',
+    productPrice: 0,
+    productSalePrice: 0,
+    cartUuid: '',
+    quantity: 0,
+    optionUuid: '',
+    optionSizeId: 0,
+    optionColorId: 0,
+    optionDiscount: 0,
+  });
+  useEffect(() => {
+    if (!orderItems) return;
+    const getCartItemData = async () => {
+      const [product, options] = await Promise.all([
+        getProductNameDataByProductUuid(orderItems.productUuid),
+        getProductOptionDataByProductOptionUuid(orderItems.productOptionUuid),
+      ]);
+      console.log('product', orderItems.productQuantity);
+      setCartItem((prev) => ({
+        ...prev,
+        productUuid: orderItems.productUuid,
+        productName: product.name,
+        productPrice: options.price,
+        productSalePrice: options.totalPrice,
+        cartUuid: orderItems.cartUuid,
+        quantity: orderItems.productQuantity,
+        optionUuid: orderItems.productOptionUuid,
+        optionSizeId: options.sizeOptionId,
+        optionColorId: options.colorOptionId,
+        optionDiscount: options.discountRate,
+        isChecked: orderItems.checked,
+      }));
+    };
+    getCartItemData();
+    return;
+  }, [orderItems]);
   return (
-    <div className={`flex items-center gap-3 ${isFirst ? '' : 'mt-3'}`}>
-      <figure className="w-20 h-20 shrink-0 relative">
-        <Image
-          src={item.productImageUrl}
-          alt={item.productName}
-          fill
-          className="object-cover rounded-sm"
-        />
-      </figure>
-
-      <div
-        className={`flex flex-col w-full ${
-          !isOpen ? 'justify-center items-center h-full' : ''
-        }`}
-      >
-        <div className="flex justify-between items-center w-full">
-          <p className="text-sm font-pretendard font-medium text-foreground">
-            {isOpen ? itemName : truncatedName}
-          </p>
-
-          {additionalItems && (
-            <span className="font-pretendard font-medium text-green text-sm">
-              {additionalItems}
-            </span>
-          )}
+    <CommonLayout.SectionInnerPadding>
+      <article className="grid grid-cols-12 items-start gap-2 pt-4 ">
+        <div className="shrink-0 col-span-2">
+          <Suspense fallback={<ItemThumbSkeleton size={80} />}>
+            <CartThumbnail productUuid={orderItems.productUuid} size={80} />
+          </Suspense>
         </div>
 
-        {isOpen && <OrderItemDetail item={item} />}
-      </div>
-    </div>
+        <div className="col-span-9 ">
+          <div className="text-sm font-pretendard font-medium text-foreground space-y-4">
+            <ItemName id={orderItem.productUuid} name={orderItem.productName} />
+            <div className="flex items-center gap-2 text-sm font-xs font-sd-gothic text-lightGray-1">
+              주문 수량
+              <p className="border-l pl-2 leading-3">{orderItem.quantity}개</p>
+            </div>
+
+            <CartPrice
+              price={orderItem.productPrice}
+              salePrice={orderItem.productSalePrice}
+              discountRate={orderItem.optionDiscount}
+              quantity={orderItem.quantity}
+            />
+          </div>
+        </div>
+      </article>
+    </CommonLayout.SectionInnerPadding>
   );
 }

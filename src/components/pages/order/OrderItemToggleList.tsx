@@ -1,36 +1,31 @@
 import React from 'react';
-import { OrderProductType } from '@/types/ResponseDataTypes';
 import OrderItem from './OrderItem';
+import { OrderItemDataType } from '@/types/OrderDataType';
 
 interface OrderItemToggleProps {
-  orderItems: OrderProductType[];
+  orderItems: OrderItemDataType[];
   isOpen: boolean;
 }
 
 export default function OrderItemToggleList({
-  orderItems: cartItems,
+  orderItems,
   isOpen,
 }: OrderItemToggleProps) {
-  if (!cartItems || cartItems.length === 0) return null;
-
-  const [firstItem, ...restItems] = cartItems;
-
   return (
     <section>
-      <OrderItem item={firstItem} isFirst isOpen={isOpen} />
-
       <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-[31.25rem]' : 'max-h-0'
-        }`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out`}
       >
-        {restItems.map((item) => (
-          <OrderItem
-            key={item.productOptionListUuid}
-            item={item}
-            isOpen={isOpen}
-          />
-        ))}
+        {orderItems &&
+          orderItems
+            .map((item) => (
+              <OrderItem
+                key={item.productOptionUuid}
+                orderItems={item}
+                size={80}
+              />
+            ))
+            .slice(0, isOpen ? orderItems.length : 1)}
       </div>
     </section>
   );

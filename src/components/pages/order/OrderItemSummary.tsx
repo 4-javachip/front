@@ -1,8 +1,9 @@
+import { OrderItemDataType } from '@/types/OrderDataType';
 import { OrderProductType } from '@/types/ResponseDataTypes';
 import React from 'react';
 
 interface OrderItemSummaryProps {
-  orderItems: OrderProductType[];
+  orderItems: OrderItemDataType[];
 }
 
 export default function OrderProductSummary({
@@ -14,8 +15,8 @@ export default function OrderProductSummary({
   );
 
   return (
-    <span className="text-sm text-foreground font-medium font-pretendard">
-      | 상품 {totalQuantity}개
+    <span className="text-sm text-foreground font-medium font-pretendard border-l-1 border-black pl-2 leading-4">
+      상품 {totalQuantity}개
     </span>
   );
 }
