@@ -2,7 +2,7 @@
 
 import { PAGE_SIZE } from '@/constants/constants';
 import {
-  BannerImageType,
+  EventBannerImageType,
   EventProductType,
 } from '@/types/ProductResponseDataTypes';
 import { EventDataType } from '@/types/ProductResponseDataTypes';
@@ -37,13 +37,15 @@ export async function getEventDatas() {
 export async function getEventProductDatasByEventUuid({
   eventUuid,
   page,
+  pageSize = PAGE_SIZE,
 }: {
   eventUuid: string;
   page: number;
+  pageSize?: number;
 }) {
   try {
     const res = await fetch(
-      `${process.env.BASE_API_URL}/api/v1/event-product/list/${eventUuid}?pageSize=${PAGE_SIZE}&page=${page}`,
+      `${process.env.BASE_API_URL}/api/v1/event-product/list/${eventUuid}?pageSize=${pageSize}&page=${page}`,
       {
         method: 'GET',
         next: { revalidate: 24 * 60 * 60 },
@@ -103,7 +105,9 @@ export async function getEventBannerImageDatas() {
       console.error('getEventBannerImageDatas Fetching failed:', errorData);
       redirect('/error');
     }
-    const data = (await res.json()) as CommonResponseType<BannerImageType[]>;
+    const data = (await res.json()) as CommonResponseType<
+      EventBannerImageType[]
+    >;
 
     return {
       success: true,
