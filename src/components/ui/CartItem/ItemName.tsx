@@ -1,12 +1,6 @@
 import Link from 'next/link';
 
-export default function CartItemName({
-  id,
-  name,
-}: {
-  id: string;
-  name: string;
-}) {
+export default function ItemName({ id, name }: { id: string; name: string }) {
   return (
     <Link
       href={`product/${id}`}

@@ -2,7 +2,6 @@ import CartItem from '@/components/ui/CartItem/CartItem';
 import { ItemThumbSkeleton } from '@/components/ui/skeletons/ProductItemSkeleton';
 import { CartItemType } from '@/types/CartDataType';
 import { Suspense } from 'react';
-import { CommonLayout } from '@/components/layouts/CommonLayout';
 import { getProductOptionDataByProductOptionUuid } from '@/actions/product-service';
 import CartPriceSummary from './CartPriceSummary';
 import CartPurchaseBar from './CartPurchaseBar';

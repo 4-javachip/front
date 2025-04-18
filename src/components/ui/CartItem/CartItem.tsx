@@ -4,17 +4,12 @@ import {
   getProductOptionDataByProductOptionUuid,
 } from '@/actions/product-service';
 
-import {
-  ItemPriceSkeleton,
-  ItemThumbSkeleton,
-} from '../skeletons/ProductItemSkeleton';
+import { ItemThumbSkeleton } from '../skeletons/ProductItemSkeleton';
 
 import CartPrice from './CartPrice';
 import CartThumbnail from './CartThumbnail';
-import CartItemName from './CartItemName';
+import ItemName from './ItemName';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
-// import DeleteButton from '../buttons/DeleteButton';
-import DeleteIcon from '../icons/DeleteIcon';
 import Checkbox from '../inputs/CheckBox';
 import { Suspense, useEffect, useState } from 'react';
 import { CartItemType } from '@/types/CartDataType';
@@ -77,7 +72,7 @@ export default function CartItem({
           className="col-span-1"
         />
         <div className="shrink-0 col-span-2">
-          <Suspense fallback={<ItemThumbSkeleton size={60} />}>
+          <Suspense fallback={<ItemThumbSkeleton size={size} />}>
             <CartThumbnail
               productUuid={cartItem && cartItem.productUuid}
               size={80}
@@ -87,10 +82,7 @@ export default function CartItem({
 
         <div className="col-span-9 space-y-7">
           <div className="flex justify-between text-base font-semibold text-foreground ">
-            <CartItemName
-              id={cartItem.productUuid}
-              name={cartItem.productName}
-            />
+            <ItemName id={cartItem.productUuid} name={cartItem.productName} />
             <DeleteButton cartUuid={cartItem.cartUuid} />
           </div>
 
