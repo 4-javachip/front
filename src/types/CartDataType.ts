@@ -16,3 +16,10 @@ export interface CartItemPriceData {
   productPrice: number;
   productSalePrice: number;
 }
+
+export interface AddCartItemDataType {
+  productQuantity: number;
+  checked: boolean;
+  productUuid: string;
+  productOptionUuid: string;
+}

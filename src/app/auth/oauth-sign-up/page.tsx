@@ -46,11 +46,12 @@ export default function page() {
         `${process.env.BASE_API_URL}/api/v1/oauth/sign-up`,
         {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
+            'Cookie': 'oauth_cookie',
           },
           body: JSON.stringify(dummyData),
-          credentials: 'include',
         }
       );
 

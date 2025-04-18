@@ -17,6 +17,8 @@ import { useEffect, useState } from 'react';
 import AccordionSelector from '@/components/ui/accordions/AccordionSelector';
 import { Accordion } from '@/components/ui/accordions/accordion';
 import { SelectedOptionWithNames } from '@/types/storeDataTypes';
+import { AddCartItemDataType } from '@/types/CartDataType';
+import { AddCartItemAction } from '@/actions/cart-service';
 
 export default function PurchaseBottomSheet({
   isOpen,
@@ -62,7 +64,6 @@ export default function PurchaseBottomSheet({
         )
       : options.some((opt) => opt.sizeOptionId === size.id)
   );
-  console.log(filteredSizeData);
 
   const handleRemoveOption = (uuid: string) => {
     setSelectedOption((prev) =>
@@ -89,6 +90,27 @@ export default function PurchaseBottomSheet({
     );
   };
 
+  const handleAddUserCart = async () => {
+    const results = await Promise.all(
+      selectedOption.map(async (item) => {
+        const cartItem: AddCartItemDataType = {
+          productUuid: item.productUuid,
+          productOptionUuid: item.productOptionUuid,
+          productQuantity: item.quantity,
+          checked: true,
+        };
+
+        return await AddCartItemAction(cartItem);
+      })
+    );
+    const hasError = results.some((res) => !res.success);
+    if (hasError) {
+      console.error('실패:', results);
+    } else {
+      console.log('장바구니 담기 완료');
+    }
+  };
+
   useEffect(() => {
     if (options.length === 1) {
       const opt = options[0];
@@ -100,17 +122,17 @@ export default function PurchaseBottomSheet({
       ]);
     }
   }, [options]);
-  console.log('선택: ', selectedColorId, selectedSizeId, selectedOption);
 
   useEffect(() => {
     const total = selectedOption.reduce(
-      (sum, option) => sum + option.totalPrice,
+      (sum, option) => sum + option.totalPrice * option.quantity,
       0
     );
     setTotalAmount(total);
   }, [selectedOption]);
 
   useEffect(() => {
+    if (options.length === 1) return;
     const selectOption = () => {
       const option = options.find((opt) => {
         const matchColor =
@@ -226,6 +248,7 @@ export default function PurchaseBottomSheet({
         <PurchaseBarBottomContent
           onClickPurchase={() => console.log('click2')}
           totalAmount={totalAmount}
+          handleAddUserCart={handleAddUserCart}
         />
       </CommonLayout.FixedButtonBgLayout>
     </SheetContent>

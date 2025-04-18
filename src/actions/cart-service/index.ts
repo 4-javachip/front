@@ -1,6 +1,10 @@
 'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { CartItemType, CartProductItemType } from '@/types/CartDataType';
+import {
+  AddCartItemDataType,
+  CartItemType,
+  CartProductItemType,
+} from '@/types/CartDataType';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 
@@ -172,3 +176,39 @@ export const deleteAllCartItem = async () => {
   }
   revalidateTag('getCartData');
 };
+
+export async function AddCartItemAction(AddCartItemData: AddCartItemDataType) {
+  const session = await getServerSession(options);
+  if (!session)
+    return {
+      success: false,
+      message: '로그인이 필요한 서비스입니다. 로그인 후 다시 시도해주세요.',
+    };
+
+  const token = await session.user.accessToken;
+
+  const payload: Partial<AddCartItemDataType> = { ...AddCartItemData };
+  console.log(payload);
+  try {
+    const response = await fetch(`${process.env.BASE_API_URL}/api/v1/cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('add cart failed:', errorData);
+      // throw new Error(errorData.message);
+      return { success: errorData.success, message: errorData.message };
+    }
+
+    const data = await response.json();
+    return { success: data.success, message: data.message };
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
+  }
+}

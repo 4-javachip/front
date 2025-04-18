@@ -56,7 +56,12 @@ export default function PurchaseBar({
         >
           {!isOpen ? (
             <>
-              <CartIcon />
+              <button
+                onClick={() => setIsOpen(true)}
+                className="cursor-pointer"
+              >
+                <CartIcon />
+              </button>
               <SheetTrigger asChild>
                 <CommonButton className="font-semibold" isEnabled={true}>
                   구매하기
