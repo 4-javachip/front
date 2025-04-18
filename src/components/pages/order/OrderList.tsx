@@ -7,6 +7,7 @@ import { CommonLayout } from '@/components/layouts/CommonLayout';
 import { OrderItemDataType } from '@/types/OrderDataType';
 import OrderPriceSummary from './OrderPriceSummary';
 import { CartItemPriceData } from '@/types/CartDataType';
+import OrderPurchaseBar from './OrderPurchaseBar';
 
 interface Props {
   orderItems: OrderItemDataType[];
@@ -37,6 +38,7 @@ export default function OrderList({ orderItems, orderPirce }: Props) {
       <CommonLayout.CommonBorder />
 
       <OrderPriceSummary orderItems={orderPirce} />
+      {/* <OrderPurchaseBar /> */}
     </section>
   );
 }
