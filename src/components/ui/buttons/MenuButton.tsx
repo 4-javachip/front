@@ -6,7 +6,7 @@ interface Props {
 
 export default function MenuButton({ onClick }: Props) {
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick} className="cursor-pointer">
       <MenuIcon />
     </button>
   );

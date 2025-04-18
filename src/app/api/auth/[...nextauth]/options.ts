@@ -101,7 +101,7 @@ export const options: NextAuthOptions = {
               httpOnly: true,
               sameSite: 'none',
               secure: true,
-              domain: 'back.starbucks-store.shop',
+              // domain: 'back.starbucks-store.shop',
               path: '/',
             });
           }

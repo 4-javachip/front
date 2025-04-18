@@ -1,6 +1,10 @@
 'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { CartItemType, CartProductItemType } from '@/types/CartDataType';
+import {
+  AddCartItemDataType,
+  CartItemType,
+  CartProductItemType,
+} from '@/types/CartDataType';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 
@@ -9,8 +13,7 @@ import { revalidateTag } from 'next/cache';
 export const getCartItemData = async (): Promise<CartItemType[]> => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
+  if (!token) return [];
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/user`, {
     method: 'GET',
     headers: {
@@ -54,8 +57,7 @@ export const getProductItem = async (
 export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('id', cartUuid);
-  console.log('checked', checked);
+  if (!token) return;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/checked`, {
     method: 'PUT',
     headers: {
@@ -80,9 +82,7 @@ export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
 export const checkedAllItem = async (checked: boolean) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
-  console.log('장바구니 uuid', checked);
+  if (token) return;
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/cart/checked/all`,
     {
@@ -109,9 +109,7 @@ export const updateCartItemQuantity = async (
 ) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
-  console.log('장바구니 uuid', cartUuid, '수량', quantity);
+  if (!token) return;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/quantity`, {
     method: 'PUT',
     headers: {
@@ -134,9 +132,7 @@ export const updateCartItemQuantity = async (
 export const deleteCartItem = async (cartUuid: string) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
-  console.log('장바구니 uuid', cartUuid);
+  if (!token) return;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart`, {
     method: 'DELETE',
     headers: {
@@ -157,8 +153,7 @@ export const deleteCartItem = async (cartUuid: string) => {
 export const deleteAllCartItem = async () => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
+  if (!token) return;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/all`, {
     method: 'DELETE',
     headers: {
@@ -172,3 +167,39 @@ export const deleteAllCartItem = async () => {
   }
   revalidateTag('getCartData');
 };
+
+export async function AddCartItemAction(AddCartItemData: AddCartItemDataType) {
+  const session = await getServerSession(options);
+  if (!session)
+    return {
+      success: false,
+      message: '로그인이 필요한 서비스입니다. 로그인 후 다시 시도해주세요.',
+    };
+
+  const token = await session.user.accessToken;
+
+  const payload: Partial<AddCartItemDataType> = { ...AddCartItemData };
+  console.log(payload);
+  try {
+    const response = await fetch(`${process.env.BASE_API_URL}/api/v1/cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('add cart failed:', errorData);
+      // throw new Error(errorData.message);
+      return { success: errorData.success, message: errorData.message };
+    }
+
+    const data = await response.json();
+    return { success: data.success, message: data.message };
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
+  }
+}

@@ -19,13 +19,14 @@ export default function MenuCategoryList({ categories }: Props) {
       router.push('/products');
       return;
     }
-    router.push(`/products?categoryId=${categoryId}`);
+    router.push(`/products?category=${categoryId}`);
   };
   return (
     <section className="px-6 py-7 bg-background">
       <nav className="flex justify-end pb-4.5">
         <p
-          className="text-xs font-body text-gray-1 flex items-center space-x-1"
+          className="text-xs font-body text-gray-1 flex items-center space-x-1
+          cursor-pointer"
           onClick={() => handleClickCategory('all')}
         >
           <span>전체 상품 보기</span>
