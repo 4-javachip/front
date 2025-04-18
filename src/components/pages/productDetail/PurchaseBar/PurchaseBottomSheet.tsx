@@ -26,12 +26,14 @@ export default function PurchaseBottomSheet({
   sizeData,
   colorData,
   productNameData,
+  handleError,
 }: {
   isOpen: boolean;
   options: ProductOptionType[];
   sizeData?: SelectableOptionType[];
   colorData?: SelectableOptionType[];
   productNameData: ProductNameDataType;
+  handleError: (message: string) => void;
 }) {
   const side = 'bottom';
   const [selectedColorId, setSelectedColorId] = useState<number>();
@@ -103,11 +105,11 @@ export default function PurchaseBottomSheet({
         return await AddCartItemAction(cartItem);
       })
     );
-    const hasError = results.some((res) => !res.success);
+    const hasError = results.find((res) => !res.success);
     if (hasError) {
-      console.error('실패:', results);
+      handleError(hasError.message);
     } else {
-      console.log('장바구니 담기 완료');
+      handleError('장바구니에 상품이 담겼습니다.');
     }
   };
 

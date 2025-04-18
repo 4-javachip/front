@@ -13,6 +13,7 @@ import {
   SelectableOptionType,
 } from '@/types/ProductResponseDataTypes';
 import { getSelectableOptionListData } from '@/actions/product-service';
+import AlertModal from '@/components/ui/dialogs/AlertModal';
 
 const side = 'bottom';
 
@@ -26,6 +27,13 @@ export default function PurchaseBar({
   const [isOpen, setIsOpen] = useState(false);
   const [sizeData, setSizeData] = useState<SelectableOptionType[]>();
   const [colorData, setColorData] = useState<SelectableOptionType[]>();
+  const [errorModalOpen, setErrorModalOpen] = useState(true);
+  const [modalErrorMessage, setModalErrorMessage] = useState('');
+
+  const handleError = (message: string) => {
+    setModalErrorMessage(message);
+    setErrorModalOpen(true);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +52,17 @@ export default function PurchaseBar({
 
   return (
     <>
-      <Sheet key={side} open={isOpen} onOpenChange={setIsOpen}>
+      <AlertModal
+        open={errorModalOpen}
+        onOpenChange={setErrorModalOpen}
+        errorMessage={modalErrorMessage}
+        isOverLayHidden={true}
+      />
+      <Sheet
+        key={side}
+        open={isOpen}
+        onOpenChange={(open) => setIsOpen(errorModalOpen ? true : open)}
+      >
         <CommonLayout.FixedButtonBgLayout
           className={`z-[1000] transition-all duration-300
           ${
@@ -79,6 +97,7 @@ export default function PurchaseBar({
           sizeData={sizeData}
           colorData={colorData}
           productNameData={productNameData}
+          handleError={handleError}
         />
       </Sheet>
     </>
