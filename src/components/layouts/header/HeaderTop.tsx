@@ -8,11 +8,12 @@ import React, { useEffect, useState } from 'react';
 import { CommonLayout } from '../CommonLayout';
 import { getAllCategories } from '@/actions/category-service';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
-import { useSideBarContext } from '@/context/SideBarContext';
+import { useModalContext } from '@/context/SideBarContext';
 import UserAuthButton from '@/components/ui/buttons/UserAuthButton';
+import SearchModal from '@/components/modals/SearchModal';
 
 export default function HeaderTop() {
-  const { setIsOpen } = useSideBarContext();
+  const { setIsOpen, setIsSearchOpen } = useModalContext();
   const [categoryMenus, setCategoryMenus] = useState<CategoryMenuType[]>([]);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function HeaderTop() {
           <li>
             <ul className="flex justify-end items-center py-3 gap-2">
               <li>
-                <SearchButton />
+                <SearchButton onClick={() => setIsSearchOpen(true)} />
               </li>
               <li>
                 <CartButton />
@@ -52,6 +53,7 @@ export default function HeaderTop() {
       </CommonLayout.CommonHeader>
 
       <MenuSideBar categories={categoryMenus} />
+      <SearchModal />
     </>
   );
 }
