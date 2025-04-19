@@ -37,7 +37,7 @@ export default function HeaderTop() {
             <LogoButton />
           </li>
           <li>
-            <ul className="flex justify-end items-center py-3 gap-2">
+            <ul className="flex justify-end py-3 gap-2">
               <li>
                 <SearchButton onClick={() => setIsSearchOpen(true)} />
               </li>
