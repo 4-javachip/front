@@ -50,7 +50,7 @@ export default async function page({
       <OrderShippingInfo defaultAddress={defaultedShippingAddress} />
       <OrderList orderItems={orderItems} orderPirce={orderoption} />
       <OrderNotice />
-      <OrderPurchaseBar />
+      {/* <OrderPurchaseBar /> */}
     </main>
   );
 }

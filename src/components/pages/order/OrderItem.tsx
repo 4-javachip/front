@@ -30,6 +30,7 @@ export default function OrderItem({ orderItems }: OrderListProps) {
     optionSizeId: 0,
     optionColorId: 0,
     optionDiscount: 0,
+    orderName: '',
   });
   useEffect(() => {
     if (!orderItems) return;
@@ -52,11 +53,13 @@ export default function OrderItem({ orderItems }: OrderListProps) {
         optionColorId: options.colorOptionId,
         optionDiscount: options.discountRate,
         isChecked: orderItems.checked,
+        orderName: `${product.name} 외 ${orderItems.productQuantity - 1}개`,
       }));
     };
     getCartItemData();
     return;
   }, [orderItems]);
+
   return (
     <CommonLayout.SectionInnerPadding>
       <article className="grid grid-cols-12 items-start gap-2 pt-4 ">
@@ -71,7 +74,8 @@ export default function OrderItem({ orderItems }: OrderListProps) {
             <ItemName id={orderItem.productUuid} name={orderItem.productName} />
             <div className="flex items-center gap-2 text-sm font-xs font-sd-gothic text-lightGray-1">
               주문 수량
-              <p className="border-l pl-2 leading-3">{orderItem.quantity}개</p>
+              {/* <p className="border-l pl-2 leading-3">{orderItem.quantity}개</p> */}
+              {orderItem.productName} 외 {orderItems.productQuantity - 1} 개
             </div>
 
             <CartPrice
