@@ -42,6 +42,21 @@ export default function SearchModal() {
     setRecent([]);
   };
 
+  const handleItemClick = (term: string) => {
+    let current = getRecentSearches().filter((t: string) => t !== term);
+    current.unshift(term);
+
+    if (current.length > 10) {
+      current = current.slice(0, 10);
+    }
+
+    updateRecentSearches(current);
+    setRecent(current);
+
+    router.push(`/products?keyword=${encodeURIComponent(term)}`);
+    setIsSearchOpen(false);
+  };
+
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -49,11 +64,15 @@ export default function SearchModal() {
     const keyword = formData.get('keyword')?.toString().trim();
     if (!keyword) return;
 
-    const current = getRecentSearches();
-    if (!current.includes(keyword)) {
-      current.push(keyword);
-      updateRecentSearches(current);
+    let current = getRecentSearches().filter((t: string) => t !== keyword);
+    current.unshift(keyword);
+
+    if (current.length > 10) {
+      current = current.slice(0, 10);
     }
+
+    updateRecentSearches(current);
+    setRecent(current);
 
     router.push(`/products?keyword=${encodeURIComponent(keyword)}`);
     setIsSearchOpen(false);
@@ -74,6 +93,7 @@ export default function SearchModal() {
           items={recent}
           onClearAll={handleClearAll}
           onRemove={handleRemove}
+          onItemClick={handleItemClick}
         />
       </div>
     </div>

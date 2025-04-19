@@ -4,10 +4,12 @@ export default function RecentSearchList({
   items,
   onClearAll,
   onRemove,
+  onItemClick,
 }: {
   items: string[];
-  onClearAll?: () => void;
-  onRemove?: (term: string) => void;
+  onClearAll: () => void;
+  onRemove: (term: string) => void;
+  onItemClick: (term: string) => void;
 }) {
   return (
     <>
@@ -24,7 +26,12 @@ export default function RecentSearchList({
                 key={idx}
                 className="flex items-center justify-between px-2 py-1 text-sm text-gray-800"
               >
-                <span className="truncate">{term}</span>
+                <button
+                  className="truncate w-full text-left cursor-pointer"
+                  onClick={() => onItemClick?.(term)}
+                >
+                  {term}
+                </button>
                 <button
                   type="button"
                   className="ml-2 cursor-pointer"
