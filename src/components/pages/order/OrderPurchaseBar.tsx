@@ -10,11 +10,12 @@ import { useOrderItemContext } from '@/context/OrderItemContext';
 export default function OrderPurchaseBar() {
   // const router = useRouter();
   const { paymentData } = useOrderItemContext();
-
+  console.log('paymentData', paymentData);
   const handleClick = async () => {
     try {
       const checkoutUrl = await PaymentData(paymentData);
       window.location.href = checkoutUrl;
+      console.log('checkouturl', checkoutUrl);
     } catch (err) {
       console.error('결제 요청 에러:', err);
       alert(

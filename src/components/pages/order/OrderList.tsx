@@ -18,9 +18,8 @@ interface Props {
 
 export default function OrderList({ orderItems, orderPirce }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const { setPaymentData } = useOrderItemContext(); // ✅ Context 사용
+  const { setPaymentData } = useOrderItemContext();
 
-  // ✅ 금액 계산
   const totalOriginPrice = orderPirce.reduce(
     (sum, item) => sum + item.productPrice,
     0
@@ -31,19 +30,17 @@ export default function OrderList({ orderItems, orderPirce }: Props) {
     0
   );
 
-  // ✅ orderName 계산 (productName은 실제로는 별도 fetch 필요)
   const orderName =
     orderItems.length > 1
       ? `${orderItems[0].productUuid} 외 ${orderItems.length - 1}건`
       : orderItems[0].productUuid;
 
-  // ✅ Context에 저장
   useEffect(() => {
     setPaymentData({
       orderName,
       totalOriginPrice,
       totalPurchasePrice,
-      method: null,
+      method: '',
     });
   }, [orderItems, orderPirce]);
 

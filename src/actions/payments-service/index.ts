@@ -23,5 +23,5 @@ export const PaymentData = async (PaymentData: OrderItemPaymentPayload) => {
     throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
   const data = (await res.json()) as CommonResponseType<PaymentReturnType>;
-  return data.result.chekcoutUrl;
+  return data.result.checkoutUrl;
 };

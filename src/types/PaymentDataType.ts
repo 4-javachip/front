@@ -2,10 +2,10 @@ export interface PaymentDataType {
   totalOriginPrice: number;
   totalPurchasePrice: number;
   orderName: string;
-  method: string | null;
+  method: string;
 }
 
 export interface PaymentReturnType {
-  chekcoutUrl: string;
+  checkoutUrl: string;
   paymentUuid: string;
 }

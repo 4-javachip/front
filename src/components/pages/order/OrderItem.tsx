@@ -1,7 +1,5 @@
 'use client';
 import { OrderItemDataType } from '@/types/OrderDataType';
-import OrderThumb from '@/components/ui/orderItem/OrderThumb';
-
 import { Suspense, useEffect, useState } from 'react';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import { ItemThumbSkeleton } from '@/components/ui/skeletons/ProductItemSkeleton';
