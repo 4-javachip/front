@@ -65,9 +65,9 @@ export default async function ProductDetailSection({
           new={product.new}
         />
         <hr />
-        <ProductDesc {...description} />
-        <hr />
-        <PolicySection />
+        {/* <ProductDesc {...description} /> */}
+        {/* <hr />
+        <PolicySection /> */}
       </div>
     </>
   );

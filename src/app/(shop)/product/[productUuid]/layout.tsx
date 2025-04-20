@@ -1,4 +1,4 @@
-import PurchaseBar from '@/components/pages/productDetail/PurchaseBar/PurchaseBar';
+import PolicySection from '@/components/pages/productDetail/PolicySection';
 
 export default function ProductDetailLayout({
   children,
@@ -8,9 +8,13 @@ export default function ProductDetailLayout({
   tabs: React.ReactNode;
 }) {
   return (
-    <>
-      {tabs}
+    <main className="flex flex-col">
       {children}
-    </>
+      <div className="flex flex-col gap-10">
+        {tabs}
+        <hr />
+        <PolicySection />
+      </div>
+    </main>
   );
 }

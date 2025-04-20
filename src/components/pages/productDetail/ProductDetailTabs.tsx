@@ -6,27 +6,31 @@ import { usePathname } from 'next/navigation';
 export default function ProductDetailTabs({ tabId }: { tabId: string }) {
   const pathname = usePathname();
 
-  const isCurrentTab = (tab: string) => {
-    if (tab === '') return pathname === `/product/${tabId}`;
-    return pathname.startsWith(`/product/${tabId}/${tab}`);
-  };
+  const tabs = [
+    { label: '상품 정보', href: `/product/${tabId}` },
+    { label: '리뷰', href: `/product/${tabId}/reviews` },
+  ];
 
   return (
-    <div className="mb-4 flex justify-center gap-12">
-      <Link
-        href={`/product/${tabId}`}
-        className={`text-lg text-gray-400
-        ${isCurrentTab('') && 'text-primary'}`}
-      >
-        description
-      </Link>
-      <Link
-        href={`/product/${tabId}/reviews`}
-        className={`text-lg text-gray-400
-        ${isCurrentTab('review') && 'text-primary'}`}
-      >
-        review
-      </Link>
-    </div>
+    <nav>
+      <ul className="flex text-lightGray-6 p-0 m-0 text-sm h-[3.5rem] border-b border-lightGray-4">
+        {tabs.map((tab) => {
+          const isActive = pathname === tab.href;
+          return (
+            <li
+              key={tab.href}
+              className={`pt-4.5 pb-[0.9375rem] w-[50%] text-center ${
+                isActive &&
+                'font-semibold text-foreground border-b-3 border-green'
+              }`}
+            >
+              <Link href={tab.href} scroll={false}>
+                <span className="hover:text-green-600">{tab.label}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }
