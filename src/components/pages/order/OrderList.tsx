@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import OrderItemToggleList from './OrderItemToggleList';
 import OrderItemSummary from './OrderItemSummary';
 import ToggleButton from '@/components/ui/buttons/ToggleButton';
@@ -8,16 +9,56 @@ import { OrderItemDataType } from '@/types/OrderDataType';
 import OrderPriceSummary from './OrderPriceSummary';
 import { CartItemPriceData } from '@/types/CartDataType';
 import OrderPurchaseBar from './OrderPurchaseBar';
+import { useOrderItemContext } from '@/context/OrderItemContext';
+import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
 
 interface Props {
   orderItems: OrderItemDataType[];
   orderPirce: CartItemPriceData[];
+  productName: ProductNameDataType;
 }
 
-export default function OrderList({ orderItems, orderPirce }: Props) {
+export default function OrderList({
+  orderItems,
+  orderPirce,
+  productName,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  console.log('orderItems', orderItems);
-  console.log('orderPirce', orderPirce);
+  const { setPaymentData } = useOrderItemContext();
+
+  const totalOriginPrice = orderPirce.reduce(
+    (sum, item) => sum + item.productPrice,
+    0
+  );
+
+  const totalPurchasePrice = orderPirce.reduce(
+    (sum, item) => sum + item.productSalePrice,
+    0
+  );
+
+  useEffect(() => {
+    if (!orderItems.length) return;
+
+    const fetchOrderName = async () => {
+      try {
+        const name =
+          orderItems.length > 1
+            ? `${productName.name} 외 ${orderItems.length - 1}건`
+            : productName.name;
+
+        setPaymentData({
+          orderName: name,
+          totalOriginPrice,
+          totalPurchasePrice,
+          method: '',
+        });
+      } catch (error) {
+        console.error('상품명 조회 실패:', error);
+      }
+    };
+
+    fetchOrderName();
+  }, [orderItems, orderPirce]);
   return (
     <section>
       <CommonLayout.SectionInnerPadding>
@@ -38,7 +79,7 @@ export default function OrderList({ orderItems, orderPirce }: Props) {
       <CommonLayout.CommonBorder />
 
       <OrderPriceSummary orderItems={orderPirce} />
-      {/* <OrderPurchaseBar /> */}
+      <OrderPurchaseBar />
     </section>
   );
 }

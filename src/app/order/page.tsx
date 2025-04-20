@@ -1,12 +1,14 @@
 import { getOrderItem } from '@/actions/order-service';
-import { getProductOptionDataByProductOptionUuid } from '@/actions/product-service';
+import {
+  getProductNameDataByProductUuid,
+  getProductOptionDataByProductOptionUuid,
+} from '@/actions/product-service';
 import {
   getShippingAddressDatabyUuid,
   getShippingAddressList,
 } from '@/actions/shipping-address-service';
 import OrderList from '@/components/pages/order/OrderList';
 import OrderNotice from '@/components/pages/order/OrderNotice';
-import OrderPurchaseBar from '@/components/pages/order/OrderPurchaseBar';
 import OrderShippingInfo from '@/components/pages/order/OrderShippingInfo';
 
 export default async function page({
@@ -28,6 +30,9 @@ export default async function page({
         };
       })
     );
+  const productName = await getProductNameDataByProductUuid(
+    orderItems[0].productUuid
+  );
   const params = await searchParams;
   let selectedUuid;
   if (params.selected) selectedUuid = params.selected;
@@ -48,9 +53,12 @@ export default async function page({
   return (
     <main>
       <OrderShippingInfo defaultAddress={defaultedShippingAddress} />
-      <OrderList orderItems={orderItems} orderPirce={orderoption} />
+      <OrderList
+        orderItems={orderItems}
+        orderPirce={orderoption}
+        productName={productName}
+      />
       <OrderNotice />
-      <OrderPurchaseBar />
     </main>
   );
 }
