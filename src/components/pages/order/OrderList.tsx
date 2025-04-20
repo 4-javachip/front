@@ -10,13 +10,23 @@ import OrderPriceSummary from './OrderPriceSummary';
 import { CartItemPriceData } from '@/types/CartDataType';
 import OrderPurchaseBar from './OrderPurchaseBar';
 import { useOrderItemContext } from '@/context/OrderItemContext';
+import {
+  getProductNameDataByProductUuid,
+  getProductOptionDataByProductOptionUuid,
+} from '@/actions/product-service';
+import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
 
 interface Props {
   orderItems: OrderItemDataType[];
   orderPirce: CartItemPriceData[];
+  productName: ProductNameDataType;
 }
 
-export default function OrderList({ orderItems, orderPirce }: Props) {
+export default function OrderList({
+  orderItems,
+  orderPirce,
+  productName,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const { setPaymentData } = useOrderItemContext();
 
@@ -30,20 +40,39 @@ export default function OrderList({ orderItems, orderPirce }: Props) {
     0
   );
 
-  const orderName =
-    orderItems.length > 1
-      ? `${orderItems[0].productUuid} 외 ${orderItems.length - 1}건`
-      : orderItems[0].productUuid;
+  // const orderName =
+  //   orderItems.length > 1
+  //     ? `${orderItems[0].productUuid} 외 ${orderItems.length - 1}건`
+  //     : orderItems[0].productUuid;
 
   useEffect(() => {
-    setPaymentData({
-      orderName,
-      totalOriginPrice,
-      totalPurchasePrice,
-      method: '',
-    });
-  }, [orderItems, orderPirce]);
+    if (!orderItems.length) return;
 
+    const fetchOrderName = async () => {
+      try {
+        // const firstOptionUuid = orderItems[0].productOptionUuid;
+        // const productName = await getProductNameDataByProductUuid(
+        //   firstOptionUuid
+        // );
+
+        const name =
+          orderItems.length > 1
+            ? `${productName.name} 외 ${orderItems.length - 1}건`
+            : productName.name;
+
+        setPaymentData({
+          orderName: name,
+          totalOriginPrice,
+          totalPurchasePrice,
+          method: '',
+        });
+      } catch (error) {
+        console.error('상품명 조회 실패:', error);
+      }
+    };
+
+    fetchOrderName();
+  }, [orderItems, orderPirce]);
   return (
     <section>
       <CommonLayout.SectionInnerPadding>

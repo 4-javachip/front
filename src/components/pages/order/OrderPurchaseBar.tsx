@@ -15,7 +15,6 @@ export default function OrderPurchaseBar() {
     try {
       const checkoutUrl = await PaymentData(paymentData);
       window.location.href = checkoutUrl;
-      console.log('checkouturl', checkoutUrl);
     } catch (err) {
       console.error('결제 요청 에러:', err);
       alert(
