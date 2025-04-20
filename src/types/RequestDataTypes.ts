@@ -51,3 +51,11 @@ export interface UserAgreementType {
   agreementId: number;
   agreed: boolean;
 }
+
+// review
+export interface getReviewDataType {
+  productUuid: string;
+  sortType: string;
+  page: number;
+  pageSize: number;
+}
