@@ -1,5 +1,6 @@
 'use client';
 
+import { usePaymentSuccessContext } from '@/context/PaymentSuccessContext';
 import { useSearchParams } from 'next/navigation';
 
 export default function PaymentSuccessPage() {
@@ -9,6 +10,8 @@ export default function PaymentSuccessPage() {
   const orderId = params.get('orderId');
   const amount = params.get('amount');
 
+  const { paymentSuccessData } = usePaymentSuccessContext();
+  console.log('paymentSuccessData', paymentSuccessData);
   return (
     <div style={{ padding: '2rem' }}>
       <h2>🎉 결제 성공</h2>

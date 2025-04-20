@@ -35,3 +35,18 @@ export interface OrderListDetailDataType {
   totalPurchasePrice: number;
   quantity: number;
 }
+
+export interface EnrichedOrderItemDataType {
+  productUuid: string;
+  productName: string;
+  productPrice: number;
+  productSalePrice: number;
+  cartUuid: string;
+  quantity: number;
+  optionUuid: string;
+  optionSizeId: number;
+  optionColorId: number;
+  optionDiscount: number;
+  orderName: string;
+  isChecked: boolean;
+}

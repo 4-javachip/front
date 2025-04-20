@@ -1,11 +1,11 @@
 'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { OrderItemPaymentPayload } from '@/context/OrderItemContext';
-import { PaymentDataType, PaymentReturnType } from '@/types/PaymentDataType';
+import { OrderItemPayload } from '@/context/OrderItemContext';
+import { PaymentReturnType } from '@/types/PaymentDataType';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 
-export const PaymentData = async (PaymentData: OrderItemPaymentPayload) => {
+export const PaymentData = async (PaymentData: OrderItemPayload) => {
   const session = await getServerSession(options);
   const token = session?.user.accessToken || session?.user.refreshToken;
   console.log('리프레쉬 토큰 ', session?.user.refreshToken);
@@ -23,5 +23,6 @@ export const PaymentData = async (PaymentData: OrderItemPaymentPayload) => {
     throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
   const data = (await res.json()) as CommonResponseType<PaymentReturnType>;
-  return data.result.checkoutUrl;
+  console.log('checkouturl', data.result.checkoutUrl);
+  return data.result;
 };
