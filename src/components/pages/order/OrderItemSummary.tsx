@@ -1,16 +1,19 @@
-import { OrderItemDataType } from '@/types/OrderDataType';
+import {
+  EnrichedOrderItemDataType,
+  OrderItemDataType,
+} from '@/types/OrderDataType';
 import { OrderProductType } from '@/types/ResponseDataTypes';
 import React from 'react';
 
 interface OrderItemSummaryProps {
-  orderItems: OrderItemDataType[];
+  orderItems: EnrichedOrderItemDataType[];
 }
 
 export default function OrderProductSummary({
   orderItems = [],
 }: OrderItemSummaryProps) {
   const totalQuantity = orderItems.reduce(
-    (sum, item) => sum + item.productQuantity,
+    (sum, item) => sum + item.quantity,
     0
   );
 

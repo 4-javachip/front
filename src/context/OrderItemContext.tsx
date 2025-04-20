@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
-export type OrderItemPaymentPayload = {
+export type OrderItemPayload = {
   orderName: string;
   totalOriginPrice: number;
   totalPurchasePrice: number;
@@ -10,11 +10,11 @@ export type OrderItemPaymentPayload = {
 };
 
 type OrderItemContextType = {
-  paymentData: OrderItemPaymentPayload;
-  setPaymentData: React.Dispatch<React.SetStateAction<OrderItemPaymentPayload>>;
+  paymentData: OrderItemPayload;
+  setPaymentData: React.Dispatch<React.SetStateAction<OrderItemPayload>>;
 };
 
-const defaultPaymentData: OrderItemPaymentPayload = {
+const defaultOrderItemData: OrderItemPayload = {
   orderName: '',
   totalOriginPrice: 0,
   totalPurchasePrice: 0,
@@ -41,7 +41,7 @@ export const OrderItemContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [paymentData, setPaymentData] =
-    useState<OrderItemPaymentPayload>(defaultPaymentData);
+    useState<OrderItemPayload>(defaultOrderItemData);
 
   return (
     <OrderItemContext.Provider value={{ paymentData, setPaymentData }}>

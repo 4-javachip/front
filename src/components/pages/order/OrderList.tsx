@@ -1,37 +1,33 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import OrderItemToggleList from './OrderItemToggleList';
 import OrderItemSummary from './OrderItemSummary';
 import ToggleButton from '@/components/ui/buttons/ToggleButton';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
-import { OrderItemDataType } from '@/types/OrderDataType';
+import { EnrichedOrderItemDataType } from '@/types/OrderDataType';
 import OrderPriceSummary from './OrderPriceSummary';
-import { CartItemPriceData } from '@/types/CartDataType';
+
 import OrderPurchaseBar from './OrderPurchaseBar';
 import { useOrderItemContext } from '@/context/OrderItemContext';
-import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
+
+import { usePaymentSuccessContext } from '@/context/PaymentSuccessContext';
+import OrderItem from './OrderItem';
 
 interface Props {
-  orderItems: OrderItemDataType[];
-  orderPirce: CartItemPriceData[];
-  productName: ProductNameDataType;
+  orderItems: EnrichedOrderItemDataType[];
+  shippingAddressUuid: string;
 }
 
-export default function OrderList({
-  orderItems,
-  orderPirce,
-  productName,
-}: Props) {
+export default function OrderList({ orderItems, shippingAddressUuid }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const { setPaymentData } = useOrderItemContext();
+  const { setPaymentSuccessData } = usePaymentSuccessContext();
 
-  const totalOriginPrice = orderPirce.reduce(
+  const totalOriginPrice = orderItems.reduce(
     (sum, item) => sum + item.productPrice,
     0
   );
-
-  const totalPurchasePrice = orderPirce.reduce(
+  const totalPurchasePrice = orderItems.reduce(
     (sum, item) => sum + item.productSalePrice,
     0
   );
@@ -39,26 +35,36 @@ export default function OrderList({
   useEffect(() => {
     if (!orderItems.length) return;
 
-    const fetchOrderName = async () => {
-      try {
-        const name =
-          orderItems.length > 1
-            ? `${productName.name} 외 ${orderItems.length - 1}건`
-            : productName.name;
+    const name =
+      orderItems.length > 1
+        ? `${orderItems[0].productName} 외 ${orderItems.length - 1}건`
+        : orderItems[0].productName;
 
-        setPaymentData({
-          orderName: name,
-          totalOriginPrice,
-          totalPurchasePrice,
-          method: '',
-        });
-      } catch (error) {
-        console.error('상품명 조회 실패:', error);
-      }
-    };
+    setPaymentData({
+      orderName: name,
+      totalOriginPrice,
+      totalPurchasePrice,
+      method: '',
+    });
+    const paymentOrderItems = orderItems.map((item) => ({
+      productUuid: item.productUuid,
+      productOptionUuid: item.optionUuid,
+      quantity: item.quantity,
+      price: item.productPrice,
+      totalPrice: item.productSalePrice,
+    }));
 
-    fetchOrderName();
-  }, [orderItems, orderPirce]);
+    setPaymentSuccessData({
+      fromCart: true,
+      orderItems: paymentOrderItems,
+      totalOriginPrice,
+      totalPurchasePrice,
+      shippingAddressUuid,
+      paymentUuid: '',
+    });
+  }, [orderItems, shippingAddressUuid]);
+  const { paymentSuccessData } = usePaymentSuccessContext();
+  console.log('paymentSuccessData', paymentSuccessData);
   return (
     <section>
       <CommonLayout.SectionInnerPadding>
@@ -74,11 +80,15 @@ export default function OrderList({
           />
         </div>
 
-        <OrderItemToggleList orderItems={orderItems} isOpen={isOpen} />
+        <div className="transition-all duration-300 ease-in-out overflow-hidden">
+          {orderItems.slice(0, isOpen ? orderItems.length : 1).map((item) => (
+            <OrderItem key={item.optionUuid} orderItems={item} size={80} />
+          ))}
+        </div>
       </CommonLayout.SectionInnerPadding>
       <CommonLayout.CommonBorder />
 
-      <OrderPriceSummary orderItems={orderPirce} />
+      <OrderPriceSummary orderItems={orderItems} />
       <OrderPurchaseBar />
     </section>
   );
