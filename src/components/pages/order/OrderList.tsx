@@ -10,10 +10,6 @@ import OrderPriceSummary from './OrderPriceSummary';
 import { CartItemPriceData } from '@/types/CartDataType';
 import OrderPurchaseBar from './OrderPurchaseBar';
 import { useOrderItemContext } from '@/context/OrderItemContext';
-import {
-  getProductNameDataByProductUuid,
-  getProductOptionDataByProductOptionUuid,
-} from '@/actions/product-service';
 import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
 
 interface Props {
@@ -40,21 +36,11 @@ export default function OrderList({
     0
   );
 
-  // const orderName =
-  //   orderItems.length > 1
-  //     ? `${orderItems[0].productUuid} 외 ${orderItems.length - 1}건`
-  //     : orderItems[0].productUuid;
-
   useEffect(() => {
     if (!orderItems.length) return;
 
     const fetchOrderName = async () => {
       try {
-        // const firstOptionUuid = orderItems[0].productOptionUuid;
-        // const productName = await getProductNameDataByProductUuid(
-        //   firstOptionUuid
-        // );
-
         const name =
           orderItems.length > 1
             ? `${productName.name} 외 ${orderItems.length - 1}건`

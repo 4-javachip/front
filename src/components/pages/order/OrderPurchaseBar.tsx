@@ -5,10 +5,7 @@ import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useOrderItemContext } from '@/context/OrderItemContext';
 
-// import { useRouter } from 'next/navigation';
-
 export default function OrderPurchaseBar() {
-  // const router = useRouter();
   const { paymentData } = useOrderItemContext();
   console.log('paymentData', paymentData);
   const handleClick = async () => {
