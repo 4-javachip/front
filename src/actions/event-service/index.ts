@@ -10,13 +10,11 @@ import { PaginatedResponseType } from '@/types/ProductResponseDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { redirect } from 'next/navigation';
 
-const BASE_API_URL = process.env.BASE_API_URL!;
-
 export async function getEventDatas() {
   try {
-    const res = await fetch(`${BASE_API_URL}/api/v1/event/list`, {
+    const res = await fetch(`${process.env.BASE_API_URL}/api/v1/event/list`, {
       method: 'GET',
-      next: { revalidate: 24 * 60 * 60 },
+      // next: { revalidate: 24 * 60 * 60 },
     });
     if (!res.ok) {
       const errorData = await res.json();
@@ -47,7 +45,7 @@ export async function getEventProductDatasByEventUuid({
 }) {
   try {
     const res = await fetch(
-      `${BASE_API_URL}/api/v1/event-product/list/${eventUuid}?pageSize=${pageSize}&page=${page}`,
+      `${process.env.BASE_API_URL}/api/v1/event-product/list/${eventUuid}?pageSize=${pageSize}&page=${page}`,
       {
         method: 'GET',
         // next: { revalidate: 24 * 60 * 60 },
@@ -74,10 +72,13 @@ export async function getEventProductDatasByEventUuid({
 
 export async function getEventDataByEventUuid(eventUuid: string) {
   try {
-    const res = await fetch(`${BASE_API_URL}/api/v1/event/${eventUuid}`, {
-      method: 'GET',
-      next: { revalidate: 24 * 60 * 60 },
-    });
+    const res = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/event/${eventUuid}`,
+      {
+        method: 'GET',
+        // next: { revalidate: 24 * 60 * 60 },
+      }
+    );
     if (!res.ok) {
       const errorData = await res.json();
       console.error('Data Fetching failed:', errorData);
@@ -96,9 +97,9 @@ export async function getEventDataByEventUuid(eventUuid: string) {
 
 export async function getEventBannerImageDatas() {
   try {
-    const res = await fetch(`${BASE_API_URL}/api/v1/banner/list`, {
+    const res = await fetch(`${process.env.BASE_API_URL}/api/v1/banner/list`, {
       method: 'GET',
-      next: { revalidate: 24 * 60 * 60 },
+      // next: { revalidate: 24 * 60 * 60 },
     });
     if (!res.ok) {
       const errorData = await res.json();
