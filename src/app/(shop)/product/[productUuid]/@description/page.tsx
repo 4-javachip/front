@@ -1,6 +1,5 @@
 import { getDescriptionDataByProductUuid } from '@/actions/product-service';
 import ProductDesc from '@/components/pages/productDetail/ProductDesc';
-import ProductDetailTabs from '@/components/pages/productDetail/ProductDetailTabs';
 import { ProductDescriptionType } from '@/types/ProductResponseDataTypes';
 
 export default async function page({
@@ -22,7 +21,6 @@ export default async function page({
 
   return (
     <>
-      <ProductDetailTabs tabId={productUuid}></ProductDetailTabs>
       <ProductDesc {...description} />
     </>
   );

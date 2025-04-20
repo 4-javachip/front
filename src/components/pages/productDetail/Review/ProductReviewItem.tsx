@@ -3,7 +3,6 @@ import {
   ProductReviewImageType,
   ProductReviewType,
 } from '@/types/ProductResponseDataTypes';
-import Image from 'next/image';
 import React from 'react';
 
 export default function ProductReviewItem({
@@ -14,12 +13,9 @@ export default function ProductReviewItem({
   reviewImage?: ProductReviewImageType;
 }) {
   return (
-    <section className="space-y-4">
-      <div className="flex items-center gap-2">
-        <span className="font-semibold text-base">
-          {reviewData.productUuid}
-        </span>
-        <div className="flex gap-0.5">
+    <div>
+      <div className="flex items-center gap-2 pb-4">
+        <div className="flex gap-0.5 text-sm">
           {Array.from({ length: 5 }).map((_, i) => (
             <span
               key={i}
@@ -31,21 +27,22 @@ export default function ProductReviewItem({
             </span>
           ))}
         </div>
+        <span className="text-sm font-sd-gothic">
+          {'*'.repeat(2) + reviewData.userUuid.slice(6)}
+        </span>
       </div>
-
       {reviewImage && (
-        <div className="flex gap-2">
+        <div className="flex gap-2 pb-3">
           <CommonResposiveNextImage
             key={reviewImage.reviewUuid}
             ImageUrl={reviewImage.imageUrl}
             description={`리뷰 이미지 ${reviewImage.reviewUuid}`}
-            className="rounded-md max-w-[120px]"
+            className="rounded-md max-w-[110px]"
           />
         </div>
       )}
-
-      <h3 className="font-semibold text-lg">{reviewData.title}</h3>
+      <h3 className="font-semibold pb-1">{reviewData.title}</h3>
       <p className="text-sm text-gray-700">{reviewData.content}</p>
-    </section>
+    </div>
   );
 }

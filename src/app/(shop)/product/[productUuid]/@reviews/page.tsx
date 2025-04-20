@@ -1,5 +1,4 @@
 import { getReviewDatasByProductUuid } from '@/actions/review-service';
-import ProductDetailTabs from '@/components/pages/productDetail/ProductDetailTabs';
 import ProductReviewSection from '@/components/pages/productDetail/Review/ProductReviewSection';
 import { PAGE_SIZE } from '@/constants/constants';
 
@@ -25,7 +24,6 @@ export default async function page({
   console.log(reviewDatas);
   return (
     <>
-      <ProductDetailTabs tabId={productUuid}></ProductDetailTabs>
       <ProductReviewSection />
     </>
   );
