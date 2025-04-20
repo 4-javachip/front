@@ -4,13 +4,19 @@ import { PaymentData } from '@/actions/payments-service';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useOrderItemContext } from '@/context/OrderItemContext';
+import { usePaymentSuccessContext } from '@/context/PaymentSuccessContext';
 
 export default function OrderPurchaseBar() {
   const { paymentData } = useOrderItemContext();
+  const { setPaymentSuccessData } = usePaymentSuccessContext();
   console.log('paymentData', paymentData);
   const handleClick = async () => {
     try {
-      const checkoutUrl = await PaymentData(paymentData);
+      const { checkoutUrl, paymentUuid } = await PaymentData(paymentData);
+      setPaymentSuccessData((prev) => ({
+        ...prev,
+        paymentUuid: paymentUuid,
+      }));
       window.location.href = checkoutUrl;
     } catch (err) {
       console.error('결제 요청 에러:', err);

@@ -8,7 +8,7 @@ interface AddressRegisterButtonProps {
 }
 
 export default function AddressRegisterButton({
-  href = '/address',
+  href = '/shipping-add',
   label = '배송지 등록',
 }: AddressRegisterButtonProps) {
   return (

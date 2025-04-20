@@ -11,18 +11,6 @@ export default function OrderPriceSummary({
   orderItems,
   className = '',
 }: OrderPriceSummaryProps) {
-  // const totalPrice = orderItems.reduce((sum, item) => {
-  //   return sum + item.productSalePrice;
-  // }, 0);
-
-  // const orderProductPrice = orderItems.reduce((sum, item) => {
-  //   return sum + item.productPrice;
-  // }, 0);
-
-  // console.log('상품 금액', totalPrice);
-  // const discountTotal = orderItems.reduce((sum, item) => {
-  //   return sum + item.productPrice - item.productSalePrice;
-  // }, 0);
   const { orderProductPrice, discountTotal, totalPrice } =
     usePriceSummary(orderItems);
   return (
