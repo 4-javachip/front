@@ -2,8 +2,15 @@ import PurchaseBar from '@/components/pages/productDetail/PurchaseBar/PurchaseBa
 
 export default function ProductDetailLayout({
   children,
-}: Readonly<{
+  tabs,
+}: {
   children: React.ReactNode;
-}>) {
-  return <>{children}</>;
+  tabs: React.ReactNode;
+}) {
+  return (
+    <>
+      {tabs}
+      {children}
+    </>
+  );
 }
