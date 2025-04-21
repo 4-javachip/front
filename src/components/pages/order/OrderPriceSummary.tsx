@@ -1,25 +1,26 @@
-import React, { use } from 'react';
 import { CartItemPriceData } from '@/types/CartDataType';
-import { usePriceSummary } from '@/hooks/usePriceSummary';
+import { EnrichedOrderItemDataType } from '@/types/OrderDataType';
 
-export interface OrderPriceSummaryProps {
-  orderItems: CartItemPriceData[];
+interface OrderPriceSummaryProps {
+  totalPrice: number;
+  totalOriginPrice: number;
   className?: string;
 }
 
 export default function OrderPriceSummary({
-  orderItems,
+  totalPrice,
+  totalOriginPrice,
+
   className = '',
 }: OrderPriceSummaryProps) {
-  const { orderProductPrice, discountTotal, totalPrice } =
-    usePriceSummary(orderItems);
+  const discountTotal = totalOriginPrice - totalPrice;
   return (
     <section
-      className={`font-body font-semibold mt-6 space-y-2 p-6 bg-lightGray-3 ${className}`}
+      className={`font-body font-semibold mt-6 space-y-2 px-6 ${className}`}
     >
       <ul className="flex justify-between">
         <li>상품 금액 </li>
-        <li className="text-black">{orderProductPrice.toLocaleString()}원</li>
+        <li className="text-black">{totalOriginPrice.toLocaleString()}원</li>
       </ul>
       <ul className="flex justify-between">
         <li>할인 금액</li>

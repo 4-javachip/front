@@ -24,11 +24,12 @@ export default function OrderList({ orderItems, shippingAddressUuid }: Props) {
   const { setPaymentSuccessData } = usePaymentSuccessContext();
 
   const totalOriginPrice = orderItems.reduce(
-    (sum, item) => sum + item.productPrice,
+    (sum, item) => sum + item.productPrice * item.quantity,
     0
   );
+
   const totalPurchasePrice = orderItems.reduce(
-    (sum, item) => sum + item.productSalePrice,
+    (sum, item) => sum + item.productSalePrice * item.quantity,
     0
   );
 
@@ -64,6 +65,10 @@ export default function OrderList({ orderItems, shippingAddressUuid }: Props) {
     });
   }, [orderItems, shippingAddressUuid]);
   const { paymentSuccessData } = usePaymentSuccessContext();
+
+  useEffect(() => {
+    console.log('🧾 paymentSuccessData:', paymentSuccessData);
+  }, [paymentSuccessData]);
   console.log('paymentSuccessData', paymentSuccessData);
   return (
     <section>
@@ -88,7 +93,10 @@ export default function OrderList({ orderItems, shippingAddressUuid }: Props) {
       </CommonLayout.SectionInnerPadding>
       <CommonLayout.CommonBorder />
 
-      <OrderPriceSummary orderItems={orderItems} />
+      <OrderPriceSummary
+        totalOriginPrice={totalOriginPrice}
+        totalPrice={totalPurchasePrice}
+      />
       <OrderPurchaseBar />
     </section>
   );
