@@ -40,6 +40,8 @@ export default async function Page({
         optionDiscount: option.discountRate,
         isChecked: item.checked,
         orderName: `${product.name} 외 ${item.productQuantity - 1}개`,
+        totalPurchasePrice: option.totalPrice * item.productQuantity,
+        totalOriginPrice: option.price * item.productQuantity,
       };
     })
   );
