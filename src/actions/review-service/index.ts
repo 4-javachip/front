@@ -56,7 +56,7 @@ export async function getReviewImageDataByReviewUuid({
 }) {
   try {
     const res = await fetch(
-      `${process.env.BASE_API_URL}/api/v1/review/image/${reviewUuid}`,
+      `${process.env.BASE_API_URL}/api/v1/review/image/list/${reviewUuid}`,
       {
         method: 'GET',
       }

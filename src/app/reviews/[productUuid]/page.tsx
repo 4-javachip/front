@@ -1,9 +1,8 @@
 import { getProductNameDataByProductUuid } from '@/actions/product-service';
 import NotFoundLayout from '@/components/layouts/NotFoundLayout';
 import ProductReviewSection from '@/components/pages/productDetail/Review/ProductReviewSection';
-import SmallDropDownModal from '@/components/ui/dropdown/SmallDropDownModal';
+import ReviewSortMenu from '@/components/pages/productDetail/Review/ReviewSortMenu';
 import { PAGE_SIZE } from '@/constants/constants';
-import { reviewSortOptions } from '@/data/initialDatas';
 
 export default async function page({
   params,
@@ -45,13 +44,7 @@ export default async function page({
 
   return (
     <>
-      <section className="padded pt-8 flex justify-between items-center">
-        <h1 className="font-bold">전체 리뷰</h1>
-        <SmallDropDownModal sortOptions={reviewSortOptions} />
-      </section>
-      <div className="padded pb-4">
-        <hr className="my-3" />
-      </div>
+      <ReviewSortMenu />
       <ProductReviewSection reviewParams={reviewParams} />
     </>
   );

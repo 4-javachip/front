@@ -32,8 +32,7 @@ export default function ProductReviewSection({
           hasNext: false,
         };
 
-      // console.log(hasMore, page, reviews);
-      return { content: res.data!.content, hasNext: false };
+      return { content: res.data!.content, hasNext: res.data!.hasNext };
     },
     params: reviewParams,
   });

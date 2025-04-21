@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
       'sitem.ssgcdn.com',
       'sui.ssgcdn.com',
       'simg.ssgcdn.com',
+      'succ.ssgcdn.com',
     ],
   },
   // compiler: {
