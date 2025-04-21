@@ -12,20 +12,25 @@ import ConfirmNextButton from '@/components/ui/buttons/ConfirmNextButton.tsx';
 
 import Loader from '@/components/ui/loaders/loader';
 import AlertModal from '@/components/ui/dialogs/AlertModal';
+import { oAuthSignUpSchema } from '@/schemas/oAuthSignUpSchema';
 
 export default function MultiStepSignUp({
   handleSignUp,
+  initialStep = 1,
+  type = 'default',
 }: {
   handleSignUp: (
     inputValues: SignUpStoreStateType
   ) => Promise<{ success: boolean; message?: string }>;
+  initialStep?: number;
+  type: string;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const optionalConsentParam = searchParams.get('optionalConsent');
 
   const [isEnabled, setIsEnabled] = useState(false);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(initialStep);
   const [inputValues, setInputValues] = useState<SignUpStoreStateType>({
     emailId: '',
     emailDomain: 'gmail.com',
@@ -76,7 +81,8 @@ export default function MultiStepSignUp({
 
     setInputValues((prev) => {
       const updatedValues = { ...prev, [name]: value };
-      const res = signUpSchema.safeParse(updatedValues);
+      const schema = type === 'oauth' ? oAuthSignUpSchema : signUpSchema;
+      const res = schema.safeParse(updatedValues);
       // console.log(updatedValues);
       if (!res.success) {
         const fieldErrors: Partial<SignUpStoreStateType> = {};
@@ -141,7 +147,9 @@ export default function MultiStepSignUp({
         onConfirm={handleModalConfirm}
         errorMessage={modalErrorMessage}
       />
-      <BackIconHeader onClick={prevStep} />
+      {(type !== 'oauth' || step !== 2) && (
+        <BackIconHeader onClick={prevStep} />
+      )}
       <form onKeyDown={handleKeyDown} className="w-full h-full">
         <section className=" padded pb-14">
           {viewComponent?.messages.map((message: string, index: number) => (
