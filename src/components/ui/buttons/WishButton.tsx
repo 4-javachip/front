@@ -23,17 +23,14 @@ export default function WishButton({ productUuid }: { productUuid: string }) {
 
   const handleClick = async () => {
     try {
-      // API 먼저 호출
       const result = await toggleWishlist(productUuid);
 
-      // 실패 시 모달 띄우기
       if (!result.success) {
         setModalMessage(result.message);
         setModalOpen(true);
         return;
       }
 
-      // 성공 시 상태 변경
       const isChecked = await getWishlistChecked(productUuid);
       setChecked(isChecked);
     } catch (err) {
