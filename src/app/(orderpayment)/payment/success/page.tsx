@@ -6,7 +6,7 @@ import { usePaymentSuccessContext } from '@/context/PaymentSuccessContext';
 import { PaymentSuccessReturnType } from '@/types/PaymentDataType';
 import { OrderListData } from '@/actions/order-service';
 import Image from 'next/image';
-import PaymentPurchaseBar from '@/components/pages/payment-success/PaymentPurchasebar';
+import PaymentPurchaseBar from '@/components/pages/payment-success/paymentPurchasebar';
 
 export default function PaymentSuccessPage() {
   const params = useSearchParams();
