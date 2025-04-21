@@ -47,9 +47,7 @@ export default async function RootLayout({
       border-x border-lightGray-5 overflow-x-hidden"
     >
       <body className={`${geistSans.variable} ${geistMono.variable} relative`}>
-        <OrderItemContextProvider>
-          <AuthContextProvider isAuth={isAuth}>{children}</AuthContextProvider>
-        </OrderItemContextProvider>
+        <AuthContextProvider isAuth={isAuth}>{children}</AuthContextProvider>
       </body>
     </html>
   );
