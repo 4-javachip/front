@@ -50,6 +50,7 @@ export default async function ProductDetailSection({
       <ProductImg thumbnails={thumbnails} />
       <div className="flex flex-col gap-10">
         <ProductInfo
+          productUuid={product.productUuid}
           name={product.name}
           price={option.price}
           totalPrice={option.totalPrice}

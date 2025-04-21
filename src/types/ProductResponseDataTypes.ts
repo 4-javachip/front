@@ -46,6 +46,7 @@ export interface ProductInfoDataType {
   description?: string;
   best: boolean;
   new: boolean;
+  productUuid: string;
 }
 
 export interface SelectableOptionType {
