@@ -3,23 +3,30 @@
 import ProductReviewItem from './ProductReviewItem';
 import {
   ProductReviewImageType,
+  ProductReviewSummaryType,
   ProductReviewType,
 } from '@/types/ProductResponseDataTypes';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { useRouter } from 'next/navigation';
 import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
+import ReviewAverageRating from './ReviewAverageRating';
 
 export default function ReviewPreview({
   reviewDatas,
+  reviewSummary,
 }: {
   reviewDatas: ProductReviewType[];
-  reviewImageData?: ProductReviewImageType;
+  reviewSummary?: ProductReviewSummaryType;
 }) {
   const router = useRouter();
 
   return (
     <section className="padded" id="product-review">
-      <h1 className="font-bold text-lg pb-10">고객리뷰</h1>
+      <h1 className="font-bold text-lg pb-7">고객리뷰</h1>
+      <span>
+        {reviewSummary && <ReviewAverageRating reviewSummary={reviewSummary} />}
+      </span>
+      <hr className="my-5" />
       <ul className="space-y-5">
         {reviewDatas.length === 0 ? (
           <div className="h-50 pt-4 w-full flex justify-center items-center">

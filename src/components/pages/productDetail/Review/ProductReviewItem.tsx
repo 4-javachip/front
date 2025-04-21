@@ -7,7 +7,9 @@ import {
 import React, { useEffect, useState } from 'react';
 import ReviewRating from './ReviewRating';
 import ReviewImageCarousel from './ReviewImageCarousel';
-import { ReviewNameSkeleton } from '@/components/ui/skeletons/ReviewItemSkeleton';
+import ReviewItemSkeleton, {
+  ReviewNameSkeleton,
+} from '@/components/ui/skeletons/ReviewItemSkeleton';
 
 export default function ProductReviewItem({
   reviewData,
@@ -16,6 +18,7 @@ export default function ProductReviewItem({
 }) {
   const [reviewImages, setReviewImages] = useState<ProductReviewImageType[]>();
   const [userName, setUserName] = useState<string>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchReviewImage = async () => {
@@ -27,25 +30,30 @@ export default function ProductReviewItem({
         userUuid: reviewData.userUuid,
       });
       if (userNameRes.data) setUserName(userNameRes.data.nickname);
+      setIsLoading(false);
     };
 
     fetchReviewImage();
   }, []);
 
+  if (isLoading) return <ReviewItemSkeleton />;
+
   return (
     <div>
       <div className="flex items-center gap-2 pb-4">
         <ReviewRating rating={reviewData.rating} />
-        {userName ? (
+        {userName && (
           <span className="text-sm font-sd-gothic">
-            {'*'.repeat(userName.length - 2) + userName.slice(-2)}
+            {'*'.repeat(2) + userName.slice(2)}
           </span>
-        ) : (
-          <ReviewNameSkeleton />
         )}
       </div>
       <h3 className="font-semibold text-sm pb-1">{reviewData.title}</h3>
-      {reviewImages && <ReviewImageCarousel reviewImages={reviewImages} />}
+      {reviewImages ? (
+        <ReviewImageCarousel reviewImages={reviewImages} />
+      ) : (
+        <ReviewItemSkeleton />
+      )}
       <p className="text-sm text-gray-700">{reviewData.content}</p>
     </div>
   );

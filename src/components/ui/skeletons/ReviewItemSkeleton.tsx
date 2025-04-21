@@ -21,7 +21,7 @@ export default function ReviewItemSkeleton() {
         <ReviewRatingSkeleton />
         <ReviewNameSkeleton />
       </div>
-      <ReviewImageSkeleton />
+      {/* <ReviewImageSkeleton /> */}
       <div className="space-y-2">
         <div className="w-full h-5 bg-lightGray-5 rounded-sm" />
         <div className="w-4/5 h-5 bg-lightGray-5 rounded-sm" />
