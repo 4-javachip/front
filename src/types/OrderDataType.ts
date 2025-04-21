@@ -8,14 +8,14 @@ export interface OrderListDataType {
   discoutnRate: number;
 }
 
-export interface RequestOrderDataType {
-  orderItemUuid: string[];
-  shippingAddressUuid: string;
-  totalOriginPrice: number;
-  totalPurchasePrice: number;
-  paymentUuid: string;
-  paymentStatus: string;
-}
+// export interface RequestOrderDataType {
+//   orderItemUuid: string[];
+//   shippingAddressUuid: string;
+//   totalOriginPrice: number;
+//   totalPurchasePrice: number;
+//   paymentUuid: string;
+//   paymentStatus: string;
+// }
 
 export interface OrderItemDataType {
   cartUuid: string;

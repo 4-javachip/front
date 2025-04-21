@@ -1,5 +1,4 @@
 import { shippingAddressAgreementType } from '@/types/ResponseDataTypes';
-import React from 'react';
 
 export default function Description({
   agreement,
@@ -7,8 +6,13 @@ export default function Description({
   agreement: shippingAddressAgreementType;
 }) {
   return (
-    <div>
-      <p>{agreement.description}</p>
-    </div>
+    <section className="mb-10">
+      <h2 className="text-lg font-semibold mb-2">{agreement.name}</h2>
+
+      <div
+        className="prose max-w-none text-sm text-gray-700"
+        dangerouslySetInnerHTML={{ __html: agreement.description }}
+      />
+    </section>
   );
 }

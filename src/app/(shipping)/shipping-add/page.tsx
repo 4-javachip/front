@@ -1,4 +1,7 @@
-import { getUserShippingAddressAgreement } from '@/actions/agreement-service';
+import {
+  getShippingAddressAgreement,
+  getUserShippingAddressAgreement,
+} from '@/actions/agreement-service';
 import { addShippingAddress } from '@/actions/shipping-address-service';
 import AddShippingAddress from '@/components/pages/ShippingAddress/AddShippingAddress';
 import TextTitleH1 from '@/components/ui/texts/TextTitleH1';
@@ -7,10 +10,15 @@ import { redirect } from 'next/navigation';
 import React from 'react';
 
 export default async function page() {
-  const agreementData = await getUserShippingAddressAgreement();
-  const usershippingagreement = agreementData[0];
+  const useragreementData = await getUserShippingAddressAgreement();
+  // const agreementData =await getShippingAddressAgreement();
+  const usershippingagreement = useragreementData[0];
   // const usershippingagree = agreementData[0]?.agreed === true;
+  const agreementId = useragreementData?.[0]?.agreementId;
 
+  if (!agreementId) {
+    throw new Error('agreementId가 없습니다. 백엔드 응답 또는 로직 확인 필요!');
+  }
   const handleAddAddress = async (addressForm: FormData) => {
     'use server';
     console.log('서버에서 처리:', addressForm);

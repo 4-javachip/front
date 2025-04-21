@@ -11,7 +11,7 @@ export default function CartLayout({
   return (
     <>
       <OrderHeader />
-      <div className="pt-15"> {children}</div>
+      <div> {children}</div>
       <Footer />
       {/* <CartPurchaseBar /> */}
     </>
