@@ -48,10 +48,9 @@ export const getWishlistChecked = async (
   }
 
   const result = await res.json();
-  return result;
+  return result.result.checked;
 };
-
-export const getWishProducts = async () => {
+export const getWishProducts = async (): Promise<{ productUuid: string }[]> => {
   const session = await getServerSession(options);
   const token = session?.user.accessToken || session?.user.refreshToken;
 
@@ -67,4 +66,7 @@ export const getWishProducts = async () => {
     const error = await res.json();
     throw new Error(error.message || '찜 상태 조회 실패');
   }
+
+  const data = await res.json();
+  return data.result;
 };
