@@ -1,21 +1,7 @@
 'use client';
 
+import { PaymentSuccessPayload } from '@/types/PaymentDataType';
 import { createContext, useContext, useState, ReactNode } from 'react';
-
-export type PaymentSuccessPayload = {
-  fromCart: boolean;
-  orderItems: {
-    productUuid: string;
-    productOptionUuid: string;
-    quantity: number;
-    price: number;
-    totalPrice: number;
-  }[];
-  totalOriginPrice: number;
-  totalPurchasePrice: number;
-  shippingAddressUuid: string;
-  paymentUuid: string;
-};
 
 type PaymentSuccessContextType = {
   paymentSuccessData: PaymentSuccessPayload;
