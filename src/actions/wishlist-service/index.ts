@@ -4,40 +4,6 @@ import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
-// export async function getToggleWishList(productUuid: string) {
-//   const session = await getServerSession(options);
-//   if (!session)
-//     return {
-//       success: false,
-//       message: '로그인이 필요한 서비스입니다. 로그인 후 다시 시도해주세요.',
-//     };
-
-//   const token = session?.user.accessToken || session?.user.refreshToken;
-//   try {
-//     const res = await fetch(
-//       `${process.env.BASE_API_URL}/api/v1/wishlist/product/${productUuid}`,
-//       {
-//         method: 'GET',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': `Bearer ${token}`,
-//         },
-//       }
-//     );
-//     if (!res.ok) {
-//       const errorData = await res.json();
-//       console.error('add cart failed:', errorData);
-//       // throw new Error(errorData.message);
-//       return { success: errorData.success, message: errorData.message };
-//     }
-
-//     const data = await res.json();
-//     return { success: data.success, message: data.message };
-//   } catch (error) {
-//     return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
-//   }
-// }
-
 export const toggleWishlist = async (productUuid: string) => {
   const session = await getServerSession(options);
 
@@ -81,7 +47,6 @@ export const toggleWishlist = async (productUuid: string) => {
       message: data.message ?? '찜 처리 완료',
     };
   } catch (error) {
-    console.error('toggleWishlist error:', error);
     return {
       success: false,
       message: '알 수 없는 오류가 발생했습니다.',
