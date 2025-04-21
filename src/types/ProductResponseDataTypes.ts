@@ -108,3 +108,8 @@ export interface ProductReviewImageType {
   reviewUuid: string;
   imageUrl: string;
 }
+
+export interface ProductReviewAndImageType {
+  reviewData: ProductReviewType;
+  imageData?: ProductReviewImageType;
+}

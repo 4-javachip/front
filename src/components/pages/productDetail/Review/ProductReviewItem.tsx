@@ -1,9 +1,10 @@
+import { getReviewImageDataByReviewUuid } from '@/actions/review-service';
 import { CommonResposiveNextImage } from '@/components/ui/CommonResponsiveNextImage';
 import {
   ProductReviewImageType,
   ProductReviewType,
 } from '@/types/ProductResponseDataTypes';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function ProductReviewItem({
   reviewData,
@@ -12,6 +13,20 @@ export default function ProductReviewItem({
   reviewData: ProductReviewType;
   reviewImage?: ProductReviewImageType;
 }) {
+  // const [image, setImage] = useState<ProductReviewImageType[]>();
+
+  // useEffect(() => {
+  //   const fetchReviewImage = async () => {
+  //     const res = await getReviewImageDataByReviewUuid({
+  //       reviewUuid: reviewData.reviewUuid,
+  //     });
+  //     setImage(res.data);
+  //   };
+
+  //   fetchReviewImage();
+  // }, []);
+  // console.log(reviewData.reviewUuid);
+
   return (
     <div>
       <div className="flex items-center gap-2 pb-4">
