@@ -1,7 +1,7 @@
-import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
+import { ProductReviewType } from '@/types/ProductResponseDataTypes';
 import { useEffect, useRef, useState } from 'react';
 
-type UseInfiniteProductListProps<TParams, TItem> = {
+type UseInfiniteReviewListProps<TParams, TItem> = {
   fetchPageData: (
     page: number,
     params: TParams
@@ -12,10 +12,10 @@ type UseInfiniteProductListProps<TParams, TItem> = {
   params: TParams;
 };
 
-export default function useInfiniteProductList<TParams, TItem>({
+export default function useInfiniteReviewList<TParams, TItem>({
   fetchPageData,
   params,
-}: UseInfiniteProductListProps<TParams, TItem>) {
+}: UseInfiniteReviewListProps<TParams, TItem>) {
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const [page, setPage] = useState(0);
   const [items, setItems] = useState<TItem[]>([]);
@@ -48,8 +48,8 @@ export default function useInfiniteProductList<TParams, TItem>({
           (item) =>
             !prev.some(
               (p) =>
-                (p as ProductNameDataType).productUuid ===
-                (item as ProductNameDataType).productUuid
+                (p as ProductReviewType).reviewUuid ===
+                (item as ProductReviewType).reviewUuid
             )
         );
         return [...prev, ...newItems];
