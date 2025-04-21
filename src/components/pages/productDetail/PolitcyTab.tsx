@@ -5,7 +5,8 @@ export default function PolicyTab() {
     <ul
       className="py-[14px] font-body font-medium text-[14px] 
     flex items-center justify-between
-    border-b border-lightGray-5 last:border-none"
+    border-b border-lightGray-5 last:border-none
+    cursor-pointer"
     >
       <li>이용조건 및 배송 안내</li>
       <li>
