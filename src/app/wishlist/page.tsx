@@ -19,9 +19,9 @@ export default async function WishListPage() {
       <h1 className="text-2xl font-bold mb-4">찜한 상품 목록</h1>
       <ul className="w-full grid grid-cols-2 gap-4 min-h-[80vh]">
         {productNameList.map((product, i) => (
-          <li key={i} className="text-sm text-gray-700">
+          <div key={i} className="text-sm text-gray-700">
             <ProductItem productData={product} size={800} />
-          </li>
+          </div>
         ))}
       </ul>
     </main>
