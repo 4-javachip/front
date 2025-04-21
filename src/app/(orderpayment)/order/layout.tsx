@@ -1,8 +1,6 @@
 import Footer from '@/components/layouts/footer/Footer';
-import CartPurchaseBar from '@/components/pages/cart/CartPurchaseBar';
 import OrderHeader from '@/components/pages/order/OrderHeader';
-import PurchaseBar from '@/components/pages/productDetail/PurchaseBar/PurchaseBar';
-import React, { Children } from 'react';
+
 export default function CartLayout({
   children,
 }: Readonly<{
@@ -13,7 +11,6 @@ export default function CartLayout({
       <OrderHeader />
       <div> {children}</div>
       <Footer />
-      {/* <CartPurchaseBar /> */}
     </>
   );
 }

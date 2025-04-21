@@ -6,6 +6,7 @@ import { usePaymentSuccessContext } from '@/context/PaymentSuccessContext';
 import { PaymentSuccessReturnType } from '@/types/PaymentDataType';
 import { OrderListData } from '@/actions/order-service';
 import Image from 'next/image';
+import PaymentPurchaseBar from '@/components/pages/payment-success/PaymentPurchasebar';
 
 export default function PaymentSuccessPage() {
   const params = useSearchParams();
@@ -131,6 +132,7 @@ export default function PaymentSuccessPage() {
           <p>결제 상태 </p>
           <p>{orderListItem?.paymentStatus}</p>
         </div>
+        <PaymentPurchaseBar />
       </section>
       {/* )} */}
     </main>
