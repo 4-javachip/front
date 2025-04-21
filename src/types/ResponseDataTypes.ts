@@ -127,7 +127,7 @@ export interface SeasonType {
   name: string;
 }
 
-export interface ProductSortOptionType {
+export interface SortOptionType {
   label: string;
   value: string;
 }

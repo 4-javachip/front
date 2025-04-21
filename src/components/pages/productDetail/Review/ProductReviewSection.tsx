@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useState } from 'react';
 import ProductReviewItem from './ProductReviewItem';
 import { getReviewDataType } from '@/types/RequestDataTypes';
 import { getReviewDatasByProductUuid } from '@/actions/review-service';
@@ -33,7 +32,7 @@ export default function ProductReviewSection({
           hasNext: false,
         };
 
-      console.log(hasMore, page, reviews);
+      // console.log(hasMore, page, reviews);
       return { content: res.data!.content, hasNext: false };
     },
     params: reviewParams,

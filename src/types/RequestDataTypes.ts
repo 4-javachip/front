@@ -55,7 +55,7 @@ export interface UserAgreementType {
 // review
 export interface getReviewDataType {
   productUuid: string;
-  sortType: string;
+  sortType?: string;
   page?: number;
   pageSize: number;
 }
