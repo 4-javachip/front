@@ -12,7 +12,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
       </CommonLayout.CommonHeader>
       <OrderItemContextProvider>
         <PaymentSuccessProvider>
-          <div>{children}</div>
+          <div className="pt-15">{children}</div>
         </PaymentSuccessProvider>
       </OrderItemContextProvider>
     </>

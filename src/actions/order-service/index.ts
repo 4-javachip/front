@@ -1,3 +1,4 @@
+'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { OrderItemDataType, OrderListDataType } from '@/types/OrderDataType';
 import {
