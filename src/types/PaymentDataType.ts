@@ -45,6 +45,6 @@ export interface PaymentSuccessReturnType {
   baseAddress: string;
   detailAddress: string;
   phoneNumber: string;
-  secondPhoneNumber?: string;
   shippingNote?: string;
+  secondPhoneNumber?: string;
 }
