@@ -15,13 +15,13 @@ export default function PaymentSuccessPage() {
   const paymentKey = params.get('paymentKey');
   const orderId = params.get('orderId');
   const amount = params.get('amount');
-
+  console.log('파람스', paymentKey, orderId, amount);
   const [orderListItem, serOrderListItem] =
     useState<PaymentSuccessReturnType | null>(null);
 
   useEffect(() => {
-    if (!paymentKey || !orderId || !amount || !paymentSuccessData.paymentUuid)
-      return;
+    // if (!paymentKey || !orderId || !amount || !paymentSuccessData.paymentUuid)
+    //   return;
 
     const submitOrder = async () => {
       try {
@@ -31,8 +31,10 @@ export default function PaymentSuccessPage() {
           orderId,
           amount: Number(amount),
         };
+        console.log('payload', payload);
 
         const result = await OrderListData(payload);
+        console.log('result', result);
         serOrderListItem(result);
       } catch (error) {
         console.error('❌ 주문 생성 실패:', error);
