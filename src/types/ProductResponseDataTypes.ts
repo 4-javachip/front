@@ -109,7 +109,7 @@ export interface ProductReviewImageType {
   imageUrl: string;
 }
 
-export interface ProductReviewAndImageType {
-  reviewData: ProductReviewType;
-  imageData?: ProductReviewImageType;
+export interface ProductReviewSummaryType {
+  averageRating: number;
+  totalReviews: number;
 }

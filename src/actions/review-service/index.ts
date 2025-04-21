@@ -3,6 +3,7 @@
 import {
   PaginatedReviewResponseType,
   ProductReviewImageType,
+  ProductReviewSummaryType,
   ProductReviewType,
 } from '@/types/ProductResponseDataTypes';
 import { getReviewDataType } from '@/types/RequestDataTypes';
@@ -56,7 +57,7 @@ export async function getReviewImageDataByReviewUuid({
 }) {
   try {
     const res = await fetch(
-      `${process.env.BASE_API_URL}/api/v1/review/image/${reviewUuid}`,
+      `${process.env.BASE_API_URL}/api/v1/review/image/list/${reviewUuid}`,
       {
         method: 'GET',
       }
@@ -72,6 +73,36 @@ export async function getReviewImageDataByReviewUuid({
     const data = (await res.json()) as CommonResponseType<
       ProductReviewImageType[]
     >;
+    return {
+      success: true,
+      data: data.result,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: undefined,
+    };
+  }
+}
+
+export async function getReviewSummaryDataByProductUuid(productUuid: string) {
+  try {
+    const res = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/review/summary/${productUuid}`,
+      {
+        method: 'GET',
+      }
+    );
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error('review summary Data Fetching failed:', errorData);
+      return {
+        success: false,
+        data: undefined,
+      };
+    }
+    const data =
+      (await res.json()) as CommonResponseType<ProductReviewSummaryType>;
     return {
       success: true,
       data: data.result,

@@ -1,9 +1,8 @@
-import { getProductNameDataByProductUuid } from '@/actions/product-service';
+import { getReviewSummaryDataByProductUuid } from '@/actions/review-service';
 import NotFoundLayout from '@/components/layouts/NotFoundLayout';
 import ProductReviewSection from '@/components/pages/productDetail/Review/ProductReviewSection';
-import SmallDropDownModal from '@/components/ui/dropdown/SmallDropDownModal';
+import ReviewSortMenu from '@/components/pages/productDetail/Review/ReviewSortMenu';
 import { PAGE_SIZE } from '@/constants/constants';
-import { reviewSortOptions } from '@/data/initialDatas';
 
 export default async function page({
   params,
@@ -23,12 +22,8 @@ export default async function page({
   const productUuid = (await params).productUuid;
   if (!productUuid) return fallback;
 
-  let product;
-  try {
-    product = await getProductNameDataByProductUuid(productUuid);
-  } catch {
-    return fallback;
-  }
+  const reviewSummary = await getReviewSummaryDataByProductUuid(productUuid);
+  if (reviewSummary.data === undefined) return fallback;
 
   const searchParam = await searchParams;
 
@@ -45,13 +40,7 @@ export default async function page({
 
   return (
     <>
-      <section className="padded pt-8 flex justify-between items-center">
-        <h1 className="font-bold">전체 리뷰</h1>
-        <SmallDropDownModal sortOptions={reviewSortOptions} />
-      </section>
-      <div className="padded pb-4">
-        <hr className="my-3" />
-      </div>
+      <ReviewSortMenu reviewSummary={reviewSummary.data} />
       <ProductReviewSection reviewParams={reviewParams} />
     </>
   );
