@@ -35,42 +35,11 @@ export default function PaymentSuccessPage() {
         serOrderListItem(result);
       } catch (error) {
         console.error('❌ 주문 생성 실패:', error);
-        // alert('주문 생성 중 문제가 발생했습니다.');
       }
     };
 
     submitOrder();
-  }, [paymentKey, orderId, amount, paymentSuccessData.paymentUuid]);
-
-  // useEffect(() => {
-  //   if (process.env.NODE_ENV === 'development') {
-  //     serOrderListItem({
-  //       orderListUuid: 'MOCK-UUID-1234',
-  //       paymentStatus: 'PAID',
-  //       totalOriginPrice: 16000,
-  //       totalPurchasePrice: 16000,
-  //       method: '신용카드',
-  //       orderItems: [
-  //         {
-  //           ProductUuid: 'mock-product-uuid',
-  //           name: '그린 사이렌 도트 머그 355ml',
-  //           thumbnail: '/images/thumbnail.png',
-  //           sizeName: '355ml',
-  //           colorName: '그린',
-  //           qauntity: 1,
-  //         },
-  //       ],
-  //       addressName: '부산광역시 해운대구 센텀1로 9 (우동) 로롤',
-  //       recicpientName: '야앙 (호로로)',
-  //       ziquCode: '48060',
-  //       baseAddress: '부산광역시 해운대구 센텀1로 9 (우동) 로롤',
-  //       detailAddress: '로롤',
-  //       phoneNumber: '010-2299-8888',
-  //       secondPhoneNumber: '010-1234-5678',
-  //       shippingNote: '배송메모',
-  //     });
-  //   }
-  // }, []);
+  }, []);
 
   return (
     <main className=" bg-lightGray-2 font-body not-invalid:">
