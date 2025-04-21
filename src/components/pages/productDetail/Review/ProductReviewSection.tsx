@@ -6,13 +6,13 @@ import { getReviewDataType } from '@/types/RequestDataTypes';
 import { getReviewDatasByProductUuid } from '@/actions/review-service';
 import { CommonLoader } from '@/components/ui/loaders/CommonLoader';
 import useInfiniteReviewList from '@/hooks/useInfiniteReviewList';
+import { PAGE_SIZE } from '@/constants/constants';
 
 export default function ProductReviewSection({
   reviewParams,
 }: {
   reviewParams: getReviewDataType;
 }) {
-  const [loadMore, setLoadMore] = useState(false);
   const {
     loaderRef,
     items: reviews,
@@ -25,7 +25,7 @@ export default function ProductReviewSection({
         productUuid: p?.productUuid,
         sortType: p?.sortType,
         page,
-        pageSize: 5,
+        pageSize: PAGE_SIZE,
       });
       if (!res.success)
         return {
@@ -40,8 +40,7 @@ export default function ProductReviewSection({
   });
 
   return (
-    <section className="padded" id="product-review">
-      <h1 className="font-bold text-lg pb-8">고객리뷰</h1>
+    <section className="padded pb-8" id="product-review">
       {isParamsLoading ? (
         <CommonLoader />
       ) : reviews.length === 0 ? (
@@ -51,10 +50,10 @@ export default function ProductReviewSection({
       ) : (
         <>
           <ul className="space-y-5">
-            {reviews.map((review) => (
+            {reviews.map((review, index) => (
               <li key={review.reviewUuid}>
                 <ProductReviewItem reviewData={review} />
-                <hr />
+                {index < reviews.length - 1 && <hr className="mt-5" />}
               </li>
             ))}
           </ul>

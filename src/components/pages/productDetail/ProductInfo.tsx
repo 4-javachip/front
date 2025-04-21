@@ -7,7 +7,6 @@ export default function ProductInfo({
   price,
   totalPrice,
   discountRate,
-  description,
   best: isBest,
   new: isNew,
 }: ProductInfoDataType) {
@@ -25,10 +24,7 @@ export default function ProductInfo({
         </div>
       </div>
 
-      <p className="font-medium text-sm text-lightGray-10 pb-5">
-        {/* {description} */}
-        {name}
-      </p>
+      <p className="font-medium text-sm text-lightGray-10 pb-5">{name}</p>
 
       {totalPrice && discountRate != 0 ? (
         <>
