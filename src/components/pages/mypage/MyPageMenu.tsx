@@ -30,7 +30,7 @@ export default function MyPageMenu() {
           </Link>
         </li>
         <li className="font-medium text-foreground flex gap-2 pb-7">
-          <Link href="/mypage/wishlist" className="flex gap-2 items-center">
+          <Link href="/wishlist" className="flex gap-2 items-center">
             <WishIcon /> 찜 목록
           </Link>
         </li>

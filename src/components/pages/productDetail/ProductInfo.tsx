@@ -1,5 +1,5 @@
+import WishButton from '@/components/ui/buttons/WishButton';
 import ProductLabelIcon from '@/components/ui/icons/ProductLabelIcon';
-import ShareIcon from '@/components/ui/icons/ShareIcon';
 import { ProductInfoDataType } from '@/types/ProductResponseDataTypes';
 
 export default function ProductInfo({
@@ -9,6 +9,7 @@ export default function ProductInfo({
   discountRate,
   best: isBest,
   new: isNew,
+  productUuid,
 }: ProductInfoDataType) {
   return (
     <section className="pt-6 font-pretendard padded">
@@ -20,7 +21,7 @@ export default function ProductInfo({
           </span>
         </h1>
         <div className="justify-self-end">
-          <ShareIcon />
+          <WishButton productUuid={productUuid} />
         </div>
       </div>
 
