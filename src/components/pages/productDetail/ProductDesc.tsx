@@ -23,7 +23,7 @@ export default function ProductDesc({
 
   return (
     <section className="padded" ref={sectionRef} id="product-info">
-      <h1 className="font-bold text-lg pb-10">상세정보</h1>
+      <h1 className="font-bold text-lg pb-8">상세정보</h1>
       <style jsx global>{`
         .collapse_on,
         .collapse_off,

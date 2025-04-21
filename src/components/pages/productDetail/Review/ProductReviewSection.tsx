@@ -1,56 +1,67 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import ProductReviewItem from './ProductReviewItem';
-import {
-  ProductReviewImageType,
-  ProductReviewType,
-} from '@/types/ProductResponseDataTypes';
+import { getReviewDataType } from '@/types/RequestDataTypes';
+import { getReviewDatasByProductUuid } from '@/actions/review-service';
+import { CommonLoader } from '@/components/ui/loaders/CommonLoader';
+import useInfiniteReviewList from '@/hooks/useInfiniteReviewList';
 
-const dummyReviews: ProductReviewType[] = [
-  {
-    reviewUuid: 'rev-001',
-    userUuid: 'aasdx12@gmail.com',
-    productUuid: 'prod-001',
-    title: '정말 좋아요!',
-    content: '배송도 빠르고 상품도 만족스러워요. 다음에 또 살게요!',
-    rating: 5,
-  },
-  {
-    reviewUuid: 'rev-002',
-    userUuid: 'aasdx1255@gmail.com',
-    productUuid: 'prod-001',
-    title: '괜찮은 편이에요',
-    content: '가격 대비 성능은 괜찮은 것 같아요. 포장도 깔끔했어요.',
-    rating: 4,
-  },
-];
+export default function ProductReviewSection({
+  reviewParams,
+}: {
+  reviewParams: getReviewDataType;
+}) {
+  const [loadMore, setLoadMore] = useState(false);
+  const {
+    loaderRef,
+    items: reviews,
+    isLoading,
+    isParamsLoading,
+    hasMore,
+  } = useInfiniteReviewList({
+    fetchPageData: async (page, p) => {
+      const res = await getReviewDatasByProductUuid({
+        productUuid: p?.productUuid,
+        sortType: p?.sortType,
+        page,
+        pageSize: 5,
+      });
+      if (!res.success)
+        return {
+          content: [],
+          hasNext: false,
+        };
 
-const dummyReviewImage: ProductReviewImageType[] = [
-  {
-    id: 1,
-    reviewUuid: 'rev-001',
-    imageUrl: 'https://dummyimage.com/500',
-  },
-  {
-    id: 2,
-    reviewUuid: 'rev-001',
-    imageUrl: 'https://dummyimage.com/500',
-  },
-];
+      console.log(hasMore, page, reviews);
+      return { content: res.data!.content, hasNext: false };
+    },
+    params: reviewParams,
+  });
 
-export default function ProductReviewSection() {
   return (
     <section className="padded" id="product-review">
-      <h1 className="font-bold text-lg pb-10">고객리뷰</h1>
-      <section className="space-y-5">
-        <ProductReviewItem reviewData={dummyReviews[0]} />
-        <hr />
-        <ProductReviewItem
-          reviewData={dummyReviews[1]}
-          reviewImage={dummyReviewImage[1]}
-        />
-        <hr />
-        <ProductReviewItem reviewData={dummyReviews[0]} />
-      </section>
+      <h1 className="font-bold text-lg pb-8">고객리뷰</h1>
+      {isParamsLoading ? (
+        <CommonLoader />
+      ) : reviews.length === 0 ? (
+        <div className="h-50 pt-4 w-full flex justify-center items-center">
+          <p className="text-lightGray-6 text-sm">등록된 리뷰가 없습니다.</p>
+        </div>
+      ) : (
+        <>
+          <ul className="space-y-5">
+            {reviews.map((review) => (
+              <li key={review.reviewUuid}>
+                <ProductReviewItem reviewData={review} />
+                <hr />
+              </li>
+            ))}
+          </ul>
+          {!isLoading && hasMore && <div ref={loaderRef} className="h-20" />}
+          {isLoading && <CommonLoader className="h-10" />}
+        </>
+      )}
     </section>
   );
 }

@@ -11,20 +11,18 @@ export default async function page({
   const reviewParams = {
     productUuid,
     sortType: 'LATEST',
-    page: 0,
     pageSize: PAGE_SIZE,
   };
-  let reviewDatas;
-  try {
-    reviewDatas = await getReviewDatasByProductUuid(reviewParams);
-  } catch {
-    return null;
-  }
+  // let reviewDatas;
+  // try {
+  //   reviewDatas = await getReviewDatasByProductUuid(reviewParams);
+  // } catch {
+  //   return null;
+  // }
 
-  console.log(reviewDatas);
   return (
     <>
-      <ProductReviewSection />
+      <ProductReviewSection reviewParams={reviewParams} />
     </>
   );
 }
