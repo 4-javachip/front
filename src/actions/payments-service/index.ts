@@ -2,11 +2,7 @@
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { OrderItemPayload } from '@/context/OrderItemContext';
 
-import {
-  PaymentReturnType,
-  PaymentSuccessPayload,
-  PaymentSuccessReturnType,
-} from '@/types/PaymentDataType';
+import { PaymentReturnType } from '@/types/PaymentDataType';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 
@@ -28,7 +24,6 @@ export const PaymentData = async (PaymentData: OrderItemPayload) => {
     throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
   const data = (await res.json()) as CommonResponseType<PaymentReturnType>;
-  console.log('checkouturl', data.result.checkoutUrl);
   return data.result;
 };
 

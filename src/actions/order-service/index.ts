@@ -38,7 +38,7 @@ export const OrderListData = async (
   const token = session?.user.accessToken || session?.user.refreshToken;
   console.log('리프레쉬 토큰 ', session?.user.refreshToken);
   console.log('토큰 ', token);
-  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/payment`, {
+  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/order`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
