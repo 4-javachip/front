@@ -27,9 +27,6 @@ export default function PaymentSuccessPage() {
       try {
         const payload = {
           ...paymentSuccessData,
-          paymentKey,
-          orderId,
-          amount: Number(amount),
         };
         console.log('payload', payload);
 
