@@ -1,7 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import AlertModal from '@/components/ui/dialogs/AlertModal';
-import { CommonResponseType, signInDataType } from '@/types/ResponseDataTypes';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -13,11 +12,9 @@ export default function OauthLoginButtons() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') ?? '/';
   const signUpFailReason = searchParams.get('reason');
-  const email = searchParams.get('email');
 
   const handleOauthLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('click');
     const res = await signIn(e.currentTarget.name, {
       redirect: false,
     });
@@ -27,7 +24,7 @@ export default function OauthLoginButtons() {
   useEffect(() => {
     if (signUpFailReason === 'unregistered') {
       setModalErrorMessage(
-        `소셜 계정이 존재하지 않습니다. 소셜 계정의 이메일 아이디를 이용해 회원가입을 진행 후 로그인을 다시 시도해주세요.\n 유저 이메일: ${email}`
+        `소셜 계정이 존재하지 않습니다. 소셜 계정의 이메일 아이디를 이용해 회원가입을 진행합니다.`
       );
       setErrorModalOpen(true);
     }
@@ -39,7 +36,7 @@ export default function OauthLoginButtons() {
         open={errorModalOpen}
         onOpenChange={setErrorModalOpen}
         errorMessage={modalErrorMessage}
-        onConfirm={() => router.push(`/auth/sign-up`)}
+        onConfirm={() => router.push(`/auth/oauth-sign-up`)}
       />
       <div className="padded flex flex-col space-y-3">
         <Button

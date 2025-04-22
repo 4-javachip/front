@@ -14,7 +14,7 @@ import {
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
 import React, { useEffect, useState } from 'react';
-import {
+import ProductItemSkeleton, {
   ItemPriceSkeleton,
   ItemThumbSkeleton,
 } from '../skeletons/ProductItemSkeleton';
@@ -28,6 +28,7 @@ function ProductlItem({
 }) {
   const [thumbnail, setThumbnail] = useState<ProductThumbnailDataType>();
   const [option, setOption] = useState<ProductOptionType>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,10 +52,13 @@ function ProductlItem({
       if (optRes.success && optRes.data) {
         setOption(optRes.data);
       }
+      setIsLoading(false);
     };
 
     fetchData();
   }, [productData.productUuid]);
+
+  if (isLoading) return <ProductItemSkeleton size={size} />;
 
   return (
     <li className="flex flex-col gap-3 mb-12" style={{ maxWidth: size }}>
