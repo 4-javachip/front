@@ -1,4 +1,4 @@
-name: Deploy Frontend
+name: Deploy Frontend with Docker Hub
 
 on:
   push:
@@ -28,17 +28,36 @@ jobs:
     - name: Build frontend
       run: pnpm build
 
-    - name: Setup SSH
+    - name: Build Docker image
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/starbucks-frontend:latest .
+
+    - name: Push Docker image to Docker Hub
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        docker push ${{ secrets.DOCKER_USERNAME }}/starbucks-frontend:latest
+
+    - name: Setup SSH to EC2
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-    - name: Deploy to EC2
+    - name: Deploy on EC2
       run: |
-        ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
-          "FRONT_ENV_FILE='${{ secrets.FRONT_ENV_FILE }}' bash ~/starbucks-app/deploy/deploy-front.sh"
+        ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} <<EOF
+        cd ~/starbucks-app/front
+
+        echo "[CONFIG] writing .env file..."
+        cat <<EOT > .env
+        ${{ secrets.FRONT_ENV_FILE }}
+        EOT
+
+        echo "[DOCKER] pulling latest frontend image and restarting..."
+        docker pull ${{ secrets.DOCKER_USERNAME }}/starbucks-frontend:latest
+        docker compose up -d
+        docker image prune --filter "dangling=true" -f
+        EOF
 
     - name: Get Short Commit Message
       id: commit_msg
@@ -49,38 +68,38 @@ jobs:
       run: |
         STATUS="${{ job.status }}"
         if [ "$STATUS" = "success" ]; then
-          COLOR=3066993   # green
+          COLOR=3066993
           ICON="✅"
           TITLE="Frontend Deploy 성공"
         else
-          COLOR=15158332  # red
+          COLOR=15158332
           ICON="❌"
           TITLE="Frontend Deploy 실패"
         fi
-    
+
         curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
         -H "Content-Type: application/json" \
         -d @- <<EOF
         {
-        "embeds": [
-        {
-          "title": "$ICON $TITLE",
-          "color": $COLOR,
-          "fields": [
+          "embeds": [
             {
-              "name": "🔨 Commit",
-              "value": "${SHORT_MSG}}"
-            },
-            {
-              "name": "👤 By",
-              "value": "${{ github.actor }}"
-            },
-            {
-              "name": "📅 When",
-              "value": "${{ github.event.head_commit.timestamp }}"
+              "title": "$ICON $TITLE",
+              "color": $COLOR,
+              "fields": [
+                {
+                  "name": "🔨 Commit",
+                  "value": "${SHORT_MSG}"
+                },
+                {
+                  "name": "👤 By",
+                  "value": "${{ github.actor }}"
+                },
+                {
+                  "name": "📅 When",
+                  "value": "${{ github.event.head_commit.timestamp }}"
+                }
+              ]
             }
           ]
-        }
-        ]
         }
         EOF
