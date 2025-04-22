@@ -8,35 +8,35 @@ import PaymentInfo from '@/components/pages/payment-success/PaymentInfo';
 import PaymentAddressInfo from '@/components/pages/payment-success/PaymentAddressInfo';
 import ConfirmPaymentModalWrapper from '@/components/pages/payment-success/ConfirmPaymentModalWrapper';
 
-interface SearchParams {
-  searchParams: Promise<{
-    paymentKey: string;
-    orderId: string;
-    amount: string;
-  }>;
-}
+// interface SearchParams {
+//   searchParams: Promise<{
+//     paymentKey: string;
+//     orderId: string;
+//     amount: string;
+//   }>;
+// }
 
-export default async function PaymentSuccessPage({
-  searchParams,
-}: SearchParams) {
-  const { paymentKey, orderId, amount } = await searchParams;
+// export default async function PaymentSuccessPage({
+//   searchParams,
+// }: SearchParams) {
+//   const { paymentKey, orderId, amount } = await searchParams;
 
-  // if (!paymentKey || !orderId || !amount) {
-  //   redirect('/error');
-  // }
-  console.log('결제 성공 payload:', paymentKey, orderId, amount);
+//   // if (!paymentKey || !orderId || !amount) {
+//   //   redirect('/error');
+//   // }
+//   console.log('결제 성공 payload:', paymentKey, orderId, amount);
 
-  const payload: paymentConfirmData = {
-    paymentKey,
-    orderId,
-    amount: Number(amount),
-  };
-  console.log('결제 성공 payload:', payload);
+//   const payload: paymentConfirmData = {
+//     paymentKey,
+//     orderId,
+//     amount: Number(amount),
+//   };
+//   console.log('결제 성공 payload:', payload);
 
-  // export default async function PaymentSuccessPage() {
-  await paymentconfirmData(payload);
+export default async function PaymentSuccessPage() {
+  // await paymentconfirmData(payload);
   const orderData: RecentOrderItemDataType = await getRecentOrderList();
-
+  console.log('결제 성공 payload:', orderData);
   return (
     <main className="bg-lightGray-2 font-body">
       {/* <PaymentAddressInfo orderListItem={orderData} />
