@@ -70,8 +70,8 @@ export interface RecentOrderItemDataType {
     colorName: string;
   }[];
   addressName: string;
-  recicpientName: string;
-  ziquCode: string;
+  recipientName: string;
+  zipCode: string;
   baseAddress: string;
   detailAddress: string;
   phoneNumber: string;

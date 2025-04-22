@@ -1,17 +1,31 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import AlertModal from '@/components/ui/dialogs/AlertModal';
 
 export default function PaymentFailPage() {
   const searchParams = useSearchParams();
-  const code = searchParams.get('code');
+  const router = useRouter();
   const message = searchParams.get('message');
+  const [open, setOpen] = useState(true);
+
+  const handleConfirm = () => {
+    setOpen(false);
+    router.replace('/'); // 홈으로 보내거나 원하는 경로로
+  };
+
+  const decodedMessage = message
+    ? decodeURIComponent(message)
+    : '결제에 실패했습니다.\n잠시 후 다시 시도해주세요.';
 
   return (
-    <div className="p-10 text-center">
-      <h1 className="text-2xl font-bold text-red-500">❌ 결제 실패</h1>
-      <p className="mt-4">사유: {message ?? '알 수 없는 오류'}</p>
-      <p className="text-sm text-gray-500">오류 코드: {code}</p>
-    </div>
+    <AlertModal
+      open={open}
+      onOpenChange={setOpen}
+      onConfirm={handleConfirm}
+      errorMessage={decodedMessage}
+      isPreLine
+    />
   );
 }
