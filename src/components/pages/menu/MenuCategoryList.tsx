@@ -1,6 +1,5 @@
 import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
-import Link from 'next/link';
 import CategoryItem from './CategoryItem';
 import { useModalContext } from '@/context/SideBarContext';
 import { useRouter } from 'next/navigation';

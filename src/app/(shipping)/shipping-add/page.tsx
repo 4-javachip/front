@@ -1,7 +1,4 @@
-import {
-  getShippingAddressAgreement,
-  getUserShippingAddressAgreement,
-} from '@/actions/agreement-service';
+import { getUserShippingAddressAgreement } from '@/actions/agreement-service';
 import { addShippingAddress } from '@/actions/shipping-address-service';
 import AddShippingAddress from '@/components/pages/ShippingAddress/AddShippingAddress';
 import TextTitleH1 from '@/components/ui/texts/TextTitleH1';

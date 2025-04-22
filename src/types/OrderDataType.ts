@@ -8,15 +8,6 @@ export interface OrderListDataType {
   discoutnRate: number;
 }
 
-// export interface RequestOrderDataType {
-//   orderItemUuid: string[];
-//   shippingAddressUuid: string;
-//   totalOriginPrice: number;
-//   totalPurchasePrice: number;
-//   paymentUuid: string;
-//   paymentStatus: string;
-// }
-
 export interface OrderItemDataType {
   cartUuid: string;
   productQuantity: number;
@@ -49,4 +40,41 @@ export interface EnrichedOrderItemDataType {
   optionDiscount: number;
   orderName: string;
   isChecked: boolean;
+}
+
+export interface OrderItemPayload {
+  fromCart: boolean;
+  orderItems: {
+    productUuid: string;
+    productOptionUuid: string;
+    quantity: number;
+    price: number;
+    totalPrice: number;
+  }[];
+  totalOriginPrice: number;
+  totalPurchasePrice: number;
+  shippingAddressUuid: string;
+}
+export interface RecentOrderItemDataType {
+  orderListUuid: string;
+  paymentStatus: string;
+  totalOriginPrice: number;
+  totalPurchasePrice: number;
+  method: string;
+  orderItems: {
+    ProductUuid: string;
+    name: string;
+    qauntity: number;
+    thumbnail: string;
+    sizeName: string;
+    colorName: string;
+  }[];
+  addressName: string;
+  recicpientName: string;
+  ziquCode: string;
+  baseAddress: string;
+  detailAddress: string;
+  phoneNumber: string;
+  shippingNote?: string;
+  secondPhoneNumber?: string;
 }
