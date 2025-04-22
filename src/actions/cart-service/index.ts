@@ -7,13 +7,13 @@ import {
 } from '@/types/CartDataType';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
-
 import { revalidateTag } from 'next/cache';
 
 export const getCartItemData = async (): Promise<CartItemType[]> => {
   const session = await getServerSession(options);
+
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  if (!token) return [];
+
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/user`, {
     method: 'GET',
     headers: {

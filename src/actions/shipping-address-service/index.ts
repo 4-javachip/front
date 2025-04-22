@@ -1,7 +1,6 @@
 'use server';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import {
-  AgreementType,
   CommonResponseType,
   ShippingAddressListType,
 } from '@/types/ResponseDataTypes';
