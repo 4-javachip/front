@@ -16,10 +16,10 @@ export default function PaymentAddressInfo({
         <h2 className="font-bold mb-2 text-lg ">배송 정보</h2>
         <div className="space-y-0.5 leading-relaxed">
           <p className="font-semibold">
-            {orderListItem?.addressName} ({orderListItem?.recicpientName})
+            {orderListItem?.addressName} ({orderListItem?.recipientName})
           </p>
           <p className="text-sm text-gray-800">
-            ({orderListItem?.ziquCode}) {orderListItem?.baseAddress}
+            ({orderListItem?.zipCode}) {orderListItem?.baseAddress}
             {orderListItem?.detailAddress}
           </p>
           <p className="text-sm text-gray-800">
