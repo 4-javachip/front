@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import ReviewRating from './ReviewRating';
 import ReviewImageCarousel from './ReviewImageCarousel';
 import ReviewItemSkeleton, {
-  ReviewNameSkeleton,
+  ReviewImageSkeleton,
 } from '@/components/ui/skeletons/ReviewItemSkeleton';
 
 export default function ProductReviewItem({
@@ -52,7 +52,7 @@ export default function ProductReviewItem({
       {reviewImages ? (
         <ReviewImageCarousel reviewImages={reviewImages} />
       ) : (
-        <ReviewItemSkeleton />
+        <ReviewImageSkeleton />
       )}
       <p className="text-sm text-gray-700">{reviewData.content}</p>
     </div>

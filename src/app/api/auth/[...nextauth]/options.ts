@@ -103,9 +103,11 @@ export const options: NextAuthOptions = {
 
           const data = (await res.json()) as CommonResponseType<signInDataType>;
           console.log('server data', data);
+
+          if (!data.result) return '/auth/sign-in?reason=unregistered';
+
           user.accessToken = data.result.accessToken;
           user.refreshToken = data.result.refreshToken;
-          console.log('provider: ', account.provider);
           return true;
         } catch (error) {
           console.error('error', error);
