@@ -23,7 +23,7 @@ export default function MultiStepSignUp({
     inputValues: SignUpStoreStateType
   ) => Promise<{ success: boolean; message?: string }>;
   initialStep?: number;
-  type: string;
+  type?: string;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();

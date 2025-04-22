@@ -43,7 +43,7 @@ export default function SignUpPage() {
 
   return (
     <>
-      <MultiStepSignUp handleSignUp={handleSignUp} />
+      <MultiStepSignUp handleSignUp={handleSignUp} type="default" />
     </>
   );
 }
