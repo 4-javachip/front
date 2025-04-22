@@ -22,16 +22,10 @@ export default async function ProductDetailSection({
 }) {
   let thumbnails = [] as ProductThumbnailDataType[];
   let options = [] as ProductOptionType[];
-  let description = {
-    productUuid: '',
-    description: '',
-    detailDescription: '',
-  } as ProductDescriptionType;
 
   try {
     thumbnails = await getThumbnailDatasByProductUuid(product.productUuid);
     options = await getOptionDatasByProductUuid(product.productUuid);
-    description = await getDescriptionDataByProductUuid(product.productUuid);
   } catch (error) {
     console.log('데이터 페칭 에러');
   }
@@ -56,18 +50,15 @@ export default async function ProductDetailSection({
       <ProductImg thumbnails={thumbnails} />
       <div className="flex flex-col gap-10">
         <ProductInfo
+          productUuid={product.productUuid}
           name={product.name}
           price={option.price}
           totalPrice={option.totalPrice}
           discountRate={option.discountRate}
-          description={description.description}
           best={product.best}
           new={product.new}
         />
         <hr />
-        <ProductDesc {...description} />
-        <hr />
-        <PolicySection />
       </div>
     </>
   );

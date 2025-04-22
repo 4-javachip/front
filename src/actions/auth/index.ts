@@ -1,7 +1,11 @@
 'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { OAuthSignUpDataType, SignUpDataType } from '@/types/RequestDataTypes';
-import { AgreementType, userInfoDataType } from '@/types/ResponseDataTypes';
+import {
+  AgreementType,
+  CommonResponseType,
+  userInfoDataType,
+} from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -297,5 +301,42 @@ export async function resetUserPasswordAction({
     return { success: true, data: data };
   } catch (error) {
     return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
+  }
+}
+
+export async function getUserNicknameByUserUuid({
+  userUuid,
+}: {
+  userUuid: string;
+}) {
+  try {
+    const res = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/auth/nickname`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Uuid': userUuid,
+        },
+      }
+    );
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error('user nickname Data Fetching failed:', errorData);
+      return {
+        success: false,
+        data: undefined,
+      };
+    }
+    const data = (await res.json()) as CommonResponseType<{ nickname: string }>;
+    return {
+      success: true,
+      data: data.result,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: undefined,
+    };
   }
 }

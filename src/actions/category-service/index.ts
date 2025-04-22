@@ -34,7 +34,7 @@ export async function getCategoryByCategoryid(categoryId: number) {
     `${process.env.BASE_API_URL}/api/v1/category/${categoryId}`,
     {
       method: 'GET',
-      cache: 'force-cache',
+      // cache: 'force-cache',
     }
   );
 
@@ -54,7 +54,7 @@ export async function getSubCategoriesByCategoryid(categoryId: number) {
     `${process.env.BASE_API_URL}/api/v1/sub-category/list/category/${categoryId}`,
     {
       method: 'GET',
-      cache: 'force-cache',
+      // cache: 'force-cache',
     }
   );
 
@@ -72,7 +72,7 @@ export async function getSubCategoriesByCategoryid(categoryId: number) {
 export async function getSeasonDatas() {
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/season/list`, {
     method: 'GET',
-    cache: 'force-cache',
+    // cache: 'force-cache',
   });
 
   if (!res.ok) {

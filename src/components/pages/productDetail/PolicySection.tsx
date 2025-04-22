@@ -7,12 +7,6 @@ export default function PolicySection() {
         <li>
           <PolicyTab />
         </li>
-        <li>
-          <PolicyTab />
-        </li>
-        <li>
-          <PolicyTab />
-        </li>
       </ul>
     </section>
   );

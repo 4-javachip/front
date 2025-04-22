@@ -1,12 +1,16 @@
 'use client';
 
-import { sortOptions } from '@/data/dummyDatas';
 import DropDownIcon from '../icons/DropDownIcon';
 import DropDownItem from './DropDownItem';
 import { useSearchParams } from 'next/navigation';
 import { useRef } from 'react';
+import { SortOptionType } from '@/types/ResponseDataTypes';
 
-export default function SmallDropDownModal() {
+export default function SmallDropDownModal({
+  sortOptions,
+}: {
+  sortOptions: SortOptionType[];
+}) {
   const searchParams = useSearchParams();
   const currentSort = searchParams.get('sortType') || 'NEW';
 
@@ -28,7 +32,7 @@ export default function SmallDropDownModal() {
         <div className="flex flex-row gap-1.5 items-center">
           <p className="font-body text-xs">
             {sortOptions.find((option) => option.value === currentSort)
-              ?.label || '신상품순'}
+              ?.label || sortOptions[0].label}
           </p>
           <DropDownIcon
             ref={iconRef}

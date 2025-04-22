@@ -28,8 +28,8 @@ export const getProductListData = cache(async (params: getProductDataType) => {
       `${process.env.BASE_API_URL}/api/v1/product/list?${queryString}`,
       {
         method: 'GET',
-        // cache: 'no-cache',
-        next: { revalidate: 3600 },
+        cache: 'no-cache',
+        // next: { revalidate: 3600 },
       }
     );
 

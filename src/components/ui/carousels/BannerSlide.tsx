@@ -1,7 +1,6 @@
 'use client';
 import { EventBannerImageType } from '@/types/ProductResponseDataTypes';
 import { BannerSlideImageType } from '@/types/ResponseDataTypes';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { CommonResposiveNextImage } from '../CommonResponsiveNextImage';

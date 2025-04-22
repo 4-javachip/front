@@ -13,10 +13,12 @@ export default async function EventSection({
 
   return (
     <>
-      <CommonResposiveNextImage
-        ImageUrl={eventsData.imageUrl}
-        description={eventsData.description}
-      />
+      {eventsData.imageUrl !== '' && (
+        <CommonResposiveNextImage
+          ImageUrl={eventsData.imageUrl}
+          description={eventsData.description}
+        />
+      )}
       <section>
         <PrecautionAccordion title="기획전 유의사항">
           <ul className="text-lightGray-1 text-sm">

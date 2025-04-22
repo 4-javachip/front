@@ -14,7 +14,7 @@ export default function BackArrowButton({ className = '' }: BackButtonProps) {
   return (
     <button
       onClick={() => router.back()}
-      className={`inline-flex items-center ${className}`}
+      className={`inline-flex items-center cursor-pointer ${className}`}
     >
       <BackArrowIcon />
     </button>

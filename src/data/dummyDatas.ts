@@ -6,7 +6,6 @@ import {
   EventCarouselType,
   ProductDetailType,
   ProductItemType,
-  ProductSortOptionType,
   SeasonType,
   PolicyLinkType,
   OrderProductType,
@@ -310,13 +309,6 @@ export const dummyCartItems: CartProductType[] = [
     productImageUrl: 'https://dummyimage.com/1000',
     productPrice: 40000,
   },
-];
-
-export const sortOptions: ProductSortOptionType[] = [
-  { label: '신상품순', value: 'new' },
-  { label: '추천순', value: 'recommend' },
-  { label: '낮은가격순', value: 'price_asc' },
-  { label: '높은가격순', value: 'price_desc' },
 ];
 
 export const dummyCartSummary = {

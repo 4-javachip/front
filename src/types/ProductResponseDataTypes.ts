@@ -46,6 +46,7 @@ export interface ProductInfoDataType {
   description?: string;
   best: boolean;
   new: boolean;
+  productUuid: string;
 }
 
 export interface SelectableOptionType {
@@ -82,4 +83,34 @@ export interface BestProductType {
   id: number;
   productUuid: string;
   productSalesCount: number;
+}
+
+// event
+export interface ProductReviewType {
+  reviewUuid: string;
+  userUuid: string;
+  productUuid: string;
+  title: string;
+  content: string;
+  rating: number;
+}
+
+export interface PaginatedReviewResponseType<T> {
+  content: T;
+  currentPage: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  hasNext: boolean;
+}
+
+export interface ProductReviewImageType {
+  id: number;
+  reviewUuid: string;
+  imageUrl: string;
+}
+
+export interface ProductReviewSummaryType {
+  averageRating: number;
+  totalReviews: number;
 }

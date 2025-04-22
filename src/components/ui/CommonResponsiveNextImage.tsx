@@ -18,7 +18,7 @@ export function CommonResposiveNextImage({
       width={500}
       height={300}
       priority
-      className={cn('pointer-events-none select-none', className)}
+      className={cn('pointer-events-none select-none"', className)}
     />
   );
 }

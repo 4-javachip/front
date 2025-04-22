@@ -1,9 +1,27 @@
-import PurchaseBar from '@/components/pages/productDetail/PurchaseBar/PurchaseBar';
+import PolicySection from '@/components/pages/productDetail/PolicySection';
+import ProductDetailTabs from '@/components/pages/productDetail/ProductDetailTabs';
 
 export default function ProductDetailLayout({
   children,
-}: Readonly<{
+  description,
+  reviews,
+}: {
   children: React.ReactNode;
-}>) {
-  return <>{children}</>;
+  description: React.ReactNode;
+  reviews: React.ReactNode;
+}) {
+  return (
+    <main className="flex flex-col">
+      {children}
+
+      <div className="flex flex-col gap-10">
+        <ProductDetailTabs />
+        {description}
+        <hr />
+        {reviews}
+        <hr />
+        <PolicySection />
+      </div>
+    </main>
+  );
 }

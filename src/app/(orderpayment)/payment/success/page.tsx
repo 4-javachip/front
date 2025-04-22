@@ -40,6 +40,7 @@ export default function PaymentSuccessPage() {
 
     submitOrder();
   }, []);
+  console.log('결제결제결제성공 ', paymentSuccessData);
 
   return (
     <main className=" bg-lightGray-2 font-body not-invalid:">

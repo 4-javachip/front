@@ -22,8 +22,8 @@ export default async function ProductDetailPage({
   }
 
   return (
-    <main className="flex flex-col">
+    <>
       <ProductDetailSection product={product} />
-    </main>
+    </>
   );
 }
