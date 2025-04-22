@@ -13,6 +13,10 @@ export default function OrderPurchaseBar({
   orderItems: OrderItemPayload;
   paymentData: PaymentPayload;
 }) {
+  const hasAddress =
+    'shippingAddressId' in orderItems
+      ? !!orderItems.shippingAddressUuid
+      : !!orderItems.shippingAddressUuid;
   const handleClick = async () => {
     try {
       const orderListUuid = await OrderListData(orderItems);
@@ -39,7 +43,7 @@ export default function OrderPurchaseBar({
       <CommonButton
         className="font-semibold"
         onClick={handleClick}
-        isEnabled={true}
+        isEnabled={hasAddress}
       >
         결제하기
       </CommonButton>
