@@ -18,15 +18,13 @@ jobs:
         node-version: 18
 
     - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 8
+      run: npm install -g pnpm
 
-    - name: Install dependencies
-      run: pnpm install
+    # - name: Install dependencies
+    #   run: pnpm install
 
-    - name: Build frontend
-      run: pnpm build
+    # - name: Build frontend
+    #   run: pnpm build
 
     - name: Build Docker image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/starbucks-frontend:latest .
