@@ -3,9 +3,9 @@ import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
 import { redirect } from 'next/navigation';
 
-export default function PaymentPurchaseBar() {
+export default function PaymentFatilButtonBar() {
   const handleClick = async () => {
-    redirect('/order-list');
+    redirect('/cart');
   };
 
   const handleClickMain = async () => {
@@ -19,7 +19,7 @@ export default function PaymentPurchaseBar() {
         onClick={handleClick}
         isEnabled={true}
       >
-        상세정보 확인
+        장바구니로
       </CommonButton>
       <CommonButton
         className="font-semibold"
