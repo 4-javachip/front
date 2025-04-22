@@ -20,11 +20,11 @@ jobs:
     - name: Setup pnpm
       run: npm install -g pnpm
 
-    - name: Install dependencies
-      run: pnpm install
+    # - name: Install dependencies
+    #   run: pnpm install
 
-    - name: Build frontend
-      run: pnpm build
+    # - name: Build frontend
+    #   run: pnpm build
 
     - name: Build Docker image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/starbucks-frontend:latest .
