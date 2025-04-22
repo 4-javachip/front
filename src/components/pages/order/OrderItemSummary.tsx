@@ -1,8 +1,4 @@
-import {
-  EnrichedOrderItemDataType,
-  OrderItemDataType,
-} from '@/types/OrderDataType';
-import { OrderProductType } from '@/types/ResponseDataTypes';
+import { EnrichedOrderItemDataType } from '@/types/OrderDataType';
 import React from 'react';
 
 interface OrderItemSummaryProps {

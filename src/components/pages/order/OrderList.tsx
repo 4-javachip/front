@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import OrderItemSummary from './OrderItemSummary';
 import ToggleButton from '@/components/ui/buttons/ToggleButton';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
-import { EnrichedOrderItemDataType } from '@/types/OrderDataType';
+import {
+  EnrichedOrderItemDataType,
+  OrderItemPayload,
+} from '@/types/OrderDataType';
 import OrderPriceSummary from './OrderPriceSummary';
 
 import OrderPurchaseBar from './OrderPurchaseBar';
-import { useOrderItemContext } from '@/context/OrderItemContext';
-
-import { usePaymentSuccessContext } from '@/context/PaymentSuccessContext';
 import OrderItem from './OrderItem';
 
 interface Props {
@@ -20,8 +20,6 @@ interface Props {
 
 export default function OrderList({ orderItems, shippingAddressUuid }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const { setPaymentData } = useOrderItemContext();
-  const { setPaymentSuccessData } = usePaymentSuccessContext();
 
   const totalOriginPrice = orderItems.reduce(
     (sum, item) => sum + item.productPrice * item.quantity,
@@ -32,44 +30,35 @@ export default function OrderList({ orderItems, shippingAddressUuid }: Props) {
     (sum, item) => sum + item.productSalePrice * item.quantity,
     0
   );
+  const orderName =
+    orderItems.length > 1
+      ? `${orderItems[0].productName} 외 ${orderItems.length - 1}건`
+      : orderItems[0].productName;
 
-  useEffect(() => {
-    if (!orderItems.length) return;
+  const paymentData = {
+    orderName,
+    totalOriginPrice,
+    totalPurchasePrice,
+    method: '',
+    orderListUuid: '',
+  };
 
-    const name =
-      orderItems.length > 1
-        ? `${orderItems[0].productName} 외 ${orderItems.length - 1}건`
-        : orderItems[0].productName;
+  const paymentOrderItems = orderItems.map((item) => ({
+    productUuid: item.productUuid,
+    productOptionUuid: item.optionUuid,
+    quantity: item.quantity,
+    price: item.productPrice,
+    totalPrice: item.productSalePrice,
+  }));
 
-    setPaymentData({
-      orderName: name,
-      totalOriginPrice,
-      totalPurchasePrice,
-      method: '',
-    });
-    const paymentOrderItems = orderItems.map((item) => ({
-      productUuid: item.productUuid,
-      productOptionUuid: item.optionUuid,
-      quantity: item.quantity,
-      price: item.productPrice,
-      totalPrice: item.productSalePrice,
-    }));
+  const paymentSuccessData: OrderItemPayload = {
+    fromCart: true,
+    orderItems: paymentOrderItems,
+    totalOriginPrice,
+    totalPurchasePrice,
+    shippingAddressUuid,
+  };
 
-    setPaymentSuccessData({
-      fromCart: true,
-      orderItems: paymentOrderItems,
-      totalOriginPrice,
-      totalPurchasePrice,
-      shippingAddressUuid,
-      paymentUuid: '',
-    });
-  }, [orderItems, shippingAddressUuid]);
-  const { paymentSuccessData } = usePaymentSuccessContext();
-
-  useEffect(() => {
-    console.log('🧾 paymentSuccessData:', paymentSuccessData);
-  }, [paymentSuccessData]);
-  console.log('paymentSuccessData', paymentSuccessData);
   return (
     <section>
       <CommonLayout.SectionInnerPadding>
@@ -97,7 +86,10 @@ export default function OrderList({ orderItems, shippingAddressUuid }: Props) {
         totalOriginPrice={totalOriginPrice}
         totalPrice={totalPurchasePrice}
       />
-      <OrderPurchaseBar />
+      <OrderPurchaseBar
+        orderItems={paymentSuccessData}
+        paymentData={paymentData}
+      />
     </section>
   );
 }

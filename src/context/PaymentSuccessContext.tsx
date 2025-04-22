@@ -1,22 +1,19 @@
 'use client';
 
-import { PaymentSuccessPayload } from '@/types/PaymentDataType';
+import { OrderItemPayload } from '@/types/PaymentDataType';
 import { createContext, useContext, useState, ReactNode } from 'react';
 
 type PaymentSuccessContextType = {
-  paymentSuccessData: PaymentSuccessPayload;
-  setPaymentSuccessData: React.Dispatch<
-    React.SetStateAction<PaymentSuccessPayload>
-  >;
+  paymentSuccessData: OrderItemPayload;
+  setPaymentSuccessData: React.Dispatch<React.SetStateAction<OrderItemPayload>>;
 };
 
-const defaultData: PaymentSuccessPayload = {
+const defaultData: OrderItemPayload = {
   fromCart: true,
   orderItems: [],
   totalOriginPrice: 0,
   totalPurchasePrice: 0,
   shippingAddressUuid: '',
-  paymentUuid: '',
 };
 
 const PaymentSuccessContext = createContext<

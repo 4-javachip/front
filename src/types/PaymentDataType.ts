@@ -10,21 +10,6 @@ export interface PaymentReturnType {
   paymentUuid: string;
 }
 
-export interface PaymentSuccessPayload {
-  fromCart: boolean;
-  orderItems: {
-    productUuid: string;
-    productOptionUuid: string;
-    quantity: number;
-    price: number;
-    totalPrice: number;
-  }[];
-  totalOriginPrice: number;
-  totalPurchasePrice: number;
-  shippingAddressUuid: string;
-  paymentUuid: string;
-}
-
 export interface PaymentSuccessReturnType {
   orderListUuid: string;
   paymentStatus: string;

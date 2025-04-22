@@ -1,39 +1,16 @@
 'use server';
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { OrderItemDataType, OrderListDataType } from '@/types/OrderDataType';
 import {
-  PaymentSuccessPayload,
-  PaymentSuccessReturnType,
-} from '@/types/PaymentDataType';
+  OrderItemDataType,
+  OrderItemPayload,
+  OrderListDataType,
+} from '@/types/OrderDataType';
+
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 
-//주문내역 생성
-// export const orderListData = async (orderPayload: RequestOrderDataType[]) => {
-//   const session = await getServerSession(options);
-//   const token = session?.user.accessToken || session?.user.refreshToken;
-//   console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-//   console.log('토큰 ', token);
-//   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/order/list`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${token}`,
-//     },
-//     body: JSON.stringify(orderPayload),
-//   });
-//   if (!res.ok) {
-//     const errorData = await res.json();
-//     throw new Error(errorData.message || '주문내역목록 조회 실패');
-//   }
-//   const data = (await res.json()) as CommonResponseType<OrderListDataType[]>;
-//   return data.result;
-// };
-
-//결제 성공 시 주문내역 생성 api
-export const OrderListData = async (
-  PaymentSuccessData: PaymentSuccessPayload
-) => {
+//결제 요청 시 주문내역 생성 api
+export const OrderListData = async (OrderItemPayload: OrderItemPayload) => {
   const session = await getServerSession(options);
   const token = session?.user.accessToken || session?.user.refreshToken;
   console.log('리프레쉬 토큰 ', session?.user.refreshToken);
@@ -44,16 +21,16 @@ export const OrderListData = async (
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify(PaymentSuccessData),
+    body: JSON.stringify(OrderItemPayload),
   });
   if (!res.ok) {
     const errorData = await res.json();
     throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
-  const data =
-    (await res.json()) as CommonResponseType<PaymentSuccessReturnType>;
-
-  return data.result;
+  const data = await res.json();
+  console.log('주문내역 생성 결과', data.result.orderListUuid);
+  console.log('주문성공내역', data);
+  return data.result.orderListUuid as string;
 };
 
 //주문 상품 조회
