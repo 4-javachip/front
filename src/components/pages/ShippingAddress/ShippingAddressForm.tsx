@@ -9,7 +9,6 @@ import ShippingNote from './ShippingNote';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import { useState, useEffect } from 'react';
 import SubmitButton from '@/components/ui/buttons/SubmitButton';
-import { getUserShippingAddressAgreement } from '@/actions/agreement-service';
 
 interface Props {
   values: ShippingAddressDataType;
@@ -21,8 +20,8 @@ interface Props {
   isEdit?: boolean;
   hideDefaultCheckbox?: boolean;
   hideAgreementCheckbox?: boolean;
-  // userAgreed?: boolean[];
-  isShippingAddressAgreed?: boolean;
+  userAgreed?: boolean[];
+  isShippingAddressAgreed: boolean;
   shippingAddressChecked?: boolean;
 }
 
@@ -66,10 +65,6 @@ export default function ShippingAddressForm({
       setErrorMessages(fieldErrors);
     }
   };
-  // const [agree, setAgree] = useState(false);
-  // const handleAgreeChange = async (checked: boolean) => {
-  //   setValues(checked);
-  // };
   return (
     <form className="mt-[1.25rem] pb-6 " action={action}>
       <section className="space-y-[1.25rem] px-6">
@@ -189,7 +184,10 @@ export default function ShippingAddressForm({
         <SubmitButton
           className="font-semibold"
           type="submit"
-          isEnabled={isFormValid}
+          isEnabled={
+            isFormValid &&
+            (isShippingAddressAgreed || values.usershippingagreed === true)
+          }
         >
           {isEdit ? '수정하기' : '등록하기'}
         </SubmitButton>

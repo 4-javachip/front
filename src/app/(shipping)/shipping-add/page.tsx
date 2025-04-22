@@ -8,14 +8,11 @@ import React from 'react';
 
 export default async function page() {
   const useragreementData = await getUserShippingAddressAgreement();
-  // const agreementData =await getShippingAddressAgreement();
-  const usershippingagreement = useragreementData[0];
-  // const usershippingagree = agreementData[0]?.agreed === true;
-  const agreementId = useragreementData?.[0]?.agreementId;
+  const usershippingagreement = useragreementData?.[0] ?? {
+    agreementId: 2,
+    agreed: false,
+  };
 
-  if (!agreementId) {
-    throw new Error('agreementId가 없습니다. 백엔드 응답 또는 로직 확인 필요!');
-  }
   const handleAddAddress = async (addressForm: FormData) => {
     'use server';
     console.log('서버에서 처리:', addressForm);
@@ -32,13 +29,9 @@ export default async function page() {
           ? addressForm.get('customNote')
           : addressForm.get('shippingNote'),
       defaulted: addressForm.get('defaulted') === 'on' ? true : false,
-      // shippingaddressagreechecked:
-      //   addressForm.get('shippingaddressagreechecked') === 'on' ? true : false,
     } as ShippingAddressDataType;
 
     const agreementPayload = {
-      // agreementId: usershippingagreement.agreementId,
-      // agreed: usershippingagreement?.agreed,
       agreementId: usershippingagreement.agreementId,
       agreed:
         addressForm.get('shippingaddressagreechecked') === 'on' ? true : null,

@@ -29,7 +29,7 @@ export default function AddShippingAddress({
     shippingNote: '',
     defaulted: false,
     shippingaddressagreechecked: userShippingAlreadyAgreed,
-    usershippingAGreed: usershippingagree?.agreed,
+    usershippingAGreed: usershippingagree.agreed,
   }));
 
   const [errorMessages, setErrorMessages] = useState<
@@ -82,7 +82,7 @@ export default function AddShippingAddress({
             action={action}
             isEdit={false}
             hideDefaultCheckbox={hideDefaultCheckbox}
-            isShippingAddressAgreed={usershippingagree?.agreed === true}
+            isShippingAddressAgreed={usershippingagree.agreed === true}
           />
 
           {isModalOpen && (
