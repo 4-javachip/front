@@ -2,8 +2,9 @@ import { PaymentData } from '@/actions/payments-service';
 import { OrderListData } from '@/actions/order-service';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
-import { PaymentPayload } from '@/context/OrderItemContext';
+
 import { OrderItemPayload } from '@/types/OrderDataType';
+import { PaymentPayload } from '@/types/PaymentDataType';
 
 export default function OrderPurchaseBar({
   orderItems,
