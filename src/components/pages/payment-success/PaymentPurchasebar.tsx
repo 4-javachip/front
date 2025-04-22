@@ -1,15 +1,14 @@
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import CommonButton from '@/components/ui/buttons/CommonButton';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 export default function PaymentPurchaseBar() {
-  const route = useRouter();
   const handleClick = async () => {
-    route.push('/order-list');
+    redirect('/order-list');
   };
 
   const handleClickMain = async () => {
-    route.push('/');
+    redirect('/');
   };
 
   return (

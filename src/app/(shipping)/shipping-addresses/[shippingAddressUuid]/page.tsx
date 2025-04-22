@@ -6,7 +6,6 @@ import {
 import UpdateShippingAddress from '@/components/pages/ShippingAddress/UpdateShippingAddress';
 import TextTitleH1 from '@/components/ui/texts/TextTitleH1';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
-import { init } from 'next/dist/compiled/webpack/webpack';
 import { redirect } from 'next/navigation';
 
 export default async function Page({

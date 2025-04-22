@@ -4,6 +4,7 @@ import {
   OrderItemDataType,
   OrderItemPayload,
   OrderListDataType,
+  RecentOrderItemDataType,
 } from '@/types/OrderDataType';
 
 import { CommonResponseType } from '@/types/ResponseDataTypes';
@@ -13,8 +14,6 @@ import { getServerSession } from 'next-auth';
 export const OrderListData = async (OrderItemPayload: OrderItemPayload) => {
   const session = await getServerSession(options);
   const token = session?.user.accessToken || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/order`, {
     method: 'POST',
     headers: {
@@ -37,8 +36,6 @@ export const OrderListData = async (OrderItemPayload: OrderItemPayload) => {
 export const getOrderItem = async () => {
   const session = await getServerSession(options);
   const token = session?.user.accessToken || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/order/items`, {
     method: 'GET',
     headers: {
@@ -59,8 +56,6 @@ export const getOrderItem = async () => {
 export const getOrderList = async (): Promise<OrderListDataType[]> => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/order/list`, {
     method: 'GET',
     headers: {
@@ -83,8 +78,6 @@ export const getOrderList = async (): Promise<OrderListDataType[]> => {
 export const getOrderDetailList = async (orderListUuid: string) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
-  console.log('토큰 ', token);
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/order/detail/list/${orderListUuid}`,
     {
@@ -102,5 +95,24 @@ export const getOrderDetailList = async (orderListUuid: string) => {
   }
 
   const data = (await res.json()) as CommonResponseType<OrderListDataType[]>;
+  return data.result;
+};
+
+export const getRecentOrderList = async () => {
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken || session?.user.refreshToken;
+  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/order/recent`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || '주문내역목록 조회 실패');
+  }
+  const data =
+    (await res.json()) as CommonResponseType<RecentOrderItemDataType>;
   return data.result;
 };
