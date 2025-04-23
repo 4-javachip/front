@@ -27,7 +27,6 @@ export default function OrderItem({ orderItems, size }: OrderItemProps) {
             />
 
             <div className="flex items-center gap-2 text-sm font-xs font-sd-gothic text-lightGray-1">
-              주문 수량
               {orderItems.quantity}개
             </div>
             <ul className="flex items-center justify-start gap-2 font-pretendard text-xs">
