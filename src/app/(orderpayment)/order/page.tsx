@@ -39,7 +39,10 @@ export default async function Page({
         optionColorId: option.colorOptionId,
         optionDiscount: option.discountRate,
         isChecked: item.checked,
-        orderName: `${product.name} 외 ${item.productQuantity - 1}개`,
+        orderName:
+          item.productQuantity === 1
+            ? product.name
+            : `${product.name} 외 ${item.productQuantity - 1}개`,
         totalPurchasePrice: option.totalPrice * item.productQuantity,
         totalOriginPrice: option.price * item.productQuantity,
       };
