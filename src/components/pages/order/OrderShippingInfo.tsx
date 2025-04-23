@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import OrderAddressEmptySection from './OrderAddressEmptySection';
 import { ShippingAddressDataType } from '@/types/RequestDataTypes';
+import { CommonLayout } from '@/components/layouts/CommonLayout';
 
 export default async function OrderShippingInfo({
   defaultAddress,
@@ -41,7 +42,7 @@ export default async function OrderShippingInfo({
             </ul>
           </address>
 
-          {/* <CommonLayout.CommonBorder /> */}
+          <CommonLayout.CommonBorder />
         </main>
       ) : (
         <OrderAddressEmptySection />
