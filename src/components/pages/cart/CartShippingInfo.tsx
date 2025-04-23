@@ -1,7 +1,5 @@
 'use client';
-
-import Link from 'next/link';
-import AddressEmptySection from '../ShippingAddress/AddressEmptySection';
+import AddressEmptySection from './AddressEmptySection';
 import { DefaultShippingAddressType } from '@/types/ShippingAddressDataType';
 import DefaultIcon from '@/components/ui/icons/DefaultIcon';
 
@@ -39,13 +37,6 @@ export default function CartShippingInfo({
               </li>
             </ul>
           </address>
-
-          {/* <Link
-            href="/cart-address-select"
-            className="text-brown font-medium text-sm whitespace-nowrap"
-          >
-            배송지 변경
-          </Link> */}
         </section>
       ) : (
         <AddressEmptySection />

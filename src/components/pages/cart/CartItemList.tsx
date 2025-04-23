@@ -30,17 +30,14 @@ export default async function CartItemList({
       };
     })
   );
-  console.log('cartoption', cartoption);
-  console.log('장바구니 아이템', cartItemList);
   return (
     <ul>
       {cartItemList.map((item) => (
-        // <Suspense
-        //   key={item.productUuid}
-        //   fallback={<ItemThumbSkeleton size={140} />}
-        // >
-        <CartItem key={item.productUuid} data={item} size={140} />
-        // </Suspense>
+        <CartItem
+          key={`${item.productUuid}-${item.productOptionUuid}`}
+          data={item}
+          size={140}
+        />
       ))}
       <CartPriceSummary cartItemPriceList={cartoption} />
       <CartPurchaseBar

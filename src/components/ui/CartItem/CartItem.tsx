@@ -81,7 +81,7 @@ export default function CartItem({
 
     getCartItemData();
   }, [data]);
-  console.log('cartItem', cartItem);
+
   return (
     <CommonLayout.SectionInnerPadding>
       <article className="grid grid-cols-12 items-start gap-2 py-6 border-b border-lightGray-8">

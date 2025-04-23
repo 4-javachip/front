@@ -29,7 +29,7 @@ export const getCartItemData = async (): Promise<CartItemType[]> => {
   }
 
   const data = (await res.json()) as CommonResponseType<CartItemType[]>;
-  console.log('장바구니', data);
+
   return data.result;
 };
 
