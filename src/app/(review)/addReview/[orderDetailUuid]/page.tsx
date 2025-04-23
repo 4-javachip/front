@@ -1,6 +1,6 @@
+import { getOrderDetailDataBtOrderDetailUuid } from '@/actions/order-service';
 import NotFoundLayout from '@/components/layouts/NotFoundLayout';
 import AddReviewForm from '@/components/pages/orderlist/AddReview/AddReviewForm';
-import { OrderListDetailDataType } from '@/types/OrderDataType';
 
 export default async function page({
   params,
@@ -16,25 +16,23 @@ export default async function page({
   );
 
   const orderDetailUuid = (await params).orderDetailUuid;
-  if (!orderDetailUuid) return fallback;
+  const orderDetailData = await getOrderDetailDataBtOrderDetailUuid(
+    orderDetailUuid
+  );
+  if (!orderDetailData.success) return fallback;
 
-  const dummyOrderDetailData: OrderListDetailDataType = {
-    orderListUuid: 'orderlist-1234',
-    orderDetailUuid: 'orderdetail-5678',
-    productUuid: 'product-9999',
-    name: '기본 반팔 티셔츠',
-    thumbnail: 'https://dummyimage.com/500',
-    price: 30000,
-    discountRate: 10,
-    totalPrice: 27000,
-    quantity: 2,
-    sizeName: 'L',
-    colorName: '블랙',
+  const handleSubmit = async (AddReviewFormData: FormData) => {
+    'use server';
+
+    console.log(AddReviewFormData);
   };
 
   return (
     <>
-      <AddReviewForm orderDetailData={dummyOrderDetailData} />
+      <AddReviewForm
+        orderDetailData={orderDetailData.data}
+        handleSubmit={handleSubmit}
+      />
     </>
   );
 }

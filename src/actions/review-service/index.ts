@@ -1,5 +1,6 @@
 'use server';
 
+import { options } from '@/app/api/auth/[...nextauth]/options';
 import {
   PaginatedReviewResponseType,
   ProductReviewImageType,
@@ -8,6 +9,7 @@ import {
 } from '@/types/ProductResponseDataTypes';
 import { getReviewDataType } from '@/types/RequestDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
+import { getServerSession } from 'next-auth';
 
 export async function getReviewDatasByProductUuid(params: getReviewDataType) {
   try {
@@ -106,6 +108,46 @@ export async function getReviewSummaryDataByProductUuid(productUuid: string) {
     return {
       success: true,
       data: data.result,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: undefined,
+    };
+  }
+}
+
+export async function checkIfReviewedByOrderDetailUuid(
+  OrderDetailUuid: string
+) {
+  try {
+    const session = await getServerSession(options);
+    if (!session)
+      return {
+        success: false,
+        data: undefined,
+      };
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/order/exist/${OrderDetailUuid}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (!response.ok) {
+      const errorData = await response.json();
+      return {
+        success: false,
+        data: errorData.message,
+      };
+    }
+
+    const data = await response.json();
+    return {
+      success: true,
+      data: data.result as boolean,
     };
   } catch (error) {
     return {
