@@ -52,6 +52,7 @@ export const getProductItem = async (
   }
   const data = (await res.json()) as CommonResponseType<CartProductItemType>;
   console.log('productItem', data);
+  revalidateTag('getCartData');
   return data.result;
 };
 
