@@ -13,7 +13,7 @@ export default function SignUpPasswordInput({
   inputValues,
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  errorMessages?: Partial<SignUpStoreStateType>;
+  errorMessages?: Partial<SignUpStoreStateType | ResetPasswordStateType>;
   inputValues?: SignUpStoreStateType | ResetPasswordStateType;
 }) {
   return (

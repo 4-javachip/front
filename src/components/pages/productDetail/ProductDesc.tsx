@@ -30,7 +30,8 @@ export default function ProductDesc({
         .btn_a11y,
         .tmpl_guide_notice,
         .warning_txt,
-        .warning_copyright {
+        .warning_copyright,
+        #player {
           display: none;
         }
         .inner-html img {
