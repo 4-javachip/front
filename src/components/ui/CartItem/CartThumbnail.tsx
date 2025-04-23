@@ -53,7 +53,7 @@ export default function CartThumbnail({
         </Link>
       ) : (
         <div className="w-full flex items-center justify-center">
-          <ItemThumbSkeleton size={80} />
+          <ItemThumbSkeleton size={size} />
         </div>
       )}
     </>

@@ -73,7 +73,7 @@ export default function OrderList({ orderItems, shippingAddressUuid }: Props) {
 
         <div className="transition-all duration-300 ease-in-out overflow-hidden">
           {orderItems.slice(0, isOpen ? orderItems.length : 1).map((item) => (
-            <OrderItem key={item.optionUuid} orderItems={item} size={80} />
+            <OrderItem key={item.optionUuid} orderItems={item} size={140} />
           ))}
         </div>
       </CommonLayout.SectionInnerPadding>

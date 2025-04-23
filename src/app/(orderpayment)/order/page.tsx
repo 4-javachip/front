@@ -1,7 +1,9 @@
 import { getOrderItem } from '@/actions/order-service';
 import {
+  getColorNameDataByColorId,
   getProductNameDataByProductUuid,
   getProductOptionDataByProductOptionUuid,
+  getSizeNameDataBySizeId,
 } from '@/actions/product-service';
 import {
   getShippingAddressDatabyUuid,
@@ -27,6 +29,15 @@ export default async function Page({
         getProductOptionDataByProductOptionUuid(item.productOptionUuid),
       ]);
 
+      const [colorNameData, sizeNameData] = await Promise.all([
+        option.colorOptionId
+          ? getColorNameDataByColorId(option.colorOptionId)
+          : null,
+        option.sizeOptionId
+          ? getSizeNameDataBySizeId(option.sizeOptionId)
+          : null,
+      ]);
+
       return {
         productUuid: item.productUuid,
         productName: product.name,
@@ -35,8 +46,10 @@ export default async function Page({
         cartUuid: item.cartUuid,
         quantity: item.productQuantity,
         optionUuid: item.productOptionUuid,
-        optionSizeId: option.sizeOptionId,
-        optionColorId: option.colorOptionId,
+        optionSizeId: option.sizeOptionId ?? 0,
+        optionColorId: option.colorOptionId ?? 0,
+        optionSizeName: sizeNameData?.name ?? '',
+        optionColorName: colorNameData?.name ?? '',
         optionDiscount: option.discountRate,
         isChecked: item.checked,
         orderName:
