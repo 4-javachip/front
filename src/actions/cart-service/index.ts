@@ -196,10 +196,13 @@ export async function AddCartItemAction(AddCartItemData: AddCartItemDataType) {
       const errorData = await response.json();
       console.error('add cart failed:', errorData);
       // throw new Error(errorData.message);
+
       return { success: errorData.success, message: errorData.message };
     }
 
     const data = await response.json();
+    revalidateTag('getCartData');
+
     return { success: data.success, message: '장바구니에 상품이 담겼습니다.' };
   } catch (error) {
     return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
