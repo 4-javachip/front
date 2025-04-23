@@ -26,6 +26,7 @@ export async function getAllCategories(): Promise<CategoryMenuType[]> {
   }
 
   const data: CategoryListResponse = await res.json();
+
   return data.result;
 }
 

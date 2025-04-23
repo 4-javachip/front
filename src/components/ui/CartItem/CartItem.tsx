@@ -91,7 +91,7 @@ export default function CartItem({
           className="col-span-1"
         />
         <div className="shrink-0 col-span-4">
-          <Suspense fallback={<ItemThumbSkeleton size={size} />}>
+          <Suspense fallback={<ItemThumbSkeleton size={140} />}>
             <CartThumbnail
               productUuid={cartItem && cartItem.productUuid}
               size={140}
