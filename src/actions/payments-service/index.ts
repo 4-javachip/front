@@ -8,6 +8,7 @@ import {
 } from '@/types/PaymentDataType';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
+import { revalidateTag } from 'next/cache';
 
 export const PaymentData = async (PaymentData: PaymentPayload) => {
   console.log('결제 요청 payload:', PaymentData);
@@ -74,5 +75,6 @@ export const getRecentOrderList = async () => {
     throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
   const data = (await res.json()) as CommonResponseType<PaymentReturnType>;
+  revalidateTag('getCartData');
   return data.result;
 };
