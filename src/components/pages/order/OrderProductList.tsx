@@ -30,10 +30,7 @@ export default function OrderList({ orderItems, shippingAddressUuid }: Props) {
     (sum, item) => sum + item.productSalePrice * item.quantity,
     0
   );
-  const orderName =
-    orderItems.length > 1
-      ? `${orderItems[0].productName} 외 ${orderItems.length - 1}건`
-      : orderItems[0].productName;
+  const orderName = orderItems[0]?.orderName || '주문상품';
 
   const paymentData = {
     orderName,
