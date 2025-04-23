@@ -1,9 +1,7 @@
 import CommonButton from '@/components/ui/buttons/CommonButton';
-import CartIcon from '@/components/ui/icons/CartIcon';
 import { cn } from '@/lib/utils';
 
 export default function PurchaseBarBottomContent({
-  onClickPurchase,
   totalAmount,
   className,
   handleAddUserCart,
@@ -23,16 +21,12 @@ export default function PurchaseBarBottomContent({
       </div>
 
       <div className="flex flex-row gap-2 items-center w-full">
-        <button onClick={handleAddUserCart} className="cursor-pointer">
-          <CartIcon />
-        </button>
-
         <CommonButton
           className="font-semibold"
           isEnabled={true}
-          onClick={onClickPurchase}
+          onClick={handleAddUserCart}
         >
-          구매하기
+          장바구니에 담기
         </CommonButton>
       </div>
     </div>

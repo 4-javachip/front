@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import AddressAgreementIcon from '@/components/ui/icons/AddressAgreement';
-import CouponIcon from '@/components/ui/icons/CouponIcon';
 import OrderListIcon from '@/components/ui/icons/OrderListIcon';
 import ReviewIcon from '@/components/ui/icons/ReviewIcon';
 import ShippingAddressIcon from '@/components/ui/icons/ShippingAddressIcon';
@@ -15,13 +14,8 @@ export default function MyPageMenu() {
 
       <ul className="px-6">
         <li className="font-medium text-foreground flex gap-2 pb-7">
-          <Link href="/mypage/orders" className="flex gap-2 items-center">
+          <Link href="/order-list" className="flex gap-2 items-center">
             <OrderListIcon /> 주문 내역
-          </Link>
-        </li>
-        <li className="font-medium text-foreground flex gap-2 pb-7">
-          <Link href="/mypage/coupons" className="flex gap-2 items-center">
-            <CouponIcon /> 쿠폰
           </Link>
         </li>
         <li className="font-medium text-foreground flex gap-2 pb-7">

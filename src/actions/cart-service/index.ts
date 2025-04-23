@@ -11,6 +11,7 @@ import { revalidateTag } from 'next/cache';
 
 export const getCartItemData = async (): Promise<CartItemType[]> => {
   const session = await getServerSession(options);
+  if (!session) return [];
 
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
 
@@ -198,7 +199,7 @@ export async function AddCartItemAction(AddCartItemData: AddCartItemDataType) {
     }
 
     const data = await response.json();
-    return { success: data.success, message: data.message };
+    return { success: data.success, message: '장바구니에 상품이 담겼습니다.' };
   } catch (error) {
     return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
   }

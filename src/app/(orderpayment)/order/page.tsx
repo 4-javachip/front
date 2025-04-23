@@ -7,7 +7,7 @@ import {
   getShippingAddressDatabyUuid,
   getShippingAddressList,
 } from '@/actions/shipping-address-service';
-import OrderList from '@/components/pages/order/OrderList';
+import OrderList from '@/components/pages/order/OrderProductList';
 import OrderNotice from '@/components/pages/order/OrderNotice';
 import OrderShippingInfo from '@/components/pages/order/OrderShippingInfo';
 
