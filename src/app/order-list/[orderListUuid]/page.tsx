@@ -1,7 +1,5 @@
 import { getOrderDetailList, getOrderList } from '@/actions/order-service';
 import OrderDetailList from '@/components/pages/orderlist/OrderDetailList';
-import OrderDetailTop from '@/components/pages/orderlist/OrderDetailTop';
-import React from 'react';
 
 export default async function page({
   params,

@@ -17,7 +17,7 @@ export default function OrderDetailList({
   orderListData: OrderListDataType;
 }) {
   return (
-    <main>
+    <main className="py-[1.25rem]">
       <ul>
         <h1 className="text-xl font-bold mb-4 font-body space-y-2 px-6">
           주문 상세 내역
