@@ -105,8 +105,10 @@ export default function PurchaseBottomSheet({
         return await AddCartItemAction(cartItem);
       })
     );
+
     const hasError = results.find((res) => !res.success);
     if (hasError) {
+      console.log('error: ', hasError.message);
       handleError(hasError.message);
     } else {
       handleError('장바구니에 상품이 담겼습니다.');

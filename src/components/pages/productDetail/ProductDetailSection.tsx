@@ -1,15 +1,11 @@
 import {
-  ProductDescriptionType,
   ProductNameDataType,
   ProductOptionType,
   ProductThumbnailDataType,
 } from '@/types/ProductResponseDataTypes';
-import PolicySection from './PolicySection';
-import ProductDesc from './ProductDesc';
 import ProductImg from './ProductImg';
 import ProductInfo from './ProductInfo';
 import {
-  getDescriptionDataByProductUuid,
   getOptionDatasByProductUuid,
   getThumbnailDatasByProductUuid,
 } from '@/actions/product-service';

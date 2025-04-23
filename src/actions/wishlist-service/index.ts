@@ -58,6 +58,8 @@ export const getWishlistChecked = async (
   productUuid: string
 ): Promise<boolean> => {
   const session = await getServerSession(options);
+  if (!session) return false;
+
   const token = session?.user.accessToken || session?.user.refreshToken;
 
   const res = await fetch(
@@ -79,6 +81,7 @@ export const getWishlistChecked = async (
   const result = await res.json();
   return result.result.checked;
 };
+
 export const getWishProducts = async (): Promise<{ productUuid: string }[]> => {
   const session = await getServerSession(options);
 
