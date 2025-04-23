@@ -1,7 +1,5 @@
 import { EnrichedOrderItemDataType } from '@/types/OrderDataType';
-import { Suspense } from 'react';
 import { CommonLayout } from '@/components/layouts/CommonLayout';
-import { ItemThumbSkeleton } from '@/components/ui/skeletons/ProductItemSkeleton';
 import CartPrice from '@/components/ui/CartItem/CartPrice';
 import ItemName from '@/components/ui/CartItem/ItemName';
 import CartThumbnail from '@/components/ui/CartItem/CartThumbnail';
