@@ -2,9 +2,10 @@
 
 import { z } from 'zod';
 import AuthHeading from './AuthHeading';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ResetPasswordStateType } from '@/types/storeDataTypes';
 import SignUpPasswordInput from './signUp/SignUpPasswordInput';
+import { confirmPasswordSchema } from '@/schemas/confirmPasswordSchema';
 
 export default function RecoverPasswordInput({
   inputValues,
@@ -15,27 +16,49 @@ export default function RecoverPasswordInput({
   setInputValues: React.Dispatch<React.SetStateAction<ResetPasswordStateType>>;
   setIsEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const passwordSchema = z
-    .string()
-    .min(10)
-    .regex(/^(?=.*[A-Za-z])(?=.*\d)/)
-    .regex(/[!@#$%^&*]/);
+  const [passwordErrorMessages, setPasswordErrorMessages] = useState<
+    Partial<ResetPasswordStateType>
+  >({});
 
   useEffect(() => {
-    const isPasswordValid = passwordSchema.safeParse(
-      inputValues.password
-    ).success;
+    // const isPasswordValid = confirmPasswordSchema.safeParse(
+    //   inputValues.password
+    // ).success;
+    // const isAllFieldsValid =
+    //   isPasswordValid && inputValues.password === inputValues.confirmPassword;
+
     const isAllFieldsValid =
-      isPasswordValid && inputValues.password === inputValues.confirmPassword;
+      !!inputValues.password &&
+      !!inputValues.confirmPassword &&
+      !passwordErrorMessages.password &&
+      !passwordErrorMessages.confirmPassword;
 
     setIsEnabled(isAllFieldsValid);
-  }, [inputValues, setIsEnabled]);
+  }, [
+    inputValues,
+    passwordErrorMessages.confirmPassword,
+    passwordErrorMessages.password,
+    setIsEnabled,
+  ]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setInputValues((prev) => {
       const updatedValues = { ...prev, [name]: value };
+      const res = confirmPasswordSchema.safeParse(updatedValues);
+
+      if (!res.success) {
+        const fieldErrors: Partial<ResetPasswordStateType> = {};
+        res.error.errors.forEach((error) => {
+          const fieldName = error.path[0] as keyof ResetPasswordStateType;
+          fieldErrors[fieldName] = error.message;
+        });
+        setPasswordErrorMessages(fieldErrors);
+      } else {
+        setPasswordErrorMessages({});
+      }
+
       return updatedValues;
     });
   };
@@ -56,6 +79,7 @@ export default function RecoverPasswordInput({
         <SignUpPasswordInput
           onChange={handleChange}
           inputValues={inputValues}
+          errorMessages={passwordErrorMessages}
         />
       </ul>
     </form>
