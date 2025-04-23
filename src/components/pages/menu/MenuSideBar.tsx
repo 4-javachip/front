@@ -1,16 +1,28 @@
+'use client';
 import MenuTop from './MenuTop';
 import MenuBannerList from './MenuBannerList';
 import MenuCategoryList from './MenuCategoryList';
 import { CategoryMenuType } from '@/types/ResponseDataTypes';
 import { cn } from '@/lib/utils';
 import { useModalContext } from '@/context/SideBarContext';
+import { useEffect, useState } from 'react';
+import { getAllCategories } from '@/actions/category-service';
 
-interface Props {
-  categories: CategoryMenuType[];
-}
+// interface Props {
+//   categories: CategoryMenuType[];
+// }
 
-export default function MenuSideBar({ categories }: Props) {
+export default function MenuSideBar() {
   const { isOpen } = useModalContext();
+  const [categories, setCategories] = useState<CategoryMenuType[]>([]);
+
+  useEffect(() => {
+    if (isOpen && categories.length === 0) {
+      getAllCategories().then(setCategories).catch(console.error);
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
 
   return (
     <aside
@@ -22,7 +34,6 @@ export default function MenuSideBar({ categories }: Props) {
       )}
     >
       <div className="w-full h-full  max-w-[var(--base-w)] mx-auto pb-3 overflow-y-auto">
-
         <MenuTop />
         <MenuCategoryList categories={categories} />
         <MenuBannerList />

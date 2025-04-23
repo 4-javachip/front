@@ -1,12 +1,16 @@
+'use client';
+import { getAllCategories } from '@/actions/category-service';
 import MenuIcon from '@/components/ui/icons/MenuIcon';
+import { useModalContext } from '@/context/SideBarContext';
 
-interface Props {
-  onClick: () => void;
-}
+// interface Props {
+//   onClick: () => void;
+// }
 
-export default function MenuButton({ onClick }: Props) {
+export default function MenuButton() {
+  const { setIsOpen } = useModalContext();
   return (
-    <button onClick={onClick} className="cursor-pointer">
+    <button onClick={() => setIsOpen(true)} className="cursor-pointer">
       <MenuIcon />
     </button>
   );
