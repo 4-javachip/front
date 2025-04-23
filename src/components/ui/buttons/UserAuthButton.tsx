@@ -1,3 +1,4 @@
+'use client';
 import LogOutButton from '@/components/pages/mypage/LogOutButton';
 import { useSpharosSession } from '@/context/SessionContext';
 import Link from 'next/link';
