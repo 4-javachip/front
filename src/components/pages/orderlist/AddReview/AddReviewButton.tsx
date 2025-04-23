@@ -1,23 +1,22 @@
 'use client';
 
 import CommonButton from '@/components/ui/buttons/CommonButton';
-import { useState } from 'react';
-import AddReviewModal from './AddReviewModal';
 
-export default function AddReviewButton() {
-  const [isAddReviewModalOpen, setIsAddReviewModalOpen] = useState(false);
+import { useRouter } from 'next/navigation';
+
+export default function AddReviewButton({
+  orderDetailUuid,
+}: {
+  orderDetailUuid: string;
+}) {
+  const router = useRouter();
   return (
-    <>
-      <CommonButton
-        isEnabled={true}
-        className="bg-background text-gray-1 border border-lightGray-8 py-2"
-        onClick={() => setIsAddReviewModalOpen((prev) => !prev)}
-      >
-        리뷰 작성
-      </CommonButton>
-      {isAddReviewModalOpen && (
-        <AddReviewModal setIsAddReviewModalOpen={setIsAddReviewModalOpen} />
-      )}
-    </>
+    <CommonButton
+      isEnabled={true}
+      className="bg-background text-gray-1 border border-lightGray-8 py-2"
+      onClick={() => router.push(`/addReview/${orderDetailUuid}`)}
+    >
+      리뷰 작성
+    </CommonButton>
   );
 }

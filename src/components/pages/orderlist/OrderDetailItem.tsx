@@ -1,19 +1,13 @@
-'use client';
-
 import { CommonResposiveNextImage } from '@/components/ui/CommonResponsiveNextImage';
 import { OrderListDetailDataType } from '@/types/OrderDataType';
 import Link from 'next/link';
-import { useState } from 'react';
-import CommonButton from '@/components/ui/buttons/CommonButton';
-import AddReviewModal from './AddReview/AddReviewModal';
+import AddReviewButton from './AddReview/AddReviewButton';
 
 export default function OrderDetailItem({
   item,
 }: {
   item: OrderListDetailDataType;
 }) {
-  const [isAddReviewModalOpen, setIsAddReviewModalOpen] = useState(false);
-
   return (
     <>
       <div className="border p-4 rounded-lg flex gap-3 flex-col">
@@ -37,20 +31,8 @@ export default function OrderDetailItem({
             </p>
           </div>
         </div>
-        <CommonButton
-          isEnabled={true}
-          className="bg-background text-gray-1 border border-lightGray-8 py-2"
-          onClick={() => setIsAddReviewModalOpen((prev) => !prev)}
-        >
-          리뷰 작성
-        </CommonButton>
+        <AddReviewButton orderDetailUuid={item.orderDetailUuid} />
       </div>
-      {isAddReviewModalOpen && (
-        <AddReviewModal
-          setIsAddReviewModalOpen={setIsAddReviewModalOpen}
-          orderDetailData={item}
-        />
-      )}
     </>
   );
 }
