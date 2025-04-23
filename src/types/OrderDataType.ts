@@ -49,6 +49,8 @@ export interface EnrichedOrderItemDataType {
   optionUuid: string;
   optionSizeId: number;
   optionColorId: number;
+  optionSizeName: string;
+  optionColorName: string;
   optionDiscount: number;
   orderName: string;
   isChecked: boolean;

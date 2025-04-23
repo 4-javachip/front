@@ -35,12 +35,12 @@ export default async function CartItemList({
   return (
     <ul>
       {cartItemList.map((item) => (
-        <Suspense
-          key={item.productUuid}
-          fallback={<ItemThumbSkeleton size={800} />}
-        >
-          <CartItem data={item} size={80} />
-        </Suspense>
+        // <Suspense
+        //   key={item.productUuid}
+        //   fallback={<ItemThumbSkeleton size={140} />}
+        // >
+        <CartItem key={item.productUuid} data={item} size={140} />
+        // </Suspense>
       ))}
       <CartPriceSummary cartItemPriceList={cartoption} />
       <CartPurchaseBar
