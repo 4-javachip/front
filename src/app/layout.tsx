@@ -4,7 +4,7 @@ import './globals.css';
 import { getServerSession } from 'next-auth';
 import { options } from './api/auth/[...nextauth]/options';
 import AuthContextProvider from '@/provider/AuthContextProvider';
-import { OrderItemContextProvider } from '@/context/OrderItemContext';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
