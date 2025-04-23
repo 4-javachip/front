@@ -249,3 +249,37 @@ export async function getProductOptionDataByProductOptionUuid(
 
   return data.result;
 }
+
+export async function getColorNameDataByColorId(id: number) {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/option/color/${id}`,
+    {
+      method: 'GET',
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error('Product Option Data Fetching failed:', errorData);
+    throw new Error(errorData.message);
+  }
+  const data = await res.json();
+
+  return data.result;
+}
+
+export async function getSizeNameDataBySizeId(id: number) {
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/api/v1/option/size/${id}`,
+    {
+      method: 'GET',
+    }
+  );
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error('Product Option Data Fetching failed:', errorData);
+    throw new Error(errorData.message);
+  }
+  const data = await res.json();
+
+  return data.result;
+}

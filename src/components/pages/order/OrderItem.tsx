@@ -13,15 +13,15 @@ interface OrderItemProps {
 
 export default function OrderItem({ orderItems, size }: OrderItemProps) {
   return (
-    <CommonLayout.SectionInnerPadding>
+    <CommonLayout.SectionNoPadding>
       <article className="grid grid-cols-12 items-start gap-2 pt-4">
-        <div className="shrink-0 col-span-2">
-          <Suspense fallback={<ItemThumbSkeleton size={size} />}>
-            <CartThumbnail productUuid={orderItems.productUuid} size={size} />
-          </Suspense>
+        <div className="col-span-5">
+          {/* <Suspense fallback={<ItemThumbSkeleton size={size} />}> */}
+          <CartThumbnail productUuid={orderItems.productUuid} size={size} />
+          {/* </Suspense> */}
         </div>
 
-        <div className="col-span-9">
+        <div className="col-span-7 space-y-2">
           <div className="text-sm font-pretendard font-medium text-foreground space-y-4">
             <ItemName
               id={orderItems.productUuid}
@@ -32,7 +32,16 @@ export default function OrderItem({ orderItems, size }: OrderItemProps) {
               주문 수량
               {orderItems.quantity}개
             </div>
-
+            <ul className="flex items-center justify-start gap-2 font-pretendard text-xs">
+              {orderItems.optionColorName && (
+                <li> {orderItems.optionColorName}</li>
+              )}
+              {orderItems.optionSizeName && (
+                <li className="border-l pl-2 leading-3">
+                  {orderItems.optionSizeName}
+                </li>
+              )}
+            </ul>
             <CartPrice
               price={orderItems.productPrice}
               salePrice={orderItems.productSalePrice}
@@ -42,6 +51,6 @@ export default function OrderItem({ orderItems, size }: OrderItemProps) {
           </div>
         </div>
       </article>
-    </CommonLayout.SectionInnerPadding>
+    </CommonLayout.SectionNoPadding>
   );
 }
