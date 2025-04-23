@@ -4,6 +4,7 @@ import {
   OrderItemDataType,
   OrderItemPayload,
   OrderListDataType,
+  OrderListDetailDataType,
   RecentOrderItemDataType,
 } from '@/types/OrderDataType';
 
@@ -94,7 +95,9 @@ export const getOrderDetailList = async (orderListUuid: string) => {
     throw new Error(errorData.message || '주문내역상세 조회 실패');
   }
 
-  const data = (await res.json()) as CommonResponseType<OrderListDataType[]>;
+  const data = (await res.json()) as CommonResponseType<
+    OrderListDetailDataType[]
+  >;
   return data.result;
 };
 

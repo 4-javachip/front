@@ -1,11 +1,20 @@
 export interface OrderListDataType {
   orderListUuid: string;
   orderCode: string;
-  shippingAddressUuid: string;
   createdAt: string;
   totalOriginPrice: number;
   totalPurchasePrice: number;
-  discoutnRate: number;
+  discountRate: number;
+  addressName: string;
+  recipientName: string;
+  zipCode: string;
+  baseAddress: string;
+  detailAddress: string;
+  phoneNumber: string;
+  secondPhoneNumber: string;
+  shippingNote: string;
+  orderName: string;
+  method: string;
 }
 
 export interface OrderItemDataType {
@@ -19,12 +28,15 @@ export interface OrderItemDataType {
 export interface OrderListDetailDataType {
   orderListUuid: string;
   orderDetailUuid: string;
+  productUuid: string;
   name: string;
   thumbnail: string;
-  totalORiginPrice: number;
+  price: number;
   discountRate: number;
-  totalPurchasePrice: number;
+  totalPrice: number;
   quantity: number;
+  sizeName?: string;
+  colorName?: string;
 }
 
 export interface EnrichedOrderItemDataType {
@@ -78,3 +90,7 @@ export interface RecentOrderItemDataType {
   shippingNote?: string;
   secondPhoneNumber?: string;
 }
+
+// export interface OrderListDataType {
+
+// }
