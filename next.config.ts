@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       'sui.ssgcdn.com',
       'simg.ssgcdn.com',
       'succ.ssgcdn.com',
+      'sbr-review-s3.s3.ap-northeast-2.amazonaws.com',
     ],
   },
   // compiler: {

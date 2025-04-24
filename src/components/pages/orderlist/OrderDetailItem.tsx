@@ -2,12 +2,17 @@ import { CommonResposiveNextImage } from '@/components/ui/CommonResponsiveNextIm
 import { OrderListDetailDataType } from '@/types/OrderDataType';
 import Link from 'next/link';
 import AddReviewButton from './AddReview/AddReviewButton';
+import { checkIfReviewedByOrderDetailUuid } from '@/actions/review-service';
 
-export default function OrderDetailItem({
+export default async function OrderDetailItem({
   item,
 }: {
   item: OrderListDetailDataType;
 }) {
+  const isReviewdCheck = await checkIfReviewedByOrderDetailUuid(
+    item.orderDetailUuid
+  );
+
   return (
     <>
       <div className="border p-4 rounded-lg flex gap-3 flex-col">
@@ -31,7 +36,9 @@ export default function OrderDetailItem({
             </p>
           </div>
         </div>
-        <AddReviewButton orderDetailUuid={item.orderDetailUuid} />
+        {!isReviewdCheck && (
+          <AddReviewButton orderDetailUuid={item.orderDetailUuid} />
+        )}
       </div>
     </>
   );
