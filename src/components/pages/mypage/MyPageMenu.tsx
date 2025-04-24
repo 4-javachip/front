@@ -19,7 +19,7 @@ export default function MyPageMenu() {
           </Link>
         </li>
         <li className="font-medium text-foreground flex gap-2 pb-7">
-          <Link href="/shipping-addresses" className="flex gap-2 items-center">
+          <Link href="shippingaddresses" className="flex gap-2 items-center">
             <ShippingAddressIcon /> 배송지 관리
           </Link>
         </li>
@@ -39,7 +39,7 @@ export default function MyPageMenu() {
         <li className=" font-semibold pt-3 pb-5.5">설정</li>
         <li className="font-medium text-foreground flex gap-2 pb-8">
           <Link
-            href="/shippingaddress-agreement"
+            href="/shippingaddressagreement"
             className="flex gap-2 items-center"
           >
             <AddressAgreementIcon /> 배송지 정보 수집 및 이용 동의

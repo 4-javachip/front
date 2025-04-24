@@ -10,15 +10,16 @@ import { redirect } from 'next/navigation';
 
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: Promise<{ shippingAddressUuid: string }>;
+  searchParams: Promise<{ callbackUrl?: string }>;
 }) {
   const { shippingAddressUuid } = await params;
   const agreementData = await getUserShippingAddressAgreement();
   const usershippingagreement = agreementData[0];
-  console.log('배송지 동의 약관 ', usershippingagreement);
   const detail = await getShippingAddressDatabyUuid(shippingAddressUuid);
-  console.log('배송지 정보 ', detail);
+  const callbackUrl = (await searchParams).callbackUrl;
   const action = async (addressForm: FormData) => {
     'use server';
     const payload = {
@@ -38,8 +39,8 @@ export default async function Page({
     } as ShippingAddressDataType;
 
     await updateShippingAddress(payload as ShippingAddressDataType);
-    console.log('수정:', payload);
-    redirect('/shipping-addresses');
+
+    return redirect(callbackUrl ?? '/shippingaddresses');
   };
   return (
     <>

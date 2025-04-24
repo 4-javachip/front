@@ -1,10 +1,9 @@
-// components/icons/CartIcon.tsx
 import React from 'react';
 
 interface CartIconProps {
   size?: number;
   color?: string;
-  cartCount?: number; // ✅ 장바구니 개수 (배지용)
+  cartCount?: number;
 }
 
 const CartIcon: React.FC<CartIconProps> = ({
@@ -14,7 +13,6 @@ const CartIcon: React.FC<CartIconProps> = ({
 }) => {
   return (
     <div className="relative">
-      {/* 장바구니 아이콘 */}
       <svg
         width={size}
         height={size}
@@ -41,7 +39,6 @@ const CartIcon: React.FC<CartIconProps> = ({
         />
       </svg>
 
-      {/* ✅ 장바구니 개수가 0보다 크면 배지 표시 */}
       {cartCount > 0 && (
         <span className="absolute top-0 right-0 transform -translate-y-0 translate-x-1 top-0.5 bg-green text-white text-[11px] font-bold w-5 h-[14.55px] flex items-center justify-center rounded-[12px]">
           {cartCount}

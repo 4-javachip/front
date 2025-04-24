@@ -78,7 +78,7 @@ export default function ShippingAddressList({
 
                   <nav className="flex items-center pl-2 gap-2 font-body text-xs text-lightGray-7">
                     <Link
-                      href={`/shipping-addresses/${addressList.shippingAddressUuid}`}
+                      href={`/shippingaddresses/${addressList.shippingAddressUuid}`}
                     >
                       수정
                     </Link>
@@ -114,7 +114,7 @@ export default function ShippingAddressList({
       <ConfirmNextButton
         className="font-semibold"
         isEnabled={() => !isAddButtonDisalbed}
-        onClick={() => router.push('/shipping-add')}
+        onClick={() => router.replace('addshipping')}
       >
         {isAddButtonDisalbed
           ? '최대 배송지 등록은 10개 까지 입니다 '

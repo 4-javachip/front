@@ -10,6 +10,7 @@ import { ShippingAddressListType } from '@/types/ResponseDataTypes';
 import ConfirmNextButton from '../buttons/ConfirmNextButton.tsx';
 import CustomRadio from '../inputs/CustomRadio';
 import Link from 'next/link.js';
+import EditAddressButton from '../buttons/EditAddressButton';
 
 interface ShippingAddressItemProps {
   address: ShippingAddressDataType;
@@ -40,9 +41,14 @@ export default function CartSelectAddressList({
   };
 
   return (
-    <main className="w-full bg-background text-sm pt-6 py-24">
+    <main className="w-full bg-background text-sm pt-1 ">
       <CommonLayout.SectionInnerPadding>
-        <ul className="space-y-4">
+        <ul className="space-y-2">
+          <nav className="flex justify-end font-body text-sm text-green ">
+            <Link href={`addshipping?callbackUrl=/cartAddressSelect`}>
+              + 새 배송지 추가
+            </Link>
+          </nav>
           {sortedAddress.map(({ address, addressList }) => (
             <li key={addressList.shippingAddressUuid}>
               <div className="flex items-start gap-2">
@@ -56,18 +62,16 @@ export default function CartSelectAddressList({
                 />
 
                 <div>
-                  <div className="flex items-center gap-2 w-full">
-                    <strong className="flex items-center text-base font-semibold text-lightGray-12 leading-7">
-                      {address.addressName} ({address.recipientName})
-                    </strong>
-                    {addressList.defaulted && <DefaultIcon />}
-                    <nav className="flex items-end pl-2 gap-2 font-body text-xs text-lightGray-7">
-                      <Link
-                        href={`/shipping-addresses/${addressList.shippingAddressUuid}`}
-                      >
-                        수정
-                      </Link>
-                    </nav>
+                  <div className="flex justify-between items-center w-full">
+                    <div className="flex items-center gap-2 ">
+                      <strong className="flex items-center text-base font-semibold text-lightGray-12 leading-7">
+                        {address.addressName} ({address.recipientName})
+                      </strong>
+                      {addressList.defaulted && <DefaultIcon />}
+                    </div>
+                    <div className="flex justify-end">
+                      <EditAddressButton uuid={address.shippingAddressUuid} />
+                    </div>
                   </div>
 
                   <div>
