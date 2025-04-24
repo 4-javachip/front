@@ -1,6 +1,8 @@
 import { getOrderDetailDataBtOrderDetailUuid } from '@/actions/order-service';
+import { addReviewAction } from '@/actions/review-service';
 import NotFoundLayout from '@/components/layouts/NotFoundLayout';
 import AddReviewForm from '@/components/pages/orderlist/AddReview/AddReviewForm';
+import { addReviewDataType } from '@/types/RequestDataTypes';
 
 export default async function page({
   params,
@@ -24,7 +26,25 @@ export default async function page({
   const handleSubmit = async (AddReviewFormData: FormData) => {
     'use server';
 
-    console.log(AddReviewFormData);
+    const filteredFormData = new FormData();
+
+    for (const [key, value] of AddReviewFormData.entries()) {
+      if (value instanceof File && value.size === 0) continue;
+      filteredFormData.append(key, value);
+    }
+
+    const payload: addReviewDataType = {
+      productUuid: orderDetailData.data.productUuid,
+      orderDetailUuid,
+      title: AddReviewFormData.get('title') as string,
+      content: AddReviewFormData.get('content') as string,
+      rating: Number(AddReviewFormData.get('rating')),
+    };
+    console.log(payload);
+
+    const res = await addReviewAction(payload);
+
+    // console.log(filteredFormData);
   };
 
   return (

@@ -7,7 +7,7 @@ import {
   ProductReviewSummaryType,
   ProductReviewType,
 } from '@/types/ProductResponseDataTypes';
-import { getReviewDataType } from '@/types/RequestDataTypes';
+import { addReviewDataType, getReviewDataType } from '@/types/RequestDataTypes';
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 
@@ -136,23 +136,75 @@ export async function checkIfReviewedByOrderDetailUuid(
         },
       }
     );
-    if (!response.ok) {
-      const errorData = await response.json();
-      return {
-        success: false,
-        data: errorData.message,
-      };
-    }
+    console.log(response);
+    return response;
+    // if (!response.ok) {
+    //   const errorData = await response.json();
+    //   return {
+    //     success: false,
+    //     data: errorData.message,
+    //   };
+    // }
 
-    const data = await response.json();
-    return {
-      success: true,
-      data: data.result as boolean,
-    };
+    // const data = await response.json();
+    // return {
+    //   success: true,
+    //   data: data.result as boolean,
+    // };
   } catch (error) {
     return {
       success: false,
       data: undefined,
     };
+  }
+}
+
+export async function addReviewAction(
+  addReviewData: Partial<addReviewDataType>
+) {
+  const payload: Partial<addReviewDataType> = { ...addReviewData };
+
+  try {
+    console.log('Payload being sent to the API:', payload);
+    const response = await fetch(`${process.env.BASE_API_URL}/api/v1/review`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { success: false, message: errorData.message };
+    }
+
+    const data = await response.json();
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
+  }
+}
+
+export async function addReviewImageAction(
+  addReviewData: Partial<addReviewDataType>
+) {
+  const payload: Partial<addReviewDataType> = { ...addReviewData };
+
+  try {
+    console.log('Payload being sent to the API:', payload);
+    const response = await fetch(`${process.env.BASE_API_URL}/api/v1/review`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { success: false, message: errorData.message };
+    }
+
+    const data = await response.json();
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, message: '알 수 없는 오류가 발생했습니다.' };
   }
 }

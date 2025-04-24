@@ -4,7 +4,7 @@ import './globals.css';
 import { getServerSession } from 'next-auth';
 import { options } from './api/auth/[...nextauth]/options';
 import AuthContextProvider from '@/provider/AuthContextProvider';
-import { OrderItemContextProvider } from '@/context/OrderItemContext';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -37,7 +37,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(options);
-  console.log('session', session);
+  // console.log('session', session);
   const isAuth = !!session?.user as boolean;
   console.log('isAuth', isAuth);
   return (

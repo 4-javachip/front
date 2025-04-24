@@ -37,13 +37,13 @@ export default function AddReviewForm({
   };
 
   return (
-    <section className="p-6 mb-[86px]">
+    <form action={handleSubmit} className="p-6 mb-[86px]">
       <ReviewRatingSection
         orderDetailData={orderDetailData}
         rating={rating}
         setRating={setRating}
       />
-      <form action={handleSubmit} className="pt-8 space-y-4">
+      <section className="pt-8 space-y-4">
         <InputWithLabel
           label="제목"
           name="title"
@@ -75,7 +75,7 @@ export default function AddReviewForm({
             작성 완료
           </CommonButton>
         </CommonLayout.FixedButtonBgLayout>
-      </form>
-    </section>
+      </section>
+    </form>
   );
 }
