@@ -9,47 +9,26 @@ import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
-export const getCartItemData = async () => {
-  try {
-    const session = await getServerSession(options);
-    if (!session) {
-      return {
-        success: false,
-        message: '로그인이 필요한 서비스입니다.',
-      };
-    }
+export const getCartItemData = async (): Promise<CartItemType[]> => {
+  const session = await getServerSession(options);
+  if (!session) return [];
 
-    const token = session.user.accessToken || session.user.refreshToken;
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
 
-    const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/user`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      next: { tags: ['getCartData'] },
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      console.error('장바구니 조회 실패:', errorData);
-      return {
-        success: false,
-        message: errorData.message || '장바구니 상품 조회에 실패했습니다.',
-      };
-    }
-    const data = (await res.json()) as CommonResponseType<CartItemType[]>;
-    return {
-      success: true,
-      result: data.result,
-    };
-  } catch (error) {
-    console.error('장바구니 패칭 중 에러:', error);
-    return {
-      success: false,
-      message: '알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-    };
+  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    next: { tags: ['getCartData'] },
+  });
+  const data = (await res.json()) as CommonResponseType<CartItemType[]>;
+  if (!res.ok) {
+    return []; // 또는 빈 배열 대신 fallback 값을 리턴
   }
+
+  return data.result;
 };
 
 export const getProductItem = async (
