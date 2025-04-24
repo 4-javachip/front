@@ -134,6 +134,8 @@ export default function ShippingAddressForm({
           value={values.phoneNumber}
           onChange={handleChange}
           name="phoneNumber"
+          inputMode="numeric"
+          pattern="[0-9]*"
         />
         {errorMessages.phoneNumber && (
           <p className="text-red-500 text-xs">{errorMessages.phoneNumber}</p>
@@ -145,6 +147,8 @@ export default function ShippingAddressForm({
           name="secondPhoneNumber"
           value={values.secondPhoneNumber}
           onChange={handleChange}
+          inputMode="numeric"
+          pattern="[0-9]*"
         />
 
         <ShippingNote
