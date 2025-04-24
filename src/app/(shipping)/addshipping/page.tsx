@@ -41,11 +41,8 @@ export default async function page({
         addressForm.get('shippingaddressagreechecked') === 'on' ? true : null,
     };
 
-    console.log('폼데이터:', payload);
     await addShippingAddress(payload, agreementPayload);
-
-    // redirect('/shipping-addresses');
-    return redirect(callbackUrl ?? '/shipping-addresses');
+    return redirect(callbackUrl ?? '/shippingaddresses');
   };
 
   return (

@@ -10,6 +10,7 @@ import { ShippingAddressListType } from '@/types/ResponseDataTypes';
 import ConfirmNextButton from '../buttons/ConfirmNextButton.tsx';
 import CustomRadio from '../inputs/CustomRadio';
 import Link from 'next/link.js';
+import EditAddressButton from '../buttons/EditAddressButton';
 
 interface ShippingAddressItemProps {
   address: ShippingAddressDataType;
@@ -40,11 +41,11 @@ export default function CartSelectAddressList({
   };
 
   return (
-    <main className="w-full bg-background text-sm pt-2 ">
+    <main className="w-full bg-background text-sm pt-1 ">
       <CommonLayout.SectionInnerPadding>
-        <ul className="space-y-5">
+        <ul className="space-y-2">
           <nav className="flex justify-end font-body text-sm text-green ">
-            <Link href={`/shipping-add?callbackUrl=/cartAddressSelect`}>
+            <Link href={`addshipping?callbackUrl=/cartAddressSelect`}>
               + 새 배송지 추가
             </Link>
           </nav>
@@ -69,13 +70,7 @@ export default function CartSelectAddressList({
                       {addressList.defaulted && <DefaultIcon />}
                     </div>
                     <div className="flex justify-end">
-                      <nav className=" font-body text-xs text-lightGray-7 ">
-                        <Link
-                          href={`/shipping-addresses/${addressList.shippingAddressUuid}`}
-                        >
-                          수정
-                        </Link>
-                      </nav>
+                      <EditAddressButton uuid={address.shippingAddressUuid} />
                     </div>
                   </div>
 

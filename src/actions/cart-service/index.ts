@@ -9,41 +9,58 @@ import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
-export const getCartItemData = async (): Promise<CartItemType[]> => {
-  const session = await getServerSession(options);
-  if (!session) return [];
+export const getCartItemData = async () => {
+  try {
+    const session = await getServerSession(options);
+    if (!session) {
+      return {
+        success: false,
+        message: '로그인이 필요한 서비스입니다.',
+      };
+    }
 
-  const token = (await session?.user.accessToken) || session?.user.refreshToken;
+    const token = session.user.accessToken || session.user.refreshToken;
 
-  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/user`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    next: { tags: ['getCartData'] },
-  });
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.message || '장바구니 상품 조회 실패');
+    const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      next: { tags: ['getCartData'] },
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error('장바구니 조회 실패:', errorData);
+      return {
+        success: false,
+        message: errorData.message || '장바구니 상품 조회에 실패했습니다.',
+      };
+    }
+    const data = (await res.json()) as CommonResponseType<CartItemType[]>;
+    return {
+      success: true,
+      result: data.result,
+    };
+  } catch (error) {
+    console.error('장바구니 패칭 중 에러:', error);
+    return {
+      success: false,
+      message: '알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+    };
   }
-
-  const data = (await res.json()) as CommonResponseType<CartItemType[]>;
-
-  return data.result;
 };
 
 export const getProductItem = async (
   productUuid: string
 ): Promise<CartProductItemType> => {
-  console.log('productUuid', productUuid);
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/product/search?productUuid=${productUuid}`,
     {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${token}`,
       },
     }
   );
@@ -58,8 +75,14 @@ export const getProductItem = async (
 
 export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
   const session = await getServerSession(options);
+  if (!session) {
+    return {
+      success: false,
+      message: '로그인이 필요한 서비스입니다.',
+    };
+  }
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  if (!token) return;
+
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/cart/checked`, {
     method: 'PUT',
     headers: {
@@ -77,32 +100,36 @@ export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
     throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
   }
   revalidateTag('getCartData');
-  console.log('장바구니 체크', cartUuid, checked);
   return res.json();
 };
 
 export const checkedAllItem = async (checked: boolean) => {
-  const session = await getServerSession(options);
-  const token = (await session?.user.accessToken) || session?.user.refreshToken;
-  if (token) return;
-  const res = await fetch(
-    `${process.env.BASE_API_URL}/api/v1/cart/checked/all`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        checked: checked,
-      }),
+  try {
+    const session = await getServerSession(options);
+    const token = session?.user.accessToken || session?.user.refreshToken;
+    const res = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/cart/checked/all`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ checked }),
+      }
+    );
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error('전체 체크 실패:', errorData);
+      return { success: false, message: errorData.message || '전체 체크 실패' };
     }
-  );
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.message || '장바구니 전체선택 실패');
+
+    revalidateTag('getCartData');
+    return { success: true };
+  } catch (error) {
+    return { success: false, message: '서버 오류가 발생했습니다.' };
   }
-  revalidateTag('getCartData');
 };
 
 export const updateCartItemQuantity = async (

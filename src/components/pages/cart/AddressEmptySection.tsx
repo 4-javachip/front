@@ -8,7 +8,7 @@ export default function AddressEmptySection() {
         <p>배송지를 등록해주세요.</p>
       </article>
       <Link
-        href="/shipping-add?callbackUrl=/cart"
+        href="addshipping?callbackUrl=/cart"
         className="text-brown font-medium whitespace-nowrap"
       >
         배송지 등록
