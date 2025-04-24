@@ -17,7 +17,7 @@ export default async function Page() {
   console.log('주문 내역', fullData);
 
   return (
-    <main className="px-4 pb-10">
+    <main className="padded pb-10">
       <TextTitleH1 className="text-2xl">주문 내역</TextTitleH1>
       <OrderList orderListData={fullData} />
     </main>

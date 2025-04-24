@@ -59,3 +59,11 @@ export interface getReviewDataType {
   page?: number;
   pageSize: number;
 }
+
+export interface addReviewDataType {
+  productUuid: string;
+  title: string;
+  content: string;
+  rating: number;
+  orderDetailUuid: string;
+}

@@ -8,6 +8,7 @@ import OrderDetailShippingInfo from './OrderDetailShippingInfo';
 import OrderDetailItem from './OrderDetailItem';
 import OrderInfo from './OrderInfo';
 import OrderPaymentInfo from './OrderPaymentInfo';
+import { checkIfReviewedByOrderDetailUuid } from '@/actions/review-service';
 
 export default function OrderDetailList({
   orderListDetail,
@@ -17,7 +18,7 @@ export default function OrderDetailList({
   orderListData: OrderListDataType;
 }) {
   return (
-    <main>
+    <main className="py-[1.25rem]">
       <ul>
         <h1 className="text-xl font-bold mb-4 font-body space-y-2 px-6">
           주문 상세 내역

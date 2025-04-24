@@ -10,7 +10,7 @@ export default function PageHeader({
   showBackButton = true,
 }: PageHeaderProps) {
   return (
-    <header className="relative flex items-center h-14 shadow-md ">
+    <header className="relative flex items-center h-14">
       {showBackButton && (
         <div className="flex items-center h-full">
           <BackArrowButton />
