@@ -66,8 +66,8 @@ export default function ShippingAddressForm({
     }
   };
   return (
-    <form className="mt-[1.25rem] pb-6 " action={action}>
-      <section className="space-y-[1.25rem] px-6">
+    <form className=" pb-6 " action={action}>
+      <section className="space-y-[1.25rem] px-6 pb-18">
         <AddressInput
           id="addressName"
           label="주소별칭"
@@ -134,6 +134,8 @@ export default function ShippingAddressForm({
           value={values.phoneNumber}
           onChange={handleChange}
           name="phoneNumber"
+          inputMode="numeric"
+          pattern="[0-9]*"
         />
         {errorMessages.phoneNumber && (
           <p className="text-red-500 text-xs">{errorMessages.phoneNumber}</p>
@@ -145,6 +147,8 @@ export default function ShippingAddressForm({
           name="secondPhoneNumber"
           value={values.secondPhoneNumber}
           onChange={handleChange}
+          inputMode="numeric"
+          pattern="[0-9]*"
         />
 
         <ShippingNote
