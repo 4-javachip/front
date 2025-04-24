@@ -52,7 +52,7 @@ export default async function page({
       content: AddReviewFormData.get('content') as string,
       rating: Number(AddReviewFormData.get('rating')),
     };
-    console.log(payload);
+    // console.log(payload);
     const res = await addReviewAction(payload);
     const reviewUuid = res.data.result;
 
@@ -77,7 +77,7 @@ export default async function page({
     formData.append('reviewUuid', reviewUuid);
 
     const addImageRes = await addReviewImageAction(formData);
-    console.log(addImageRes);
+    // console.log(addImageRes);
   };
 
   return (
