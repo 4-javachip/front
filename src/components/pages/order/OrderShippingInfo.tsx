@@ -20,7 +20,7 @@ export default async function OrderShippingInfo({
             </li>
             <li>
               <Link
-                href="/cart-address-select"
+                href="/cartAddressSelect"
                 className="flex justify-center items-center border font-pretendard border-lightGray-4 text-foreground px-4 py-1 rounded-full text-sm"
               >
                 변경

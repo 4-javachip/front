@@ -6,13 +6,17 @@ import { ShippingAddressDataType } from '@/types/RequestDataTypes';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
-export default async function page() {
+export default async function page({
+  searchParams,
+}: {
+  searchParams: Promise<{ callbackUrl?: string }>;
+}) {
   const useragreementData = await getUserShippingAddressAgreement();
   const usershippingagreement = useragreementData?.[0] ?? {
     agreementId: 2,
     agreed: false,
   };
-
+  const callbackUrl = (await searchParams).callbackUrl;
   const handleAddAddress = async (addressForm: FormData) => {
     'use server';
     console.log('서버에서 처리:', addressForm);
@@ -37,10 +41,8 @@ export default async function page() {
         addressForm.get('shippingaddressagreechecked') === 'on' ? true : null,
     };
 
-    console.log('폼데이터:', payload);
     await addShippingAddress(payload, agreementPayload);
-
-    redirect('/shipping-addresses');
+    return redirect(callbackUrl ?? '/shippingaddresses');
   };
 
   return (

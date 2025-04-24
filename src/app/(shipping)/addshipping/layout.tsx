@@ -1,16 +1,14 @@
 import { CommonLayout } from '@/components/layouts/CommonLayout';
 import PageHeader from '@/components/layouts/PageHeader';
-export default function CartLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+import React from 'react';
+
+export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <CommonLayout.CommonHeader>
-        <PageHeader title="장바구니" />
+        <PageHeader title="배송지 추가" />
       </CommonLayout.CommonHeader>
-      <div className="pt-15"> {children}</div>
+      <div className="pt-15">{children}</div>
     </>
   );
 }
