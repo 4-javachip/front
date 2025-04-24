@@ -66,8 +66,8 @@ export default function ShippingAddressForm({
     }
   };
   return (
-    <form className="mt-[1.25rem] pb-6 " action={action}>
-      <section className="space-y-[1.25rem] px-6">
+    <form className=" pb-6 " action={action}>
+      <section className="space-y-[1.25rem] px-6 pb-18">
         <AddressInput
           id="addressName"
           label="주소별칭"

@@ -47,7 +47,7 @@ export default async function page({
 
   return (
     <main>
-      <TextTitleH1 className="mb-4">배송지 추가</TextTitleH1>
+      <TextTitleH1 className="px-6">배송지 추가</TextTitleH1>
       <AddShippingAddress
         action={handleAddAddress}
         usershippingagree={usershippingagreement}
