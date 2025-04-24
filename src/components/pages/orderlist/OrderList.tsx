@@ -1,3 +1,4 @@
+import { CommonResposiveNextImage } from '@/components/ui/CommonResponsiveNextImage';
 import {
   OrderListDataType,
   OrderListDetailDataType,
@@ -16,7 +17,7 @@ export default function OrderList({
   orderListData: OrderListProps[];
 }) {
   return (
-    <ul className="space-y-6 px-6">
+    <ul className="space-y-6">
       {orderListData.map(({ orderList, orderDetail }) => {
         const firstProduct = orderDetail[0];
 
@@ -33,13 +34,11 @@ export default function OrderList({
               주문 상세
             </Link>
 
-            <div className="border p-4 rounded-lg flex gap-4">
-              <Image
-                src={firstProduct?.thumbnail || '/images/no-image.png'}
-                alt={firstProduct?.name || '상품 이미지'}
-                width={100}
-                height={100}
-                className="rounded"
+            <div className="border p-4 rounded-lg flex gap-4 mt-1">
+              <CommonResposiveNextImage
+                ImageUrl={firstProduct?.thumbnail || '/images/no-image.png'}
+                description={firstProduct?.name || '상품 이미지'}
+                className="rounded max-w-[100px] max-h-[100px]"
               />
               <div>
                 <h3 className=" text-sm leading-8">

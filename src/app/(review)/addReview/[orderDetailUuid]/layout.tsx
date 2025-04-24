@@ -1,5 +1,4 @@
 import { CommonLayout } from '@/components/layouts/CommonLayout';
-import Footer from '@/components/layouts/footer/Footer';
 import PageHeader from '@/components/layouts/PageHeader';
 
 export default function layout({
@@ -10,10 +9,9 @@ export default function layout({
   return (
     <>
       <CommonLayout.CommonHeader>
-        <PageHeader title="리뷰" />
+        <PageHeader title="리뷰 작성" />
       </CommonLayout.CommonHeader>
-      <div className="pt-14">{children}</div>
-      <Footer />
+      <main className="pt-14">{children}</main>
     </>
   );
 }
