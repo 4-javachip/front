@@ -1,7 +1,9 @@
 'use client';
 import {
+  getColorNameDataByColorId,
   getProductNameDataByProductUuid,
   getProductOptionDataByProductOptionUuid,
+  getSizeNameDataBySizeId,
 } from '@/actions/product-service';
 
 import { ItemThumbSkeleton } from '../skeletons/ProductItemSkeleton';
@@ -33,34 +35,51 @@ export default function CartItem({
     optionUuid: '',
     optionSizeId: 0,
     optionColorId: 0,
+    optionSizeName: '',
+    optionColorName: '',
     optionDiscount: 0,
     isChecked: data.checked,
   });
   useEffect(() => {
     if (!data) return;
+
     const getCartItemData = async () => {
-      const [product, options] = await Promise.all([
-        getProductNameDataByProductUuid(data.productUuid),
-        getProductOptionDataByProductOptionUuid(data.productOptionUuid),
-      ]);
-      console.log('product', data.productQuantity);
-      setCartItem((prev) => ({
-        ...prev,
-        productUuid: data.productUuid,
-        productName: product.name,
-        productPrice: options.price,
-        productSalePrice: options.totalPrice,
-        cartUuid: data.cartUuid,
-        quantity: data.productQuantity,
-        optionUuid: data.productOptionUuid,
-        optionSizeId: options.sizeOptionId,
-        optionColorId: options.colorOptionId,
-        optionDiscount: options.discountRate,
-        isChecked: data.checked,
-      }));
+      try {
+        const [product, options] = await Promise.all([
+          getProductNameDataByProductUuid(data.productUuid),
+          getProductOptionDataByProductOptionUuid(data.productOptionUuid),
+        ]);
+
+        const [colorNameData, sizeNameData] = await Promise.all([
+          options.colorOptionId
+            ? getColorNameDataByColorId(options.colorOptionId)
+            : null,
+          options.sizeOptionId
+            ? getSizeNameDataBySizeId(options.sizeOptionId)
+            : null,
+        ]);
+
+        setCartItem({
+          productUuid: data.productUuid,
+          productName: product.name,
+          productPrice: options.price,
+          productSalePrice: options.totalPrice,
+          cartUuid: data.cartUuid,
+          quantity: data.productQuantity,
+          optionUuid: data.productOptionUuid,
+          optionSizeId: options.sizeOptionId ?? 0,
+          optionColorId: options.colorOptionId ?? 0,
+          optionSizeName: sizeNameData?.name ?? '',
+          optionColorName: colorNameData?.name ?? '',
+          optionDiscount: options.discountRate,
+          isChecked: data.checked,
+        });
+      } catch (err) {
+        console.error('장바구니 항목 패칭 오류:', err);
+      }
     };
+
     getCartItemData();
-    return;
   }, [data]);
 
   return (
@@ -71,21 +90,28 @@ export default function CartItem({
           cartUuid={cartItem.cartUuid}
           className="col-span-1"
         />
-        <div className="shrink-0 col-span-2">
+        <div className="shrink-0 col-span-4">
           <Suspense fallback={<ItemThumbSkeleton size={size} />}>
             <CartThumbnail
               productUuid={cartItem && cartItem.productUuid}
-              size={80}
+              size={140}
             />
           </Suspense>
         </div>
 
-        <div className="col-span-9 space-y-7">
+        <div className="col-span-7 space-y-2">
           <div className="flex justify-between text-base font-semibold text-foreground ">
             <ItemName id={cartItem.productUuid} name={cartItem.productName} />
             <DeleteButton cartUuid={cartItem.cartUuid} />
           </div>
-
+          <ul className="flex items-center justify-start gap-2 font-pretendard text-xs">
+            {cartItem.optionColorName && <li> {cartItem.optionColorName}</li>}
+            {cartItem.optionSizeName && (
+              <li className="border-l pl-2 leading-3">
+                {cartItem.optionSizeName}
+              </li>
+            )}
+          </ul>
           <div className="flex items-end justify-between mt-2">
             <QuantityControl
               cartUuid={cartItem.cartUuid}

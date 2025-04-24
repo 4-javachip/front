@@ -1,7 +1,7 @@
 import HeaderTop from './HeaderTop';
 import PageNavBar from './PageNavBar';
 
-function Header() {
+export default function HeaderPage() {
   return (
     <header>
       <HeaderTop />
@@ -9,5 +9,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;

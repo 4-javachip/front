@@ -205,7 +205,6 @@ export const getDefaultShippingAddress =
         },
       }
     );
-    console.log('기본 배송지 조회 응답 :', res);
 
     if (!res.ok) {
       // const errorData = await res.json();

@@ -1,6 +1,3 @@
-import { CartItemPriceData } from '@/types/CartDataType';
-import { EnrichedOrderItemDataType } from '@/types/OrderDataType';
-
 interface OrderPriceSummaryProps {
   totalPrice: number;
   totalOriginPrice: number;

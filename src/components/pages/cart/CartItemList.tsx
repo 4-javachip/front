@@ -1,7 +1,5 @@
 import CartItem from '@/components/ui/CartItem/CartItem';
-import { ItemThumbSkeleton } from '@/components/ui/skeletons/ProductItemSkeleton';
 import { CartItemType } from '@/types/CartDataType';
-import { Suspense } from 'react';
 import { getProductOptionDataByProductOptionUuid } from '@/actions/product-service';
 import CartPriceSummary from './CartPriceSummary';
 import CartPurchaseBar from './CartPurchaseBar';
@@ -30,17 +28,14 @@ export default async function CartItemList({
       };
     })
   );
-  console.log('cartoption', cartoption);
-  console.log('장바구니 아이템', cartItemList);
   return (
     <ul>
       {cartItemList.map((item) => (
-        <Suspense
-          key={item.productUuid}
-          fallback={<ItemThumbSkeleton size={800} />}
-        >
-          <CartItem data={item} size={80} />
-        </Suspense>
+        <CartItem
+          key={`${item.productUuid}-${item.productOptionUuid}`}
+          data={item}
+          size={140}
+        />
       ))}
       <CartPriceSummary cartItemPriceList={cartoption} />
       <CartPurchaseBar
