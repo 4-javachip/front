@@ -15,8 +15,6 @@ export default async function page({
 }: {
   params: Promise<{ orderDetailUuid: string }>;
 }) {
-  const user = await getUserInfoData();
-  console.log(user.data);
   const orderDetailUuid = (await params).orderDetailUuid;
   const orderDetailData = await getOrderDetailDataBtOrderDetailUuid(
     orderDetailUuid
