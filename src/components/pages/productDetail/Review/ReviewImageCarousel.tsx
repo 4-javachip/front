@@ -30,7 +30,7 @@ export default function ReviewImageCarousel({
                 key={`${img.reviewUuid}-${index}`}
                 ImageUrl={img.imageUrl}
                 description={`리뷰 이미지 ${img.reviewUuid}-${index}`}
-                className="rounded-md max-w-[150px]"
+                className="rounded-md max-w-[150px] object-cover"
               />
             ))}
           </ul>

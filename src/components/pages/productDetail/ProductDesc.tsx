@@ -31,6 +31,7 @@ export default function ProductDesc({
         .tmpl_guide_notice,
         .warning_txt,
         .warning_copyright,
+        .cdtl_tit_info,
         #player {
           display: none;
         }
