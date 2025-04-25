@@ -23,7 +23,7 @@ export interface SignInDataType {
 }
 
 export interface ShippingAddressDataType {
-  shippingAddressUuid: string;
+  shippingAddressUuid?: string;
   addressName: string;
   recipientName: string;
   zipCode: string;

@@ -44,7 +44,7 @@ export default async function Page({
   };
   return (
     <>
-      <TextTitleH1>배송 정보</TextTitleH1>
+      <TextTitleH1 className="px-6">배송 정보</TextTitleH1>
       <UpdateShippingAddress
         initialData={detail}
         action={action}

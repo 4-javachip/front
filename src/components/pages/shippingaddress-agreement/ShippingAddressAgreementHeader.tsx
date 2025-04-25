@@ -57,7 +57,9 @@ export default function ShippingAddressAgreementHeader({
     <main>
       <ul className="flex justify-between items-center w-full h-full  ">
         <li>
-          <TextTitleH1>배송지 정보 수집 및 이용 동의</TextTitleH1>
+          <TextTitleH1 className="px-6">
+            배송지 정보 수집 및 이용 동의
+          </TextTitleH1>
         </li>
         <div className="flex items-center justify-center px-6 ">
           <Switch checked={isCheck} onClick={handleClick} disabled={loading} />

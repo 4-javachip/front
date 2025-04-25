@@ -70,7 +70,9 @@ export default function CartSelectAddressList({
                       {addressList.defaulted && <DefaultIcon />}
                     </div>
                     <div className="flex justify-end">
-                      <EditAddressButton uuid={address.shippingAddressUuid} />
+                      {address.shippingAddressUuid && (
+                        <EditAddressButton uuid={address.shippingAddressUuid} />
+                      )}
                     </div>
                   </div>
 

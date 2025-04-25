@@ -118,7 +118,7 @@ export default function ShippingAddressList({
       >
         {isAddButtonDisalbed
           ? '최대 배송지 등록은 10개 까지 입니다 '
-          : '+새로운배송지추가'}
+          : '+ 새로운 배송지 추가'}
       </ConfirmNextButton>
     </main>
   );
