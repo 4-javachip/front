@@ -2,7 +2,6 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import KakaoProvider from 'next-auth/providers/kakao';
 import GoogleProvider from 'next-auth/providers/google';
-import NaverProvider from 'next-auth/providers/naver';
 import { CommonResponseType, signInDataType } from '@/types/ResponseDataTypes';
 import { cookies } from 'next/headers';
 
@@ -20,15 +19,23 @@ export const options: NextAuthOptions = {
           return null;
         }
 
+        const apiUrl =
+          credentials.email === 'qr_code_sign_in' ? 'qr/sign-in' : 'sign-in';
+        const signInEmail =
+          credentials.email === 'qr_code_sign_in'
+            ? 'abcde@naver.com'
+            : credentials.email;
+
+        console.log('apiUrl: ', apiUrl);
         console.log('credentials', credentials);
         try {
           const response = await fetch(
-            `${process.env.BASE_API_URL}/api/v1/auth/sign-in`,
+            `${process.env.BASE_API_URL}/api/v1/auth/${apiUrl}`,
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                email: credentials.email,
+                email: signInEmail,
                 password: credentials.password,
               }),
               cache: 'no-cache',
