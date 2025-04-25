@@ -49,7 +49,7 @@ export default function OrderList({
                 </p>
                 <ul className="flex gap-2 items-center">
                   <li className="font-semibold font-pretendard text-sm">
-                    {orderList.totalPurchasePrice}원
+                    {orderList.totalPurchasePrice.toLocaleString()}원
                   </li>
                   <li className="text-sm text-gray-600 font-pretendard">
                     {orderDetail.length}개
