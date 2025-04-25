@@ -15,6 +15,7 @@ import { getServerSession } from 'next-auth';
 export const OrderListData = async (OrderItemPayload: OrderItemPayload) => {
   const session = await getServerSession(options);
   const token = session?.user.accessToken || session?.user.refreshToken;
+  console.log('주문내역 생성 요청', OrderItemPayload);
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/order`, {
     method: 'POST',
     headers: {
