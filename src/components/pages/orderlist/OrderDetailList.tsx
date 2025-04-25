@@ -8,7 +8,6 @@ import OrderDetailShippingInfo from './OrderDetailShippingInfo';
 import OrderDetailItem from './OrderDetailItem';
 import OrderInfo from './OrderInfo';
 import OrderPaymentInfo from './OrderPaymentInfo';
-import { checkIfReviewedByOrderDetailUuid } from '@/actions/review-service';
 
 export default function OrderDetailList({
   orderListDetail,

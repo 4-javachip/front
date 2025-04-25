@@ -10,7 +10,7 @@ export default function PaymentInfo({
   return (
     <div>
       {' '}
-      <section className="border-t pt-6 bg-background px-6 mt-3 pb-10">
+      <section className="border-t pt-6 bg-background px-6 mt-3 pb-30">
         <p className="text-lg font-semibold mb-1">결제 금액</p>
         <div className="flex justify-between items-center">
           <p className="text-sm text-gray-600">{orderListItem?.method}</p>
