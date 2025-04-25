@@ -7,7 +7,7 @@ import WishIcon from '@/components/ui/icons/WishIcon';
 
 export default function MyPageMenu() {
   return (
-    <section className="h-200 w-full bg-lightGray-2">
+    <section className="w-full bg-lightGray-2 pb-30">
       <ul className="px-6 font-body ">
         <li className=" font-semibold pt-7.5 pb-5.5">쇼핑정보</li>
       </ul>
@@ -28,11 +28,11 @@ export default function MyPageMenu() {
             <WishIcon /> 찜 목록
           </Link>
         </li>
-        <li className="font-medium text-foreground flex gap-2 pb-7">
+        {/* <li className="font-medium text-foreground flex gap-2 pb-7">
           <Link href="/mypage/reviews" className="flex gap-2 items-center">
             <ReviewIcon /> 리뷰 관리
           </Link>
-        </li>
+        </li> */}
       </ul>
 
       <ul className="px-6 font-semibold pt-2">
