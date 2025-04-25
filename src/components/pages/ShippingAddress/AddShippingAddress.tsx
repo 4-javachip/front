@@ -19,7 +19,6 @@ export default function AddShippingAddress({
   const userShippingAlreadyAgreed = usershippingagree?.agreed === true;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [values, setValues] = useState<ShippingAddressDataType>(() => ({
-    shippingAddressUuid: '',
     addressName: '',
     recipientName: '',
     zipCode: '',

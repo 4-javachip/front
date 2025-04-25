@@ -60,9 +60,7 @@ export function InputErrorMessage({
   className,
 }: Readonly<{ children: React.ReactNode; className?: string }>) {
   return (
-    <p className={cn('text-red-400 text-xs px-3 pt-1', className)}>
-      {children}
-    </p>
+    <p className={cn('text-red-400 text-xs px-3 ', className)}>{children}</p>
   );
 }
 
