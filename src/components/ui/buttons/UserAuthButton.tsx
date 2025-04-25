@@ -1,14 +1,15 @@
-'use client';
+import { options } from '@/app/api/auth/[...nextauth]/options';
 import LogOutButton from '@/components/pages/mypage/LogOutButton';
-import { useSpharosSession } from '@/context/SessionContext';
+import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 
-export default function UserAuthButton() {
-  const session = useSpharosSession();
+export default async function UserAuthButton() {
+  const session = await getServerSession(options);
+  const isAuth = !!session?.user as boolean;
 
   return (
     <div>
-      {session ? (
+      {isAuth ? (
         <LogOutButton />
       ) : (
         <Link
