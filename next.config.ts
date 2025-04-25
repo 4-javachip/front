@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     BASE_API_URL: process.env.BASE_API_URL,
+    QR_SIGNIN_KEY: process.env.QR_SIGNIN_KEY,
+    QR_SIGNIN_ACCESS_TOKEN: process.env.QR_SIGNIN_ACCESS_TOKEN,
   },
   images: {
     domains: [

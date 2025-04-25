@@ -78,7 +78,15 @@ export async function oAuthSignUpAction(
 export async function LogoutAction() {
   try {
     const session = await getServerSession(options);
-    const refreshToken = session?.user.refreshToken;
+    if (
+      !session ||
+      session.user.accessToken === process.env.QR_SIGNIN_ACCESS_TOKEN
+    ) {
+      console.log('qr 로그아웃');
+      return { success: true };
+    }
+
+    const refreshToken = session.user.refreshToken;
 
     const response = await fetch(
       `${process.env.BASE_API_URL}/api/v1/auth/logout`,
@@ -337,6 +345,54 @@ export async function getUserNicknameByUserUuid({
     return {
       success: false,
       data: undefined,
+    };
+  }
+}
+
+export async function reissueUserToken() {
+  try {
+    const session = await getServerSession(options);
+    if (!session)
+      return {
+        success: false,
+      };
+
+    const token = await session.user.refreshToken;
+    console.log('accessToken1: ', session.user.accessToken);
+
+    const res = await fetch(`${process.env.BASE_API_URL}/api/v1/auth/reissue`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error('reissue user token Fetching failed:', errorData);
+      return {
+        success: false,
+      };
+    }
+    const data = (await res.json()) as CommonResponseType<{
+      accessToken: string;
+      refreshToken: string;
+    }>;
+
+    console.log('accessToken2: ', data.result.accessToken);
+    session.user.accessToken = data.result.accessToken;
+    session.user.refreshToken = data.result.refreshToken;
+    console.log('updated session: ', session);
+
+    const session2 = await getServerSession(options);
+    console.log('my session: ', session2);
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    return {
+      success: false,
     };
   }
 }
