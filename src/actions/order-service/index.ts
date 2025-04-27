@@ -26,7 +26,7 @@ export const OrderListData = async (OrderItemPayload: OrderItemPayload) => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '주문내역목록 조회 실패');
+    //throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
   const data = await res.json();
   console.log('주문내역 생성 결과', data.result.orderListUuid);
@@ -47,7 +47,7 @@ export const getOrderItem = async () => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '주문상품 조회 실패');
+    //throw new Error(errorData.message || '주문상품 조회 실패');
   }
 
   const data = (await res.json()) as CommonResponseType<OrderItemDataType[]>;
@@ -69,7 +69,7 @@ export const getOrderList = async (): Promise<OrderListDataType[]> => {
 
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '주문내역목록 조회 실패');
+    // throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
 
   const data = (await res.json()) as CommonResponseType<OrderListDataType[]>;
@@ -93,7 +93,7 @@ export const getOrderDetailList = async (orderListUuid: string) => {
 
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '주문내역상세 조회 실패');
+    // throw new Error(errorData.message || '주문내역상세 조회 실패');
   }
 
   const data = (await res.json()) as CommonResponseType<
@@ -114,7 +114,7 @@ export const getRecentOrderList = async () => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '주문내역목록 조회 실패');
+    // throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
   const data =
     (await res.json()) as CommonResponseType<RecentOrderItemDataType>;
@@ -153,6 +153,45 @@ export async function getOrderDetailDataBtOrderDetailUuid(
     return {
       success: true,
       data: data.result as OrderListDetailDataType,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: undefined,
+    };
+  }
+}
+
+export async function getOrderListCount() {
+  try {
+    const session = await getServerSession(options);
+    if (!session)
+      return {
+        success: false,
+        data: undefined,
+      };
+    const response = await fetch(
+      `${process.env.BASE_API_URL}/api/v1/order/list/count`,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${session?.user.accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (!response.ok) {
+      const errorData = await response.json();
+      return {
+        success: false,
+        data: errorData.message,
+      };
+    }
+
+    const data = await response.json();
+    return {
+      success: true,
+      data: data.result.count as number,
     };
   } catch (error) {
     return {

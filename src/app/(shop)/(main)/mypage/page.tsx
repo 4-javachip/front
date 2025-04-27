@@ -3,7 +3,7 @@ import MyPageMenu from '@/components/pages/mypage/MyPageMenu';
 import OrderDeliveryStatus from '@/components/pages/mypage/OrderDeliveryStatus';
 import React from 'react';
 
-export default async function page() {
+export default async function MyPagePage() {
   const { data: userData } = await getUserInfoData();
   return (
     <main>

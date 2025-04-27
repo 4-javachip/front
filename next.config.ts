@@ -19,9 +19,9 @@ const nextConfig: NextConfig = {
       'sbr-review-s3.s3.ap-northeast-2.amazonaws.com',
     ],
   },
-  // compiler: {
-  //   removeConsole: true,
-  // },
+  compiler: {
+    removeConsole: true,
+  },
 };
 
 export default nextConfig;
