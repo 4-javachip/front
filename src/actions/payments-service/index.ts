@@ -26,7 +26,7 @@ export const PaymentData = async (PaymentData: PaymentPayload) => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '주문내역목록 조회 실패');
+    // throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
   const data = (await res.json()) as CommonResponseType<PaymentReturnType>;
   return data.result;
@@ -52,7 +52,7 @@ export const paymentconfirmData = async (
   );
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '주문내역목록 조회 실패');
+    // throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
   const data = (await res.json()) as CommonResponseType<PaymentReturnType>;
   return data.result;
@@ -72,7 +72,7 @@ export const getRecentOrderList = async () => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '주문내역목록 조회 실패');
+    // throw new Error(errorData.message || '주문내역목록 조회 실패');
   }
   const data = (await res.json()) as CommonResponseType<PaymentReturnType>;
   revalidateTag('getCartData');

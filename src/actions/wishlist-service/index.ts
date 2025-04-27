@@ -75,7 +75,7 @@ export const getWishlistChecked = async (
   console.log('찜 상태 조회 응답:', res);
   if (!res.ok) {
     const error = await res.json();
-    throw new Error(error.message || '찜 상태 조회 실패');
+    // throw new Error(error.message || '찜 상태 조회 실패');
   }
 
   const result = await res.json();
@@ -98,7 +98,7 @@ export const getWishProducts = async (): Promise<{ productUuid: string }[]> => {
 
   if (!res.ok) {
     const error = await res.json();
-    throw new Error(error.message || '찜 상태 조회 실패');
+    // throw new Error(error.message || '찜 상태 조회 실패');
   }
 
   const data = await res.json();

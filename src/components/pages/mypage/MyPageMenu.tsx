@@ -28,11 +28,6 @@ export default function MyPageMenu() {
             <WishIcon /> 찜 목록
           </Link>
         </li>
-        <li className="font-medium text-foreground flex gap-2 pb-7">
-          <Link href="/mypage/reviews" className="flex gap-2 items-center">
-            <ReviewIcon /> 리뷰 관리
-          </Link>
-        </li>
       </ul>
 
       <ul className="px-6 font-semibold pt-2">
