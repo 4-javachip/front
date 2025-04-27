@@ -14,7 +14,6 @@ import { revalidateTag } from 'next/cache';
 export const userAgreement = async (
   payload: userShippingAgreementRequestType
 ) => {
-  // console.log('배송지 정보 수집 및 이용 동의 여부 요청:', Agreement);
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
   const res = await fetch(`${process.env.BASE_API_URL}/api/v1/user-agreement`, {
@@ -28,9 +27,9 @@ export const userAgreement = async (
 
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(
-      errorData.message || '배송지 정보 수집 및 이용 동의 여부 조회 실패'
-    );
+    // throw new Error(
+    //   errorData.message || '배송지 정보 수집 및 이용 동의 여부 조회 실패'
+    // );
   }
 
   const data = (await res.json()) as CommonResponseType<AgreementType>;
@@ -55,9 +54,9 @@ export const getShippingAddressAgreement = async (): Promise<
 
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(
-      errorData.message || '배송지 정보 수집 및 이용 동의 내용 조회 실패'
-    );
+    // throw new Error(
+    //   errorData.message || '배송지 정보 수집 및 이용 동의 내용 조회 실패'
+    // );
   }
 
   const data = (await res.json()) as CommonResponseType<
@@ -89,9 +88,9 @@ export const getUserShippingAddressAgreement = async (): Promise<
 
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(
-      errorData.message || '배송지 정보 수집 및 이용 동의 내용 조회 실패'
-    );
+    // throw new Error(
+    //   errorData.message || '배송지 정보 수집 및 이용 동의 내용 조회 실패'
+    // );
   }
 
   const data = (await res.json()) as CommonResponseType<UserAgreementType[]>;

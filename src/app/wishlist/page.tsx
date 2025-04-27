@@ -1,11 +1,20 @@
 import { getProductNameDataByProductUuid } from '@/actions/product-service';
 import { getWishProducts } from '@/actions/wishlist-service';
+import EmptySection from '@/components/layouts/EmptySection';
 import ProductItem from '@/components/ui/products/ProductItem';
 import { ProductNameDataType } from '@/types/ProductResponseDataTypes';
-import React from 'react';
 
 export default async function WishListPage() {
   const wishlistProducts = await getWishProducts();
+
+  if (!wishlistProducts || wishlistProducts.length === 0) {
+    return (
+      <EmptySection
+        title="찜한 상품이 없습니다."
+        description="마음에 드는 상품을 찜해보세요!"
+      />
+    );
+  }
 
   const productNameList: ProductNameDataType[] = await Promise.all(
     wishlistProducts.map(async ({ productUuid }) => {

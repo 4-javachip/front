@@ -1,12 +1,16 @@
+import { getOrderListCount } from '@/actions/order-service';
 import RightArrowIcon from '@/components/ui/icons/RightArrowIcon';
 
-export default function OrderDeliveryStatus() {
+export default async function OrderDeliveryStatus() {
+  const data = await getOrderListCount();
+  const successCount = data.success ? data.data ?? 0 : 0;
   const statusList = [
-    { label: '결제완료', count: 3 },
+    { label: '결제완료', count: successCount ?? 0 },
     { label: '상품준비중', count: 0 },
     { label: '배송중', count: 0 },
     { label: '배송완료', count: 0 },
   ];
+
   return (
     <section>
       <ul className="flex justify-between items-center mb-4 pt-7 px-6 font-body">

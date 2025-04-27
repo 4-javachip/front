@@ -25,7 +25,7 @@ export const getCartItemData = async (): Promise<CartItemType[]> => {
   });
   const data = (await res.json()) as CommonResponseType<CartItemType[]>;
   if (!res.ok) {
-    return []; // 또는 빈 배열 대신 fallback 값을 리턴
+    return [];
   }
 
   return data.result;
@@ -76,7 +76,7 @@ export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
+    // throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
   }
   revalidateTag('getCartData');
   return res.json();
@@ -131,7 +131,7 @@ export const updateCartItemQuantity = async (
   });
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
+    // throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
   }
 
   revalidateTag('getCartData');
@@ -171,7 +171,7 @@ export const deleteAllCartItem = async () => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '장바구니 상품 삭제 실패');
+    // throw new Error(errorData.message || '장바구니 상품 삭제 실패');
   }
   revalidateTag('getCartData');
 };

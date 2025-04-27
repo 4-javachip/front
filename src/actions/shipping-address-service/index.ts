@@ -33,7 +33,7 @@ export const addShippingAddress = async (
   if (!addressRes.ok) {
     const error = await addressRes.json();
     console.log('배송지 등록', addressRes);
-    throw new Error(error.message || '배송지 등록 실패');
+    // throw new Error(error.message || '배송지 등록 실패');
   }
 
   console.log('배송지 등록 응답:', addressRes);
@@ -53,7 +53,7 @@ export const addShippingAddress = async (
   if (!agreementRes.ok) {
     const error = await agreementRes.json();
 
-    throw new Error(error.message || '약관 동의 실패');
+    // throw new Error(error.message || '약관 동의 실패');
   }
   console.log('배송지 약관동의:', agreementPayload);
   return {
@@ -83,7 +83,7 @@ export const getShippingAddressList = async (): Promise<
 
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '배송지 목록 조회 실패');
+    // throw new Error(errorData.message || '배송지 목록 조회 실패');
   }
 
   const data = await res.json();
@@ -107,7 +107,7 @@ export const getShippingAddressDatabyUuid = async (
 
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '배송지 상세 조회 실패');
+    // throw new Error(errorData.message || '배송지 상세 조회 실패');
   }
 
   const data =
@@ -134,7 +134,7 @@ export const updateShippingAddress = async (value: ShippingAddressDataType) => {
 
   if (!res.ok) {
     const error = await res.json();
-    throw new Error(error.message || '배송지 수정 실패');
+    // throw new Error(error.message || '배송지 수정 실패');
   }
   const data =
     (await res.json()) as CommonResponseType<ShippingAddressDataType>;
@@ -160,7 +160,7 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
   );
   if (!res.ok) {
     const error = await res.json();
-    throw new Error(error.message || '배송지 삭제 실패');
+    // throw new Error(error.message || '배송지 삭제 실패');
   }
   const data =
     (await res.json()) as CommonResponseType<ShippingAddressDataType>;
@@ -182,7 +182,7 @@ export const shippingAddressAgreement = async () => {
 
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.message || '배송지 동의서 조회 실패');
+    // throw new Error(errorData.message || '배송지 동의서 조회 실패');
   }
 
   const data = await res.json();
