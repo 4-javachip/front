@@ -10,7 +10,9 @@ export default function EditAddressButton({ uuid }: EditAddressButtonProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.replace(`/shippingaddresses/${uuid}?callbackUrl=/cartAddressSelect`);
+    router.replace(
+      `/shipping-addresses/${uuid}?callbackUrl=/cartAddressSelect`
+    );
   };
 
   return (

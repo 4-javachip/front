@@ -42,7 +42,7 @@ export default async function page({
     };
 
     await addShippingAddress(payload, agreementPayload);
-    return redirect(callbackUrl ?? '/shippingaddresses');
+    return redirect(callbackUrl ?? '/shipping-addresses');
   };
 
   return (

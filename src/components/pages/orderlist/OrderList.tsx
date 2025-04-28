@@ -3,7 +3,6 @@ import {
   OrderListDataType,
   OrderListDetailDataType,
 } from '@/types/OrderDataType';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface OrderListProps {

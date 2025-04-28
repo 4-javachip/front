@@ -1,4 +1,3 @@
-import { getUserInfoData } from '@/actions/auth';
 import { getOrderDetailDataBtOrderDetailUuid } from '@/actions/order-service';
 import {
   addReviewAction,
@@ -52,7 +51,7 @@ export default async function page({
       content: AddReviewFormData.get('content') as string,
       rating: Number(AddReviewFormData.get('rating')),
     };
-    // console.log(payload);
+
     const res = await addReviewAction(payload);
     const reviewUuid = res.data.result;
 
@@ -71,13 +70,12 @@ export default async function page({
     if (imageFiles.length < 0) return;
 
     const formData = new FormData();
-    imageFiles.forEach((file, index) => {
+    imageFiles.forEach((file) => {
       formData.append('image', file);
     });
     formData.append('reviewUuid', reviewUuid);
 
-    const addImageRes = await addReviewImageAction(formData);
-    // console.log(addImageRes);
+    await addReviewImageAction(formData);
   };
 
   return (

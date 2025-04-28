@@ -1,4 +1,3 @@
-// components/footer/FooterPolicyLinkItem.tsx
 import Link from 'next/link';
 
 interface Props {

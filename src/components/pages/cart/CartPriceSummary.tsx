@@ -11,7 +11,7 @@ export default function CartPriceSummary({
   className = '',
 }: CartPriceSummaryProps) {
   if (!cartItemPriceList || !Array.isArray(cartItemPriceList)) {
-    return null; // 또는 로딩 상태
+    return null;
   }
   const totalPrice = cartItemPriceList.reduce((sum, item) => {
     return sum + item.productSalePrice;

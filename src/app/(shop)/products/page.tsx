@@ -39,7 +39,6 @@ export default async function ProductListPage({
     keyword: params.keyword ?? undefined,
     cursor: params.cursor ? Number(params.cursor) : undefined,
     pageSize: params.pageSize ? Number(params.pageSize) : undefined,
-    // page: params.page ? Number(params.page) : undefined,
   };
 
   return (

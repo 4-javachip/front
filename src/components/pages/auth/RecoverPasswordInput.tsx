@@ -1,6 +1,5 @@
 'use client';
 
-import { z } from 'zod';
 import AuthHeading from './AuthHeading';
 import { useEffect, useState } from 'react';
 import { ResetPasswordStateType } from '@/types/storeDataTypes';
@@ -21,12 +20,6 @@ export default function RecoverPasswordInput({
   >({});
 
   useEffect(() => {
-    // const isPasswordValid = confirmPasswordSchema.safeParse(
-    //   inputValues.password
-    // ).success;
-    // const isAllFieldsValid =
-    //   isPasswordValid && inputValues.password === inputValues.confirmPassword;
-
     const isAllFieldsValid =
       !!inputValues.password &&
       !!inputValues.confirmPassword &&

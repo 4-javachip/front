@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import AddressAgreementIcon from '@/components/ui/icons/AddressAgreement';
 import OrderListIcon from '@/components/ui/icons/OrderListIcon';
-import ReviewIcon from '@/components/ui/icons/ReviewIcon';
 import ShippingAddressIcon from '@/components/ui/icons/ShippingAddressIcon';
 import WishIcon from '@/components/ui/icons/WishIcon';
 
@@ -19,7 +18,7 @@ export default function MyPageMenu() {
           </Link>
         </li>
         <li className="font-medium text-foreground flex gap-2 pb-7">
-          <Link href="shippingaddresses" className="flex gap-2 items-center">
+          <Link href="shipping-addresses" className="flex gap-2 items-center">
             <ShippingAddressIcon /> 배송지 관리
           </Link>
         </li>

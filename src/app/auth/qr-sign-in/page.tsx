@@ -24,9 +24,6 @@ export default async function page({
   console.log(session);
   if (session) redirect('/');
 
-  // const res = await reissueUserToken();
-  // console.log(res);
-
   return (
     <>
       <QrSignInTrigger />

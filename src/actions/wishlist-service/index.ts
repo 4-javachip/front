@@ -3,6 +3,7 @@
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 export const toggleWishlist = async (productUuid: string) => {
   const session = await getServerSession(options);
@@ -75,7 +76,7 @@ export const getWishlistChecked = async (
   console.log('찜 상태 조회 응답:', res);
   if (!res.ok) {
     const error = await res.json();
-    // throw new Error(error.message || '찜 상태 조회 실패');
+    redirect('/error');
   }
 
   const result = await res.json();
@@ -98,7 +99,7 @@ export const getWishProducts = async (): Promise<{ productUuid: string }[]> => {
 
   if (!res.ok) {
     const error = await res.json();
-    // throw new Error(error.message || '찜 상태 조회 실패');
+    redirect('/error');
   }
 
   const data = await res.json();

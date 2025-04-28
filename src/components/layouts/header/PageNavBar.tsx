@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 const PageNavBar = () => {
   const pathname = usePathname();
 
-  // 각 메뉴의 경로
   const navItems = [
     { href: '/', label: '메인' },
     { href: '/event', label: '기획전' },

@@ -9,6 +9,7 @@ import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { DefaultShippingAddressType } from '@/types/ShippingAddressDataType';
 import { userShippingAgreementRequestType } from '@/types/AgreementDataType';
+import { redirect } from 'next/navigation';
 
 export const addShippingAddress = async (
   addressPayload: ShippingAddressDataType,
@@ -17,7 +18,6 @@ export const addShippingAddress = async (
   const session = await getServerSession(options);
   const token = session?.user.accessToken || session?.user.refreshToken;
 
-  // 1. 배송지 등록
   const addressRes = await fetch(
     `${process.env.BASE_API_URL}/api/v1/shipping-address`,
     {
@@ -33,11 +33,10 @@ export const addShippingAddress = async (
   if (!addressRes.ok) {
     const error = await addressRes.json();
     console.log('배송지 등록', addressRes);
-    // throw new Error(error.message || '배송지 등록 실패');
   }
 
   console.log('배송지 등록 응답:', addressRes);
-  // 2. 약관 동의
+
   const agreementRes = await fetch(
     `${process.env.BASE_API_URL}/api/v1/user-agreement`,
     {
@@ -52,8 +51,6 @@ export const addShippingAddress = async (
 
   if (!agreementRes.ok) {
     const error = await agreementRes.json();
-
-    // throw new Error(error.message || '약관 동의 실패');
   }
   console.log('배송지 약관동의:', agreementPayload);
   return {
@@ -61,7 +58,7 @@ export const addShippingAddress = async (
     agreement: await agreementRes.json(),
   };
 };
-//배송지 목록 조회
+
 export const getShippingAddressList = async (): Promise<
   ShippingAddressListType[]
 > => {
@@ -82,8 +79,7 @@ export const getShippingAddressList = async (): Promise<
   );
 
   if (!res.ok) {
-    const errorData = await res.json();
-    // throw new Error(errorData.message || '배송지 목록 조회 실패');
+    redirect('/error');
   }
 
   const data = await res.json();
@@ -91,23 +87,25 @@ export const getShippingAddressList = async (): Promise<
   return data.result;
 };
 
-//배송지 상세 조회
 export const getShippingAddressDatabyUuid = async (
   shippingAddressUuid: string
 ) => {
+  const session = await getServerSession(options);
+  const token = session?.user.accessToken;
+  console.log('리프레쉬 토큰 ', session?.user.refreshToken);
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/shipping-address/${shippingAddressUuid}`,
     {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
     }
   );
 
   if (!res.ok) {
-    const errorData = await res.json();
-    // throw new Error(errorData.message || '배송지 상세 조회 실패');
+    redirect('/error');
   }
 
   const data =
@@ -133,8 +131,7 @@ export const updateShippingAddress = async (value: ShippingAddressDataType) => {
   );
 
   if (!res.ok) {
-    const error = await res.json();
-    // throw new Error(error.message || '배송지 수정 실패');
+    redirect('/error');
   }
   const data =
     (await res.json()) as CommonResponseType<ShippingAddressDataType>;
@@ -159,8 +156,7 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
     }
   );
   if (!res.ok) {
-    const error = await res.json();
-    // throw new Error(error.message || '배송지 삭제 실패');
+    redirect('/error');
   }
   const data =
     (await res.json()) as CommonResponseType<ShippingAddressDataType>;
@@ -170,26 +166,27 @@ export const deleteShippingAddress = async (shippingAddressUuid: string) => {
 };
 
 export const shippingAddressAgreement = async () => {
+  const session = await getServerSession(options);
+  const token = (await session?.user.accessToken) || session?.user.refreshToken;
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/shipping-address/agreement`,
     {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
     }
   );
 
   if (!res.ok) {
-    const errorData = await res.json();
-    // throw new Error(errorData.message || '배송지 동의서 조회 실패');
+    redirect('/error');
   }
 
   const data = await res.json();
   return data.result;
 };
 
-//기본 배송지 조회 api
 export const getDefaultShippingAddress =
   async (): Promise<DefaultShippingAddressType> => {
     const session = await getServerSession(options);
@@ -207,9 +204,7 @@ export const getDefaultShippingAddress =
     );
 
     if (!res.ok) {
-      // const errorData = await res.json();
-      // throw new Error(errorData.message || '기본 배송지 조회 실패 ');
-      return {} as DefaultShippingAddressType;
+      redirect('/error');
     }
 
     const data =

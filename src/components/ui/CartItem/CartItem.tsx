@@ -20,7 +20,6 @@ import DeleteButton from '../buttons/DeleteButton';
 
 export default function CartItem({
   data,
-  size,
 }: {
   data: CartItemType;
   size: number;
@@ -83,49 +82,55 @@ export default function CartItem({
   }, [data]);
 
   return (
-    <CommonLayout.SectionInnerPadding>
-      <article className="grid grid-cols-12 items-start gap-2 py-6 border-b border-lightGray-8">
-        <Checkbox
-          checked={cartItem.isChecked}
-          cartUuid={cartItem.cartUuid}
-          className="col-span-1"
-        />
-        <div className="shrink-0 col-span-4">
-          <Suspense fallback={<ItemThumbSkeleton size={140} />}>
-            <CartThumbnail
-              productUuid={cartItem && cartItem.productUuid}
-              size={140}
-            />
-          </Suspense>
-        </div>
-
-        <div className="col-span-7 space-y-2">
-          <div className="flex justify-between text-base font-semibold text-foreground ">
-            <ItemName id={cartItem.productUuid} name={cartItem.productName} />
-            <DeleteButton cartUuid={cartItem.cartUuid} />
-          </div>
-          <ul className="flex items-center justify-start gap-2 font-pretendard text-xs">
-            {cartItem.optionColorName && <li> {cartItem.optionColorName}</li>}
-            {cartItem.optionSizeName && (
-              <li className="border-l pl-2 leading-3">
-                {cartItem.optionSizeName}
-              </li>
-            )}
-          </ul>
-          <div className="flex items-end justify-between mt-2">
-            <QuantityControl
+    <>
+      {cartItem.productUuid !== '' && (
+        <CommonLayout.SectionInnerPadding>
+          <article className="grid grid-cols-12 items-start gap-2 py-6 border-b border-lightGray-8">
+            <Checkbox
+              checked={cartItem.isChecked}
               cartUuid={cartItem.cartUuid}
-              quantity={cartItem.quantity}
+              className="col-span-1"
             />
-            <CartPrice
-              price={cartItem.productPrice}
-              salePrice={cartItem.productSalePrice}
-              discountRate={cartItem.optionDiscount}
-              quantity={cartItem.quantity}
-            />
-          </div>
-        </div>
-      </article>
-    </CommonLayout.SectionInnerPadding>
+            <div className="shrink-0 col-span-4">
+              <Suspense fallback={<ItemThumbSkeleton size={140} />}>
+                <CartThumbnail productUuid={cartItem.productUuid} size={140} />
+              </Suspense>
+            </div>
+
+            <div className="col-span-7 space-y-2">
+              <div className="flex justify-between text-base font-semibold text-foreground ">
+                <ItemName
+                  id={cartItem.productUuid}
+                  name={cartItem.productName}
+                />
+                <DeleteButton cartUuid={cartItem.cartUuid} />
+              </div>
+              <ul className="flex items-center justify-start gap-2 font-pretendard text-xs">
+                {cartItem.optionColorName && (
+                  <li> {cartItem.optionColorName}</li>
+                )}
+                {cartItem.optionSizeName && (
+                  <li className="border-l pl-2 leading-3">
+                    {cartItem.optionSizeName}
+                  </li>
+                )}
+              </ul>
+              <div className="flex items-end justify-between mt-2">
+                <QuantityControl
+                  cartUuid={cartItem.cartUuid}
+                  quantity={cartItem.quantity}
+                />
+                <CartPrice
+                  price={cartItem.productPrice}
+                  salePrice={cartItem.productSalePrice}
+                  discountRate={cartItem.optionDiscount}
+                  quantity={cartItem.quantity}
+                />
+              </div>
+            </div>
+          </article>
+        </CommonLayout.SectionInnerPadding>
+      )}
+    </>
   );
 }

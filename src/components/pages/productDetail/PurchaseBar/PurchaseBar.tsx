@@ -13,7 +13,6 @@ import {
 } from '@/types/ProductResponseDataTypes';
 import { getSelectableOptionListData } from '@/actions/product-service';
 import AlertModal from '@/components/ui/dialogs/AlertModal';
-import { useRouter } from 'next/navigation';
 
 const side = 'bottom';
 
@@ -24,7 +23,6 @@ export default function PurchaseBar({
   options: ProductOptionType[];
   productNameData: ProductNameDataType;
 }) {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [sizeData, setSizeData] = useState<SelectableOptionType[]>();
   const [colorData, setColorData] = useState<SelectableOptionType[]>();

@@ -70,7 +70,6 @@ export const options: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account }) {
-      // Oauth 로그인
       if (account && account.provider !== 'credentials') {
         console.log('account', account);
         console.log('user', user);
@@ -91,7 +90,6 @@ export const options: NextAuthOptions = {
             }
           );
 
-          // oauth 쿠키 저장
           const setCookie = res.headers.get('set-cookie');
           console.log(setCookie);
           if (setCookie) {
