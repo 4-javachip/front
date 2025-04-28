@@ -35,8 +35,7 @@ MSA 및 CQRS 도입 필요성을 학습하는 것을 목표로 진행되었습�
 &nbsp;
 ## 역할 분담
 ### 👨‍💻 Front-end
-- 윤채영
-<br>
+#### 윤채영
 | 페이지 | 구현 목록 | 설명 |
 |:------|:------|:------|
 | **Auth** | 로그인/회원가입<br>소셜 로그인(OAuth) 및 회원가입<br>이메일 인증<br>비밀번호 재설정 | - NextAuth를 이용하여 인증 기능을 구현했습니다.<br>- 인증 Form을 zod를 이용한 Stepper 형식으로 구현하여 유효성 검사를 구현하였습니다.  |
@@ -45,8 +44,7 @@ MSA 및 CQRS 도입 필요성을 학습하는 것을 목표로 진행되었습�
 | **Order** | 리뷰 작성 | - 주문 완료 후 작성 가능한 리뷰 기능을 구현하였습니다. |
 
 &nbsp;
-- 박수현
-<br>
+#### 박수현
 | 페이지 | 구현 목록 | 설명 |
 |:------|:------|:------|
 | **Mypage**  | 배송지 관리<br>배송지 약관<br>배송지 추가<br>배송지 수정 | - 사용자 배송지 관리 기능 제공.<br>- 배송지 추가, 수정 및 배송지 약관 페이지를 통해 사용자가 개인 정보를 업데이트할 수 있습니다. |
@@ -146,6 +144,8 @@ GOOGLE_CLIENT_ID          # 구글 OAuth Client id
 GOOGLE_CLIENT_SECRET      # 구글 OAuth Secret key
 KAKAO_CLIENT_ID           # 카카오 OAuth Client id
 KAKAO_CLIENT_SECRET       # 카카오 OAuth Secret key
+QR_SIGNIN_KEY             # QR 로그인을 위한 키
+QR_SIGNIN_ACCESS_TOKEN    # QR 로그인 계정 Access token 값
 ```
 
 
