@@ -92,7 +92,3 @@ export interface RecentOrderItemDataType {
   shippingNote?: string;
   secondPhoneNumber?: string;
 }
-
-// export interface OrderListDataType {
-
-// }

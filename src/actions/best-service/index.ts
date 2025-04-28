@@ -8,7 +8,6 @@ export async function getTop30BestProductDatas() {
   try {
     const res = await fetch(`${process.env.BASE_API_URL}/api/v1/best/list`, {
       method: 'GET',
-      //   next: { revalidate: 24 * 60 * 60 },
     });
     if (!res.ok) {
       const errorData = await res.json();
@@ -33,7 +32,6 @@ export async function getBestProductsByCategoryId(categoryId: number) {
       `${process.env.BASE_API_URL}/api/v1/best/category/${categoryId}`,
       {
         method: 'GET',
-        //   next: { revalidate: 24 * 60 * 60 },
       }
     );
     if (!res.ok) {

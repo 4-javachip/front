@@ -10,8 +10,8 @@ import {
 
 import { CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
-//결제 요청 시 주문내역 생성 api
 export const OrderListData = async (OrderItemPayload: OrderItemPayload) => {
   const session = await getServerSession(options);
   const token = session?.user.accessToken || session?.user.refreshToken;
@@ -26,7 +26,7 @@ export const OrderListData = async (OrderItemPayload: OrderItemPayload) => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    //throw new Error(errorData.message || '주문내역목록 조회 실패');
+    redirect('/error');
   }
   const data = await res.json();
   console.log('주문내역 생성 결과', data.result.orderListUuid);
@@ -34,7 +34,6 @@ export const OrderListData = async (OrderItemPayload: OrderItemPayload) => {
   return data.result.orderListUuid as string;
 };
 
-//주문 상품 조회
 export const getOrderItem = async () => {
   const session = await getServerSession(options);
   const token = session?.user.accessToken || session?.user.refreshToken;
@@ -47,14 +46,13 @@ export const getOrderItem = async () => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    //throw new Error(errorData.message || '주문상품 조회 실패');
+    redirect('/error');
   }
 
   const data = (await res.json()) as CommonResponseType<OrderItemDataType[]>;
   return data.result;
 };
 
-/// 주문내역 목록 조회
 export const getOrderList = async (): Promise<OrderListDataType[]> => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
@@ -64,19 +62,17 @@ export const getOrderList = async (): Promise<OrderListDataType[]> => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
     },
-    // next: { tags: ['getorderList'] },
   });
 
   if (!res.ok) {
     const errorData = await res.json();
-    // throw new Error(errorData.message || '주문내역목록 조회 실패');
+    redirect('/error');
   }
 
   const data = (await res.json()) as CommonResponseType<OrderListDataType[]>;
   return data.result;
 };
 
-//주문 내역 상세 조회
 export const getOrderDetailList = async (orderListUuid: string) => {
   const session = await getServerSession(options);
   const token = (await session?.user.accessToken) || session?.user.refreshToken;
@@ -93,7 +89,7 @@ export const getOrderDetailList = async (orderListUuid: string) => {
 
   if (!res.ok) {
     const errorData = await res.json();
-    // throw new Error(errorData.message || '주문내역상세 조회 실패');
+    redirect('/error');
   }
 
   const data = (await res.json()) as CommonResponseType<
@@ -113,8 +109,7 @@ export const getRecentOrderList = async () => {
     },
   });
   if (!res.ok) {
-    const errorData = await res.json();
-    // throw new Error(errorData.message || '주문내역목록 조회 실패');
+    redirect('/error');
   }
   const data =
     (await res.json()) as CommonResponseType<RecentOrderItemDataType>;

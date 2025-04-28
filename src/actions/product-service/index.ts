@@ -29,14 +29,13 @@ export const getProductListData = cache(async (params: getProductDataType) => {
       {
         method: 'GET',
         cache: 'no-cache',
-        // next: { revalidate: 3600 },
       }
     );
 
     if (!res.ok) {
       const errorData = await res.json();
       console.error('Data Fetching failed:', errorData);
-      // throw new Error(errorData.message);
+
       return {
         success: false,
         data: undefined,
@@ -71,7 +70,7 @@ export const getDefaultThumbnailDataByProductUuid = cache(
       if (!res.ok) {
         const errorData = await res.json();
         console.error('Thumbnail Data Fetching failed:', errorData);
-        // throw new Error(errorData.message);
+
         return {
           success: false,
           data: undefined,
@@ -106,7 +105,7 @@ export const getLowestOptionDataByProductUuid = cache(
       if (!res.ok) {
         const errorData = await res.json();
         console.error('Product Option Data Fetching failed:', errorData);
-        // throw new Error(errorData.message);
+
         return {
           success: false,
           data: undefined,
@@ -126,7 +125,6 @@ export const getLowestOptionDataByProductUuid = cache(
   }
 );
 
-// 상세 페이지
 export const getProductNameDataByProductUuid = cache(
   async (productUuid: string) => {
     const res = await fetch(

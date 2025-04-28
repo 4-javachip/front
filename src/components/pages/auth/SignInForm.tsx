@@ -60,7 +60,6 @@ export default function SignInForm() {
         setIsLoading(false);
       }
     } catch (error) {
-      //
       setIsLoading(false);
     }
   };

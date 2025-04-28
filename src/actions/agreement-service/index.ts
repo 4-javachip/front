@@ -9,8 +9,8 @@ import {
 import { AgreementType, CommonResponseType } from '@/types/ResponseDataTypes';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
-//배송지 동의 & 비동의
 export const userAgreement = async (
   payload: userShippingAgreementRequestType
 ) => {
@@ -27,9 +27,7 @@ export const userAgreement = async (
 
   if (!res.ok) {
     const errorData = await res.json();
-    // throw new Error(
-    //   errorData.message || '배송지 정보 수집 및 이용 동의 여부 조회 실패'
-    // );
+    redirect('/error');
   }
 
   const data = (await res.json()) as CommonResponseType<AgreementType>;
@@ -37,7 +35,6 @@ export const userAgreement = async (
   return data.result;
 };
 
-//배송지 약관 내용 조회
 export const getShippingAddressAgreement = async (): Promise<
   ShipingAddressAgreementType[]
 > => {
@@ -54,9 +51,7 @@ export const getShippingAddressAgreement = async (): Promise<
 
   if (!res.ok) {
     const errorData = await res.json();
-    // throw new Error(
-    //   errorData.message || '배송지 정보 수집 및 이용 동의 내용 조회 실패'
-    // );
+    redirect('/error');
   }
 
   const data = (await res.json()) as CommonResponseType<
@@ -66,7 +61,6 @@ export const getShippingAddressAgreement = async (): Promise<
   return data.result;
 };
 
-//유저 배송지 동의 여부 조회
 export const getUserShippingAddressAgreement = async (): Promise<
   UserAgreementType[]
 > => {
@@ -88,9 +82,7 @@ export const getUserShippingAddressAgreement = async (): Promise<
 
   if (!res.ok) {
     const errorData = await res.json();
-    // throw new Error(
-    //   errorData.message || '배송지 정보 수집 및 이용 동의 내용 조회 실패'
-    // );
+    redirect('/error');
   }
 
   const data = (await res.json()) as CommonResponseType<UserAgreementType[]>;

@@ -6,7 +6,6 @@ import {
   EventCarouselType,
   ProductDetailType,
   ProductItemType,
-  SeasonType,
   PolicyLinkType,
   OrderProductType,
 } from '@/types/ResponseDataTypes';

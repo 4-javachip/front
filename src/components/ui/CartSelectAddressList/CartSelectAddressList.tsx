@@ -45,7 +45,7 @@ export default function CartSelectAddressList({
       <CommonLayout.SectionInnerPadding>
         <ul className="space-y-2">
           <nav className="flex justify-end font-body text-sm text-green ">
-            <Link href={`addshipping?callbackUrl=/cartAddressSelect`}>
+            <Link href={`add-shipping?callbackUrl=/cartAddressSelect`}>
               + 새 배송지 추가
             </Link>
           </nav>

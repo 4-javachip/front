@@ -17,7 +17,4 @@ export const shippingAddressSchema = z.object({
 
   shippingNote: z.string().optional().nullable(),
   defaulted: z.boolean().optional().nullable(),
-  // usershippingagreed: z.boolean().refine((val) => val === true, {
-  //   message: '배송지 정보 수집 및 이용에 동의해주세요.',
-  // }),
 });

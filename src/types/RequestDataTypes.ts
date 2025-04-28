@@ -52,7 +52,6 @@ export interface UserAgreementType {
   agreed: boolean;
 }
 
-// review
 export interface getReviewDataType {
   productUuid: string;
   sortType?: string;

@@ -1,13 +1,12 @@
 import Link from 'next/link';
 import AddressAgreementIcon from '@/components/ui/icons/AddressAgreement';
 import OrderListIcon from '@/components/ui/icons/OrderListIcon';
-import ReviewIcon from '@/components/ui/icons/ReviewIcon';
 import ShippingAddressIcon from '@/components/ui/icons/ShippingAddressIcon';
 import WishIcon from '@/components/ui/icons/WishIcon';
 
 export default function MyPageMenu() {
   return (
-    <section className="w-full bg-lightGray-2 pb-30">
+    <section className="h-200 w-full bg-lightGray-2">
       <ul className="px-6 font-body ">
         <li className=" font-semibold pt-7.5 pb-5.5">쇼핑정보</li>
       </ul>
@@ -19,7 +18,7 @@ export default function MyPageMenu() {
           </Link>
         </li>
         <li className="font-medium text-foreground flex gap-2 pb-7">
-          <Link href="shippingaddresses" className="flex gap-2 items-center">
+          <Link href="shipping-addresses" className="flex gap-2 items-center">
             <ShippingAddressIcon /> 배송지 관리
           </Link>
         </li>

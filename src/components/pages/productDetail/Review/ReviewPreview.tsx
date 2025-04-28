@@ -2,7 +2,6 @@
 
 import ProductReviewItem from './ProductReviewItem';
 import {
-  ProductReviewImageType,
   ProductReviewSummaryType,
   ProductReviewType,
 } from '@/types/ProductResponseDataTypes';

@@ -1,7 +1,6 @@
 import SmallDropDownModal from '@/components/ui/dropdown/SmallDropDownModal';
 import { reviewSortOptions } from '@/data/initialDatas';
 import { ProductReviewSummaryType } from '@/types/ProductResponseDataTypes';
-import ReviewRating from './ReviewRating';
 import ReviewAverageRating from './ReviewAverageRating';
 
 export default function ReviewSortMenu({

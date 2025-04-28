@@ -22,15 +22,14 @@ export const ProductItemListSection = ({
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // console.log(`🟢 Page ${products.page} is currently visible.`);
             setPageNumber(products.page);
           }
         });
       },
       {
-        root: null, // viewport
+        root: null,
         rootMargin: '0px',
-        threshold: 0.01, // 아주 조금만 보여도 감지
+        threshold: 0.01,
       }
     );
 

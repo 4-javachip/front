@@ -62,7 +62,6 @@ export default function EmailVerifyInput({
     const isDuplicated = await checkEmailDuplicate({ email });
     console.log(isDuplicated);
 
-    // true : 중복 / false : 체크 통과(중복X)
     if (purpose === 'sign_up') {
       if (isDuplicated.result) {
         setModalErrorMessage('이미 사용 중인 이메일입니다.');

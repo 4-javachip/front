@@ -54,7 +54,6 @@ export interface SelectableOptionType {
   name: string;
 }
 
-// event
 export interface EventDataType {
   eventUuid: string;
   name: string;
@@ -78,14 +77,12 @@ export interface EventBannerImageType {
   description: string;
 }
 
-// best
 export interface BestProductType {
   id: number;
   productUuid: string;
   productSalesCount: number;
 }
 
-// event
 export interface ProductReviewType {
   reviewUuid: string;
   userUuid: string;

@@ -2,12 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function OrderItemThumb({
-  //   productUuid,
   description,
   thumbnailurl,
   size,
 }: {
-  //   productUuid: string;
   thumbnailurl: string;
   description: string;
   size: number;

@@ -76,7 +76,6 @@ export const cartItemCheck = async (cartUuid: string, checked: boolean) => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    // throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
   }
   revalidateTag('getCartData');
   return res.json();
@@ -131,7 +130,6 @@ export const updateCartItemQuantity = async (
   });
   if (!res.ok) {
     const errorData = await res.json();
-    // throw new Error(errorData.message || '장바구니 상품 수량 변경 실패');
   }
 
   revalidateTag('getCartData');
@@ -171,7 +169,6 @@ export const deleteAllCartItem = async () => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    // throw new Error(errorData.message || '장바구니 상품 삭제 실패');
   }
   revalidateTag('getCartData');
 };
@@ -201,7 +198,6 @@ export async function AddCartItemAction(AddCartItemData: AddCartItemDataType) {
     if (!response.ok) {
       const errorData = await response.json();
       console.error('add cart failed:', errorData);
-      // throw new Error(errorData.message);
 
       return { success: errorData.success, message: errorData.message };
     }

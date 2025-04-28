@@ -12,7 +12,7 @@ export default function PaymentFailPage() {
 
   const handleConfirm = () => {
     setOpen(false);
-    router.replace('/'); // 홈으로 보내거나 원하는 경로로
+    router.replace('/');
   };
 
   const decodedMessage = message
