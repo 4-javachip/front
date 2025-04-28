@@ -83,7 +83,7 @@ export default function MultiStepSignUp({
       const updatedValues = { ...prev, [name]: value };
       const schema = type === 'oauth' ? oAuthSignUpSchema : signUpSchema;
       const res = schema.safeParse(updatedValues);
-      // console.log(updatedValues);
+
       if (!res.success) {
         const fieldErrors: Partial<SignUpStoreStateType> = {};
         res.error.errors.forEach((error) => {

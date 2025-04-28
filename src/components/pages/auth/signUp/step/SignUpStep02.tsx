@@ -3,7 +3,6 @@ import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import SignUpPasswordInput from '../SignUpPasswordInput';
 
 export default function SignUpStep02({
-  step,
   handleChange,
   errorMessages,
   inputValues = {} as SignUpStoreStateType,

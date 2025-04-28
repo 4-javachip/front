@@ -16,7 +16,7 @@ export default function CartThumbnail({
     size === 140
       ? { width: size, height: size }
       : { width: '100%', aspectRatio: '1 / 1' };
-
+  console.log('상품uuid', productUuid);
   const [thumbnail, setThumbnail] = useState<ProductThumbnailDataType>();
 
   useEffect(() => {
@@ -30,6 +30,7 @@ export default function CartThumbnail({
     fetchThumbnail();
   }, [productUuid]);
 
+  console.log('상품uuid', productUuid);
   return (
     <>
       {thumbnail ? (
@@ -48,7 +49,6 @@ export default function CartThumbnail({
             height={size}
             sizes={size === 140 ? '140px' : '100%'}
             className="rounded-sm object-cover select-none pointer-events-none"
-            // loading="lazy"
           />
         </Link>
       ) : (

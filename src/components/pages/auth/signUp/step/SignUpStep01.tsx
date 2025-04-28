@@ -3,7 +3,6 @@ import { SignUpStoreStateType } from '@/types/storeDataTypes';
 import EmailVerifyInput from '../EmailVerifyInput';
 
 export default function SignUpStep01({
-  step,
   handleChange,
   errorMessages,
   inputValues = {} as SignUpStoreStateType,

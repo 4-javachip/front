@@ -1,4 +1,4 @@
-import { oAuthSignUpAction, signUpAction } from '@/actions/auth';
+import { oAuthSignUpAction } from '@/actions/auth';
 import NotFoundLayout from '@/components/layouts/NotFoundLayout';
 import MultiStepSignUp from '@/components/pages/auth/signUp/MultiStepSignUp';
 import { SignUpStoreStateType } from '@/types/storeDataTypes';

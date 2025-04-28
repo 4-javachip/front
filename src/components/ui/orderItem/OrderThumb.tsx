@@ -48,7 +48,6 @@ export default function OrderThumb({
             height={size}
             sizes={size === 140 ? '140px' : '100%'}
             className="rounded-sm object-cover select-none pointer-events-none"
-            // loading="lazy"
           />
         </Link>
       ) : (

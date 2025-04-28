@@ -8,10 +8,6 @@ import { useModalContext } from '@/context/SideBarContext';
 import { useEffect, useState } from 'react';
 import { getAllCategories } from '@/actions/category-service';
 
-// interface Props {
-//   categories: CategoryMenuType[];
-// }
-
 export default function MenuSideBar() {
   const { isOpen } = useModalContext();
   const [categories, setCategories] = useState<CategoryMenuType[]>([]);

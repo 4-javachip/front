@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { CartItemPriceData } from '@/types/CartDataType';
 
 export interface PriceSummary {
-  orderProductPrice: number; // 상품 원가 총합
-  discountTotal: number; // 할인 총액
-  totalPrice: number; // 최종 결제 금액
+  orderProductPrice: number;
+  discountTotal: number;
+  totalPrice: number;
 }
 
 export function usePriceSummary(orderItems: CartItemPriceData[]): PriceSummary {

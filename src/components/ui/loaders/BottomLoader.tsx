@@ -19,10 +19,8 @@ export const BottomLoader = ({
   const loaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // console.log('BottomLoader useEffect', page, hasMore, isLoading);
     const observer = new IntersectionObserver(
       (entries) => {
-        // console.log('entries', entries);
         const entry = entries[0];
         if (entry.isIntersecting) {
           const urlParams = new URLSearchParams(window.location.search);

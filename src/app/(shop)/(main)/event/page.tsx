@@ -30,7 +30,6 @@ export default async function page({
   }));
 
   const { event } = await searchParams;
-  // if (event === undefined || '') return fallback;
 
   const selectedEventUuid =
     event === undefined || event === '' ? eventsData[0].eventUuid : event;

@@ -4,9 +4,8 @@ import { AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
 export default function AccordionSelector({
   title,
   options,
-  selectedId,
+
   onOptionSelect,
-  isOpen,
 }: {
   title: string;
   options?: SelectableOptionType[];

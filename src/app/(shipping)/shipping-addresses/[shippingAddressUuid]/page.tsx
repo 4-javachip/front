@@ -40,7 +40,7 @@ export default async function Page({
 
     await updateShippingAddress(payload as ShippingAddressDataType);
 
-    return redirect(callbackUrl ?? '/shippingaddresses');
+    return redirect(callbackUrl ?? '/shipping-addresses');
   };
   return (
     <>

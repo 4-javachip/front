@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { EventDataType } from '@/types/ProductResponseDataTypes';
 import EventProductList from './EventProductList';
 import PrecautionAccordion from './PrecautionAccordion';

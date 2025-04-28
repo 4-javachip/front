@@ -28,7 +28,6 @@ export interface ImageType {
   description: string;
 }
 
-// 리스트 상품
 export interface ProductItemType {
   id: number;
   thumbnail: ImageType;
@@ -39,7 +38,6 @@ export interface ProductItemType {
   discountRate: number;
 }
 
-// 상품 상세
 export interface ProductDetailType {
   id: number;
   image: ImageType;
@@ -58,8 +56,6 @@ export interface EventCarouselType {
   products: ProductItemType[];
 }
 
-// 카테고리
-
 export interface SubCategoryType {
   id: number;
   name: string;
@@ -72,7 +68,6 @@ export interface ProductCategoryType {
   subCategory?: SubCategoryType[];
 }
 
-//메뉴 카테고리 타입
 export interface CategoryMenuType {
   id: number;
   name: string;
@@ -95,7 +90,7 @@ export interface ShippingAddressListType {
   shippingAddressUuid: string;
   defaulted: boolean;
 }
-//배송지
+
 export interface AddressType {
   shippingAddressUuid: string;
   addressName: string;
@@ -109,7 +104,6 @@ export interface AddressType {
   defaulted?: boolean;
 }
 
-//장바구니상품
 export interface CartProductType {
   userUuid: string;
   productName: string;
